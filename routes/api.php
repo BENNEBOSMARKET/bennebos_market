@@ -66,6 +66,7 @@ Route::get('category/subcategory/topthree', [HomeApiController::class, 'subCateg
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/add', [CartController::class,'addCart']);
     Route::post('/add/multi', [CartController::class,'addCarts']);
+    Route::post('/product/update', [CartController::class,'updateProductQuantity']);
     Route::delete('/remove', [CartController::class,'removeCart']);
     Route::post('/remove/products', [CartController::class,'removeProduct']);
     Route::post('/add/user', [CartController::class, 'addUserToCart']);

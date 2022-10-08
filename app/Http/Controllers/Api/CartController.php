@@ -10,9 +10,14 @@ use App\Http\Requests\RemoveCartRequest;
 use App\Http\Requests\RemoveProductRequest;
 use App\Http\Resources\Cart\CartCollection;
 use App\Http\Resources\Cart\CartResource;
+use App\Models\Cart;
+use App\Models\Product;
 use App\Repositories\Cart\CartRepositoryInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Validation\Validator;
 
 class CartController extends Controller
 {
@@ -75,5 +80,29 @@ class CartController extends Controller
         $response = $this->cartRepository->getCartByUser($request);
 
         return $this->apiResponse->setSuccess(__("Cart retrieved successfully"))->setData(new CartCollection($response))->getJsonResponse();
+    }
+
+    public function updateProductQuantity(Request $request){
+        $validation = FacadesValidator::make($request->all(),[
+            "product_id" => "required|integer|min:1",
+            "quantity" => "required|integer|min:1",
+            "ip_address" => "required",
+        ]);
+        if($validation->errors()->first()){
+            return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
+        }   
+        if(auth()->user()){
+            Cart::where("product_id",$request->product_id)->where("user_id", auth()->user()->id)->update([
+                "quantity" => $request->quantity
+            ]);
+            return $this->apiResponse->setSuccess("products Updated Successfully")->setData()->getJsonResponse();
+            
+        }
+        Cart::where("product_id",$request->product_id)->where("ip_address", $request->ip_address)->update([
+            "quantity" => $request->quantity
+        ]);
+        return $this->apiResponse->setSuccess("products Updated Successfully")->setData()->getJsonResponse();
+        
+        
     }
 }
