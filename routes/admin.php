@@ -2,13 +2,11 @@
 
 use App\Http\Controllers\DataUploadController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Livewire\Admin\Brand\BrandComponent;
 use App\Http\Livewire\Admin\Category\CategoryComponent;
 use App\Http\Livewire\Admin\Category\SubCategoryComponent;
 use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Product\ProductComponent;
-use App\Http\Livewire\Admin\Sales\RefundComponent;
 use App\Http\Livewire\Admin\Setting\Color\ColorComponent;
 use App\Http\Livewire\Admin\Customer\CustomerComponent;
 use App\Http\Livewire\Admin\Customer\CustomerProfileComponent;
@@ -50,7 +48,7 @@ use App\Http\Livewire\Admin\Product\AddProductComponentV2;
 use App\Http\Livewire\Admin\Product\Brand\IndexComponent;
 use App\Http\Livewire\Admin\Product\EditProductComponentV2;
 use App\Http\Livewire\Admin\Product\Review\ReviewesComponent;
-use App\Http\Livewire\Admin\Product\SizeRequestsComponent;
+use App\Http\Livewire\Admin\Product\Size\SizeRequestsComponent as SizeSizeRequestsComponent;
 use App\Http\Livewire\Admin\Profile\ProfileSettingComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationCategoryComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationComponent;
@@ -63,7 +61,6 @@ use App\Http\Livewire\Admin\Report\InhouseProductReport;
 use App\Http\Livewire\Admin\Report\SellerProductReport;
 use App\Http\Livewire\Admin\Report\StockProductReport;
 use App\Http\Livewire\Admin\Report\WishlistProductReport;
-use App\Http\Livewire\Admin\Review\ProductReviewComponent;
 use App\Http\Livewire\Admin\Sales\AllOrdersComponent;
 use App\Http\Livewire\Admin\Sales\Inhouse\InhouseOrderDetailsComponent;
 use App\Http\Livewire\Admin\Sales\Inhouse\InhouseOrdersComponent;
@@ -121,7 +118,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/products/brands', IndexComponent::class)->name('brands');
     Route::get('/products/coupons', CouponComponent::class)->name('coupon');
     Route::get('/products/reviews', ReviewesComponent::class)->name('productReviewes');
-    Route::get('/products/size-requests', SizeRequestsComponent::class)->name('productSizeRequests');
+    Route::get('/products/size-requests', SizeSizeRequestsComponent::class)->name('productSizeRequests');
 
     // Pending product routes
     Route::get('/pending/products', PendingProductComponent::class)->name('pending.products');
