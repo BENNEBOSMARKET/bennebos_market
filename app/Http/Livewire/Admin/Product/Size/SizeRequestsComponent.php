@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Product;
+namespace App\Http\Livewire\Admin\Product\Size;
 
-use App\Models\SizeRequest;
 use Livewire\Component;
+use App\Models\SizeRequest;
 
 class SizeRequestsComponent extends Component
 {
@@ -12,6 +12,6 @@ class SizeRequestsComponent extends Component
     {
         $requests = SizeRequest::paginate($this->sortingValue);
 
-        return view('livewire.admin.product.size-requests-component', ['requests'=>$requests])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.product.size.size-requests-component', ['requests'=>$requests])->layout('livewire.admin.layouts.base');
     }
 }
