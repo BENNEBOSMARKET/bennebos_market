@@ -1,0 +1,157 @@
+//Sellar Dashboard
+.sellar_dashboard_wrapper {
+  .profile_sidebar_grid_area {
+    gap: 20px 35px;
+  }
+  .sellar_summery_grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    @include media-break-width(576, 767) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    @include max-media-width(575) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .sellar_summery_item {
+    position: relative;
+    padding: 20px;
+    background: #fbfbfb;
+    border-radius: 15px;
+    h4 {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 48px;
+      color: #424c60;
+      margin-top: 20px;
+    }
+    h5 {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: #6b7280;
+    }
+  }
+  .option_item_area {
+    position: relative;
+  }
+  .dot_icon {
+    width: 100%;
+    text-align: end;
+    img {
+      position: relative;
+      z-index: 15;
+      width: 36px;
+      height: 36px;
+      padding: 6px;
+      border-radius: 50%;
+      @include hover-transition();
+      &:hover {
+        background-color: #c5c5c5;
+      }
+    }
+  }
+  .sellar_summery_icon {
+    margin-top: -30px;
+  }
+
+  .sellar_shape {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+  .order_dropdwon_list {
+    top: 55px;
+    left: auto;
+    right: 0;
+  }
+  .order_dropdwon_active {
+    .order_dropdwon_list {
+      top: 40px;
+    }
+  }
+
+  .sellar_counter_area {
+    width: 58%;
+  }
+  .sellar_recently_order_area {
+    padding: 30px 20px;
+    margin-top: 35px;
+    background: #fbfbfb;
+    border-radius: 15px;
+    .profile_content_title_area {
+      margin-bottom: 10px;
+      &::before {
+        left: -20px;
+        width: calc(100% + 40px);
+      }
+    }
+  }
+  .sellar_recent_order {
+    .sell_all {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      text-decoration-line: underline;
+      color: #74c247;
+      &:hover {
+        color: rgba(116, 194, 71, 0.699);
+      }
+    }
+  }
+  .sellar_recent_order_grid {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 200px) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)
+      minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9e9e9;
+    @include media-break-width(576, 1199) {
+      grid-template-columns: minmax(0, 200px) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px 20px;
+    }
+    @include max-media-width(575) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .sellar_order_product_item {
+      display: grid;
+      grid-template-columns: minmax(0, 50px) minmax(0, 1fr);
+      gap: 16px;
+      .recent_order_img {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+      }
+    }
+    .sellar_order_item {
+      h3 a,
+      h3 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #13192b;
+      }
+      h5 {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 20px;
+        color: #6b7280;
+      }
+    }
+    h3.process {
+      color: #f2994a;
+    }
+    h3.shipped {
+      color: #2D9CDB;
+    }
+    h3.deliered {
+      color: #27AE60;
+    }
+    h3.cancel {
+      color: #EB5757;
+    }
+   
+  }
+}

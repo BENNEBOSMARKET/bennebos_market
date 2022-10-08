@@ -1,0 +1,138 @@
+<?php
+
+return [
+    //sitebar
+    'notification' => 'الإشعارات',
+    'dashboard' => 'لوحة القيادة',
+    'hello' => 'مرحبًا',
+    'my_profile' => 'ملفي',
+    'my_orders' => 'طلباتي',
+    'returns_cancel' => 'إرجاع وإلغاء',
+    'my_rating_reviews' => 'تقييمي ومراجعاتي',
+    'my_wishlist' => 'قائمة امنياتي',
+    'payment_method' => 'طريقة الدفع او السداد',
+    'my_quotations' => 'اقتباساتي',
+    'support' => 'الدعم',
+
+    // dashboard
+    'total_orders' => 'إجمالي الطلبات',
+    'total_wishlist' => 'إجمالي قائمة الرغبات',
+    'total_earn_point' => 'إجمالي نقاط الكسب',
+    'recent_orders' => 'الطلبيات الأخيرة',
+    'ooder_ID' => 'رقم التعريف الخاص بالطلب',
+    'order_ID' => 'رقم التعريف الخاص بالطلب',
+    'amount' => 'مقدار',
+    'order_status' => 'حالة الطلب',
+    'payment_status' => 'حالة السداد',
+
+    'see_all' => 'اظهار الكل',
+    'pending' => 'قيد الانتظار',
+    'delivered' => 'تم التوصيل',
+    'picked_up' => 'التقط',
+    'cancel' => 'يلغي',
+    'paid' => 'مدفوع',
+    'unpaid' => 'غير مدفوعة',
+    'processing' => 'يتم المعالجة',
+    'shipped' => 'شحنها',
+
+    // Order details
+    'order_summary' => 'ملخص الطلب',
+    'track_order' => 'ترتيب المسار',
+    'customer' => 'عميل',
+    'shipping_address' => 'عنوان الشحن',
+    'email' => 'البريد الإلكتروني',
+    'mobile' => 'التليفون المحمول',
+    'cash_on_delivery' => 'الدفع عند الاستلام',
+    'order_detials' => 'تفاصيل الطلب',
+    'order_amount' => 'كمية الطلب',
+    'price' => 'سعر',
+    'quantity' => 'كمية',
+    'subtotal' => 'المجموع الفرعي',
+    'discount' => 'تخفيض',
+    'coupon' => 'قسيمة',
+    'total' => 'المجموع',
+    'product' => 'منتج',
+
+    // my order
+    'order_code' => 'رمز الطلب',
+    'num_products' => 'عدد من المنتجات',
+    'delivery_status' => 'حالة التسليم',
+    'view' => 'رأي',
+    'all_orders' => 'جميع الطلبات',
+    'price_high_low' => 'السعر الاعلى الى الادنى',
+    'price_low_high' => 'السعر من الارخص للاعلى',
+    'sort_by' => 'صنف حسب',
+    'track_order' => 'ترتيب المسار',
+    'refund_orders' => 'أوامر الاسترداد',
+    'order_code' => 'رمز الطلب',
+    'refund_amount' => 'المبلغ المسترد',
+    'refund_reason' => 'سبب الاسترداد',
+    'refund' => 'استرداد',
+
+    // profile page
+    'first_name' => 'الاسم الاول',
+    'last_name' => 'الكنية',
+    'gender' => 'جنس',
+    'male' => 'ذكر',
+    'female' => 'أنثى',
+    'phone_number' => 'رقم الهاتف',
+    'change_password' => 'غير كلمة السر',
+    'old_password' => 'كلمة المرور القديمة',
+    'old_password_place' => 'أدخل كلمة المرور القديمة',
+    'new_password' => 'كلمة السر الجديدة',
+    'new_password_place' => 'أدخل كلمة مرور جديدة',
+    'confirm_password' => 'تأكيد كلمة المرور',
+    'confirm_password_place' => 'أدخل تأكيد كلمة المرور',
+    'update_profile' => 'تحديث الملف',
+
+    // My Rating & Reviews
+    'my_rating_reviews' => 'تقييمي ومراجعات',
+
+    // Payment Method
+    'my_wishlist' => 'قائمة امنياتي',
+    'add_payment_method' => 'إضافة طريقة دفع',
+    'account_details' => 'تفاصيل الحساب',
+    'no_details_available' => 'لا تفاصيل متاحة',
+
+    'add_new_card' => 'أضف بطاقة جديدة',
+    'select_card' => 'حدد بطاقة',
+    'master_card' => 'بطاقة ماستر بطاقة ائتمان',
+    'credit_card' => 'بطاقة الائتمان',
+    'visa_card' => 'بطاقة فيزا',
+    'others' => 'آحرون',
+    'card_number' => 'رقم البطاقة',
+    'add_card' => 'إضافة بطاقة',
+
+    //Quotation
+    'my_quotations' => 'اقتباساتي',
+    'total_quote' => 'إجمالي الاقتباس',
+    'my_quotations_details' => 'تفاصيل الاقتباسات الخاصة بي',
+    'quote_of_this_quotation' => 'اقتباس من هذا الاقتباس',
+
+    //Support
+    'support_ticket' => 'بطاقة الدعم',
+    'create_a_ticket' => 'قم بإنشاء تذكرة',
+    'id' => 'بطاقة تعريف',
+    'subject' => 'موضوعات',
+    'message' => 'رسالة',
+    'status' => 'حالة',
+    'action' => 'عمل',
+    'open' => 'فتح',
+    'solved' => 'تم حلها',
+    'no_data_found' => 'لاتوجد بيانات!',
+    'create_new_ticket' => 'إنشاء تذكرة جديدة',
+    'attachment' => 'المرفق',
+    'uploading' => 'تحميل',
+    'uploaded' => 'تم الرفع',
+    'submit' => 'يُقدِّم',
+    'ticket_replies' => 'الردود على التذاكر',
+    'reply' => 'رد',
+    'from' => 'من',
+    'add_reply' => 'إضافة الرد',
+    'me' => 'أنا',
+    'admin' => 'مسؤل',
+
+    //Wishlist Page
+    'default' => 'إفتراضي',
+
+];

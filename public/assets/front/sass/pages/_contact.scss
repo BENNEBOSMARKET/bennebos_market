@@ -1,0 +1,129 @@
+.contact_wrapper {
+  margin-top: 60px;
+  .contact_text_area {
+    max-width: 520px;
+    width: 100%;
+    h2 {
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 140%;
+      color: #000000;
+      @include media-break-width(768, 991) {
+        font-size: 24px;
+      }
+      @include max-media-width(767) {
+        font-size: 22px;
+      }
+    }
+    p {
+      color: #424c60;
+      line-height: 160%;
+      margin-top: 6px;
+    }
+  }
+  .contact_address_grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
+    gap: 30px 20px;
+    @include min-media-width(1200) {
+        gap: 30px 130px;
+    }
+    @include max-media-width(767) {
+        grid-template-columns: minmax(0, 1fr)  ;
+    }
+  }
+  .contact_form_area {
+    padding: 60px 0;
+    margin-top: 35px;
+    background: #fbfbfb;
+
+  }
+  .contact_form_grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 0px 35px;
+    @include max-media-width(991) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+  .form_area {
+    .input_row {
+      margin-top: 30px;
+      input,
+      textarea {
+        padding-left: 0;
+        border: none !important;
+        border-bottom: 1px solid #e8e9ec !important;
+        background-color: transparent;
+      }
+      input {
+        height: 35px;
+      }
+      textarea {
+        padding: 10px;
+        border: 1px solid #e8e9ec !important;
+        border-radius: 12px;
+      }
+    }
+  }
+  .form_title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    color: #262f56;
+    @include media-break-width(768, 991) {
+      font-size: 22px;
+    }
+    @include max-media-width(767) {
+      font-size: 20px;
+    }
+  }
+  .default_btn {
+    padding: 12px 45px;
+  }
+  .contact_address_area {
+    padding: 30px 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    @include min-media-width(1200) {
+        padding: 60px 30px;
+    }
+    h3 {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 160%;
+      color: #13192b;
+      @include max-media-width(767) {
+        font-size: 18px;
+      }
+    }
+  }
+  .contact_list {
+    margin-top: 35px;
+    li {
+      display: flex;
+      align-items: start;
+      gap: 2px 30px;
+      margin-bottom: 15px;
+      @include media-break-width(768,991) {
+    flex-direction: column;
+      }
+      span,
+      a {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        color: #424c60;
+      }
+      a {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<?php
+
+return [
+    'title' => 'سوق المصادر العالمية',
+    'sub_title' => 'احصل على عروض أسعار من أنسب الموردين',
+    'submit_button' => 'إرسال RFQ',
+    'qutotations' => 'قطات',
+    'industries' => 'الصناعات',
+    'active_suppliers' => 'الموردون النشطون',
+    'quotation_duration' => 'متوسط مدة الاقتباس',
+
+    'quotations_user_guide' => 'دليل مستخدم عروض أسعار RFQ',
+    'user_guide_description' => 'أولاً ، وضعنا العلاقة من أجل النجاح. سنحدد لك وقتًا لاستعراض أفضل الممارسات والاتفاق على العمليات والبرامج.',
+    'analyze_quatations' => 'تحليل الاقتباسات',
+    'communicate_real_time' => 'تواصل في الوقت الفعلي',
+    'successful_collaborations' => 'تعاونات ناجحة',
+    'most_recent_RFQ' => 'أحدث طلبات عروض الأسعار من مختلف الصناعات',
+    'categories' => 'فئات',
+    'recommended_for_you' => 'موصى به لك',
+    'quote_now' => 'اقتبس الآن',
+    'try_REQ' => 'جرب REQ',
+    'qutation_amount' => '10 الاقتباس (ق)',
+    'sourcing_type' => 'نوع المصادر',
+    'destination' => 'المكان المقصود',
+
+    // details page
+    'max_budget' => 'الحد الأقصى للميزانية',
+    'quantity_required' => 'الكمية المطلوبة',
+    'destination' => 'المكان المقصود',
+    'date_posted' => 'تاريخ الإعلان',
+    'email_confirmed' => 'تم تأكيد البريد الإلكتروني',
+    'open_time_left' => 'فتح الوقت المتبقي',
+    'RFQ_information' => 'معلومات RFQ',
+    'quotes_record' => 'سجل الاقتباسات',
+    'product_basic_information' => 'معلومات المنتج الأساسية',
+    'product_name' => 'اسم المنتج',
+    'category' => 'فئة',
+    'quantity' => 'كمية',
+    'trade_terms' => 'شروط التجارة',
+    'details' => 'تفاصيل',
+    'shipment_and_payment' => 'الشحن والدفع',
+    'payment_term' => 'شرط الدفع',
+    'no_quotation_record' => 'لا يوجد سجل اقتباس',
+    'recommend_RFQs' => 'يوصي بطلبات عرض الأسعار'
+];

@@ -1,0 +1,58 @@
+{
+  "query_results": [
+    {
+      "co_loc_n": "Bakerfiled",
+      "CO_LOC_REF_I": "1258",
+      "MAIL_ST_PROV_C": "CA",
+      "LNGTD_I": "-119.24712635690406",
+      "LATTD_I": "35.51942862887714 ",
+      "mail_city_n": "Bakerfiled",
+      "count": 1120
+    },
+    {
+      "co_loc_n": "San Jose",
+      "CO_LOC_REF_I": "1120",
+      "MAIL_ST_PROV_C": "CA",
+      "LNGTD_I": "-121.52973455999381",
+      "LATTD_I": "37.510688418823385 ",
+      "mail_city_n": "San Jose",
+      "count": 1120
+    },
+    {
+      "co_loc_n": "Redding",
+      "CO_LOC_REF_I": "615",
+      "MAIL_ST_PROV_C": "CA",
+      "LNGTD_I": "-121.3487200",
+      "LATTD_I": "40.5868170",
+      "mail_city_n": "Redding",
+      "count": 1120
+    },
+    {
+      "co_loc_n": "Junction City",
+      "CO_LOC_REF_I": "1700",
+      "MAIL_ST_PROV_C": "KS",
+      "LNGTD_I": "-96.89845161464908",
+      "LATTD_I": "38.99305350902223",
+      "mail_city_n": "Junction City",
+      "count": 1129
+    },
+    {
+      "co_loc_n": "Garden City",
+      "CO_LOC_REF_I": "1120",
+      "MAIL_ST_PROV_C": "KS",
+      "LNGTD_I": "-100.8832822610718",
+      "LATTD_I": "38.01667873845988 ",
+      "mail_city_n": "Junction City",
+      "count": 1129
+    },
+    {
+      "co_loc_n": "Liberal",
+      "CO_LOC_REF_I": "1120",
+      "MAIL_ST_PROV_C": "KS",
+      "LNGTD_I": "-100.84115697487817",
+      "LATTD_I": "37.1373353341119  ",
+      "mail_city_n": "Liberal",
+      "count": 1129
+    }
+  ]
+}

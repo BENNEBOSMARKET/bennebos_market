@@ -1,0 +1,156 @@
+.terms_condition_wrapper {
+  margin-top: 50px;
+  h2 {
+    font-weight: 600;
+    font-size: 42px;
+    line-height: 160%;
+    color: #13192b;
+    margin-bottom: 4px;
+    @include  max-media-width(991){
+        font-size: 30px;
+        line-height: 140%;
+    }
+  }
+  h3{
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 160%;
+    color: #13192B;
+   @include media-break-width(768,991) {
+    font-size: 22px;
+   }
+   @include max-media-width(767) {
+    font-size: 20px;
+   }
+  }
+
+  p {
+    line-height: 28px;
+    color: #6b7280;
+    margin-top: 16px;
+    @include media-break-width(768,991) {
+      margin-top: 12px;
+    }
+    @include max-media-width(767) {
+      margin-top: 8px;
+    }
+    a{
+      color: #74c247;
+      &:hover{
+      opacity: 0.8
+      }
+    }
+  }
+  .terms_item{
+      margin-top: 36px;
+  }
+  .terms_list_area{
+    margin-top: 15px;
+  }
+  .terms_list{
+    li{
+      display: grid;
+      grid-template-columns: minmax(0,200px) minmax(0,1fr);
+      align-items: start;
+     gap: 10px 50px;
+     margin-bottom: 8px;
+     @include media-break-width(768,991) {
+      grid-template-columns: minmax(0,150px) minmax(0,1fr);
+      gap: 10px 30px;
+     }
+     @include max-media-width(767) {
+      grid-template-columns: minmax(0,120px) minmax(0,1fr);
+      gap: 10px 20px;
+     }
+    }
+    h5{
+      font-size: 16px;
+      font-weight: 700;
+      @include max-media-width(767) {
+        font-size: 14px;
+       }
+    }
+    p{
+      margin-top: 0;
+    }
+  }
+  .terms_para_list{
+    margin-top: 15px;
+    li{
+      margin-bottom: 5px;
+
+    }
+    p{
+      margin-top: 0;
+    }
+  }
+
+
+.terms_table{
+
+  @include customScrollbarTable();
+  max-width: 700px;
+  width: 100%;
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,td{
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid #13192B;
+    padding: 8px 12px;
+    @include max-media-width(767) {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+    th{
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,433 @@
+/*Common CSS */
+/* Hover Transistion */
+/* Custom scroll Bar */
+/* Custom Table scroll Bar */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.btn:focus {
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+button:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+button:hover {
+  border: none;
+}
+
+table {
+  width: 100%;
+}
+
+.nice-select {
+  border-radius: 15px !important;
+  -webkit-border-radius: 15px !important;
+  -moz-border-radius: 15px !important;
+  -ms-border-radius: 15px !important;
+  -o-border-radius: 15px !important;
+  border: none !important;
+  background-color: #361a4a !important;
+}
+
+.nice-select .current {
+  font-weight: 400;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.nice-select .selected.focus {
+  margin-left: 0 !important;
+}
+
+.nice-select .list {
+  max-height: 250px;
+  overflow: auto;
+  width: 100%;
+  background-color: #361a4a !important;
+  overflow-y: scroll;
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+.nice-select .list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.nice-select .list::-webkit-scrollbar-track {
+  background: rgba(153, 153, 153, 0.2);
+  border-radius: 5px;
+}
+
+.nice-select .list::-webkit-scrollbar-thumb {
+  background: #e65c6a;
+  border-radius: 5px;
+}
+
+.nice-select .list::-webkit-scrollbar-thumb:hover {
+  background: #74c247;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.nice-select .list li:first-child {
+  margin-left: 0;
+}
+
+.nice-select .list .option {
+  color: #ffffff;
+  width: 100%;
+}
+
+.nice-select::after {
+  height: 9px;
+  width: 9px;
+  margin-top: -6px;
+  border-color: #ffffff;
+  border-width: 1.5px;
+  right: 20px;
+}
+
+.nice-select:active,
+.nice-select.open,
+.nice-select:focus {
+  border: 2px solid #4c2c63 !important;
+}
+
+.nice-select .option:hover,
+.nice-select .option.focus,
+.nice-select .option.selected.focus {
+  background-color: #4c2c63 !important;
+}
+
+.order_dropdwon_list {
+  position: absolute;
+  top: 40px;
+  left: -60px;
+  width: 150px;
+  background: #15022a;
+  z-index: 100;
+  border: 1.5px solid #15022a;
+  padding: 20px 15px;
+  -webkit-box-shadow: 0 0px 7px #ffffff91;
+          box-shadow: 0 0px 7px #ffffff91;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.order_dropdwon_list li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.order_dropdwon_list .order_dropdown_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.order_dropdwon_list .order_dropdown_item:hover {
+  opacity: 0.8;
+}
+
+.order_dropdwon_list .order_dropdown_item span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}
+
+.order_dropdwon_active .order_dropdwon_list {
+  top: 25px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.order_dropdwon_active .order_dropdown_overlay {
+  display: block;
+}
+
+.order_dropdown_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: none;
+}
+
+.header_select .nice-select {
+  min-width: 140px;
+}
+
+.top_bar_card_row .sellar_summery_item {
+  position: relative;
+  background: #0e011c;
+  border-radius: 15px;
+}
+
+.top_bar_card_row .sellar_summery_item h4 {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+.top_bar_card_row .sellar_summery_item h5 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #9ba2ab;
+}
+
+.top_bar_card_row .sellar_summery_item .sellar_summery_icon {
+  margin-top: -30px;
+}
+
+.top_bar_card_row .sellar_summery_item .sellar_shape {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.top_bar_card_row .sellar_summery_item .sellar_counter_area {
+  position: relative;
+  z-index: 1;
+  background: #0e011c;
+  width: 58%;
+}
+
+.top_bar_card_row .sellar_summery_item .dot_icon {
+  width: 100%;
+  text-align: end;
+}
+
+.top_bar_card_row .sellar_summery_item .dot_icon img {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+
+.top_bar_card_row .sellar_summery_item .dot_icon img:hover {
+  background: #4d405c;
+}
+
+.top_bar_card_row .sellar_summery_item .sellar_summery_icon {
+  margin-top: -30px;
+}
+
+.top_bar_card_row .sellar_summery_item .sellar_shape {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.top_bar_card_row .sellar_summery_item .order_dropdwon_list {
+  top: 55px;
+  left: auto;
+  right: 0;
+}
+
+.top_bar_card_row .sellar_summery_item .order_dropdwon_active .order_dropdwon_list {
+  top: 40px;
+}
+
+.circle_chart_area {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.circle_chart_area .inner_circle_chart {
+  position: absolute;
+  top: 25px;
+}
+
+.circle_chart_area .middle_text {
+  position: absolute;
+  top: 70px;
+  text-align: center;
+}
+
+.circle_chart_area .middle_text h4 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #e8e9ec;
+}
+
+.circle_chart_area .middle_text h3 {
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 39px;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.circle_chart_area .order_status_list {
+  margin-top: 30px;
+  text-align: start;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  padding-left: 35px;
+}
+
+.circle_chart_area .order_status_list li {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.circle_chart_area .order_status_list li::before {
+  content: " ";
+  position: absolute;
+  top: 4px;
+  left: -25px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.circle_chart_area .order_status_list .pending_order::before {
+  background-color: #f2994a;
+}
+
+.circle_chart_area .order_status_list .cancel_order::before {
+  background-color: #a22177;
+}
+
+.circle_chart_area .order_status_list h5 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #e8e9ec;
+}
+
+.circle_chart_area .order_status_list h5 span {
+  font-weight: 600;
+  margin-left: 12px;
+}
+
+.accordion_wrapper .accordion-item {
+  border: none;
+  border-bottom: 1px solid #4d1f7f;
+}
+
+.accordion_wrapper .accordion-header {
+  background: #27123e;
+}
+
+.accordion_wrapper .accordion-button {
+  color: white;
+  padding: 0.5rem 0.8rem !important;
+  background: #27123e;
+}
+
+.accordion_wrapper .accordion-button::after {
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  height: 11px;
+  width: 11px;
+  margin-top: -8px;
+  border-width: 1.5px;
+  background: transparent;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  opacity: 1;
+}
+
+.accordion_wrapper .accordion-button:focus {
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.accordion_wrapper .accordion-button:not(.collapsed)::after {
+  -webkit-transform: rotate(230deg) !important;
+          transform: rotate(230deg) !important;
+}
+
+.accordion_wrapper .accordion-button:not(.collapsed) {
+  -webkit-box-shadow: inset 0 -1px 0 #4d1f7f !important;
+          box-shadow: inset 0 -1px 0 #4d1f7f !important;
+}
+
+.accordion_wrapper .accordion-body {
+  color: white;
+  background: #27123e;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,27 @@
+// ============ Layout ===============
+.my-container {
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-right: auto;
+  margin-left: auto;
+  @include min-media-width(1400) {
+    max-width: 1320px;
+  }
+
+  @include media-break-width(1200, 1399) {
+    max-width: 1140px;
+  }
+  @include media-break-width(992, 1199) {
+    max-width: 960px;
+  }
+  @include media-break-width(768, 991) {
+    max-width: 720px;
+  }
+  @include media-break-width(575, 767) {
+    max-width: 540px;
+  }
+
+  @include max-media-width(575) {
+    max-width: 100%;
+  }
+}

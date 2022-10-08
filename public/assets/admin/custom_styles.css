@@ -1,0 +1,15 @@
+.modal.fade .modal-dialog.modal-dialog-zoom {
+    -webkit-transform: translate(0, 0) scale(0.5);
+    transform: translate(0, 0) scale(0.5);
+}
+.modal.show .modal-dialog.modal-dialog-zoom {
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
+}
+input.sinput {
+    width: 265px;
+    padding: 7px;
+}
+#customSwitchSuccess {
+    font-size: 25px;
+}
