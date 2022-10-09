@@ -1000,7 +1000,7 @@
                             </div>
                             <h4>
                                 <a href="{{ route('front.category.products', ['slug' => $f9Item->slug]) }}">
-                                    <span>{{ $f9Item->name }}</span> </a>
+                                    <span>{{ $f9Item->getTranslation('name') }}</span> </a>
                             </h4>
                         </div>
                     @endforeach
@@ -1061,7 +1061,7 @@
 
                             <h4>
                                 <a href="{{ route('front.category.products', ['slug' => $tAllItem->slug]) }}">
-                                    <span>{{ $tAllItem->name }}</span> </a>
+                                    <span>{{ $tAllItem->getTranslation('name') }}</span> </a>
                             </h4>
                         </div>
                     @endforeach
