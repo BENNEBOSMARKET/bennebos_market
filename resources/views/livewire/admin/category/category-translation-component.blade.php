@@ -56,6 +56,8 @@
                                                         English
                                                     @elseif ($translation->lang == 'fr')
                                                         French
+                                                    @elseif ($translation->lang == 'tur')
+                                                        Turkish
                                                     @endif
                                                 </td>
                                                 <td style="text-align: center;">
@@ -107,6 +109,7 @@
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
                                     <option value="fr">French</option>
+                                    <option value="tur">Turkish</option>
                                 </select>
                                 @error('language')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
@@ -154,6 +157,7 @@
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
                                     <option value="fr">French</option>
+                                    <option value="tur">Turkish</option>
                                 </select>
                                 @error('language')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
@@ -183,13 +187,6 @@
         window.addEventListener('closeModal', event => {
             $('#addDataModal').modal('hide');
             $('#editDataModal').modal('hide');
-        });
-        window.addEventListener('categoryDeleteError', event => {
-            Swal.fire(
-                'Error!',
-                'Can not delete this category.<br>Because this category has active posts or subcategory.<br>Please delete them first.',
-                'error'
-            )
         });
     </script>
 @endpush
