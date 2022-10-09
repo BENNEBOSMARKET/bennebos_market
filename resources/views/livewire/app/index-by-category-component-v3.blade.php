@@ -845,7 +845,7 @@
             @foreach ($subCategorytopFive as $key => $sctItem)
                 <div class="category_left_area">
                     <div class="header_title_bar_area">
-                        <h3>{{ $sctItem->name }}</h3>
+                        <h3>{{ $sctItem->getTranslation('name') }}</h3>
                     </div>
                     <div class="category_left_grid">
                         <div class="categroy_left_img_area divide_line_two">
@@ -1000,7 +1000,7 @@
                             </div>
                             <h4>
                                 <a href="{{ route('front.category.products', ['slug' => $f9Item->slug]) }}">
-                                    <span>{{ $f9Item->name }}</span> </a>
+                                    <span>{{ $f9Item->getTranslation('name') }}</span> </a>
                             </h4>
                         </div>
                     @endforeach
@@ -1061,7 +1061,7 @@
 
                             <h4>
                                 <a href="{{ route('front.category.products', ['slug' => $tAllItem->slug]) }}">
-                                    <span>{{ $tAllItem->name }}</span> </a>
+                                    <span>{{ $tAllItem->getTranslation('name') }}</span> </a>
                             </h4>
                         </div>
                     @endforeach

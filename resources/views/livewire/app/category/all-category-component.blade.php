@@ -62,8 +62,7 @@
                                                 onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder_rounded.png') }}';" />
                                         </div>
                                         <div>
-                                            <h3>{{ $maincategory->name }}</h3>
-                                            {{-- <h4>{{ mainCatTotalProducts($maincategory->id) }} Itemd</h4> --}}
+                                            <h3>{{ $maincategory->getTranslation('name') }}</h3>
                                         </div>
                                     </button>
                                 </div>
@@ -96,17 +95,17 @@
                             style="@if ($tabStatus == 0) display: block; @endif">
                             @foreach ($maincategories as $maincategory)
                                 <div class="category_tab_inner_area">
-                                    <h3 class="cate_tab_title">{{ $maincategory->name }}</h3>
+                                    <h3 class="cate_tab_title">{{ $maincategory->getTranslation('name') }}</h3>
                                     <div class="category_tab_outer_grid">
                                         @foreach (subCategories($maincategory->id) as $subCategory)
                                             <div class="category_tab_outer_area">
                                                 <h4><a
-                                                        href="{{ route('front.allProducts', ['slug' => $subCategory->slug]) }}">{{ $subCategory->name }}</a>
+                                                        href="{{ route('front.allProducts', ['slug' => $subCategory->slug]) }}">{{ $subCategory->getTranslation('name') }}</a>
                                                 </h4>
                                                 <ul class="category_list" style="margin-top: 10px;">
                                                     @foreach (subSubCategories($subCategory->id) as $key => $subSubCategory)
                                                         <li><a
-                                                                href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->name }}</a>
+                                                                href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->getTranslation('name') }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -121,19 +120,19 @@
                             style="@if ($tabStatus != 0) display: block; @endif">
                             @if ($selectedCategory != '')
                                 <div class="category_tab_inner_area">
-                                    <h3 class="cate_tab_title">{{ $selectedCategory->name }}</h3>
+                                    <h3 class="cate_tab_title">{{ $selectedCategory->getTranslation('name') }}</h3>
                                     <div class="category_tab_outer_grid">
                                         @foreach (subCategories($selectedCategory->id) as $subCategory)
                                             <div class="category_tab_outer_area">
                                                 <h4><a
-                                                        href="{{ route('front.allProducts', ['slug' => $subCategory->slug]) }}">{{ $subCategory->name }}</a>
+                                                        href="{{ route('front.allProducts', ['slug' => $subCategory->slug]) }}">{{ $subCategory->getTranslation('name') }}</a>
                                                 </h4>
                                                 <div class="category_tab_inner_grid">
                                                     <ul class="category_list">
                                                         @foreach (subSubCategories($subCategory->id) as $key => $subSubCategory)
                                                             @if ($key % 2 == 0)
                                                                 <li><a
-                                                                        href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->name }}</a>
+                                                                        href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->getTranslation('name') }}</a>
                                                                 </li>
                                                             @endif
                                                         @endforeach
@@ -142,7 +141,7 @@
                                                         @foreach (subSubCategories($subCategory->id) as $key => $subSubCategory)
                                                             @if ($key % 2 != 0)
                                                                 <li><a
-                                                                        href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->name }}</a>
+                                                                        href="{{ route('front.allProducts', ['slug' => $subSubCategory->slug]) }}">{{ $subSubCategory->getTranslation('name') }}</a>
                                                                 </li>
                                                             @endif
                                                         @endforeach

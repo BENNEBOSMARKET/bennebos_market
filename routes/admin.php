@@ -21,6 +21,7 @@ use App\Http\Livewire\Admin\Blog\CreateNewBlogComponent;
 use App\Http\Livewire\Admin\Blog\EditBlogComponent;
 use App\Http\Livewire\Admin\Careers\CareersComponent;
 use App\Http\Livewire\Admin\Category\Brands\SubCategoryBrandsComponent;
+use App\Http\Livewire\Admin\Category\CategoryTranslationComponent;
 use App\Http\Livewire\Admin\Category\Products\SubCategoryProductsComponent;
 use App\Http\Livewire\Admin\Cms\BigDealsComponent;
 use App\Http\Livewire\Admin\Cms\BottomBannerComponent;
@@ -110,6 +111,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/category/sub-sub-categories', SubSubCategoryComponent::class)->name('subSubCategory');
     Route::get('/category/sub-categories/products/{id}', SubCategoryProductsComponent::class)->name('subCategoryProducts');
     Route::get('/category/sub-categories/brands/{id}', SubCategoryBrandsComponent::class)->name('subCategoryBrands');
+    Route::get('/category/translations/{id}', CategoryTranslationComponent::class)->name('categoryTranslation');
 
     //Product Routes
     Route::get('/products', ProductComponent::class)->name('products');

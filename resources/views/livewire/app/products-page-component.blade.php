@@ -29,21 +29,21 @@
                     @if ($maincategory != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
                     @if ($sub_category != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
                     @if ($sub_sub_category != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
@@ -77,7 +77,7 @@
 
                     <form action="" class="brand_form">
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.category') }}</span>
                             </button>
@@ -90,13 +90,13 @@
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         @if (request('slug') == $category->name) selected @endif>
-                                        {{ $category->name }}
+                                        {{ $category->getTranslation('name') }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.product_brand') }}</span>
                             </button>
@@ -110,16 +110,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="selectbox_row skeleton_single_text" wire:ignore>
-                            <select id="orderByMinOrder" class="niceSelect">
-                                <option value="">{{ __('auth.product_all') }}</option>
-                                @foreach ($minQuantities as $minQuantity)
-                                    <option value="{{ $minQuantity->min_qty }}">{{ $minQuantity->min_qty }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="category_list_title skeleton_single_text">
+                        
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.reviews') }}</span>
                             </button>
@@ -138,7 +130,7 @@
                                 alt="star icon" />
                         </div>
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.price') }}</span>
                             </button>
@@ -179,7 +171,7 @@
                         <div class="d-flex align-items-center justify-content-between g-sm">
                             <h3>
                                 @if ($selected_category != '')
-                                    {{ category($selected_category)->name }}
+                                    {{ category($selected_category)->getTranslation('name') }}
                                 @elseif ($sortByBrand != '')
                                     {{ brand($sortByBrand)->name }}
                                 @else
@@ -197,7 +189,7 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap-wrap g-sm">
                             <h4>
                                 @if ($sortByCategory != '')
-                                    {{ $products->count() }} items found in {{ category($sortByCategory)->name }}
+                                    {{ $products->count() }} items found in {{ category($sortByCategory)->getTranslation('name') }}
                                 @elseif ($sortByBrand != '')
                                     {{ $products->count() }} items found in {{ brand($sortByBrand)->name }}
                                 @endif
