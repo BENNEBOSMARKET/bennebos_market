@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Validation\Validator;
+use PDO;
 
 class CartController extends Controller
 {
@@ -84,24 +85,29 @@ class CartController extends Controller
 
     public function updateProductQuantity(Request $request){
         $validation = FacadesValidator::make($request->all(),[
-            "product_id" => "required|integer|min:1",
-            "quantity" => "required|integer|min:1",
+            "products" => "required|array",
+            "products.*.product_id" => "required|integer|min:1",
+            "products.*.quantity" => "required|integer|min:1",
             "ip_address" => "required",
         ]);
         if($validation->errors()->first()){
             return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
         }   
         if(auth()->user()){
-            Cart::where("product_id",$request->product_id)->where("user_id", auth()->user()->id)->update([
-                "quantity" => $request->quantity
-            ]);
-            return $this->apiResponse->setSuccess("products Updated Successfully")->setData()->getJsonResponse();
-            
+            foreach($request->products as $product){
+                Cart::where("product_id",$product["product_id"])->where("user_id", auth()->user()->id)->update([
+                    "quantity" => $product["quantity"]
+                ]);
+            }
+            return $this->apiResponse->setSuccess("cart products Updated Successfully")->setData()->getJsonResponse();
         }
-        Cart::where("product_id",$request->product_id)->where("ip_address", $request->ip_address)->update([
-            "quantity" => $request->quantity
-        ]);
-        return $this->apiResponse->setSuccess("products Updated Successfully")->setData()->getJsonResponse();
+
+        foreach($request->products as $product){
+            Cart::where("product_id",$product["product_id"])->where("ip_address", $request->ip_address)->update([
+                "quantity" => $product["quantity"]
+            ]);
+        }
+        return $this->apiResponse->setSuccess("cart products Updated Successfully")->setData()->getJsonResponse();
         
         
     }
