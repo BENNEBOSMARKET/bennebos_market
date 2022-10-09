@@ -723,10 +723,3 @@ function totalSale($product_id)
     return $sale;
 }
 
-function catTranslation($id)
-{
-    $lang = App::getLocale();
-    $name = DB::table('categories')->where('id', $id)->first()->name;
-    $category_translation = DB::table('category_translations')->where('category_id', $id)->where('lang', $lang)->first();
-    return $category_translation != null ? $category_translation->name : $name;
-}
