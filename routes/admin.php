@@ -2,13 +2,11 @@
 
 use App\Http\Controllers\DataUploadController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Livewire\Admin\Brand\BrandComponent;
 use App\Http\Livewire\Admin\Category\CategoryComponent;
 use App\Http\Livewire\Admin\Category\SubCategoryComponent;
 use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Product\ProductComponent;
-use App\Http\Livewire\Admin\Sales\RefundComponent;
 use App\Http\Livewire\Admin\Setting\Color\ColorComponent;
 use App\Http\Livewire\Admin\Customer\CustomerComponent;
 use App\Http\Livewire\Admin\Customer\CustomerProfileComponent;
@@ -23,6 +21,7 @@ use App\Http\Livewire\Admin\Blog\CreateNewBlogComponent;
 use App\Http\Livewire\Admin\Blog\EditBlogComponent;
 use App\Http\Livewire\Admin\Careers\CareersComponent;
 use App\Http\Livewire\Admin\Category\Brands\SubCategoryBrandsComponent;
+use App\Http\Livewire\Admin\Category\CategoryTranslationComponent;
 use App\Http\Livewire\Admin\Category\Products\SubCategoryProductsComponent;
 use App\Http\Livewire\Admin\Cms\BigDealsComponent;
 use App\Http\Livewire\Admin\Cms\BottomBannerComponent;
@@ -50,7 +49,7 @@ use App\Http\Livewire\Admin\Product\AddProductComponentV2;
 use App\Http\Livewire\Admin\Product\Brand\IndexComponent;
 use App\Http\Livewire\Admin\Product\EditProductComponentV2;
 use App\Http\Livewire\Admin\Product\Review\ReviewesComponent;
-use App\Http\Livewire\Admin\Product\SizeRequestsComponent;
+use App\Http\Livewire\Admin\Product\Size\SizeRequestsComponent as SizeSizeRequestsComponent;
 use App\Http\Livewire\Admin\Profile\ProfileSettingComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationCategoryComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationComponent;
@@ -63,7 +62,6 @@ use App\Http\Livewire\Admin\Report\InhouseProductReport;
 use App\Http\Livewire\Admin\Report\SellerProductReport;
 use App\Http\Livewire\Admin\Report\StockProductReport;
 use App\Http\Livewire\Admin\Report\WishlistProductReport;
-use App\Http\Livewire\Admin\Review\ProductReviewComponent;
 use App\Http\Livewire\Admin\Sales\AllOrdersComponent;
 use App\Http\Livewire\Admin\Sales\Inhouse\InhouseOrderDetailsComponent;
 use App\Http\Livewire\Admin\Sales\Inhouse\InhouseOrdersComponent;
@@ -113,6 +111,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/category/sub-sub-categories', SubSubCategoryComponent::class)->name('subSubCategory');
     Route::get('/category/sub-categories/products/{id}', SubCategoryProductsComponent::class)->name('subCategoryProducts');
     Route::get('/category/sub-categories/brands/{id}', SubCategoryBrandsComponent::class)->name('subCategoryBrands');
+    Route::get('/category/translations/{id}', CategoryTranslationComponent::class)->name('categoryTranslation');
 
     //Product Routes
     Route::get('/products', ProductComponent::class)->name('products');
@@ -121,7 +120,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/products/brands', IndexComponent::class)->name('brands');
     Route::get('/products/coupons', CouponComponent::class)->name('coupon');
     Route::get('/products/reviews', ReviewesComponent::class)->name('productReviewes');
-    Route::get('/products/size-requests', SizeRequestsComponent::class)->name('productSizeRequests');
+    Route::get('/products/size-requests', SizeSizeRequestsComponent::class)->name('productSizeRequests');
 
     // Pending product routes
     Route::get('/pending/products', PendingProductComponent::class)->name('pending.products');

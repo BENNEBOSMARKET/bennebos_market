@@ -614,6 +614,7 @@ return [
     //Login , Register , Forget Password , Change Passowrd Page
     'login'=> 'Login',
     'welcome_back_bennebos'=>'Welcome Back to Bennebos',
+    'Please_sign_customer_account'=>'Please Sign in to Your Account',
     'Please_sign_seller_account'=>'Please Sign in to Your Seller Account',
     'password'=>'Password',
     'placeholder_enter_your_password'=>'Enter your password',

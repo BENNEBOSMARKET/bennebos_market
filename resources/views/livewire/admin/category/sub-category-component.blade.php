@@ -87,6 +87,8 @@
                                                     <div class="button-items">
                                                         <a href="{{ route('admin.subCategoryProducts', ['id'=>$category->id]) }}" type="button" class="btn btn-outline-secondary btn-icon-circle btn-icon-circle-sm" target="_blank"><i class="ti ti-plus"></i></a>
 
+                                                        <a type="button" href="{{ route('admin.categoryTranslation', ['id'=>$category->id]) }}" title="Translations" class="btn btn-outline-dark btn-icon-circle btn-icon-circle-sm"><i class="ti ti-language"></i></a>
+
                                                         <a href="#" class="btn btn-outline-primary btn-icon-circle btn-icon-circle-sm"  wire:click.prevent="editData({{ $category->id }})"><i class="ti ti-edit"></i></a>
                                                         
                                                         <a wire:click.prevent="deleteConfirmation({{ $category->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>

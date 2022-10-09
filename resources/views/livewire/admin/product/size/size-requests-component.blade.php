@@ -46,9 +46,15 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-sm">
+                            <table class="table">
                                 <thead class="thead-light">
                                 <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Email</th>
+                                    <th>Req. Sizes</th>
+                                    <th>Message</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,9 +62,14 @@
                                     $sl = $requests->perPage() * $requests->currentPage() - ($requests->perPage() - 1);
                                 @endphp
                                 @if ($requests->count() > 0)
-                                    @foreach ($requests as $refund)
+                                    @foreach ($requests as $request)
                                         <tr>
-                                            
+                                            <td>{{ $sl++ }}</td>
+                                            <td><a style="font-weight: normal;" href="{{ route('front.productDetails', ['slug' => product($request->product_id)->slug]) }}">{{ ucfirst(Str::limit(product($request->product_id)->name, 35, '...')) }}</a></td>
+                                            <td>{{ getUser($request->user_id)->first_name }} {{ getUser($request->user_id)->last_name }}</td>
+                                            <td>{{ getUser($request->user_id)->email }}</td>
+                                            <td>{{ $request->requested_sizes }}</td>
+                                            <td>{{ $request->message }}</td>
                                         </tr>
                                     @endforeach
                                 @else

@@ -402,6 +402,7 @@ return [
   //Login , Register , Forget Password , Change Passowrd Page
   'login' => 'تسجيل الدخول',
   'welcome_back_bennebos' => 'أهلا بكم من جديد إلى Bennebos',
+  'Please_sign_customer_account'=>'يرجى تسجيل الدخول إلى الحساب الخاص بك',
   'Please_sign_seller_account' => 'الرجاء تسجيل الدخول إلى حساب البائع الخاص بك',
   'password' => 'كلمة المرور',
   'placeholder_enter_your_password' => 'ادخل رقمك السري',
