@@ -97,7 +97,7 @@ class Headerv3 extends Component
         $this->setting = WebsiteSetting::where('id', 1)->first();
 
         $brands = collect([]);
-        $allCategories = Category::select('slug', 'name')
+        $allCategories = Category::select('id', 'slug', 'name')
             ->where('parent_id', 0)
             ->where('sub_parent_id', 0)
             ->get();

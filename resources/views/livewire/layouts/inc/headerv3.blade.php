@@ -894,7 +894,7 @@
                             <div class="swiper-slide">
                                 <a href="{{ route('home.indexWithCategory', ['slug' => $category->slug]) }}"
                                     class="tablinks2 @if (session('slugMsg') == $category->slug) tabActiveButton @endif"
-                                    style="text-transform: uppercase;">{{ $category->name }}</a>
+                                    style="text-transform: uppercase;">{{ $category->getTranslation('name') }}</a>
                             </div>
                         @endforeach
                     </div>
@@ -940,7 +940,7 @@
                                                     onerror="this.onerror=null;this.src='{{ asset('assets/images/company_info_logo.png') }}';" />
                                             </div>
 
-                                            <span>{{ $allSubCategory->name }}</span>
+                                            <span>{{ $allSubCategory->getTranslation('name') }}</span>
                                         </div>
 
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -956,7 +956,7 @@
                                                 <ul class="mega_menu_list_grid nav_menu_list_area">
                                                     @foreach ($allSubCategory->getsubSubCategory as $subsubcategory)
                                                         <li><a
-                                                                href="{{ route('front.category.products', ['slug' => $subsubcategory->slug]) }}">{{ $subsubcategory->name }}</a>
+                                                                href="{{ route('front.category.products', ['slug' => $subsubcategory->slug]) }}">{{ $subsubcategory->getTranslation('name') }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

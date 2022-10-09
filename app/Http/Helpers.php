@@ -1,33 +1,34 @@
 <?php
 
-use App\Models\Address;
-use App\Models\Brand;
-use App\Models\BusinessSetting;
 use App\Models\Cart;
-use App\Models\Category;
-use App\Models\CompanyCategory;
-use App\Models\Country;
-use App\Models\DealsOfDay;
+use App\Models\Shop;
+use App\Models\User;
+use App\Models\Brand;
 use App\Models\Order;
-use App\Models\OrderDetails;
 use App\Models\Point;
-use App\Models\Product;
-use App\Models\ProductImage;
-use App\Models\ProductSize;
-use App\Models\QuoteNow;
-use App\Models\QutotationCategory;
+use App\Models\State;
 use App\Models\Refund;
 use App\Models\Review;
 use App\Models\Seller;
-use App\Models\SellerWallet;
-use App\Models\Shop;
-use App\Models\State;
-use App\Models\User;
 use App\Models\Wallet;
-use App\Models\WebsiteSetting;
+use App\Models\Address;
+use App\Models\Country;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\QuoteNow;
 use App\Models\WishList;
-use Illuminate\Support\Facades\Auth;
+use App\Models\DealsOfDay;
+use App\Models\ProductSize;
+use App\Models\OrderDetails;
+use App\Models\ProductImage;
+use App\Models\SellerWallet;
+use App\Models\WebsiteSetting;
+use App\Models\BusinessSetting;
+use App\Models\CompanyCategory;
+use App\Models\QutotationCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Laravel\Passport\Client as PassportClient;
 
@@ -720,4 +721,12 @@ function totalSale($product_id)
         ->where('orders.delivery_status', 'delivered')->where('orders.payment_status', 'paid')->count();
 
     return $sale;
+}
+
+function catTranslation($id)
+{
+    $lang = App::getLocale();
+    $name = DB::table('categories')->where('id', $id)->first()->name;
+    $category_translation = DB::table('category_translations')->where('category_id', $id)->where('lang', $lang)->first();
+    return $category_translation != null ? $category_translation->name : $name;
 }
