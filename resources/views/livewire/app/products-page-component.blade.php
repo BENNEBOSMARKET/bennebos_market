@@ -77,7 +77,7 @@
 
                     <form action="" class="brand_form">
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.category') }}</span>
                             </button>
@@ -96,7 +96,7 @@
                             </select>
                         </div>
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.product_brand') }}</span>
                             </button>
@@ -110,16 +110,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="selectbox_row skeleton_single_text" wire:ignore>
-                            <select id="orderByMinOrder" class="niceSelect">
-                                <option value="">{{ __('auth.product_all') }}</option>
-                                @foreach ($minQuantities as $minQuantity)
-                                    <option value="{{ $minQuantity->min_qty }}">{{ $minQuantity->min_qty }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="category_list_title skeleton_single_text">
+                        
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.reviews') }}</span>
                             </button>
@@ -138,7 +130,7 @@
                                 alt="star icon" />
                         </div>
 
-                        <div class="category_list_title skeleton_single_text">
+                        <div class="category_list_title skeleton_single_text" wire:ignore>
                             <button type="button" class="d-flex align-items-center justify-content-between">
                                 <span>{{ __('auth.price') }}</span>
                             </button>

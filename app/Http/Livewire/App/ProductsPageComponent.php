@@ -327,7 +327,7 @@ class ProductsPageComponent extends Component
 
 
         $brands = DB::table('brands')->select('id', 'name')->where('status', 1)->get();
-        $minQuantities = $product->select('min_qty', 'min_qty')->groupBy('products.min_qty')->get();
+        $minQuantities = $product->select('min_qty')->groupBy('products.min_qty')->get();
         $categories = Category::select('id', 'name')->get();
         // $subcategories = Category::where('parent_id', $this->sortCategoryID)->where('sub_parent_id', 0)->get();
         // $subsubcategories = Category::where('parent_id', $this->sortCategoryID)->where('sub_parent_id', $this->sortSubCategoryID)->get();
