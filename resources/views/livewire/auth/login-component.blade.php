@@ -23,7 +23,7 @@
                             <div class="form_title_area text-center">
                                 <h3>{{ __('auth.welcome_back_bennebos') }}</h3>
                                 <h5>{{ __('auth.Please_sign_customer_account') }}</h5>
-                                <h6 class="already_account" style="margin-top: 0px;">Are you seller? <a href="{{ route('seller.login') }}">Login as Seller</a></h6>
+                                <h6 class="already_account" style="margin-top: 0px;">Are you a seller? <a href="{{ route('seller.login') }}">Login as Seller</a></h6>
                             </div>
                             
 
