@@ -840,7 +840,7 @@
             @foreach ($subCategorytopFive as $key => $sctItem)
                 <div class="category_left_area">
                     <div class="header_title_bar_area">
-                        <h3>{{ $sctItem->name }}</h3>
+                        <h3>{{ $sctItem->getTranslation('name') }}</h3>
                     </div>
                     <div class="category_left_grid">
                         <div class="categroy_left_img_area divide_line_two">
