@@ -29,21 +29,21 @@
                     @if ($maincategory != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
                     @if ($sub_category != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
                     @if ($sub_sub_category != null)
                         <li>
                             <a
-                                href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->name }}</a>
+                                href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->getTranslation('name') }}</a>
                             <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                         </li>
                     @endif
@@ -90,7 +90,7 @@
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         @if (request('slug') == $category->name) selected @endif>
-                                        {{ $category->name }}
+                                        {{ $category->getTranslation('name') }}
                                     </option>
                                 @endforeach
                             </select>
@@ -179,7 +179,7 @@
                         <div class="d-flex align-items-center justify-content-between g-sm">
                             <h3>
                                 @if ($selected_category != '')
-                                    {{ category($selected_category)->name }}
+                                    {{ category($selected_category)->getTranslation('name') }}
                                 @elseif ($sortByBrand != '')
                                     {{ brand($sortByBrand)->name }}
                                 @else
@@ -197,7 +197,7 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap-wrap g-sm">
                             <h4>
                                 @if ($sortByCategory != '')
-                                    {{ $products->count() }} items found in {{ category($sortByCategory)->name }}
+                                    {{ $products->count() }} items found in {{ category($sortByCategory)->getTranslation('name') }}
                                 @elseif ($sortByBrand != '')
                                     {{ $products->count() }} items found in {{ brand($sortByBrand)->name }}
                                 @endif
