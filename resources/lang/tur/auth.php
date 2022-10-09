@@ -407,6 +407,7 @@ return [
  //Login , Register , Forget Password , Change Passowrd Page
  'login' => 'Giriş Yap',
  'welcome_back_bennebos' => 'Bennebos a tekrar hoş geldiniz',
+ 'Please_sign_customer_account'=>'Lütfen Hesabınızda Oturum Açın',
  'Please_sign_seller_account' => 'Lütfen Satıcı Hesabınızda Oturum Açın',
  'password' => 'Şifre',
  'placeholder_enter_your_password' => 'Şifrenizi girin',

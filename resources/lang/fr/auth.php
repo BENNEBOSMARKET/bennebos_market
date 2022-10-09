@@ -368,6 +368,7 @@ return [
    //Login , Register , Forget Password , Change Passowrd Page
    'login'=> 'ıdentıfıant',
    'welcome_back_bennebos'=>'Bienvenue à Bennebos',
+   'Please_sign_customer_account'=>'Connectez-vous à votre compte sil vous plaît',
    'Please_sign_seller_account'=>'Veuillez vous connecter à votre compte vendeur',
    'password'=>'Mot de passe',
    'placeholder_enter_your_password'=>'Tapez votre mot de passe',
