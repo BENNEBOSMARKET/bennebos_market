@@ -22,8 +22,10 @@
                         <form wire:submit.prevent='signIn' class="form_area">
                             <div class="form_title_area text-center">
                                 <h3>{{ __('auth.welcome_back_bennebos') }}</h3>
-                                <h5>{{ __('auth.Please_sign_seller_account') }}</h5>
+                                <h5>{{ __('auth.Please_sign_customer_account') }}</h5>
+                                <h6 class="already_account" style="margin-top: 0px;">Are you seller? <a href="{{ route('seller.login') }}">Login as Seller</a></h6>
                             </div>
+                            
 
                             @if (session()->has('success'))
                                 <div class="success-message">{{ session('success') }}</div>
@@ -102,7 +104,7 @@
                                 @endif
                             @endif
                         </form>
-                        <h6 class="already_account">{{ __('auth.sign_in') }}<a href="{{ route('registration') }}">{{ __('auth.sign_up_here') }}</a>
+                        <h6 class="already_account">Don't have an account? <a href="{{ route('registration') }}">{{ __('auth.sign_up_here') }}</a>
                         </h6>
                     </div>
                 </div>

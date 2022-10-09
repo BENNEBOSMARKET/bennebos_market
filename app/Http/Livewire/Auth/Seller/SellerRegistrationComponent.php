@@ -47,7 +47,6 @@ class SellerRegistrationComponent extends Component
             'shop_address' => 'required',
             'checkbox' => 'required',
             'tin' => 'required',
-            'reference_code' => 'required',
         ],[
             'checkbox.required'=>'You must accept our terms & conditions'
         ]);
@@ -71,7 +70,6 @@ class SellerRegistrationComponent extends Component
                 'shop_address' => 'required',
                 'checkbox' => 'required',
                 'tin' => 'required',
-                'reference_code' => 'required',
             ],[
                 'checkbox.required'=>'You must accept our terms & conditions'
             ]);
@@ -124,7 +122,6 @@ class SellerRegistrationComponent extends Component
                 'shop_address' => 'required',
                 'tin' => 'required',
                 'checkbox' => 'required',
-                'reference_code' => 'required',
             ],[
                 'checkbox.required'=>'You must accept our terms & conditions'
             ]);
