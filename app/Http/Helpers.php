@@ -142,15 +142,12 @@ function galleryImages($productId)
 
 function subCategories($category_id)
 {
-    $category = DB::table('categories')->where('parent_id', $category_id)->where('sub_parent_id', 0)->get();
-
-    return $category;
+    return Category::where('parent_id', $category_id)->where('sub_parent_id', 0)->get();
 }
 
 function subSubCategories($category_id)
 {
-    $category = DB::table('categories')->where('sub_parent_id', $category_id)->limit(6)->get();
-    return $category;
+    return Category::where('sub_parent_id', $category_id)->limit(6)->get();
 }
 
 function product($id)
