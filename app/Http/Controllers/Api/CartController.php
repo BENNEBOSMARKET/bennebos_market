@@ -10,9 +10,15 @@ use App\Http\Requests\RemoveCartRequest;
 use App\Http\Requests\RemoveProductRequest;
 use App\Http\Resources\Cart\CartCollection;
 use App\Http\Resources\Cart\CartResource;
+use App\Models\Cart;
+use App\Models\Product;
 use App\Repositories\Cart\CartRepositoryInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Validation\Validator;
+use PDO;
 
 class CartController extends Controller
 {
@@ -75,5 +81,34 @@ class CartController extends Controller
         $response = $this->cartRepository->getCartByUser($request);
 
         return $this->apiResponse->setSuccess(__("Cart retrieved successfully"))->setData(new CartCollection($response))->getJsonResponse();
+    }
+
+    public function updateProductQuantity(Request $request){
+        $validation = FacadesValidator::make($request->all(),[
+            "products" => "required|array",
+            "products.*.product_id" => "required|integer|min:1",
+            "products.*.quantity" => "required|integer|min:1",
+            "ip_address" => "required",
+        ]);
+        if($validation->errors()->first()){
+            return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
+        }   
+        if(auth()->user()){
+            foreach($request->products as $product){
+                Cart::where("product_id",$product["product_id"])->where("user_id", auth()->user()->id)->update([
+                    "quantity" => $product["quantity"]
+                ]);
+            }
+            return $this->apiResponse->setSuccess("cart products Updated Successfully")->setData()->getJsonResponse();
+        }
+
+        foreach($request->products as $product){
+            Cart::where("product_id",$product["product_id"])->where("ip_address", $request->ip_address)->update([
+                "quantity" => $product["quantity"]
+            ]);
+        }
+        return $this->apiResponse->setSuccess("cart products Updated Successfully")->setData()->getJsonResponse();
+        
+        
     }
 }

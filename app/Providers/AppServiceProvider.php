@@ -75,8 +75,8 @@ class AppServiceProvider extends ServiceProvider
         // SliderCollection::withoutWrapping();
         Schema::defaultStringLength(191);
         //css loading problem after ssl certificate
-        if(env("APP_ENV") != "local"){
-            URL::forceScheme("https");
-        }
+        // if(env("APP_ENV") != "local"){
+        //     URL::forceScheme("https");
+        // }
     }
 }
