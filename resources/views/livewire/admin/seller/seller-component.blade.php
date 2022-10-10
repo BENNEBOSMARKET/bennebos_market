@@ -56,6 +56,7 @@
                                         <th>Name</th>
                                         <th>Email Address</th>
                                         <th>Phone</th>
+                                        <th>Date</th>
                                         <th>Verification Info</th>
                                         <th>Approval</th>
                                         <th>Num. of Products</th>
@@ -73,6 +74,7 @@
                                                 <td>{{ $seller->name }}</td>
                                                 <td>{{ $seller->email }}</td>
                                                 <td>{{ $seller->phone }}</td>
+                                                <td>{{ $seller->created_at }}</td>
                                                 <td>
                                                     @if ($seller->application_status == 1)
                                                         <a href="{{ route('admin.seller.shopVerificationInfo', ['seller_id'=>$seller->id]) }}"><span class="badge bg-info" style="font-size: 12.5px;">Show</span></a>
