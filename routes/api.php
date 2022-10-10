@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeApiController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ChecoutController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductsUpload;
@@ -50,7 +51,13 @@ Route::group(['middleware'=>["auth:api"]],function(){
     Route::get('/',function(){
         return "hello authentication service";
     });
+
+    Route::prefix('checkout')->group(function () {
+        Route::get('addresses', [ChecoutController::class, 'getAddresses']);
+        Route::post('addresses/create', [ChecoutController::class, 'createAddresses']);
+    });
 });
+
 
 
 // Home slider and banners
@@ -112,6 +119,8 @@ Route::prefix('wishlist')->group(function () {
     Route::delete('delete/product', [WishListController::class, 'deleteWishListProduct']);
 
 });
+
+
 
 Route::get('create/payment',[PaymentController::class, "create"]);
 Route::match(array('GET', 'POST'),'payment/callback',[PaymentController::class, "callback"]);
