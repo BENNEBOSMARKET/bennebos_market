@@ -61,11 +61,11 @@ class ProductsPageComponent extends Component
                     $this->allCategories = [$cat->id];
 
                     if($cat->parent_id == 0 && $cat->sub_parent_id == 0){
-                        $subcategories = DB::table('categories')->where('parent_id', $cat->id)->pluck("id")->toArray();
+                        $subcategories = Category::where('parent_id', $cat->id)->pluck("id")->toArray();
                         $this->allCategories = array_merge($this->allCategories, $subcategories);
                     }
                     if($cat->parent_id != 0 && $cat->sub_parent_id == 0){
-                        $subsubcategories = DB::table('categories')->where('sub_parent_id', $cat->id)->pluck("id")->toArray();
+                        $subsubcategories = Category::where('sub_parent_id', $cat->id)->pluck("id")->toArray();
                         $this->allCategories = array_merge($this->allCategories, $subsubcategories);
                     }
 
@@ -107,11 +107,11 @@ class ProductsPageComponent extends Component
             $this->allCategories = [$cat->id];
 
             if($cat->parent_id == 0 && $cat->sub_parent_id == 0){
-                $subcategories = DB::table('categories')->where('parent_id', $cat->id)->pluck("id")->toArray();
+                $subcategories = Category::where('parent_id', $cat->id)->pluck("id")->toArray();
                 $this->allCategories = array_merge($this->allCategories, $subcategories);
             }
             else if($cat->parent_id != 0 && $cat->sub_parent_id == 0){
-                $subsubcategories = DB::table('categories')->where('sub_parent_id', $cat->id)->pluck("id")->toArray();
+                $subsubcategories = Category::where('sub_parent_id', $cat->id)->pluck("id")->toArray();
                 $this->allCategories = array_merge($this->allCategories, $subsubcategories);
             }
             else if($cat->parent_id != 0 && $cat->sub_parent_id != 0){
@@ -327,8 +327,8 @@ class ProductsPageComponent extends Component
 
 
         $brands = DB::table('brands')->select('id', 'name')->where('status', 1)->get();
-        $minQuantities = $product->select('min_qty', 'min_qty')->groupBy('products.min_qty')->get();
-        $categories = DB::table('categories')->select('id', 'name')->get();
+        $minQuantities = $product->select('min_qty')->groupBy('products.min_qty')->get();
+        $categories = Category::select('id', 'name')->get();
         // $subcategories = Category::where('parent_id', $this->sortCategoryID)->where('sub_parent_id', 0)->get();
         // $subsubcategories = Category::where('parent_id', $this->sortCategoryID)->where('sub_parent_id', $this->sortSubCategoryID)->get();
 

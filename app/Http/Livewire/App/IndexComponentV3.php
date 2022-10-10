@@ -158,7 +158,7 @@ class IndexComponentV3 extends Component
             ->take(9)
             ->get();
 
-        $subCategoryT_all = Category::select('slug', 'banner', 'name')
+        $subCategoryT_all = Category::select('id', 'slug', 'banner', 'name')
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             

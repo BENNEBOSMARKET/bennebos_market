@@ -21,7 +21,6 @@
             font-size: 12.5px;
             color: red;
         }
-
     </style>
     <!-- Product details Topbar friz Section  -->
     <section class="product_topbar_wrapper" id="productTopbar" wire:ignore.self>
@@ -48,11 +47,7 @@
                     <li>
                         <form wire:submit.prevent='addToCart'>
                             <div class="product_details_button">
-                                <button type="submit" class="tobar_bar_btn">{!! processing(
-                                    'addToCart',
-                                    'Add To
-                                                                                                                                    Cart',
-                                ) !!}</button>
+                                <button type="submit" class="tobar_bar_btn">{!! processing('addToCart', 'Add To Cart',) !!}</button>
                             </div>
                         </form>
                     </li>
@@ -85,21 +80,21 @@
                 @if ($maincategory != null)
                     <li>
                         <a
-                            href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->name }}</a>
+                            href="{{ route('front.category.products', ['slug' => $maincategory->slug]) }}">{{ $maincategory->getTranslation('name') }}</a>
                         <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                     </li>
                 @endif
                 @if ($sub_category != null)
                     <li>
                         <a
-                            href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->name }}</a>
+                            href="{{ route('front.category.products', ['slug' => $sub_category->slug]) }}">{{ $sub_category->getTranslation('name') }}</a>
                         <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                     </li>
                 @endif
                 @if ($sub_sub_category != null)
                     <li>
                         <a
-                            href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->name }}</a>
+                            href="{{ route('front.category.products', ['slug' => $sub_sub_category->slug]) }}">{{ $sub_sub_category->getTranslation('name') }}</a>
                         <img src="{{ asset('assets/front/images/icon/right_arrow.svg') }}" alt="right arrow" />
                     </li>
                 @endif
