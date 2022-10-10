@@ -47,4 +47,34 @@ class ChecoutController extends Controller
         return $this->apiResponse->setSuccess("Address Has been added successfully")->setData($address)->getJsonResponse();
 
     }
+    
+    public function updateAddress(Request $request){
+        $rules = [
+            "address_id" => "required|integer|min:1|exists:addresses,id",
+            "first_name" => "nullable|string|min:2",
+            "last_name" => "nullable|string|min:2",
+            "address" => "nullable|string|min:2",
+            "country" => "nullable|string|min:2",
+            "state" => "nullable|string|min:2",
+            "email" => "nullable|email|min:2",
+            "phone" => "nullable|string|min:2",
+            "post_code" => "nullable|string|min:2",
+        ];
+        
+        $validations = Validator::make($request->all(), $rules);
+        
+        if ($validations->errors()->first()) {
+            return $this->apiResponse->setError($validations->errors()->first())->setData()->getJsonResponse();
+        }
+        $data = $validations->validated();
+        $address = $this->addressModel->find($data['address_id']);
+        $address->update($data);
+        return $this->apiResponse->setSuccess("Address Has been updated successfully")->setData($address)->getJsonResponse();
+    }
+
+    public function deleteAddress(Address $address){
+        $address->delete();
+        return $this->apiResponse->setSuccess("Address Has been deleted successfully")->setData($address)->getJsonResponse();
+
+    }
 }

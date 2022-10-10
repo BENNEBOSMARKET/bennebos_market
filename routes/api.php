@@ -55,6 +55,9 @@ Route::group(['middleware'=>["auth:api"]],function(){
     Route::prefix('checkout')->group(function () {
         Route::get('addresses', [ChecoutController::class, 'getAddresses']);
         Route::post('addresses/create', [ChecoutController::class, 'createAddresses']);
+        Route::post('addresses/update', [ChecoutController::class, 'updateAddress']);
+        Route::delete('addresses/delete/{address}', [ChecoutController::class, 'deleteAddress']);
+        
     });
 });
 
