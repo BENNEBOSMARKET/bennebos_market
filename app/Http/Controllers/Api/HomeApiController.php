@@ -6,7 +6,9 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Product;
+use App\Models\State;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use GuzzleHttp\Client;
@@ -95,8 +97,17 @@ class HomeApiController extends Controller
             return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(new CategoryProductCollection($products))->getJsonResponse();
         }catch(Exception $e){
             return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($e->getMessage())->getJsonResponse();
-
+            
         }
         
     }
+    
+    public function getCountries(){
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(Country::all())->getJsonResponse();
+    }
+
+    public function getStates(){
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(State::all())->getJsonResponse();
+    }
+
 }

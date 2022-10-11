@@ -62,6 +62,9 @@ class CartRepository implements CartRepositoryInterface
             $insertData['quantity'] = $quantity + $cartQuantity;
             $insertData['discount'] = $cartDiscount + (($price * $discount)/100)*$quantity;
             $insertData['updated_at'] = date('Y-m-d');
+            $insertData['owner_id'] = $product->user_id;
+            $insertData['user_id'] = Auth::user() ? Auth::id() : null;
+            
 
             try {
                 $cart->update($insertData);
@@ -78,7 +81,10 @@ class CartRepository implements CartRepositoryInterface
             $extra['status'] = 0;
             $extra['color'] = $product->color_id;
             $extra['size'] = $product->size_id;
-            $insertData['created_at'] = date('Y-m-d');
+            $extra['owner_id'] = $product->user_id;
+            $extra['user_id'] = Auth::user() ? Auth::id() : null;
+
+            $extra['created_at'] = date('Y-m-d');
 
             $insertData = $this->processInsertData($formRequest, $extra);
 
