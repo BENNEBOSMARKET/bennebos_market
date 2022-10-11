@@ -237,9 +237,14 @@ class ChecoutController extends Controller
             $this->cartModel->whereIn('owner_id',$request->seller_ids)->delete();
             return $this->apiResponse->setSuccess("order created Successfully")->setData()->getJsonResponse();
         }
-
-
-        /*
-*/
+        
+    }
+    
+    public function deleteOrder(Order $order){
+        if($order->delivery_status == 'pending'){
+            $order->update(['order_status' => "canceled"]);
+            return $this->apiResponse->setSuccess("order Canceled")->setData($order)->getJsonResponse();
+        }
+        return $this->apiResponse->setSuccess("order cannot be canceled because its shipping status")->setData($order)->getJsonResponse();
     }
 }

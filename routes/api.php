@@ -58,6 +58,7 @@ Route::group(['middleware'=>["auth:api"]],function(){
         Route::post('addresses/update', [ChecoutController::class, 'updateAddress']);
         Route::delete('addresses/delete/{address}', [ChecoutController::class, 'deleteAddress']);
         Route::post('order/create', [ChecoutController::class, 'makeOrder']);
+        Route::delete('order/cancel/{order}', [ChecoutController::class, 'deleteOrder']);
         
     });
 });
