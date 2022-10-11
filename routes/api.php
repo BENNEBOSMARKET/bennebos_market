@@ -57,6 +57,7 @@ Route::group(['middleware'=>["auth:api"]],function(){
         Route::post('addresses/create', [ChecoutController::class, 'createAddresses']);
         Route::post('addresses/update', [ChecoutController::class, 'updateAddress']);
         Route::delete('addresses/delete/{address}', [ChecoutController::class, 'deleteAddress']);
+        Route::post('order/create', [ChecoutController::class, 'makeOrder']);
         
     });
 });
@@ -65,6 +66,8 @@ Route::group(['middleware'=>["auth:api"]],function(){
 
 // Home slider and banners
 Route::get('/home/sliderandbanner/{type}',[HomeApiController::class,"homeSliderAndBanner"]);
+Route::get('/countries',[HomeApiController::class,"getCountries"]);
+Route::get('/states',[HomeApiController::class,"getStates"]);
 
 // All category router
 Route::get('categories/all', [HomeApiController::class, 'allCategory']);
