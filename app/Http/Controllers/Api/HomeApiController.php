@@ -106,8 +106,8 @@ class HomeApiController extends Controller
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(Country::all())->getJsonResponse();
     }
 
-    public function getStates(){
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(State::all())->getJsonResponse();
+    public function getStates(Country $country){
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(State::where("country_id", $country->id)->get())->getJsonResponse();
     }
 
 }
