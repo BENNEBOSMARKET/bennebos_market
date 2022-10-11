@@ -24,11 +24,7 @@ phases:
       #      - npm install
       #      - npm run dev
       - composer --version
-<<<<<<< HEAD
       - COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev
-=======
-      - COMPOSER_MEMORY_LIMIT=-1 composer install
->>>>>>> 8c8523016a8786ec97745ba70b59807d62d38faa
       - chmod -R 777 storage/logs
   build:
     commands:
@@ -40,11 +36,7 @@ phases:
       - php -m
       #      - php artisan migrate
       # - php artisan db:seed --class=ServerHealthSeeder --force
-<<<<<<< HEAD
       - COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev
-=======
-      - COMPOSER_MEMORY_LIMIT=-1 composer install
->>>>>>> 8c8523016a8786ec97745ba70b59807d62d38faa
       - php artisan key:generate
       #  - php artisan jwt:secret
       - chown -R www-data:www-data $CODEBUILD_SRC_DIR/storage
