@@ -1,9 +1,5 @@
 <div>
     <style>
-        thead tr {
-            background: rgb(219, 219, 219);
-        }
-
         #customSwitchSuccess {
             font-size: 25px;
         }
