@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Product\ProductCollection;
 use App\Models\Address;
 use App\Models\BusinessSetting;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use App\Models\Wallet;
 use App\Services\IyzicoPayment;
 use Carbon\Carbon;
@@ -153,7 +155,7 @@ class ChecoutController extends Controller
             $data['payment_status'] = "unpaid";
             $order = $this->orderModel->create($data);
 
-            foreach ($cart as $cItem) {
+            foreach ($cart->get() as $cItem) {
                 $order_detail = [
                     "order_id" => $order->id,
                     "seller_id" => $seller_id,
@@ -246,5 +248,15 @@ class ChecoutController extends Controller
             return $this->apiResponse->setSuccess("order Canceled")->setData($order)->getJsonResponse();
         }
         return $this->apiResponse->setSuccess("order cannot be canceled because its shipping status")->setData($order)->getJsonResponse();
+    }
+    
+    public function getOrders(){
+        return $this->apiResponse->setSuccess("orders loaded successfully")->setData($this->orderModel->where('user_id',Auth::id())->get())->getJsonResponse();
+    }
+    public function getOrderProducts(Order $order){
+        $order_details_products = $this->orderDetailsModel->where('order_id',$order->id)->pluck("product_id");
+        return $this->apiResponse->setSuccess("order products loaded successfully")->setData(new ProductCollection(Product::whereIn('id',$order_details_products)->get()))->getJsonResponse();
+        
+
     }
 }
