@@ -70,7 +70,7 @@ Route::group(['middleware'=>["auth:api"]],function(){
 // Home slider and banners
 Route::get('/home/sliderandbanner/{type}',[HomeApiController::class,"homeSliderAndBanner"]);
 Route::get('/countries',[HomeApiController::class,"getCountries"]);
-Route::get('/states',[HomeApiController::class,"getStates"]);
+Route::get('/states/{country}',[HomeApiController::class,"getStates"]);
 
 // All category router
 Route::get('categories/all', [HomeApiController::class, 'allCategory']);
