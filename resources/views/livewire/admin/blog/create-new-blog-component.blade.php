@@ -1,8 +1,5 @@
 <div>
     <style>
-        thead tr {
-            background: rgb(219, 219, 219);
-        }
         input.sinput {
             width: 275px;
             padding: 10px;
