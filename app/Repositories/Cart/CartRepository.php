@@ -1,4 +1,5 @@
 <?php
+
 /**
  * created by: tushar Khan
  * email : tushar.khan0122@gmail.com
@@ -27,7 +28,7 @@ class CartRepository implements CartRepositoryInterface
 
         $ip = $formRequest->has('ip_address') ? $formRequest->input('ip_address') : "";
 
-        if( strlen($ip)  == 0 ) $condition = ['user_id' => Auth::id()];
+        if (strlen($ip)  == 0) $condition = ['user_id' => Auth::id()];
         else $condition['ip_address'] = $ip;
 
         $product = Product::find($formRequest->product_id);
@@ -42,16 +43,16 @@ class CartRepository implements CartRepositoryInterface
         $discount = $formRequest->has('discount') ? $formRequest->input('discount') : 0;
 
 
-        if ( $formRequest->has('tax') )
+        if ($formRequest->has('tax'))
             $insertData['tax'] = $formRequest->input('tax');
 
-        if ( $formRequest->has('shipping_cost') )
+        if ($formRequest->has('shipping_cost'))
             $insertData['shipping_cost'] = $formRequest->input('shipping_cost');
 
-        if ( $formRequest->has('coupon_code') )
+        if ($formRequest->has('coupon_code'))
             $insertData['coupon_code'] = $formRequest->input('coupon_code');
 
-        if ( $cart->count() > 0 ){
+        if ($cart->count() > 0) {
             $cartObject = $cart->first();
             $cartId = $cartObject->id;
             $cartPrice = $cartObject->price ?? 0;
@@ -60,24 +61,24 @@ class CartRepository implements CartRepositoryInterface
 
             $insertData['price'] = ($price * $quantity) + $cartPrice;
             $insertData['quantity'] = $quantity + $cartQuantity;
-            $insertData['discount'] = $cartDiscount + (($price * $discount)/100)*$quantity;
+            $insertData['discount'] = $cartDiscount + (($price * $discount) / 100) * $quantity;
             $insertData['updated_at'] = date('Y-m-d');
             $insertData['owner_id'] = $product->user_id;
             $insertData['user_id'] = Auth::user() ? Auth::id() : null;
-            
+
 
             try {
                 $cart->update($insertData);
 
                 return Cart::with(['product_size', 'product_color'])->find($cartId);
-            } catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 return false;
             }
         } else {
 
             $extra['price'] = $price * $quantity;
             $extra['quantity'] = $quantity;
-            $extra['discount'] = (($price * $discount)/100)*$quantity;;
+            $extra['discount'] = (($price * $discount) / 100) * $quantity;;
             $extra['status'] = 0;
             $extra['color'] = $product->color_id;
             $extra['size'] = $product->size_id;
@@ -90,7 +91,7 @@ class CartRepository implements CartRepositoryInterface
 
             try {
                 return Cart::create($insertData);
-            } catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 return false;
             }
         }
@@ -115,18 +116,18 @@ class CartRepository implements CartRepositoryInterface
         $ipAddress = $formRequest->has('ip_address') ? $formRequest->input('ip_address') : $formRequest->ip();
         $responseData = [];
 
-        foreach ($productIds as $ind => $productId){
+        foreach ($productIds as $ind => $productId) {
             $condition   = [
                 'product_id' => $productId,
             ];
 
-            $ip = ( $formRequest->has('user_id') ) ? $formRequest->input('ip_address') : $formRequest->ip();
+            $ip = ($formRequest->has('user_id')) ? $formRequest->input('ip_address') : $formRequest->ip();
 
-            if( isset($userIds[$ind]) && ! empty($userIds[$ind]) ) $condition = ['user_id' => $userIds[$ind]];
+            if (isset($userIds[$ind]) && !empty($userIds[$ind])) $condition = ['user_id' => $userIds[$ind]];
             else $condition['ip_address'] = $ip;
 
-            if ( isset($colors[$ind]) && ! empty($colors[$ind]) ) $condition['color'] = $colors[$ind];
-            if ( isset($sizes[$ind]) && ! empty($sizes[$ind]) ) $condition['size'] = $sizes[$ind];
+            if (isset($colors[$ind]) && !empty($colors[$ind])) $condition['color'] = $colors[$ind];
+            if (isset($sizes[$ind]) && !empty($sizes[$ind])) $condition['size'] = $sizes[$ind];
 
             $cart = DB::table('carts')
                 ->where($condition);
@@ -137,19 +138,19 @@ class CartRepository implements CartRepositoryInterface
 
             $insertData = [];
 
-            if ( isset($statuss[$ind]) && ! empty($statuss[$ind]) )
+            if (isset($statuss[$ind]) && !empty($statuss[$ind]))
                 $insertData['status'] = $statuss[$ind];
 
-            if ( isset($taxs[$ind]) && ! empty($taxs[$ind]) )
+            if (isset($taxs[$ind]) && !empty($taxs[$ind]))
                 $insertData['tax'] = $taxs[$ind];
 
-            if ( isset($shippingCosts[$ind]) && ! empty($shippingCosts[$ind]) )
+            if (isset($shippingCosts[$ind]) && !empty($shippingCosts[$ind]))
                 $insertData['shipping_cost'] = $shippingCosts[$ind];
 
-            if ( isset($couponCodes[$ind]) && ! empty($couponCodes[$ind]) )
+            if (isset($couponCodes[$ind]) && !empty($couponCodes[$ind]))
                 $insertData['coupon_code'] = $couponCodes[$ind];
 
-            if ( $cart->count() > 0 ){
+            if ($cart->count() > 0) {
                 $cartId = $cart->first()->id;
                 $cartPrice = $cart->first()->price ?? 0;
                 $cartQuantity = $cart->first()->quantity ?? 1;
@@ -157,7 +158,7 @@ class CartRepository implements CartRepositoryInterface
 
                 $insertData['price'] = ($price * $quantity) + $cartPrice;
                 $insertData['quantity'] = $quantity + $cartQuantity;
-                $insertData['discount'] = $cartDiscount + (($price * $discount)/100)*$quantity;
+                $insertData['discount'] = $cartDiscount + (($price * $discount) / 100) * $quantity;
                 $insertData['updated_at'] = date('Y-m-d');
                 $insertData['ip_address'] = $ipAddress;
 
@@ -165,26 +166,26 @@ class CartRepository implements CartRepositoryInterface
                     $cart->update($insertData);
 
                     $responseData[] = $cartId;
-                } catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     return false;
                 }
             } else {
                 $insertData['price'] = $price * $quantity;
                 $insertData['quantity'] = $quantity;
-                $insertData['discount'] = (($price * $discount)/100)*$quantity;;
+                $insertData['discount'] = (($price * $discount) / 100) * $quantity;;
                 $insertData['status'] = 0;
                 $insertData['created_at'] = date('Y-m-d');
 
                 $insertData['owner_id'] = $ownerIds[$ind];
                 $insertData['product_id'] = $productIds[$ind];
-                if ( isset($userIds[$ind]) && ! empty($userIds[$ind]) )
+                if (isset($userIds[$ind]) && !empty($userIds[$ind]))
                     $insertData['user_id'] = $userIds[$ind];
-                    $insertData['ip_address'] = $ip;
+                $insertData['ip_address'] = $ip;
 
-                if ( isset($colors[$ind]) && ! empty($colors[$ind]) )
+                if (isset($colors[$ind]) && !empty($colors[$ind]))
                     $insertData['color'] = $colors[$ind];
 
-                if ( isset($sizes[$ind]) && ! empty($sizes[$ind]) )
+                if (isset($sizes[$ind]) && !empty($sizes[$ind]))
                     $insertData['size'] = $sizes[$ind];
 
                 $insertData['ip_address'] = $ipAddress;
@@ -192,7 +193,7 @@ class CartRepository implements CartRepositoryInterface
                 try {
                     $id  = DB::table('carts')->insertGetId($insertData);
                     $responseData[] = $id;
-                } catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     return false;
                 }
             }
@@ -202,14 +203,15 @@ class CartRepository implements CartRepositoryInterface
     }
 
 
-    private function processInsertData(FormRequest $formRequest, $extra = null){
+    private function processInsertData(FormRequest $formRequest, $extra = null)
+    {
         $insertData = [];
         $insertData['owner_id'] = $formRequest->input('owner_id');
         $insertData['product_id'] = $formRequest->input('product_id');
 
-        if ( $formRequest->has('user_id') )
+        if ($formRequest->has('user_id'))
             $insertData['user_id'] = $formRequest->input('user_id');
-        if ( $formRequest->has('ip_address') )
+        if ($formRequest->has('ip_address'))
             $insertData['ip_address'] = $formRequest->input('ip_address');
 
         /*if ( $formRequest->has('color') )
@@ -229,10 +231,12 @@ class CartRepository implements CartRepositoryInterface
     {
         $condition = [];
 
-        if( $formRequest->has('user_id') ) $condition['user_id'] = $formRequest->input('user_id');
-        if ( $formRequest->has('ip_address') ) $condition['ip_address'] = $formRequest->input('ip_address');
+        if (auth()->user()) {
+            $condition['user_id'] = Auth::id();
+        }
+        if ($formRequest->has('ip_address')) $condition['ip_address'] = $formRequest->input('ip_address');
 
-        if( count($condition) > 0 ){
+        if (count($condition) > 0) {
             DB::table('carts')->where($condition)->delete();
         }
     }
@@ -240,16 +244,7 @@ class CartRepository implements CartRepositoryInterface
 
     public function removeProduct(FormRequest $formRequest)
     {
-        $cart_ids = $formRequest->input('cart_id');
-        $productIds = $formRequest->input('product_id');
-
-        foreach ($cart_ids as $ind => $value){
-            DB::table('carts')
-                ->where([
-                    'id' => $value,
-                    'product_id' => $productIds[$ind]
-                ])->delete();
-        }
+        DB::table('carts')->where("id",$formRequest->input('cart_id'))->delete();
     }
 
 
@@ -259,15 +254,15 @@ class CartRepository implements CartRepositoryInterface
 
         $updateData = [];
 
-        if( Auth::check() ){
+        if (Auth::check()) {
             $updateData['user_id'] = Auth::id();
         }
 
         $cart = Cart::where([
-                'ip_address' => $ip_address
-            ]);
+            'ip_address' => $ip_address
+        ]);
 
-        if( $cart->count() > 0 ){
+        if ($cart->count() > 0) {
             $cart->update($updateData);
         }
 
@@ -279,14 +274,13 @@ class CartRepository implements CartRepositoryInterface
     {
         $condition = [];
 
-        if( $request->has('user_id') ){
+        if ($request->has('user_id')) {
             $condition['user_id'] = $request->input('user_id');
-        } else if( $request->has('ip_address') ){
-            $condition['ip_address'] = $request->input('ip_address') ;
+        } else if ($request->has('ip_address')) {
+            $condition['ip_address'] = $request->input('ip_address');
         }
 
 
         return Cart::where($condition)->get();
     }
-
 }
