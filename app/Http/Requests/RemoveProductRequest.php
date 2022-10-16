@@ -26,10 +26,7 @@ class RemoveProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'cart_id' => 'required|array',
-            'cart_id.*' => 'exists:carts,id',
-            'product_id' => 'required|array',
-            'product_id.*' => 'exists:products,id',
+            'cart_id' => 'required|exists:carts,id',
         ];
     }
 
