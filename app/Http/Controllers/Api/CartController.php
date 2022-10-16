@@ -64,7 +64,7 @@ class CartController extends Controller
     {
         $this->cartRepository->removeProduct($removeProductRequest);
 
-        return $this->apiResponse->setSuccess(__("Product(s) removed successfully"))->setData()->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Product removed successfully"))->setData()->getJsonResponse();
     }
 
 
