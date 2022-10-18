@@ -54,7 +54,7 @@ class CreateNewBlogComponent extends Component
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
             $this->banner->storeAs('imgs/blogs', $imageName, 's3');
-            $blog->banner = "https://souketwensa.s3.amazonaws.com/" . 'imgs/blogs/' . $imageName;
+            $blog->banner = env('AWS_BUCKET_URL') . 'imgs/blogs/' . $imageName;
         }
 
         $blog->save();
