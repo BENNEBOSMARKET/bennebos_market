@@ -39,7 +39,7 @@ class BottomBannerComponent extends Component
 
         $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/banner', $imageName, 's3');
-        $data->banner = env('AWS_BUCKET_URL') . 'imgs/banner/' . $imageName;
+        $data->banner = "https://souketwensa.s3.amazonaws.com/" . 'imgs/banner/' . $imageName;
 
         $data->save();
 
@@ -78,7 +78,7 @@ class BottomBannerComponent extends Component
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
             $this->banner->storeAs('imgs/banner', $imageName, 's3');
-            $data->banner = env('AWS_BUCKET_URL') . 'imgs/category/' . $imageName;
+            $data->banner = "https://souketwensa.s3.amazonaws.com/" . 'imgs/category/' . $imageName;
         }
 
         $data->save();
