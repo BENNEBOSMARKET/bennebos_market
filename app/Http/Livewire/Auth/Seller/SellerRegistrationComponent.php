@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Auth\Seller;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Referral;
 use App\Models\Seller;
 use App\Models\SellerWallet;
 use App\Models\Shop;
@@ -16,7 +17,7 @@ use Illuminate\Support\Str;
 
 class SellerRegistrationComponent extends Component
 {
-    public $first_name, $last_name, $email, $password, $confirm_password, $shop_name,$shop_address, $phone, $category, $tin, $country_id, $reference_code, $state_id, $company_type, $checkbox;
+    public $first_name, $last_name, $email, $password, $confirm_password, $shop_name,$shop_address, $phone, $category, $tin, $country_id, $reference_code, $state_id, $company_type, $referral_code, $checkbox;
 
     public function mount()
     {
@@ -45,6 +46,7 @@ class SellerRegistrationComponent extends Component
             'confirm_password' => 'required',
             'shop_name' => 'required',
             'shop_address' => 'required',
+            'referral_code' => 'nullable',
             'checkbox' => 'required',
             'tin' => 'required',
         ],[
@@ -54,6 +56,7 @@ class SellerRegistrationComponent extends Component
 
     public function signUp()
     {
+        
         if (Auth::guard('web')->check()) {
             $this->validate([
                 'first_name' => 'required',
@@ -67,6 +70,7 @@ class SellerRegistrationComponent extends Component
                 'password' => 'required',
                 'confirm_password' => 'required',
                 'shop_name' => 'required',
+                'referral_code' => 'nullable',
                 'shop_address' => 'required',
                 'checkbox' => 'required',
                 'tin' => 'required',
@@ -80,6 +84,7 @@ class SellerRegistrationComponent extends Component
             $seller->name = $this->first_name.' '.$this->last_name;
             $seller->email = $this->email;
             $seller->phone = $this->phone;
+            $seller->referral_code = $this->referral_code;
             $seller->password = user()->password;
             $seller->save();
 
@@ -100,8 +105,16 @@ class SellerRegistrationComponent extends Component
             $shop->state_id = $this->state_id;
             $shop->reference_code = $this->reference_code;
             $shop->verification_status = 0;
-
+    
             $shop->save();
+            if(!is_null($this->referral_code)){
+                $referral_data = Referral::where("referral_code",$this->referral_code)->first();
+                if($referral_data){
+                    $referral_data->increment('sellers_count');
+                    $referral_data->refresh();
+                }
+            }
+            
             Auth::guard('seller')->login($seller);
 
             $this->dispatchBrowserEvent('success', ['message' => 'Registration Successfull']);
@@ -133,6 +146,7 @@ class SellerRegistrationComponent extends Component
             $seller->email = $this->email;
             $seller->phone = $this->phone;
             $seller->password = Hash::make($this->password);
+            $seller->referral_code = $this->referral_code;
             $seller->save();
 
             $wallet = new SellerWallet();
@@ -154,6 +168,14 @@ class SellerRegistrationComponent extends Component
             $shop->verification_status = 0;
 
             $shop->save();
+
+            if(!is_null($this->referral_code)){
+                $referral_data = Referral::where("referral_code",$this->referral_code)->first();
+                if($referral_data){
+                    $referral_data->increment('sellers_count');
+                    $referral_data->refresh();
+                }
+            }
             Auth::guard('seller')->attempt(['email' => $this->email, 'password' => $this->password]);
 
             $this->dispatchBrowserEvent('success', ['message' => 'Registration Successfull']);
