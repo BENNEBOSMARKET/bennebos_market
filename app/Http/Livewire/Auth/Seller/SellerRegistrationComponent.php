@@ -84,6 +84,7 @@ class SellerRegistrationComponent extends Component
             $seller->name = $this->first_name.' '.$this->last_name;
             $seller->email = $this->email;
             $seller->phone = $this->phone;
+            $seller->referral_code = $this->referral_code;
             $seller->password = user()->password;
             $seller->save();
 
@@ -145,8 +146,9 @@ class SellerRegistrationComponent extends Component
             $seller->email = $this->email;
             $seller->phone = $this->phone;
             $seller->password = Hash::make($this->password);
+            $seller->referral_code = $this->referral_code;
             $seller->save();
-            
+
             $wallet = new SellerWallet();
             $wallet->seller_id = $seller->id;
             $wallet->save();
