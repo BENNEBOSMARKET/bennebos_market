@@ -195,6 +195,13 @@
                         </div>
                         <div class="modal_form_item_grid">
                             <div class="input_row">
+                                <label for="">Referral Code</label>
+                                <input type="number" placeholder="Enter Our Client Referral Code" wire:model="referral_code" />
+                                @error('referral_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="input_row">
                                 <div
                                     class="custom_checkbox_area d-flex align-items-center justify-content-between flex-wrap-wrap g-sm">
                                     <label class="checkbox_wrapper">{{ __('auth.agree_with') }}

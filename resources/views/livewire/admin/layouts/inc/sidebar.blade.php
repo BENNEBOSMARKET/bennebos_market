@@ -580,6 +580,25 @@
                             </div>
                         </li>
 
+                        {{-- Marketing Referral --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebar-referrals" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebar-referrals">
+                                <i class="ti ti-settings menu-icon"></i>
+                                <span>Marketing Referrals</span>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/referrals') || request()->is('admin/referrals/*') ? 'show' : '' }}"
+                                id="sidebar-referrals">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.referrals') }}"
+                                            class="nav-link {{ request()->is('admin/referrals')  ? 'active' : '' }}">
+                                            Show Marketing Referrals</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
 
                     </ul>
                 </div>
