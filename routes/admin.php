@@ -54,6 +54,7 @@ use App\Http\Livewire\Admin\Profile\ProfileSettingComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationCategoryComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationComponent;
 use App\Http\Livewire\Admin\Qutotation\QutotationDetailComponent;
+use App\Http\Livewire\Admin\Referrals\ReferralComponent;
 use App\Http\Livewire\Admin\Refund\AcceptedRefundRequestComponent;
 use App\Http\Livewire\Admin\Refund\RefundConfigurationComponent;
 use App\Http\Livewire\Admin\Refund\RefundRequestComponent;
@@ -248,4 +249,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     //Commission History
     Route::get('/commission-history', SellerCommissionComponent::class)->name('commission.history');
+    
+    //Marketing Referrals
+    Route::get('/referrals', ReferralComponent::class)->name('referrals');
 });
