@@ -120,7 +120,7 @@
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">referral code</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="number" wire:model="referral_code" placeholder="Enter referral code">
+                                <input class="form-control" type="text" wire:model="referral_code" placeholder="Enter referral code">
                                 @error('referral_code')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -164,7 +164,7 @@
                                 class="col-sm-3 col-form-label">referral code
                                 </label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="number" wire:model="referral_code" placeholder="Enter referral code" />
+                                <input class="form-control" type="text" wire:model="referral_code" placeholder="Enter referral code" />
                                 @error('referral_code')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
