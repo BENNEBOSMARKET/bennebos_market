@@ -29,6 +29,7 @@ use App\Http\Livewire\Admin\Cms\ManageProductComponent;
 use App\Http\Livewire\Admin\Cms\MiddleBannerComponent;
 use App\Http\Livewire\Admin\Cms\ReportMapComponent;
 use App\Http\Livewire\Admin\Cms\ReportMapComponentV2;
+use App\Http\Livewire\Admin\Cms\RightGridBannerComponent;
 use App\Http\Livewire\Admin\Cms\SearchComponent;
 use App\Http\Livewire\Admin\CompanyInfo\CompanyCategoryComponent;
 use App\Http\Livewire\Admin\CompanyInfo\CompanyInfoComponent;
@@ -234,10 +235,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/cms/report-map', ReportMapComponentV2::class)->name('reportMap');
     Route::get('/cms/report-map/upload', ReportMapComponent::class);
     Route::get('/cms/middle-banner', MiddleBannerComponent::class)->name('middle-banner');
+    Route::get('/cms/right-grid-banner', RightGridBannerComponent::class)->name('right-grid-banner');
     Route::get('/cms/bottom-banner', BottomBannerComponent::class)->name('bottom-banner');
     Route::get('/cms/customer/search', SearchComponent::class)->name('recent.search');
     Route::get('/cms/manage/home/product', ManageProductComponent::class)->name('manage.product');
     Route::get('/cms/big-deals', BigDealsComponent::class)->name('bigDeals');
+    
 
     // contact Message
     Route::get('/contact/message', ContactUsComponent::class)->name('contact.us.message');

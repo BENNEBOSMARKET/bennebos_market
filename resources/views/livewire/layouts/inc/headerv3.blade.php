@@ -1008,7 +1008,7 @@
                         </div>
                         <div class="hero_right_side_area">
                             <a href="#" class="text-center">
-                                <img src="{{ asset('assets/front/images/home/hero_right_side_img.png') }}"
+                                <img src="{{ asset($rightGridBanner) }}"
                                     alt="hero right image" class="hero_right_img" />
                             </a>
                             <div class="hero_divide_line_grid_area">

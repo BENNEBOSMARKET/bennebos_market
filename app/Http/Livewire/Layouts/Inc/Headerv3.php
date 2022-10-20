@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\RightGridBanner;
 use App\Models\Searches;
 use App\Models\TopBanner;
 use App\Models\WebsiteSetting;
@@ -131,6 +132,12 @@ class Headerv3 extends Component
         $popularSearches = Searches::select('query')->orderBy('count', 'DESC')->limit(25)->get();
 
         $topBanners = TopBanner::orderBy('id', 'DESC')->get();
+        $rightGridBanner = RightGridBanner::orderBy('id', 'DESC')->first();
+        if($rightGridBanner){
+            $rightGridBanner = $rightGridBanner->banner;
+        }else{
+            $rightGridBanner = "assets/front/images/home/hero_right_side_img.png";
+        }
         $right_sliders = Product::where('right_slider', 1)
             ->select('slug', 'thumbnail')
             ->where('status', 1)
@@ -157,6 +164,7 @@ class Headerv3 extends Component
         }
         return view('livewire.layouts.inc.headerv3', [
             'cartItems' => $cartItems,
+            'rightGridBanner' => $rightGridBanner,
             'allCategories' => $allCategories,
             'popularSearches' => $popularSearches,
             'brands' => $brands,
