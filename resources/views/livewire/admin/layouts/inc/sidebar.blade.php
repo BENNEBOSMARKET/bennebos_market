@@ -463,6 +463,12 @@
                                         class="nav-item {{ request()->is('admin/cms/middle-banner/') || request()->is('admin/cms/middle-banner/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.middle-banner') }}" class="nav-link">Middle Banner</a>
                                     </li>
+
+                                    <li
+                                        class="nav-item {{ request()->is('admin/cms/right-grid-banner/') || request()->is('admin/cms/right-grid-banner/*') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.right-grid-banner') }}" class="nav-link">Right Grid Banner</a>
+                                    </li>
+
                                     <li
                                         class="nav-item {{ request()->is('admin/cms/bottom-banner/') || request()->is('admin/cms/bottom-banner/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.bottom-banner') }}" class="nav-link">Bottom Banner</a>
