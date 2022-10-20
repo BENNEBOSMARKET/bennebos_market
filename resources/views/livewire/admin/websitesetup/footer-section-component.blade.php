@@ -77,6 +77,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="mb-3 row">
+                                <label for="example-number-input" class="col-sm-3 col-form-label">Instagram Url</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control mb-2" type="text" wire:model="instagram" placeholder="Enter url">
+                                    @error('instagram')
+                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="mb-3 row mt-4">
                                 <div class="col-md-12" style="text-align: right;">
                                     <button class="btn btn-primary" style="width: 100px;">{!! loadingStateWithText('updateHeader', 'Update') !!}</button>
