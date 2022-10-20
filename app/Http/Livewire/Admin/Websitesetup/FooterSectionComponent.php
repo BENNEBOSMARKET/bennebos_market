@@ -10,7 +10,7 @@ use Livewire\WithFileUploads;
 class FooterSectionComponent extends Component
 {
     use WithFileUploads;
-    public $logo, $uploadedLogo, $facebook_url, $twitter_url, $whatsapp_url, $linkedin_url;
+    public $logo, $uploadedLogo, $instagram, $facebook_url, $twitter_url, $whatsapp_url, $linkedin_url;
 
     public function mount()
     {
@@ -21,6 +21,7 @@ class FooterSectionComponent extends Component
             $this->twitter_url = $setting->twitter_url;
             $this->whatsapp_url = $setting->whatsapp_url;
             $this->linkedin_url  = $setting->linkedin_url ;
+            $this->instagram  = $setting->instagram ;
         }
     }
 
@@ -32,6 +33,8 @@ class FooterSectionComponent extends Component
             'twitter_url'=>'required',
             'whatsapp_url'=>'required',
             'linkedin_url'=>'required',
+            'instagram'=>'required',
+            
         ]);
     }
 
@@ -43,6 +46,7 @@ class FooterSectionComponent extends Component
             'twitter_url'=>'required',
             'whatsapp_url'=>'required',
             'linkedin_url'=>'required',
+            'instagram'=>'required',
         ]);
 
         $setting = WebsiteSetting::where('id', 1)->first();
@@ -56,6 +60,8 @@ class FooterSectionComponent extends Component
         $setting->twitter_url = $this->twitter_url;
         $setting->whatsapp_url = $this->whatsapp_url;
         $setting->linkedin_url = $this->linkedin_url;
+        $setting->instagram = $this->instagram;
+        
         $setting->save();
 
         $this->dispatchBrowserEvent('success', ['message'=>'Setting updated successfully']);
