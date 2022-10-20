@@ -231,13 +231,13 @@ return [
     'how_to_buy' => 'How to Buy',
     'returns_and_refunds' => 'Returns and Refunds',
     'contact_us' => 'Contact Us',
-    'terms_and_onditions' => 'DISTANCE SALES AGREEMENT',
+    'terms_and_onditions' => 'Distance sales agreement',
 
     'about_us' => 'About Us',
     'about_bennebos' => 'About Bennebos',
     'about_our_group' => 'About Our Group',
     'become_seller' => 'Become a Seller',
-    'our_blog' => 'Our Blog',
+    'our_blog' => 'Our Blogs',
     'our_apps' => 'Our Apps',
     'privacy_policy' => 'Privacy Policy',
 
@@ -251,7 +251,7 @@ return [
     'download_by' => 'Download By',
     'google_play' => 'Google Play',
     'app_store' => 'App Store',
-    'call_us' => 'Call us',
+    'call_us' => 'Contact Us',
 
     // Contact Us Page
     'contact_slugan' => 'We would love to respond to your queries and help you succeed. Feel free to get in touch with us.',

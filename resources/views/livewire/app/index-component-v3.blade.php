@@ -478,9 +478,7 @@
 
     <!-- Big Deals Section  -->
     <section class="big_deals_wrapper default_section_gap">
-        <div class="my-container">
-            <h3 class="page_title">Big Deals</h3>
-        </div>
+        
         <div class="big_deals_inner_wrapper">
             <div class="my-container">
                 <div class="big_deals_slider_grid">
