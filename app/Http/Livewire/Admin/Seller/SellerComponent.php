@@ -182,7 +182,7 @@ class SellerComponent extends Component
     public function render()
     {
         $profile = Seller::find($this->seller_id);
-        $sellers = Seller::where('name', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
+        $sellers = Seller::where('name', 'LIKE', '%' . $this->searchTerm . '%')->orWhere('referral_code', $this->searchTerm)->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.seller.seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
     }
 }
