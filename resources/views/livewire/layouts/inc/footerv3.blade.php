@@ -14,14 +14,22 @@
                                     alt="footer social" />
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ $setting->twitter_url }}" target="_blank">
                                 <img src="{{ asset('assets/front/images/footer/social_icon_2.svg') }}"
                                     alt="footer social" />
                             </a>
-                        </li>
+                        </li> --}}
+                        
                         <li>
-                            <a href="{{ $setting->whatsapp_url }}" target="_blank">
+                            <a href="{{ $setting->instagram }}" target="_blank">
+                                <img src="{{ asset('assets/front/images/footer/social_icon_5.svg') }}"
+                                    alt="footer social" />
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://api.whatsapp.com/send?phone={{ $setting->whatsapp_url }}" target="_blank">
                                 <img src="{{ asset('assets/front/images/footer/social_icon_3.svg') }}"
                                     alt="footer social" />
                             </a>
