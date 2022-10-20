@@ -196,7 +196,7 @@
                         <div class="modal_form_item_grid">
                             <div class="input_row">
                                 <label for="">Referral Code</label>
-                                <input type="number" placeholder="Enter Our Client Referral Code" wire:model="referral_code" />
+                                <input type="text" placeholder="Enter Our Client Referral Code" wire:model="referral_code" />
                                 @error('referral_code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
