@@ -73,8 +73,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         $mainProduct = Product::find($productId);
 
-        $product = Product::withCount(['wishlists'])
-            ->with(['category', 'brand', 'reviews'])
+        $product = Product::with(['category', 'brand', 'reviews'])
             ->where('size_id', $sizeId)
             ->where('main_product_id', $mainProduct->main_product_id);
 
