@@ -34,10 +34,9 @@ class ProductController extends Controller
         try {
 
             $products = $this->repository->model
-            ->withCount('wishlists')
             ->where('status',1)
             ->paginate($request->limit);
-
+            
             return $this->apiResponse->setSuccess("products_listed_successfully")
                 ->setData(new CategoryProductCollection($products))
                 ->getJsonResponse();
@@ -49,7 +48,6 @@ class ProductController extends Controller
 
     public function getSingleProduct($product_id){
         try {
-
             $product = $this->repository->getSingleProduct($product_id);
             return $this->apiResponse->setSuccess("product_loaded_successfully")
                 ->setData(new ProductResource($product))
