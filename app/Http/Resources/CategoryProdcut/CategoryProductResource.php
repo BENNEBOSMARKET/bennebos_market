@@ -28,7 +28,7 @@ class CategoryProductResource extends JsonResource
             "meta_title" => $this->meta_title,
             "featured" => (bool)$this->featured,
             "is_favourite" => isset($this->wishlists_count) ? (bool)$this->wishlists_count : false,
-            "company_name" => $this->seller->name
+            "company_name" => !is_null($this->seller) ? $this->seller->name: null
         ];
     }
 }
