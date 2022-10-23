@@ -417,7 +417,7 @@
                                             <h4 class="proudct_description">{{ $details->quantity }}</h4>
                                         </td>
                                         <td>
-                                            <h4 class="proudct_description">$ {{ $details->price }} </h4>
+                                            <h4 class="proudct_description">TL {{ $details->price }} </h4>
                                         </td>
                                     </tr>
                                     @php $total += ($details->quantity * $details->products->unit_price) @endphp
@@ -440,15 +440,15 @@
                     <td class="footer_price_wrapper">
                         <div class="footer_price_area">
                             <h4 class="float_left">Sub Total &nbsp;:</h4>
-                            <h4 class="float_left">$ {{ $total }} </h4>
+                            <h4 class="float_left">TL {{ $total }} </h4>
                         </div>
                         <div class="footer_price_area">
                             <h4 class="float_left clear_both">Dicount &nbsp;:</h4>
-                            <h4 class="float_left">${{ $order->discount ?? 0 }}</h4>
+                            <h4 class="float_left">TL {{ $order->discount ?? 0 }}</h4>
                         </div>
                         <div class="footer_total_price_area">
                             <h4 class="float_left">Total &nbsp;:</h4>
-                            <h4 class="float_left">${{ $order->grand_total ?? 0 }}</h4>
+                            <h4 class="float_left">TL {{ $order->grand_total ?? 0 }}</h4>
                         </div>
                     </td>
                 </tr>
