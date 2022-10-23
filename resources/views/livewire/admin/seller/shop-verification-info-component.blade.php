@@ -70,7 +70,7 @@
                                             <td style="width: 20%; font-weight: bold;">Tax Papers</td>
                                             <td>
                                                 @foreach (json_decode($verificationInfo->tax_papers) as $paper)
-                                                    {{ $paper }} <a href="{{ $paper }}"><i class="fa fa-download"></i></a> <br>
+                                                    {{ $paper }} <a href="{{ $paper }}" download><i class="fa fa-download"></i></a> <br>
                                                 @endforeach
                                             </td>
                                         </tr>
