@@ -57,7 +57,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     // Index Page
-    'my_markets' => 'MY MARKETS',
+    'my_markets' => 'Categories',
     'index_hot_seller' => 'Hot seller',
     'index_new_trends_release' => 'New trends release',
     'off_or_more' => '10% off or more',

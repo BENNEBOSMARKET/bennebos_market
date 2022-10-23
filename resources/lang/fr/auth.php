@@ -48,7 +48,7 @@ return [
    'password' => 'Le mot de passe fourni est incorrect.',
    'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :secondes secondes.',
    // Index Page
-   'my_markets' => 'MON MARCHÉ',
+   'my_markets' => 'Catégories',
    'index_hot_seller' => 'Article qui se vend bien ',
    'index_new_trends_release' => 'Lancement de nouveautés.',
    'off_or_more' => '10 % de réduction ou plus',
