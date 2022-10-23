@@ -1,3 +1,4 @@
+
 <div>
     <div class="left-sidebar">
         <!-- LOGO -->
@@ -28,10 +29,12 @@
                 <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
                     
                     <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
+                        @if(auth()->user()->role != "sub-admin" )
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.home') }}"><i
                                     class="ti ti-dashboard menu-icon"></i><span>Dashboard</span></a>
                         </li>
+                        @endif
 
                         <!-- Products -->
                         <li class="nav-item">
