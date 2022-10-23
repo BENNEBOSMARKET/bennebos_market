@@ -56,7 +56,7 @@ return [
  'throttle' => 'Çok fazla giriş denemesi yapıldı. Lütfen birkaç saniye sonra tekrar deneyiniz.',
  
  // Index Page
- 'my_markets' => 'PİYASALAR',
+ 'my_markets' => 'Kategoriler',
  'index_hot_seller' => 'En aktif satıcı',
  'index_new_trends_release' => 'Yeni trendler sürümü',
  'off_or_more' => '%10 veya daha fazla indirim',
