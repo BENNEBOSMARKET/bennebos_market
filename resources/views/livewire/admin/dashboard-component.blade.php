@@ -1,3 +1,4 @@
+@if(auth()->user()->role != "sub-admin" )
 <div>
     <div class="container-fluid">
         <!-- Page-Title -->
@@ -471,7 +472,7 @@
     <!--end Rightbar/offcanvas-->
     <!--end Rightbar-->
 </div>
-
+@endif
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 
