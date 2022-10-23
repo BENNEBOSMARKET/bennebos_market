@@ -71,7 +71,7 @@ class ShopVerificationComponent extends Component
                 foreach($this->taxpapers as $key => $taxpaper){
                     $fileName = Carbon::now()->timestamp . $key . '.' . $this->taxpapers[$key]->extension();
                     $this->taxpapers[$key]->storeAs('imgs/documents', $fileName, 's3');
-                    $files[] = $fileName;
+                    $files[] = env("AWS_BUCKET_URL","https://bennebos.s3.amazonaws.com/") . 'imgs/documents/' . $fileName;
                 }
             }
             $verification->tax_papers = json_encode($files);
