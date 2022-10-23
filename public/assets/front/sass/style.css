@@ -335,6 +335,9 @@
   width: 100% !important;
   margin: 0;
 }
+.best_big_text_deal_area span {
+  font-size: 25px;
+}
 .header_wrapper .topbar_wrapper,
 .header_wrapper .navbar_wrapper {
   transition: all 0.5s ease;
