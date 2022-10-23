@@ -15,6 +15,7 @@ use App\Http\Livewire\Admin\Seller\SellerProfileComponent;
 use App\Http\Livewire\Admin\Profile\ProfileComponent;
 use App\Http\Livewire\Admin\Administrator\AdministratorComponent;
 use App\Http\Livewire\Admin\Administrator\AdministratorProfileComponent;
+use App\Http\Livewire\Admin\Administrator\SubAdminComponent;
 use App\Http\Livewire\Admin\Blog\BlogComponent;
 use App\Http\Livewire\Admin\Blog\Category\BlogCategoryComponent;
 use App\Http\Livewire\Admin\Blog\CreateNewBlogComponent;
@@ -157,7 +158,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     // Admin
     Route::get('/user-management/admin/list', AdministratorComponent::class)->name('administratorList');
     Route::get('/user-management/admin/profile/{id}', AdministratorProfileComponent::class)->name('admin.profile');
-
+    Route::get('/user-management/customer/profile/{id}', CustomerProfileComponent::class)->name('customer.profile');
+    Route::get('/user-management/subadmin/list', SubAdminComponent::class)->name('sub.admins');
+    
     // Marketting Section
     Route::get('/marketing/subscribers', SubscriberComponent::class)->name('subscribers');
     Route::get('/marketing/newsletter', NewsletterComponent::class)->name('newsLetter');

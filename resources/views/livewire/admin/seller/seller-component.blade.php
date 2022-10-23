@@ -58,10 +58,14 @@
                                         <th>Phone</th>
                                         <th>Date</th>
                                         <th>Referral Code</th>
+                                        {{-- @if(auth()->user()->role != "sub-admin" ) --}}
                                         <th>Verification Info</th>
+                                        {{-- @endif --}}
                                         <th>Approval</th>
                                         <th>Num. of Products</th>
+                                        @if(auth()->user()->role != "sub-admin" )
                                         <th style="text-align: center;">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,11 +81,13 @@
                                                 <td>{{ $seller->phone }}</td>
                                                 <td>{{ $seller->created_at }}</td>
                                                 <td>{{ $seller->referral_code }}</td>
+                                                {{-- @if(auth()->user()->role != "sub-admin" ) --}}
                                                 <td>
                                                     @if ($seller->application_status == 1)
                                                         <a href="{{ route('admin.seller.shopVerificationInfo', ['seller_id'=>$seller->id]) }}"><span class="badge bg-info" style="font-size: 12.5px;">Show</span></a>
                                                     @endif
                                                 </td>
+                                                {{-- @endif --}}
                                                 <td>
                                                     @if (shop($seller->id)->verification_status == 1)
                                                         <span class="text-success">Approved</span>
@@ -90,6 +96,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ sellerProducts($seller->id)->count() }}</td>
+                                                @if(auth()->user()->role != "sub-admin" )
                                                 <td style="text-align: center;">
                                                     <button type="button" class="btn btn-outline-info btn-icon-circle btn-icon-circle-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-chevron-down"></i></button>
                                                     <div class="dropdown-menu" style="width: auto;">
@@ -115,6 +122,7 @@
                                                         <a wire:click.prevent="deleteConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Delete Seller</a>
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @else
