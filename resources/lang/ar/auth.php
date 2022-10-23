@@ -56,7 +56,7 @@ return [
   'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
   // Index Page
-  'my_markets' => 'أسواقي',
+  'my_markets' => 'الأقسام',
   'index_hot_seller' => 'البائع الاكثر تميزا',
   'index_new_trends_release' => 'إصدار الاتجاهات الجديدة',
   'off_or_more' => '10٪ خصم أو أكثر',
