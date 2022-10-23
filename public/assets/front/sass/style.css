@@ -3060,7 +3060,7 @@
 }
 .big_deals_wrapper .tablinks3 {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 25px;
   line-height: 150%;
   color: #ffffff;
   background: #74c247;
@@ -15268,3 +15268,7 @@ input[type=number] {
     max-width: 100%;
   }
 }/*# sourceMappingURL=style.css.map */
+
+.best_big_text_deal_area span {
+  font-size: 25px;
+}
