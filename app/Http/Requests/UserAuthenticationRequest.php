@@ -58,7 +58,7 @@ class UserAuthenticationRequest extends FormRequest
         }
         if ($this->path() == "api/resendVerification") {
             return [
-                "user_id" => "required|integer|min:1|exists:users,id",
+                "email" => "required|email|exists:users,email",
             ];
         }
 

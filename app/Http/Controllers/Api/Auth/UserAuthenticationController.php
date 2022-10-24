@@ -67,7 +67,7 @@ class UserAuthenticationController extends Controller
     }
 
     public function resendVerification(UserAuthenticationRequest $request){
-        $user = $this->userRepository->model->find($request->user_id);
+        $user = $this->userRepository->model->where('email',$request->email)->first();
         if ($user->hasVerifiedEmail()) {
             return $this->apiResponse->setError(__("Account already verified"))->setData()->getJsonResponse();
         }
