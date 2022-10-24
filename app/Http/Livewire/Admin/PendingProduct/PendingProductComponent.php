@@ -25,6 +25,10 @@ class PendingProductComponent extends Component
         }
         $this->dispatchBrowserEvent('success', ['message'=>'Product approved successfully']);
     }
+    public function publishAll(){
+        Product::where('admin_approval',0)->update(['admin_approval' => 1]);
+        $this->dispatchBrowserEvent('success', ['message'=>'Products approved successfully']);
+    }
 
     public function render()
     {
