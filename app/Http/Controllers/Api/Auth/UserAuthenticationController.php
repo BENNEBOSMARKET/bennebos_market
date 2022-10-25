@@ -72,7 +72,7 @@ class UserAuthenticationController extends Controller
             return $this->apiResponse->setError(__("Account already verified"))->setData()->getJsonResponse();
         }
         event(new SignUpVerificationMailEvent($user->toArray()));
-        return $this->apiResponse->setSuccess(__("Verification code has been sent to your email"))->setData()->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Verification code has been sent to your email"))->setData($user)->getJsonResponse();
     }
 
     public function login(UserAuthenticationRequest $userAuthenticationRequest)

@@ -208,14 +208,14 @@ class AddProductsComponent extends Component
         $imageName = rand(100000, 999999).time() . '.png';
         Storage::disk('s3')->put('imgs/product/'.$imageName, $data);
 
-        $product->thumbnail = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+        $product->thumbnail = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
 
         if($this->galleryType == '1'){
             $galImgArray = [];
             foreach ($this->gallery_images as $key => $galImg) {
                 $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->gallery_images[$key]->extension();
                 $this->gallery_images[$key]->storeAs('imgs/product', $imageName, 's3');
-                $galImgArray[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+                $galImgArray[] = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
             }
 
             $product->gallery_image = json_encode($galImgArray);
@@ -230,7 +230,7 @@ class AddProductsComponent extends Component
             foreach ($this->color_names as $key => $colors) {
                 $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_images[$key]->extension();
                 $this->color_images[$key]->storeAs('imgs/product', $imageName, 's3');
-                $cimgArray[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+                $cimgArray[] = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
             }
             $product->color_image = json_encode($cimgArray);
             $product->color_titles = json_encode($this->color_titles);
@@ -263,7 +263,7 @@ class AddProductsComponent extends Component
                     $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_galleries[$key][$sl]->extension();
                     $this->color_galleries[$key][$sl]->storeAs('imgs/product', $imageName, 's3');
     
-                    $imgArray[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+                    $imgArray[] = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
                 }
                 $pimage = new ProductImage();
                 $pimage->product_id = $product->id;
