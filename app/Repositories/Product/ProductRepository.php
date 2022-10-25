@@ -388,53 +388,88 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $products_db =  Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->limit($limit)
-        ->groupBy('products.main_product_id')
         ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo");
         //deals of the day
-        $products_data['deals_of_day'] = $this->getFullThumbnail($products_db->where('products.deal_of_day', 1)
+        $products_data['deals_of_day'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('products.deal_of_day', 1)
         ->orderBy('products.id', 'DESC')
         ->get());
-        $products_data['new_arrivals'] = $this->getFullThumbnail($products_db->where('products.new_arrival', 1)
-        ->orderBy('products.id', 'DESC')
-        ->get());
-
-        $products_data['best_selling'] = $this->getFullThumbnail($products_db->where('best_selling',1)
-        ->orderBy('products.id', 'DESC')
-        ->get());
-
-        $products_data['top_ranked'] = $this->getFullThumbnail($products_db->where('top_ranked',1)
-        ->orderBy('products.id', 'DESC')
-        ->get());
-
-        $products_data['dropshipping'] = $this->getFullThumbnail($products_db->where('dropshipping',1)
+        $products_data['new_arrivals'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('products.new_arrival', 1)
         ->orderBy('products.id', 'DESC')
         ->get());
 
-        $products_data['opportunity_products'] = $this->getFullThumbnail($products_db->where('true_view',1)
+        $products_data['best_selling'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('best_selling',1)
         ->orderBy('products.id', 'DESC')
         ->get());
 
-        $products_data['big_deals']['best_deals'] = $this->getFullThumbnail($products_db->where('best_big_deal',1)
+        $products_data['top_ranked'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('top_ranked',1)
+        ->orderBy('products.id', 'DESC')
+        ->get());
+
+        $products_data['dropshipping'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('dropshipping',1)
+        ->orderBy('products.id', 'DESC')
+        ->get());
+
+        $products_data['opportunity_products'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('true_view',1)
+        ->orderBy('products.id', 'DESC')
+        ->get());
+
+        $products_data['big_deals']['best_deals'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('best_big_deal',1)
         ->orderBy('products.id', 'DESC')
         ->get());  
         
-        $products_data['big_deals']['new_arrivals'] = $this->getFullThumbnail($products_db->where('big_deal_new_arrival',1)
+        $products_data['big_deals']['new_arrivals'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_deal_new_arrival',1)
         ->orderBy('products.id', 'DESC')
         ->get());
         
-        $products_data['big_deals']['most_viewed'] = $this->getFullThumbnail($products_db->where('big_deal_most_viewed',1)
+        $products_data['big_deals']['most_viewed'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_deal_most_viewed',1)
         ->orderBy('products.id', 'DESC')
         ->get());
 
-        $products_data['big_deals']['deal_of_season'] = $this->getFullThumbnail($products_db->where('deal_of_season',1)
+        $products_data['big_deals']['deal_of_season'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('deal_of_season',1)
         ->orderBy('products.id', 'DESC')
         ->get());
 
-        $products_data['big_deals']['big_needs'] = $this->getFullThumbnail($products_db->where('big_needs',1)
+        $products_data['big_deals']['big_needs'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_needs',1)
         ->orderBy('products.id', 'DESC')
         ->get());
 
-        $products_data['big_deals']['big_quantity'] = $this->getFullThumbnail($products_db->where('big_quantity',1)
+        $products_data['big_deals']['big_quantity'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
+        ->where('products.status',1)
+        ->limit($limit)
+        ->select("products.slug", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_quantity',1)
         ->orderBy('products.id', 'DESC')
         ->get());
         return $products_data;
