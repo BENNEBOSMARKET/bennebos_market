@@ -477,7 +477,7 @@
                                                                                 {!! $sitem !!},
                                                                             @endforeach--}}
                                                                         </td>
-                                                                        <td>{{ json_decode($color_prices[$key]) }}</td>
+                                                                        {{-- <td>{{ json_decode($color_prices[$key]) }}</td> --}}
                                                                         <td>
                                                                             <a href="" wire:click.prevent="removeFromArray({{ $key }})"><i class="fa fa-times text-danger"></i></a>
                                                                         </td>

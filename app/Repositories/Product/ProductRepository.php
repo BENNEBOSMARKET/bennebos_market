@@ -63,7 +63,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getSingleProduct($productId)
     {
-        $product = Product::find($productId, ['size_id','color_id','main_product_id']);
+        $product = Product::find($productId);
+        // dd($product);
         return $this->productBySizeOrColor($productId, $product->size_id, $product->color_id);
     }
 
