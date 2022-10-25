@@ -96,7 +96,7 @@ class AddProductComponentV2 extends Component
             'color_gallery'=>'required',
             'color_title'=>'required',
             'color_price'=>'required',
-            'color_size'=>'required',
+            'color_size'=>'nullable',
             'seller'=>'required',
             'color_description'=>'required',
         ]);
@@ -346,6 +346,7 @@ class AddProductComponentV2 extends Component
             ]);
 
             $newProduct->update(['main_product_id' => $newProduct->id]);
+            $newProduct->refresh();
 
         }
 
