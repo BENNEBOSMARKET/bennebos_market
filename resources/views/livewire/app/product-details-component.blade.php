@@ -323,8 +323,9 @@
                         <div class="info_para d-flex g-sm">
                             <img src="{{ asset('assets/front/images/icon/Location.svg') }}" alt="location" />
                             <p>
-                                {{ __('auth.gokhansok_urkey') }}
-                                <img src="{{ asset('assets/front/images/icon/turkey_flag.png') }}"
+                                {{-- {{ __('auth.gokhansok_urkey') }} --}}
+                                {{shop($product->user_id)->address}}, {{shop($product->user_id)->state_name}}, {{shop($product->user_id)->country_name}}  
+                                <img src="{{ shop($product->user_id)->country_flag }}"
                                     alt="turkey flag" />
                             </p>
                         </div>
