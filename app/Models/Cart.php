@@ -15,6 +15,7 @@ class Cart extends Model
         "product_id",
         "user_id",
         "price",
+        "ip_address",
         "quantity",
         "discount",
         "status",
