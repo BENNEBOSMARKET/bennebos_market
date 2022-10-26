@@ -66,7 +66,6 @@ class CartRepository implements CartRepositoryInterface
             $insertData['owner_id'] = $product->user_id;
             $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : null;
 
-
             try {
                 $cart->update($insertData);
 
@@ -214,6 +213,7 @@ class CartRepository implements CartRepositoryInterface
         if ($formRequest->has('ip_address'))
             $insertData['ip_address'] = $formRequest->input('ip_address');
 
+        dd($insertData);
         /*if ( $formRequest->has('color') )
             $insertData['color'] = $formRequest->input('color');
 
