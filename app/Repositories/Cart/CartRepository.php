@@ -213,7 +213,6 @@ class CartRepository implements CartRepositoryInterface
         if ($formRequest->has('ip_address'))
             $insertData['ip_address'] = $formRequest->input('ip_address');
 
-        dd($insertData);
         /*if ( $formRequest->has('color') )
             $insertData['color'] = $formRequest->input('color');
 
