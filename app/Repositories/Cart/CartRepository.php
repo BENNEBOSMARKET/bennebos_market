@@ -28,7 +28,7 @@ class CartRepository implements CartRepositoryInterface
 
         $ip = $formRequest->has('ip_address') ? $formRequest->input('ip_address') : "";
 
-        if (strlen($ip)  == 0) $condition = ['user_id' => Auth::id()];
+        if (strlen($ip)  == 0) $condition = ['user_id' => $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id()];
         else $condition['ip_address'] = $ip;
 
         $product = Product::find($formRequest->product_id);
@@ -64,7 +64,7 @@ class CartRepository implements CartRepositoryInterface
             $insertData['discount'] = $cartDiscount + (($price * $discount) / 100) * $quantity;
             $insertData['updated_at'] = date('Y-m-d');
             $insertData['owner_id'] = $product->user_id;
-            $insertData['user_id'] = Auth::user() ? Auth::id() : null;
+            $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id();
 
 
             try {
@@ -83,7 +83,7 @@ class CartRepository implements CartRepositoryInterface
             $extra['color'] = $product->color_id;
             $extra['size'] = $product->size_id;
             $extra['owner_id'] = $product->user_id;
-            $extra['user_id'] = Auth::user() ? Auth::id() : null;
+            $extra['user_id'] = $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id();
 
             $extra['created_at'] = date('Y-m-d');
 
@@ -272,15 +272,13 @@ class CartRepository implements CartRepositoryInterface
 
     public function getCartByUser(Request $request)
     {
-        $condition = [];
-
-        if ($request->has('user_id')) {
-            $condition['user_id'] = $request->input('user_id');
+        if (Auth::user()) {
+            return Cart::where("user_id", Auth::id())->get();
         } else if ($request->has('ip_address')) {
-            $condition['ip_address'] = $request->input('ip_address');
+            return Cart::where("ip_address", $request->input('ip_address'))->get();
         }
 
 
-        return Cart::where($condition)->get();
+        
     }
 }

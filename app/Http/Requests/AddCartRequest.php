@@ -27,6 +27,7 @@ class AddCartRequest extends FormRequest
     {
         return [
             'product_id'    => 'required|exists:products,id',
+            'user_id'    => 'nullable|exists:users,id',
             'quantity'      => 'required',
             'ip_address'    => 'nullable',
         ];
