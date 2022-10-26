@@ -317,7 +317,9 @@ function shop($seller_id)
       })->leftJoin('states', function($join) {
         $join->on('states.id', '=', 'shops.state_id');
       })->where('shops.seller_id', $seller_id)->first([
+        
         "shops.address as address",
+        "shops.verification_status as verification_status",
         "countries.name as country_name",
         "countries.flag as country_flag",
         "states.name as state_name",
