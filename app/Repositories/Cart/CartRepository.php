@@ -89,7 +89,9 @@ class CartRepository implements CartRepositoryInterface
             $insertData = $this->processInsertData($formRequest, $extra);
 
             try {
-                return Cart::create($insertData);
+                $cart = Cart::create($insertData);
+                dd($cart);
+                return $cart;
             } catch (\Exception $exception) {
                 return false;
             }
