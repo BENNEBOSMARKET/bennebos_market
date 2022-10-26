@@ -28,7 +28,7 @@ class CartRepository implements CartRepositoryInterface
 
         $ip = $formRequest->has('ip_address') ? $formRequest->input('ip_address') : "";
 
-        if (strlen($ip)  == 0) $condition = ['user_id' => $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id()];
+        if (strlen($ip)  == 0) $condition = ['user_id' => $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id()];
         else $condition['ip_address'] = $ip;
 
         $product = Product::find($formRequest->product_id);
@@ -64,7 +64,7 @@ class CartRepository implements CartRepositoryInterface
             $insertData['discount'] = $cartDiscount + (($price * $discount) / 100) * $quantity;
             $insertData['updated_at'] = date('Y-m-d');
             $insertData['owner_id'] = $product->user_id;
-            $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id();
+            $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id();
 
 
             try {
@@ -83,7 +83,7 @@ class CartRepository implements CartRepositoryInterface
             $extra['color'] = $product->color_id;
             $extra['size'] = $product->size_id;
             $extra['owner_id'] = $product->user_id;
-            $extra['user_id'] = $formRequest->has('user_id') ? $formRequest->input('ip_address') : Auth::id();
+            $extra['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id();
 
             $extra['created_at'] = date('Y-m-d');
 
