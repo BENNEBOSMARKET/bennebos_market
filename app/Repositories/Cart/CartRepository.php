@@ -220,6 +220,7 @@ class CartRepository implements CartRepositoryInterface
             $insertData['size'] = $formRequest->input('size');*/
 
         if (is_array($extra)) $insertData = array_merge($insertData, $extra);
+        dd($insertData);
 
         $insertData['status'] = 0;
 
