@@ -90,7 +90,6 @@ class CartRepository implements CartRepositoryInterface
 
             try {
                 $cart = Cart::create($insertData);
-                dd($cart);
                 return $cart;
             } catch (\Exception $exception) {
                 return false;
