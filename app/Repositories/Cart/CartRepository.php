@@ -28,7 +28,7 @@ class CartRepository implements CartRepositoryInterface
 
         $ip = $formRequest->has('ip_address') ? $formRequest->input('ip_address') : "";
 
-        if (strlen($ip)  == 0) $condition = ['user_id' => $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id()];
+        if (strlen($ip)  == 0) $condition = ['user_id' => $formRequest->has('user_id') ? $formRequest->input('user_id') : null];
         else $condition['ip_address'] = $ip;
 
         $product = Product::find($formRequest->product_id);
@@ -64,7 +64,7 @@ class CartRepository implements CartRepositoryInterface
             $insertData['discount'] = $cartDiscount + (($price * $discount) / 100) * $quantity;
             $insertData['updated_at'] = date('Y-m-d');
             $insertData['owner_id'] = $product->user_id;
-            $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id();
+            $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : null;
 
 
             try {
@@ -83,10 +83,10 @@ class CartRepository implements CartRepositoryInterface
             $extra['color'] = $product->color_id;
             $extra['size'] = $product->size_id;
             $extra['owner_id'] = $product->user_id;
-            $extra['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : Auth::id();
-
+            $extra['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : null;
+            
             $extra['created_at'] = date('Y-m-d');
-
+            
             $insertData = $this->processInsertData($formRequest, $extra);
 
             try {
@@ -272,8 +272,8 @@ class CartRepository implements CartRepositoryInterface
 
     public function getCartByUser(Request $request)
     {
-        if (Auth::user()) {
-            return Cart::where("user_id", Auth::id())->get();
+        if ($request->has('user_id')) {
+            return Cart::where("user_id", $request->user_id)->get();
         } else if ($request->has('ip_address')) {
             return Cart::where("ip_address", $request->input('ip_address'))->get();
         }
