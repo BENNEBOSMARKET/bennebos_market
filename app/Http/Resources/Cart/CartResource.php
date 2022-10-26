@@ -21,7 +21,7 @@ class CartResource extends JsonResource
             "id" => $this->id,
             //"owner_id" => $this->seller->id,
             //"seller" => $this->seller,
-            "user" => isset($this->user_id)? new UserResource(Auth::user()) :null,
+            "user" => !is_null($this->user_id)? new UserResource(Auth::user()) :null,
             "product" =>  isset($this->product_id)? new ProductResource($this->product): null,
             "address_id" => $this->address_id,
             "price" => $this->price,
