@@ -7,10 +7,13 @@ use App\Http\Controllers\Api\HomeApiController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChecoutController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PhotoController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductsUpload;
+use App\Http\Controllers\Api\SendMoneyCustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WishListController;
+use App\Repositories\News\NewsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,8 +47,12 @@ Route::group(['middleware'=>["auth:api"]],function(){
 
     Route::post('product/review',[ProductController::class, "makeReview"]);
     Route::put('wishlist/assign', [WishListController::class, 'assignUserToWishlist']);
+
+    Route::get('/sendMoney/get/{id}',[SendMoneyCustomerController::class, "getCustomerPoint"]);
+
     Route::group(['prefix' => "me"],function(){
         Route::get('info',[UserController::class, "getUserInfo"]);
+
         Route::post('info/update',[UserController::class, "infoUpdate"]);
     });
     Route::get('/',function(){
@@ -61,7 +68,7 @@ Route::group(['middleware'=>["auth:api"]],function(){
         Route::delete('order/cancel/{order}', [ChecoutController::class, 'deleteOrder']);
         Route::get('orders', [ChecoutController::class, 'getOrders']);
         Route::get('order/product/{order}', [ChecoutController::class, 'getOrderProducts']);
-        
+
     });
 });
 
@@ -97,7 +104,7 @@ Route::group(['prefix' =>"category", "middleware" => "api.localization"],functio
     Route::get('/subsubcat/{category_id}',[CategoryController::class, "getSubSubCategories"]);
     Route::get('/subsubcat/{category_id}',[CategoryController::class, "getSubSubCategories"]);
     Route::get('topThreeCategory',[HomeApiController::class, "subCategoryTopThree"]);
-    
+
 });
 
 Route::group(['prefix' =>"product", "middleware" => "api.localization"],function(){
@@ -136,5 +143,7 @@ Route::match(array('GET', 'POST'),'payment/callback',[PaymentController::class, 
 Route::post('products/upload/data',[ProductsUpload::class, 'productsUpload']);
 Route::get('search',[HomeApiController::class, "search"]);
 Route::get('filter',[ProductController::class, "filter"]);
+Route::get('allPhotos',[PhotoController::class,'getAllPhotos']);
+Route::get('allNews',[NewsRepository::class,'getAllNews']);
 
 

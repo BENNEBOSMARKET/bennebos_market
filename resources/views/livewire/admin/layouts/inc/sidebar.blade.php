@@ -27,7 +27,7 @@
         <div class="menu-content h-100" data-simplebar>
             <div class="menu-body navbar-vertical">
                 <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
-                    
+
                     <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
                         @if(auth()->user()->role != "sub-admin" )
                         <li class="nav-item">
@@ -212,6 +212,15 @@
                                             class="nav-link {{ request()->is('admin/subadmin/list') || request()->is('admin/user-management/subadmin/list/*') ? 'active' : '' }}">Sub-Admins
                                             List</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.sendMoneyCustomer') }}"
+                                           class="nav-link {{ request()->is('admin/admin/send-money-Customer') || request()->is('admin/user-management/admin/send-money-Customer/*') ? 'active' : '' }}">Send Points Customers
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.sendMoneySeller') }}"
+                                           class="nav-link {{ request()->is('admin/admin/send-money-seller') || request()->is('admin/user-management/admin/send-money-seller/*') ? 'active' : '' }}">Send Points Sellers</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -344,6 +353,11 @@
                                         class="nav-item {{ request()->is('admin/blogs/categories') || request()->is('admin/blogs/categories/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.blogCategories') }}" class="nav-link">Blog Category</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.newsPage') }}"
+                                           class="nav-link {{ request()->is('admin/news/page') || request()->is('	admin/news/page/*') ? 'active' : '' }}">
+                                            News page</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -393,6 +407,12 @@
                                         <a href="{{ route('admin.top.banner') }}"
                                             class="nav-link {{ request()->is('admin/top/banner') || request()->is('	admin/top/banner/*') ? 'active' : '' }}">Hero
                                             Top Banner</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.editPhoto') }}"
+                                           class="nav-link {{ request()->is('admin/edit/photo') || request()->is('	admin/edit/photo/*') ? 'active' : '' }}">
+                                            Mega menu </a>
                                     </li>
                                 </ul>
                             </div>
@@ -523,7 +543,7 @@
                                 </ul>
                             </div>
                         </li>
-                        
+
                         <!-- Career -->
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarCareer" data-bs-toggle="collapse" role="button"

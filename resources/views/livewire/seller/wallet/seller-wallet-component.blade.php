@@ -40,6 +40,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media">
+                                    <i class="fas fa-hand-holding-usd tx-"></i>
+                                    <div class="media-body align-self-center ms-2">
+                                        <h6 class="fw-semibold font-16 d-inline-block m-0">{{ __('seller.send_money') }}</h6>
+                                          <p class="text-muted mb-0 fw-semibold">{{ __('seller.money_sent_by_bennebos') }}</p>
+                                    </div>
+                                </div>
+                                <div class="apexchart-wrapper my-5">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-2">
+                                        <h2 class="font-22 fw-bold mb-0">{{ $sendMoney }} {{ __('seller.try') }}</h2>
+                                        <h6 class="text-muted m-0 fw-semibold">{{ __('seller.current_balance') }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>

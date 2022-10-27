@@ -9,6 +9,8 @@ return [
     'orders_sidebar' => 'Orders',
     'wishlisted_products' => 'Wishlisted Products',
     'wallet_sidebar' => 'Wallet',
+    'send_money'=>'Money Received',
+    'money_sent_by_bennebos'=>'Money sent by Bennebos',
     'shop_profile' => 'Shop Profile',
     'withdraw_sidebar' => 'Withdraw',
     'commission_history_sidebar' => 'Commission History',
