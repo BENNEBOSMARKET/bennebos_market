@@ -312,8 +312,23 @@ function state($id)
 
 function shop($seller_id)
 {
-    return Shop::where('seller_id', $seller_id)->first();
-
+    $shop =  Shop::leftJoin('countries', function($join) {
+        $join->on('countries.id', '=', 'shops.country_id');
+      })->leftJoin('states', function($join) {
+        $join->on('states.id', '=', 'shops.state_id');
+      })->where('shops.seller_id', $seller_id)->first([
+        
+        "shops.address as address",
+        "shops.verification_status as verification_status",
+        "countries.name as country_name",
+        "countries.flag as country_flag",
+        "states.name as state_name",
+        "shops.name as name",
+        "shops.slug as slug",
+        "shops.logo as logo",
+        "shops.logo as logo",
+      ]);
+    return $shop;
 
 }
 

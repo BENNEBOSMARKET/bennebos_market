@@ -16,7 +16,9 @@ class ReportsComponentV2 extends Component
         $this->type = $type;
 
         $map = ReportMapv2::where('slug', $slug)->first();
-        $this->mapDetails = $map;
+        if($map){
+            $this->mapDetails = $map;
+        }
     }
     public function render()
     {

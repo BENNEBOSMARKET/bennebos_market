@@ -9,6 +9,8 @@ return [
     'orders_sidebar' => 'ترتيب',
     'wishlisted_products' => 'المنتجات المفضلة',
     'wallet_sidebar' => 'محفظة',
+    'send_money'=>'النقود  المستلمة',
+    'money_sent_by_bennebos'=>'Bennebos-Market النقود  المستلمة من منصة ',
     'shop_profile' => 'متجر الملف الشخصي',
     'withdraw_sidebar' => 'ينسحب',
     'commission_history_sidebar' => 'تاريخ اللجنة',

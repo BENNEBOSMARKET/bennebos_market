@@ -5,8 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
-class AddCartRequest extends FormRequest
+class SendMoneyCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +26,15 @@ class AddCartRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'product_id'    => 'required|exists:products,id',
-            'user_id'    => 'nullable|exists:users,id',
-            'quantity'      => 'required',
-            'ip_address'    => 'nullable',
-        ];
-    }
 
+        if(str_contains($this->path(),"sendMoney/get")){
+            return [
+
+                'id' => 'sometimes|nullable|integer|exists:users,id',
+            ];
+        }
+
+    }
 
     protected function failedValidation(Validator $validator)
     {
@@ -61,4 +63,5 @@ class AddCartRequest extends FormRequest
             )
         );
     }
+
 }
