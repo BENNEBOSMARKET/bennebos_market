@@ -116,6 +116,7 @@ Route::group(['prefix' =>"product", "middleware" => "api.localization"],function
     Route::post('/by/category/{slug}',[ProductController::class, "productByCategorySlug"])->name('product.by.category.slug');
     Route::get('/by/size/color/{product_id}',[ProductController::class, "getProductByColorAndSize"])->name('product.by.size.color');
     Route::get('/statisticsProducts',[ProductController::class, "statisticsProducts"]);
+    Route::get('/categoryStatistics/{category_id}',[CategoryController::class, "categoryStatistics"]);
 
 });
 
