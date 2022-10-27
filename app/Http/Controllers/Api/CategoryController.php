@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryResource;
+use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
@@ -71,6 +72,17 @@ class CategoryController extends Controller
 
         }catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
+        }
+    }
+    public function categoryStatistics($category_id){
+        try{
+            $limit = request()->has('limit') ? request('limit') : 8;
+            $products_data = $this->repository->getSomeCategoryStatisitcs($limit,$category_id);
+            return $this->apiResponse->setSuccess("proucts_statistics_loaded_successfully")->setData($products_data)->getJsonResponse();
+        }catch( Exception $exception){
+            return $this->apiResponse->setError(
+                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+            )->setData()->getJsonResponse();
         }
     }
 

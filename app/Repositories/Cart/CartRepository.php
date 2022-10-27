@@ -66,7 +66,6 @@ class CartRepository implements CartRepositoryInterface
             $insertData['owner_id'] = $product->user_id;
             $insertData['user_id'] = $formRequest->has('user_id') ? $formRequest->input('user_id') : null;
 
-
             try {
                 $cart->update($insertData);
 
@@ -90,7 +89,8 @@ class CartRepository implements CartRepositoryInterface
             $insertData = $this->processInsertData($formRequest, $extra);
 
             try {
-                return Cart::create($insertData);
+                $cart = Cart::create($insertData);
+                return $cart;
             } catch (\Exception $exception) {
                 return false;
             }
