@@ -16,7 +16,9 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->string('banner')->nullable();
-            $table->string('category')->nullable();
+            $table->unsignedBigInteger('category_id')->default(0);
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('place');
             $table->timestamps();
         });
     }
