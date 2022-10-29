@@ -75,7 +75,7 @@ class HomeApiController extends Controller
 
     public function subCategoryTopThree()
     {
-        $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(3)->get();
+        $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(5)->get();
         foreach($categories_data as $key => $category){
             $categories = [$category->id];
 
