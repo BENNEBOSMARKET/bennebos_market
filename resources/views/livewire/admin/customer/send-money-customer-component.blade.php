@@ -115,14 +115,11 @@
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Customer</label>
                             <div class="col-sm-8">
-                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" wire:model="customer">
-                                    <option selected="selected">Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>California</option>
-                                    <option>Delaware</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Washington</option>
+                                <select class="form-control"  wire:model="customer">
+                                    <option value="">Select Customer</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    @endforeach
                                 </select>
 
                                 @error('customer')
