@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Photo extends Model
+class FeaturesPage extends Model
 {
     use HasFactory;
+    protected $table='features_pages';
     protected $guarded=[];
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }

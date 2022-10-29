@@ -75,8 +75,14 @@ use App\Http\Livewire\Admin\Sales\Seller\SellerOrderDetailsComponent;
 use App\Http\Livewire\Admin\Sales\Seller\SellerOrdersComponent;
 use App\Http\Livewire\Admin\Seller\SellerCommissionComponent;
 use App\Http\Livewire\Admin\Seller\ShopVerificationInfoComponent;
+use App\Http\Livewire\Admin\Setting\ContactPageUsComponent;
 use App\Http\Livewire\Admin\Setting\CountryPhoneCodesComponent;
 use App\Http\Livewire\Admin\Setting\FeaturesActivationComponent;
+use App\Http\Livewire\Admin\Setting\FeaturesPageComponent;
+use App\Http\Livewire\Admin\Setting\HelpCenterComponent;
+use App\Http\Livewire\Admin\Setting\HelpCenterPageComponent;
+use App\Http\Livewire\Admin\Setting\HowBuyPageComponent;
+use App\Http\Livewire\Admin\Setting\OurServiceComponent;
 use App\Http\Livewire\Admin\Setting\PointSettingComponent;
 use App\Http\Livewire\Admin\Setting\SocialLoginCredentialComponent;
 use App\Http\Livewire\Admin\Slider\ElectronicSliderComponent;
@@ -87,6 +93,7 @@ use App\Http\Livewire\Admin\Variations\SizeComponent;
 use App\Http\Livewire\Admin\Websitesetup\FooterSectionComponent;
 use App\Http\Livewire\Admin\Websitesetup\HeaderSectionComponent;
 use App\Http\Livewire\Auth\Admin\LoginComponent;
+use App\Models\HelpCenterPage;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -141,8 +148,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/setting/points', PointSettingComponent::class)->name('pointsSetting');
 
     Route::get('/setting/phone-codes', CountryPhoneCodesComponent::class)->name('countryPhoneCodes');
-
-
+    Route::get('/setting/HowBuy', HowBuyPageComponent::class)->name('HowBuy');
+    Route::get('/setting/Feature', FeaturesPageComponent::class)->name('Feature');
+    Route::get('/setting/HelpCenterPage', HelpCenterPageComponent::class)->name('HelpCenterPage');
+    Route::get('/setting/OurServicePage', OurServiceComponent::class)->name('OurService');
+    Route::get('/setting/ContactUsPage', ContactPageUsComponent::class)->name('ContactUsPage');
     // Profile
     Route::get('/profile', ProfileSettingComponent::class)->name('profile');
     Route::get('/setting/profile', ProfileComponent::class)->name('profileSetting');

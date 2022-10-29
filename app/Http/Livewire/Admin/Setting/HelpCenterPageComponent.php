@@ -5,16 +5,17 @@ namespace App\Http\Livewire\Admin\Setting;
 
 use App\Models\HelpCenterPage;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class HelpCenterComponent extends Component
+class HelpCenterPageComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
 
-    public $sortingValue = 10, $searchTerm,$title,$description;
+    public $sortingValue = 10, $searchTerm,$title,$description,$banner,$new_banner;
     public $edit_id, $delete_id;
 
     protected $listeners = ['deleteConfirmed'=>'deleteData'];
@@ -25,7 +26,7 @@ class HelpCenterComponent extends Component
     {
         $this->validate([
 
-
+            'banner'=>'required',
             'title'=>'required',
             'description'=>'required',
 
@@ -36,7 +37,9 @@ class HelpCenterComponent extends Component
 
 
 
-
+        $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
+        $this->banner->storeAs('imgs/helpCenter',$imageName, 's3');
+        $data->banner = env('AWS_BUCKET_URL') . 'imgs/helpCenter/'.$imageName;
 
         $data->title=$this->title;
         $data->description=$this->description;
@@ -55,6 +58,7 @@ class HelpCenterComponent extends Component
 
         $this->title = $getData->title;
         $this->description = $getData->description;
+        $this->new_banner = $getData->banner;
 
         $this->dispatchBrowserEvent('showEditModal');
     }
@@ -70,7 +74,13 @@ class HelpCenterComponent extends Component
 
         $data = HelpCenterPage::where('id', $this->edit_id)->first();
 
+        $data->banner = $this->new_banner;
 
+        if($this->banner != ''){
+            $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
+            $this->banner->storeAs('imgs/helpCenter',$imageName, 's3');
+            $data->banner = env('AWS_BUCKET_URL') . 'imgs/helpCenter/'.$imageName;
+        }
 
 
         $data->title = $this->title;
@@ -84,8 +94,8 @@ class HelpCenterComponent extends Component
     }
     public function resetInputs()
     {
-
-
+        $this->new_banner = '';
+        $this->banner='';
         $this->title='';
         $this->description='';
 
@@ -113,6 +123,6 @@ class HelpCenterComponent extends Component
 //        $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
 //        $sliders = Slider::orderBy('id', 'DESC')->paginate($this->sortingValue);
         $HelpCenter=HelpCenterPage::all();
-        return view('livewire.admin.setting.features-edit-component',['HelpCenter'=>$HelpCenter])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.setting.help-center-component',['HelpCenter'=>$HelpCenter])->layout('livewire.admin.layouts.base');
     }
 }
