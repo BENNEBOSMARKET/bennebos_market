@@ -9,6 +9,8 @@ use Livewire\Component;
 use App\Models\Seller;
 use App\Models\Shop;
 use Carbon\Carbon;
+use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
@@ -149,6 +151,47 @@ class SellerComponent extends Component
 
         $this->dispatchBrowserEvent('close_view_modal');
         $this->dispatchBrowserEvent('show_edit_modal');
+    }
+    public function assignSellerAddress($seller_id)
+    {
+        $shop = shop($seller_id);
+        $shippingSeller = Seller::find($seller_id);
+        $client = new Client([
+            'verify' => false,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ]
+        ]);
+        try{
+            $response = $client->request('POST', "https://shipping.bennebosmarket.online/api/shippment/save/address", [
+                'body' => json_encode([
+                    "address" => [
+                        "CompleteAddress"=>$shop->address . "/" . $shop->state_name . "/" . $shop->country_name,
+                        "Name"=>$shippingSeller->name,
+                        "PhoneNumber"=>$shippingSeller->phone,
+                        "EMail"=>$shippingSeller->email,
+                        "CustomerAddressId"=>uniqid().$seller_id,
+                        "CityName"=>$shop->state_name,
+                        "TownName"=>$shop->country_name,
+                        "AccountId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}",
+                        "CustomerAddressInfoId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}"
+                    ]
+                ]),
+            ]);
+            $result = json_decode($response->getBody(), true);
+            if ($result['data']['ResultCode'] != 1){
+                $this->dispatchBrowserEvent('error', ['message' => $result['data']['Message']]);
+            }else{
+                $shippingSeller->update(['aras_address_id' => $result['data']['AddressId'], "aras_assigned" => 1]);
+                $shippingSeller->refresh();
+                $this->dispatchBrowserEvent('success', ['message' => "address has been added successfully"]);
+            }
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
+        }
+        
+        
     }
 
     public function updateSeller()
