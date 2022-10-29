@@ -61,6 +61,7 @@
                                         {{-- @if(auth()->user()->role != "sub-admin" ) --}}
                                         <th>Verification Info</th>
                                         {{-- @endif --}}
+                                        <th>Address Status</th>
                                         <th>Approval</th>
                                         <th>Num. of Products</th>
                                         @if(auth()->user()->role != "sub-admin" )
@@ -87,6 +88,16 @@
                                                         <a href="{{ route('admin.seller.shopVerificationInfo', ['seller_id'=>$seller->id]) }}"><span class="badge bg-info" style="font-size: 12.5px;">Show</span></a>
                                                     @endif
                                                 </td>
+
+                                                <td>
+                                                    @if ($seller->aras_assigned != 1)
+                                                        <button wire:loading.remove wire:target="assignSellerAddress({{$seller->id}})" wire:click.prevent="assignSellerAddress({{$seller->id}})"  class="btn btn-primary">Assign Address</button>
+                                                        <span wire:loading wire:target="assignSellerAddress({{$seller->id}})" style="font-size: 12.5px;" class="btn btn-success">loading.. </span>
+                                                    @else
+                                                        <span class="badge bg-info" style="font-size: 12.5px;">address assigned to aras</span>
+                                                    @endif
+                                                </td>
+
                                                 {{-- @endif --}}
                                                 <td>
                                                     @if (shop($seller->id)->verification_status == 1)
@@ -438,5 +449,11 @@
                 'success'
             )
         @endif
+
+
+        $('#assign-address-button').click(function()
+        {
+            $(this).attr('disabled',true);
+        });
     </script>
 @endpush

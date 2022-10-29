@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Seller\Shop;
 
+use App\Models\Country;
+use App\Models\Seller;
 use App\Models\Shop;
+use App\Models\State;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,7 +16,7 @@ class ShopProfileComponent extends Component
     use WithFileUploads;
 
     public $name, $logo, $uploaded_logo, $banner, $uploaded_banner, $address, $facebook,
-     $twitter, $google, $youtube, $description, $meta_description, $shipping_cost, $shop_id, $slug, $gallery = [], $uploaded_gallery = [];
+     $twitter, $google,$country_id, $state_id, $phone, $youtube, $description, $meta_description, $shipping_cost, $shop_id, $slug, $gallery = [], $uploaded_gallery = [];
 
      public function mount(){
         $shop = Shop::where('seller_id', authSeller()->id)->first();
@@ -30,6 +33,9 @@ class ShopProfileComponent extends Component
         $this->shipping_cost = $shop->shipping_cost;
         $this->uploaded_logo = $shop->logo;
         $this->uploaded_banner = $shop->banner;
+        $this->country_id = $shop->country_id;
+        $this->phone = authSeller()->phone;
+        $this->state_id = $shop->state_id;
         $this->uploaded_gallery = json_decode($shop->gallery);
         $this->shop_id = $shop->id;
     }
@@ -67,6 +73,8 @@ class ShopProfileComponent extends Component
          $shop->description = $this->description;
          $shop->meta_description = $this->meta_description;
          $shop->shipping_cost = $this->shipping_cost;
+         $shop->country_id = $this->country_id;
+         $shop->state_id = $this->state_id;
 
          if($this->logo != ''){
             $imageName = Carbon::now()->timestamp. 'logo.' . $this->logo->extension();
@@ -89,11 +97,14 @@ class ShopProfileComponent extends Component
         }
         
         $shop->save();
+        Seller::where("id",$shop->seller_id)->update(['phone' => $this->phone]);
         $this->gallery = '';
         $this->dispatchBrowserEvent('success', ['message'=>'Shop Profile Updated Successfully']);
     }
     public function render()
     {
-        return view('livewire.seller.shop.shop-profile-component')->layout('livewire.seller.layouts.base');
+        $countries = Country::all();
+        $states = State::where('country_id', $this->country_id)->get();
+        return view('livewire.seller.shop.shop-profile-component',['countries'=>$countries, 'states'=>$states])->layout('livewire.seller.layouts.base');
     }
 }
