@@ -4,10 +4,6 @@ namespace App\Repositories\Photo;
 
 use App\Models\Photo;
 use App\Repositories\Base\BaseRepository;
-use App\Repositories\Product\PhotosRepositoryInterface;
-use App\Repositories\Product\ProductRepositoryInterface;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 
@@ -19,8 +15,12 @@ class PhotosRepository extends BaseRepository
     {
        $this->photo=$photo;
     }
-    public function getAllPhoto(){
-        return DB::table('photos')->get();
+
+    public function getCategoryPhoto($id){
+        return DB::table('photos')->where('category_id',$id)->where('home',null)->get();
+    }
+    public function getHomePhoto(){
+        return DB::table('photos')->where('category_id',null)->where('home','home')->get();
     }
 
 

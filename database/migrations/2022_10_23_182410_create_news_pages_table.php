@@ -16,7 +16,7 @@ class CreateNewsPagesTable extends Migration
         Schema::create('news_pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('news');
+            $table->text('news');
             $table->string('banner');
             $table->string('category');
             $table->string('type');

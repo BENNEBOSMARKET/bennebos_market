@@ -30,6 +30,7 @@ class SendMoneyCustomerRequest extends FormRequest
         if(str_contains($this->path(),"sendMoney/get")){
             return [
 
+
                 'id' => 'sometimes|nullable|integer|exists:users,id',
             ];
         }

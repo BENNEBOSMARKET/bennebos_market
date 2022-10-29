@@ -16,7 +16,7 @@ class EditPhotoComponent extends Component
     use WithFileUploads;
 
     public $sortingValue = 10, $searchTerm;
-    public $slider_link, $status, $banner, $new_banner, $category,$type;
+    public $slider_link, $status, $banner, $new_banner, $category,$place,$type,$home;
     public $edit_id, $delete_id;
 
     protected $listeners = ['deleteConfirmed'=>'deleteData'];
@@ -28,6 +28,8 @@ class EditPhotoComponent extends Component
         $this->validate([
 
             'banner' => 'required',
+            'category'=>'required',
+            'place'=>'required',
 
         ]);
 
@@ -43,7 +45,39 @@ class EditPhotoComponent extends Component
 
 
 //        $data->banner =  $imageName;
-        $data->category=$this->category;
+        $data->category_id=$this->category;
+        $data->place=$this->place;
+
+
+        $data->save();
+
+        $this->dispatchBrowserEvent('success', ['message'=>'Slider created successfully']);
+        $this->dispatchBrowserEvent('closeModal');
+        $this->resetInputs();
+    }
+    public function storePhotoHome()
+    {
+        $this->validate([
+
+            'banner' => 'required',
+            'place'=>'required',
+
+        ]);
+
+
+        $data = new Photo();
+
+
+        $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
+
+        $this->banner->storeAs('imgs/photoPages/',$imageName, 's3');
+        $data->banner = env('AWS_BUCKET_URL') . 'imgs/photoPages/'.$imageName;
+
+
+
+//        $data->banner =  $imageName;
+        $data->home='home';
+        $data->place=$this->place;
 
 
         $data->save();
@@ -58,8 +92,10 @@ class EditPhotoComponent extends Component
 
         $this->edit_id = $getData->id;
 
-        $this->category = $getData->category;
+        $this->category = $getData->category_id;
         $this->new_banner = $getData->banner;
+        $this->place = $getData->place;
+        $this->home = $getData->home;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -73,28 +109,54 @@ class EditPhotoComponent extends Component
         $data = Photo::where('id', $this->edit_id)->first();
 
 
-//
-//        if($this->new_banner != ''){
-//
-//
-//            $imageName = Carbon::now()->timestamp. '.' . $this->new_banner->extension();
-//
-//            $this->new_banner->storeAs('imageUpload/'.$this->category,$imageName);
-//
-//        }
-//        $data->banner = $imageName;
 
 
-
-        $data->category = $this->category;
-
+        $data->category_id = $this->category;
+        $data->place=$this->place;
         $data->banner = $this->new_banner;
 
-        if($this->new_banner != ''){
-            $imageName = Carbon::now()->timestamp. '.' . $this->new_banner->extension();
-
-            $this->new_banner->storeAs('imgs/photoPages/'.$this->category,$imageName, 's3');
+        if($this->banner != ''){
+            $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
+            $this->banner->storeAs('imgs/photoPages/'.$this->category,$imageName, 's3');
             $data->banner = env('AWS_BUCKET_URL') . 'imgs/photoPages/'.$this->category.'/'.$imageName;
+        }
+
+        $data->save();
+        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatchBrowserEvent('success', ['message'=>'Slider updated successfully']);
+        $this->resetInputs();
+    }
+
+
+    public function editHomePhotoData($id)
+    {
+        $getData = Photo::where('id', $id)->first();
+
+        $this->edit_id = $getData->id;
+
+
+        $this->new_banner = $getData->banner;
+        $this->place = $getData->place;
+        $this->home = $getData->home;
+        $this->dispatchBrowserEvent('showEditHomePhotoModal');
+    }
+    public function updateHomePhoto()
+    {
+        $this->validate([
+            'home' => 'required',
+            'place' => 'required',
+
+        ]);
+
+        $data = Photo::where('id', $this->edit_id)->first();
+
+        $data->place = $this->place;
+        $data->banner = $this->new_banner;
+
+        if($this->banner != ''){
+            $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
+            $this->banner->storeAs('imgs/photoHomePages',$imageName, 's3');
+            $data->banner = env('AWS_BUCKET_URL') . 'imgs/photoHomePages/'.$imageName;
         }
 
         $data->save();
@@ -107,6 +169,7 @@ class EditPhotoComponent extends Component
 
         $this->banner = '';
         $this->new_banner = '';
+        $this->place='';
 
     }
 //
@@ -165,8 +228,8 @@ class EditPhotoComponent extends Component
     public function render()
     {
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
-//        $sliders = Slider::orderBy('id', 'DESC')->paginate($this->sortingValue);
-        $photos=Photo::all();
-        return view('livewire.admin.slider.edit-photo-component',['photos' => $photos,'categories'=>$categories])->layout('livewire.admin.layouts.base');
+        $photosCategory=Photo::where('category_id','!=',null)->latest()->get();
+        $photosHome=Photo::where('home','home')->get();
+        return view('livewire.admin.slider.edit-photo-component',['photosCategory' => $photosCategory,'categories'=>$categories,'photosHome'=>$photosHome])->layout('livewire.admin.layouts.base');
     }
 }
