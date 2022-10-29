@@ -48,4 +48,9 @@ class Seller extends Authenticatable
     {
         return $this->belongsTo(SellerWallet::class);
     }
+
+    public function storeName()
+    {
+        return $this->hasOne(Shop::class);
+    }
 }

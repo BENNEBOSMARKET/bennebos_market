@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
+use App\Http\Controllers\Api\BolgsController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\ContacUsPageController;
@@ -157,3 +158,4 @@ Route::get('AllFeatures',[FeaturesPageController::class,'getAllFeatures']);
 Route::get('AllHelpCenter',[HelpCenterPageController::class,'getAllHelp']);
 Route::get('AllOurService',[OurServicePageController::class,'getAllServices']);
 Route::get('GetContactUs',[ContacUsPageController::class,'getAllContactUsPage']);
+Route::get('GetAllBlogs',[BolgsController::class,'getAllBlogs']);
