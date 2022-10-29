@@ -17,9 +17,9 @@ class SendMoneyCustomerController extends Controller
 
     }
 
-    public function getCustomerPoint(User $user)
+    public function getCustomerPoint($id)
     {
-        $photo = $this->sendMoneyCustomerRepository->getCustomerPoint($user);
+        $photo = $this->sendMoneyCustomerRepository->getCustomerPoint($id);
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
     }
 }
