@@ -20,8 +20,8 @@ class Category extends Model
         'commision_rate',
         'banner',
     ];
-    
-    
+
+
     public function getsubSubCategory()
     {
         return $this->hasMany(Category::class, 'sub_parent_id');

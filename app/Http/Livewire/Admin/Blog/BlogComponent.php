@@ -4,9 +4,14 @@ namespace App\Http\Livewire\Admin\Blog;
 
 use App\Models\Blog;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class BlogComponent extends Component
 {
+    use WithPagination;
+    use WithFileUploads;
+
     public $sortingValue = 10, $searchTerm;
     public $delete_id;
     protected $listeners = ['deleteConfirmed'=>'deleteData'];

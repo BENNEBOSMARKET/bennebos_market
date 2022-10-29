@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Photo;
+use App\Models\User;
 use App\Repositories\Photo\PhotosRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use GuzzleHttp\Client;
@@ -19,9 +21,19 @@ class PhotoController extends Controller
 
     }
 
-    public function getAllPhotos()
+//    public function getAllPhotos()
+//    {
+//        $photo = $this->photosRepository->getAllPhoto();
+//        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
+//    }
+    public function getCategoryPhoto($id)
     {
-        $photo = $this->photosRepository->getAllPhoto();
+        $photo = $this->photosRepository->getCategoryPhoto($id);
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
+    }
+    public function getHomePhoto()
+    {
+        $photo = $this->photosRepository->getHomePhoto();
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
     }
 }

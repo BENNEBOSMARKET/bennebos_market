@@ -65,12 +65,12 @@
                                             <tr>
                                                 <td>{{ $sl++ }}</td>
                                                 <td><img src="{{ $blog->banner }}" style="height: 50px; width: 70px;" class="img-fluid" alt=""> {{ $blog->title }}</td>
-                                                <td>{{ $blog->category->name }}</td>
+                                                <td></td>
                                                 <td>
                                                     @if ($blog->status == 1)
                                                         <span wire:click.prevent='changeStatus({{ $blog->id }})' class="badge bg-success statusPreLoad" style="font-size: 12.5px; cursor: pointer;">Active</span>
                                                     @else
-                                                        <span wire:click.prevent='changeStatus({{ $blog->id }})' class="badge bg-danger statusPreLoad" style="font-size: 12.5px; cursor: pointer;">InActive<span>   
+                                                        <span wire:click.prevent='changeStatus({{ $blog->id }})' class="badge bg-danger statusPreLoad" style="font-size: 12.5px; cursor: pointer;">InActive<span>
                                                     @endif
                                                 </td>
                                                 <td style="text-align: center;">

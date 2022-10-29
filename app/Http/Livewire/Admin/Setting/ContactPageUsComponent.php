@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Setting;
 
 use App\Models\Category;
 use App\Models\ContactUs;
+use App\Models\ContactUsPage;
 use App\Models\HowBuyPage;
 use App\Models\Photo;
 use App\Models\Slider;
@@ -12,12 +13,12 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class ContectUsComponent extends Component
+class ContactPageUsComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
 
-    public $sortingValue = 10, $searchTerm,$select,$input;
+    public $sortingValue = 10, $searchTerm,$email,$phone,$address;
     public $edit_id, $delete_id;
 
     protected $listeners = ['deleteConfirmed'=>'deleteData'];
@@ -28,18 +29,19 @@ class ContectUsComponent extends Component
     {
         $this->validate([
 
-            'select' => 'required',
-            'input'=>'required',
-
+            'email' => 'required',
+            'phone'=>'required',
+            'address'=>'required',
 
         ]);
 
 
-        $data = new ContactUs();
+        $data = new ContactUsPage();
 
 
-        $data->select=$this->select;
-        $data->input=$this->input;
+        $data->email=$this->email;
+        $data->phone=$this->phone;
+        $data->address=$this->address;
 
         $data->save();
 
@@ -49,13 +51,13 @@ class ContectUsComponent extends Component
     }
     public function editData($id)
     {
-        $getData = ContactUs::where('id', $id)->first();
+        $getData = ContactUsPage::where('id', $id)->first();
 
         $this->edit_id = $getData->id;
 
-        $this->input = $getData->input;
-        $this->select = $getData->select;
-
+        $this->email = $getData->email;
+        $this->phone= $getData->phone;
+        $this->address = $getData->address;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -63,19 +65,19 @@ class ContectUsComponent extends Component
     {
         $this->validate([
 //
-
-            'select' => 'required',
-            'input'=>'required',
+            'email' => 'required',
+            'phone'=>'required',
+            'address'=>'required',
         ]);
 
-        $data = ContactUs::where('id', $this->edit_id)->first();
+        $data = ContactUsPage::where('id', $this->edit_id)->first();
 
 
 
 
-        $data->select=$this->select;
-        $data->input=$this->input;
-
+        $data->email=$this->email;
+        $data->phone=$this->phone;
+        $data->address=$this->address;
         $data->save();
         $this->dispatchBrowserEvent('closeModal');
         $this->dispatchBrowserEvent('success', ['message'=>' updated successfully']);
@@ -84,10 +86,10 @@ class ContectUsComponent extends Component
     public function resetInputs()
     {
 
-        $this->banner = '';
-        $this->new_banner = '';
-        $this->title='';
-        $this->description='';
+        $this->email = '';
+        $this->phone = '';
+        $this->address='';
+
 
     }
 
@@ -100,7 +102,7 @@ class ContectUsComponent extends Component
 
     public function deleteData()
     {
-        $data = ContactUs::find($this->delete_id);
+        $data = ContactUsPage::find($this->delete_id);
         $data->delete();
 
         $this->dispatchBrowserEvent('sliderDeleted');
@@ -110,9 +112,9 @@ class ContectUsComponent extends Component
 
     public function render()
     {
-//        $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
-//        $sliders = Slider::orderBy('id', 'DESC')->paginate($this->sortingValue);
-        $Contacts=ContactUs::all();
+
+        $Contacts=ContactUsPage::all();
+
         return view('livewire.admin.setting.contact-us-component',['Contacts'=>$Contacts])->layout('livewire.admin.layouts.base');
     }
 }
