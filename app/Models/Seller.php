@@ -22,6 +22,8 @@ class Seller extends Authenticatable
         'email',
         'password',
         'avatar',
+        'aras_assigned',
+        'aras_address_id',
     ];
 
     /**
@@ -47,5 +49,10 @@ class Seller extends Authenticatable
     public function wallet()
     {
         return $this->belongsTo(SellerWallet::class);
+    }
+
+    public function storeName()
+    {
+        return $this->hasOne(Shop::class);
     }
 }
