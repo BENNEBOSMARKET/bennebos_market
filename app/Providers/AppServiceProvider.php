@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Country;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -9,6 +10,7 @@ use App\Services\SocialUserResolver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {

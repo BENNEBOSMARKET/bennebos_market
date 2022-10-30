@@ -57,6 +57,8 @@ return [
 
   // Index Page
   'my_markets' => 'الأقسام',
+  'delivery_country' => 'بلد التوصيل',
+  'settings' => 'الاعدادات',
   'index_hot_seller' => 'البائع الاكثر تميزا',
   'index_new_trends_release' => 'إصدار الاتجاهات الجديدة',
   'off_or_more' => '10٪ خصم أو أكثر',

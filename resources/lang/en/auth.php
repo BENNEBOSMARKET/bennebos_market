@@ -14,6 +14,8 @@ return [
     'head_reports' => 'Reports',
     'head_maps' => 'Maps',
     'head_info' => 'Info',
+    'delivery_country' => 'Delivery Country',
+    'settings' => 'settings',
     'recent_rearch' => 'Recent Search',
     'clear_all' => 'Clear All',
     'search_history' => 'Search History',
