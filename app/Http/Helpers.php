@@ -321,7 +321,6 @@ function shop($seller_id)
         "shops.address as address",
         "shops.verification_status as verification_status",
         "countries.name as country_name",
-        "countries.id as country_id",
         "countries.flag as country_flag",
         "states.name as state_name",
         "shops.name as name",
@@ -571,6 +570,7 @@ function subCategoryFeaturedProducts($id)
 function subCategoryFeaturedBrands($id)
 {
     $category = Category::find($id);
+
     $brands = Brand::whereIn('id', json_decode($category->brands))->get();
 
     return $brands;
