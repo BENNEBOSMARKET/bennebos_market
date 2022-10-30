@@ -8,7 +8,6 @@ use App\Models\Slider;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Country;
 use App\Models\RightGridBanner;
 use App\Models\Searches;
 use App\Models\TopBanner;
@@ -102,7 +101,6 @@ class Headerv3 extends Component
         $allCategories = Category::select('id', 'slug', 'name')
             ->where('parent_id', 0)
             ->where('sub_parent_id', 0)
-            ->where("country_id", Session::get("delivery_country_id"))
             ->get();
 
         if ($this->category_id != '') {
@@ -125,7 +123,7 @@ class Headerv3 extends Component
             $discount_products = DB::table('products')->where('discount', '!=', 0)->where('status', 1)->first();
             $this->homeSliders = Slider::select('shop_link', 'banner')->where('status', 1)->get();
             $allSubCategories = Category::select('icon', 'name', 'id')->where('parent_id', '!=', 0)->where('sub_parent_id', 0)->where('featured', 1)->limit(7)->get();
-            $getBrands = DB::table('brands')->where("country_id",Session::get("delivery_country_id"))->limit('20')->get();
+            $getBrands = DB::table('brands')->limit('20')->get();
             foreach ($getBrands as $brnd) {
                 $brands->push($brnd);
             }
@@ -170,7 +168,6 @@ class Headerv3 extends Component
             'allCategories' => $allCategories,
             'popularSearches' => $popularSearches,
             'brands' => $brands,
-            'countries' => Country::all(),
             'allSubCategories' => $allSubCategories,
             'hotsellers' => $hotsellers,
             'new_trends' => $new_trends,

@@ -804,9 +804,8 @@
 
                                 <li class="cart_number flag_icon_area" id="countryButtonDesk">
                                     <button type="button" class="flag_btn">
-                                        {{__("auth.settings")}}
-                                        {{-- <img src="{{ asset('' . session('delivery_country_asset') . '') }}"
-                                            class="flag_main_img" /> --}}
+                                        <img src="{{ asset('' . session('delivery_country_asset') . '') }}"
+                                            class="flag_main_img" />
                                     </button>
                                     <div class="cart_product_area country_select_area" id="countryDesk">
                                         <form action="" class="form_area select_form">
@@ -831,14 +830,11 @@
                                             <div class="input_row">
                                                 <label for="">{{ __('auth.delivery_country') }}</label>
                                                 <div class="country">
-                                                    <div id="country" class="select">{{ session('delivery_country') }}</div>
-                                                    {{-- <div id="country" class="select"><img src="{{ asset('' . session('delivery_country_asset') . '') }}" height="17px" width="25px" class="flagstrap-icon"> {{ session('delivery_country') }}</div> --}}
+                                                    <div id="country" class="select"><img src="{{ asset('' . session('delivery_country_asset') . '') }}" height="17px" width="25px" class="flagstrap-icon"> {{ session('delivery_country') }}</div>
                                                     <div id="country-drop" class="dropdown">
                                                         <ul>
-                                                            @foreach($countries as $country)
-                                                            <li data-cid="c32" data-country="{{$country->name}}"><img src="{{ $country->flag }}" height="17px" width="25px" class="flagstrap-icon"> {{$country->name}}</li>
-                                                            @endforeach
-                                                            {{-- <li data-cid="c32" data-country="Germany"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Germany.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Germany</li>
+                                                            <li data-cid="c32" data-country="Turkey"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Turkey.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Turkey</li>
+                                                            <li data-cid="c32" data-country="Germany"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Germany.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Germany</li>
                                                             <li data-cid="c32" data-country="Austria"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Austria.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Austria</li>
                                                             <li data-cid="c32" data-country="Belgium"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Belgium.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Belgium</li>
                                                             <li data-cid="c32" data-country="Bulgaria"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Bulgaria.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Bulgaria</li>
@@ -864,7 +860,7 @@
                                                             <li data-cid="c32" data-country="Spain"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Spain.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Spain</li>
                                                             <li data-cid="c32" data-country="Sweden"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Sweden.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Sweden</li>
                                                             <li data-cid="c32" data-country="UnitedKingdom"><img src="{{ asset('assets/images/icons/country_flag/flag-of-United-Kingdom.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> UnitedKingdom</li>
-                                                            <li data-cid="c32" data-country="Luxembourg"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Luxembourg.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Luxembourg</li> --}}
+                                                            <li data-cid="c32" data-country="Luxembourg"><img src="{{ asset('assets/images/icons/country_flag/flag-of-Luxembourg.jpg') }}" height="17px" width="25px" class="flagstrap-icon"> Luxembourg</li>
                                                         </ul>
                                                     </div>
                                                 </div>
