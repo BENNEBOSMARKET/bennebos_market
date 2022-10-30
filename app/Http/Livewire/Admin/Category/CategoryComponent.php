@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Product;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -17,7 +18,7 @@ class CategoryComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $parent_id = 0, $sub_parent_id = 0, $name, $slug, $commision_rate, $banner, $meta_title, $meta_description, $uploadedBanner, $mega_banner, $uploadedMegaBanner;
+    public $parent_id = 0, $sub_parent_id = 0, $name, $slug, $country_id, $commision_rate, $banner, $meta_title, $meta_description, $uploadedBanner, $mega_banner, $uploadedMegaBanner;
 
     public $edit_id, $delete_id;
 
@@ -51,6 +52,7 @@ class CategoryComponent extends Component
             'slug' => 'required|unique:categories',
             'commision_rate' => 'required',
             'banner' => 'required',
+            'country_id' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
         ]);
@@ -63,6 +65,7 @@ class CategoryComponent extends Component
         $data->commision_rate = $this->commision_rate;
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
+        $data->country_id = $this->country_id;
 
         $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/category', $imageName, 's3');
@@ -105,6 +108,7 @@ class CategoryComponent extends Component
         $this->meta_description = $getData->meta_description;
         $this->uploadedBanner = $getData->banner;
         $this->uploadedMegaBanner = $getData->mega_banner;
+        $this->country_id = $getData->country_id;
 
         $this->dispatchBrowserEvent('showEditModal');
     }
@@ -128,6 +132,7 @@ class CategoryComponent extends Component
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
         $data->banner = $this->uploadedBanner;
+        $data->country_id = $this->country_id;
 
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
@@ -196,6 +201,7 @@ class CategoryComponent extends Component
     public function render()
     {
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
-        return view('livewire.admin.category.category-component', ['categories' => $categories])->layout('livewire.admin.layouts.base');
+        $countries = Country::all();
+        return view('livewire.admin.category.category-component', ['categories' => $categories, 'countries' => $countries])->layout('livewire.admin.layouts.base');
     }
 }

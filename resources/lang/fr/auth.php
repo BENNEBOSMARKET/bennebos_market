@@ -48,6 +48,9 @@ return [
    'password' => 'Le mot de passe fourni est incorrect.',
    'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :secondes secondes.',
    // Index Page
+   'delivery_country' => 'Pays de livraison',
+   'settings' => 'Réglages',
+
    'my_markets' => 'Catégories',
    'index_hot_seller' => 'Article qui se vend bien ',
    'index_new_trends_release' => 'Lancement de nouveautés.',
