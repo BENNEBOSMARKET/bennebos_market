@@ -96,7 +96,7 @@ class AddProductComponentV2 extends Component
             'color_gallery'=>'required',
             'color_title'=>'required',
             'color_price'=>'required',
-            'color_size'=>'nullable',
+            'color_size'=>'required',
             'seller'=>'required',
             'color_description'=>'required',
         ]);

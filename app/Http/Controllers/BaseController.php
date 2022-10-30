@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -23,95 +24,105 @@ class BaseController extends Controller
 
     public function changeCountry($country)
     {
-        $asset = '';
-        if($country == 'Turkey'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Turkey.jpg';
-        }
-        if($country == 'Germany'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Germany.jpg';
-        }
-        if($country == 'Austria'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Austria.jpg';
-        }
-        if($country == 'Belgium'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Belgium.jpg';
-        }
-        if($country == 'Bulgaria'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Bulgaria.jpg';
-        }
-        if($country == 'Croatia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Croatia.jpg';
-        }
-        if($country == 'Czecia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Czecia.jpg';
-        }
-        if($country == 'Denmark'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Denmark.jpg';
-        }
-        if($country == 'Estonia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Estonia.jpg';
-        }
-        if($country == 'Finland'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Finland.jpg';
-        }
-        if($country == 'France'){
-            $asset = 'assets/images/icons/country_flag/flag-of-France.jpg';
-        }
-        if($country == 'Greece'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Greece.jpg';
-        }
-        if($country == 'Hungary'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Hungary.jpg';
-        }
-        if($country == 'Iceland'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Iceland.jpg';
-        }
-        if($country == 'Italy'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Italy.jpg';
-        }
-        if($country == 'Latvia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Latvia.jpg';
-        }
-        if($country == 'Lithuania'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Lithuania.jpg';
-        }
-        if($country == 'Malta'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Malta.jpg';
-        }
-        if($country == 'Netherlands'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Netherlands.jpg';
-        }
-        if($country == 'Poland'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Poland.jpg';
-        }
-        if($country == 'Portugal'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Portugal.jpg';
-        }
-        if($country == 'Romania'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Romania.jpg';
-        }
-        if($country == 'Slovakia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Slovakia.jpg';
-        }
-        if($country == 'Slovenia'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Slovenia.jpg';
-        }
-        if($country == 'Spain'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Spain.jpg';
-        }
-        if($country == 'Sweden'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Sweden.jpg';
-        }
-        if($country == 'UnitedKingdom'){
-            $asset = 'assets/images/icons/country_flag/flag-of-United-Kingdom.jpg';
-        }
-        if($country == 'Luxembourg'){
-            $asset = 'assets/images/icons/country_flag/flag-of-Luxembourg.jpg';
-        }
+        
+        
+        // $asset = '';
+        // if ($country == 'Turkey') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Turkey.jpg';
+        // }
+        // if ($country == 'Germany') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Germany.jpg';
+        // }
+        // if ($country == 'Austria') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Austria.jpg';
+        // }
+        // if ($country == 'Belgium') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Belgium.jpg';
+        // }
+        // if ($country == 'Bulgaria') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Bulgaria.jpg';
+        // }
+        // if ($country == 'Croatia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Croatia.jpg';
+        // }
+        // if ($country == 'Czecia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Czecia.jpg';
+        // }
+        // if ($country == 'Denmark') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Denmark.jpg';
+        // }
+        // if ($country == 'Estonia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Estonia.jpg';
+        // }
+        // if ($country == 'Finland') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Finland.jpg';
+        // }
+        // if ($country == 'France') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-France.jpg';
+        // }
+        // if ($country == 'Greece') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Greece.jpg';
+        // }
+        // if ($country == 'Hungary') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Hungary.jpg';
+        // }
+        // if ($country == 'Iceland') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Iceland.jpg';
+        // }
+        // if ($country == 'Italy') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Italy.jpg';
+        // }
+        // if ($country == 'Latvia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Latvia.jpg';
+        // }
+        // if ($country == 'Lithuania') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Lithuania.jpg';
+        // }
+        // if ($country == 'Malta') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Malta.jpg';
+        // }
+        // if ($country == 'Netherlands') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Netherlands.jpg';
+        // }
+        // if ($country == 'Poland') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Poland.jpg';
+        // }
+        // if ($country == 'Portugal') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Portugal.jpg';
+        // }
+        // if ($country == 'Romania') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Romania.jpg';
+        // }
+        // if ($country == 'Slovakia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Slovakia.jpg';
+        // }
+        // if ($country == 'Slovenia') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Slovenia.jpg';
+        // }
+        // if ($country == 'Spain') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Spain.jpg';
+        // }
+        // if ($country == 'Sweden') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Sweden.jpg';
+        // }
+        // if ($country == 'UnitedKingdom') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-United-Kingdom.jpg';
+        // }
+        // if ($country == 'Luxembourg') {
+        //     $asset = 'assets/images/icons/country_flag/flag-of-Luxembourg.jpg';
+        // }
 
-
+        
+        
+        $country_shipping = Country::where("name", "LIKE", "%$country%")->first();
+        if ($country_shipping) {
+            Session::put('delivery_country_id', $country_shipping->id);
+        } else {
+            $country_shipping = Country::where("name", "LIKE", "%turkey%")->first();
+            Session::put('delivery_country_id', $country_shipping->id);
+        }
         Session::put('delivery_country', $country);
-        Session::put('delivery_country_asset', $asset);
+        // Session::put('delivery_country_asset', $asset);
         return redirect()->back();
     }
 
@@ -122,7 +133,7 @@ class BaseController extends Controller
         $categories = Category::where('parent_id', $id)->get();
 
         return response()->json([
-            'categories'=>$categories,
+            'categories' => $categories,
         ]);
     }
 
@@ -134,13 +145,13 @@ class BaseController extends Controller
         $images = ProductImage::where('product_id', $product_id)->get();
         $product = Product::where('id', $product_id)->first();
         $gallery = '';
-        foreach ($images as $key => $data){
-            if($key == $sl){
+        foreach ($images as $key => $data) {
+            if ($key == $sl) {
                 $gallery = $data;
             }
         }
 
-        
+
         return array(
             'slider_view' => view('partials.product-details-slider', compact('gallery', 'product', 'sl'))->render(),
         );
@@ -150,17 +161,27 @@ class BaseController extends Controller
     {
         $seller = Seller::where('email', $request->email)->first();
 
-        if($seller->disabled == 0){
+        if ($seller->disabled == 0) {
             Auth::guard('seller')->login($seller);
 
             session()->flash('success', 'Login Successfull!');
             return redirect()->route('seller.home');
-        }
-        else{
+        } else {
             session()->flash('error', 'Can not login a disabled seller account!');
             return redirect()->back();
         }
-        
     }
+    // PHP code to extract IP
 
+    function getVisIpAddr()
+    {
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+    }
 }

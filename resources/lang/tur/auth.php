@@ -60,6 +60,9 @@ return [
  'index_hot_seller' => 'En aktif satıcı',
  'index_new_trends_release' => 'Yeni trendler sürümü',
  'off_or_more' => '%10 veya daha fazla indirim',
+ 'delivery_country' => 'Teslimat ülkesi',
+ 'settings' => 'Ayarlar',
+
  
 'bennebos_offer' => 'les offers de Bennebos',
   'big_deals' => 'Big Deals',
