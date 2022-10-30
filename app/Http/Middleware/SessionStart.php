@@ -20,7 +20,7 @@ class SessionStart
     {
         
         if(is_null(Session::get('delivery_country_id'))){
-            $ip = "197.35.119.243";
+            $ip = request()->ip();
             $ipdat = @json_decode(file_get_contents(
                 "http://www.geoplugin.net/json.gp?ip=" . $ip));
     
