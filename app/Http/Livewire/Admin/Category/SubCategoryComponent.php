@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Product;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -17,7 +18,7 @@ class SubCategoryComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $category_id, $sub_category_id, $name, $slug, $commision_rate = 0, $banner, $uploadedBanner, $image, $uploadedImage, $icon, $uploadedIcon, $meta_title, $meta_description;
+    public $category_id, $country_id, $sub_category_id, $name, $slug, $commision_rate = 0, $banner, $uploadedBanner, $image, $uploadedImage, $icon, $uploadedIcon, $meta_title, $meta_description;
 
     public $edit_id, $delete_id;
 
@@ -39,6 +40,7 @@ class SubCategoryComponent extends Component
             'slug' => 'required|unique:categories,slug,' . $this->edit_id . '',
             'category_id' => 'required',
             'banner' => 'required',
+            'country_id' => 'required',
         ]);
     }
 
@@ -49,6 +51,7 @@ class SubCategoryComponent extends Component
             'slug' => 'required|unique:categories',
             'category_id' => 'required',
             'banner' => 'required',
+            'country_id' => 'required',
         ]);
 
         $data = new Category();
@@ -58,6 +61,7 @@ class SubCategoryComponent extends Component
         $data->commision_rate = $this->commision_rate;
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
+        $data->country_id = $this->country_id;
 
         $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/category', $imageName, 's3');
@@ -66,7 +70,7 @@ class SubCategoryComponent extends Component
         if ($this->image != '') {
             $imgName = Carbon::now()->timestamp . '.' . $this->image->extension();
             $this->image->storeAs('imgs/category', $imgName, 's3');
-            $data->image = env('AWS_BUCKET_URL') . 'imgs/category/' . $imgName;
+            $data->featured_image = env('AWS_BUCKET_URL') . 'imgs/category/' . $imgName;
         }
 
         if ($this->icon != '') {
@@ -97,6 +101,7 @@ class SubCategoryComponent extends Component
         $this->uploadedImage = '';
         $this->icon = '';
         $this->uploadedIcon = '';
+        $this->country_id = '';
     }
 
 
@@ -114,6 +119,7 @@ class SubCategoryComponent extends Component
         $this->uploadedBanner = $getData->banner;
         $this->uploadedImage = $getData->featured_image;
         $this->uploadedIcon = $getData->icon;
+        $this->country_id = $getData->country_id;
 
         $this->dispatchBrowserEvent('showEditModal');
     }
@@ -127,6 +133,7 @@ class SubCategoryComponent extends Component
             'commision_rate' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
+            'country_id' => 'required',
         ]);
 
         $data = Category::where('id', $this->edit_id)->first();
@@ -137,6 +144,7 @@ class SubCategoryComponent extends Component
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
         $data->banner = $this->uploadedBanner;
+        $data->country_id = $this->country_id;
 
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
@@ -210,9 +218,9 @@ class SubCategoryComponent extends Component
 
     public function render()
     {
-        $this->categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
-
+        $this->categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->where("country_id",$this->country_id)->get();
+        $countries = Country::all();
         $subcategories = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
-        return view('livewire.admin.category.sub-category-component', ['subcategories' => $subcategories])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.category.sub-category-component', ['subcategories' => $subcategories,'countries' => $countries])->layout('livewire.admin.layouts.base');
     }
 }

@@ -437,7 +437,7 @@
                                                         <div wire:ignore>
                                                             <select id="ProductSize" wire:model="size" multiple>
                                                                 @foreach ($sizes as $size)
-                                                                <option value="{{ $size->size }}">{{ $size->size }}
+                                                                <option value="{{ $size->id }}">{{ $size->size }}
                                                                 </option>
                                                                 @endforeach
                                                             </select>
@@ -733,7 +733,7 @@
                                 <div wire:ignore>
                                     <select id="ProductSizeColor" wire:model="color_size" multiple>
                                         @foreach ($sizes as $size)
-                                        <option value="{{ $size->size }}">{{ $size->size }}</option>
+                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -742,7 +742,33 @@
                                 @enderror
                             </div>
                         </div>
-
+                        {{-- <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Product Seller</label>
+                            <div class="col-sm-9">
+                                <div wire:ignore>
+                                    <select id="ProductSeller" wire:model="seller" name="seller">
+                                        @foreach ($sellersOptions as $new_seller)
+                                            <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('seller')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div> --}}
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label">Product Description</label>
+                            <div class="col-sm-9">
+                                <textarea wire:model="color_description" placeholder="Enter description"
+                                          class="form-control"
+                                          rows="8"
+                                ></textarea>
+                                @error('color_description')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
@@ -852,7 +878,7 @@
         });
 
         var sizeSelector2 = new Selectr('#ProductSizeColor', {
-            multiple: true,
+            multiple: false,
             placeholder: 'Select size'
         });
         sizeSelector2.on('selectr.change', function(option) {

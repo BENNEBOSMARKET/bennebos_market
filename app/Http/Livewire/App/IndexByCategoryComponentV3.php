@@ -14,6 +14,7 @@ use App\Models\Partner;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
 
 class IndexByCategoryComponentV3 extends Component
 {
@@ -114,58 +115,67 @@ class IndexByCategoryComponentV3 extends Component
         $categories = array_merge($categories, $subsubcategories);
         
 
-        $products =  DB::table('products')->whereIn('category_id', $categories);
-        $new_arrivals = $products->select('name', 'slug', 'thumbnail', 'unit_price', 'discount')
-            ->where('new_arrival', 1)
-            ->where('status', 1)
-            ->limit(20)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        $top_products = $products->where('top_ranked', 1)
-            ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-            ->where('status', 1)
-            ->limit(20)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        $dropshippings = $products->where('dropshipping', 1)
-        ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('status', 1)
+        $products =  DB::table('products')->whereIn('category_id', $categories)->leftJoin("categories","products.category_id", "=","categories.id");
+        $new_arrivals = $products->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('products.new_arrival', 1)
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
-        $opportunities = $products->where('true_view', 1)
-        ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('status', 1)
+        $top_products = $products->where('products.top_ranked', 1)
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
-        $best_selling = $products->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('best_selling', 1)
-        ->where('status', 1)
+        $dropshippings = $products->where('products.dropshipping', 1)
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
+        ->get();
+
+        $opportunities = $products->where('products.true_view', 1)
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
+        ->limit(20)
+        ->orderBy('products.updated_at', 'DESC')
+        ->get();
+
+
+        $best_selling = $products->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('products.best_selling', 1)
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
+        ->limit(20)
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
 
         $middle_banner = MiddleBanner::select('banner', 'title')->orderBy('created_at', 'DESC')->first();
         $bottom_banner = BottomBanner::select('banner', 'title')->orderBy('created_at', 'DESC')->first();
         $subCategorytopFive = Category::select('name', 'slug', 'featured_image', 'id', 'featured_image')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             ->take(5)
             ->get();
 
         $subCategoryF9 = Category::select('name', 'slug', 'featured_image', 'id', 'banner')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             ->take(9)
             ->get();
 
         $subCategoryT_all = Category::select('id', 'slug', 'banner', 'name')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             
@@ -176,7 +186,9 @@ class IndexByCategoryComponentV3 extends Component
             ->where('products.deal_of_day', 1)
             ->leftJoin('shops', 'shops.seller_id', '=', 'products.user_id')
             ->leftJoin('reviews', 'reviews.product_id', '=', 'products.id')
+            ->leftJoin("categories","products.category_id", "=","categories.id")
             ->leftJoin('deals_of_days', 'deals_of_days.product_id', '=', 'products.id')
+            ->where('categories.country_id', Session::get("delivery_country_id"))
             ->limit(7)
             ->select(
                 "products.slug", "products.name","products.thumbnail",
@@ -195,13 +207,46 @@ class IndexByCategoryComponentV3 extends Component
     $partners = Partner::where('status', 1)->get();
 
         //BigDeals
-        $bd_best_deals = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('best_big_deal', 1)->where('status', 1)->limit(8)->get();
-        $bd_new_arrivals = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_deal_new_arrival', 1)->where('status', 1)->limit(8)->get();
-        $bd_most_viewed = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_deal_most_viewed', 1)->where('status', 1)->limit(8)->get();
-        $bd_deal_of_seasons = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('deal_of_season', 1)->where('status', 1)->limit(8)->get();
-        $bd_big_needs = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_needs', 1)->where('status', 1)->limit(8)->get();
-        $bd_big_quantity = DB::table('products')->whereIn('category_id', $categories)->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_quantity', 1)->where('status', 1)->limit(8)->get();
-        
+        $bd_best_deals = $products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.best_big_deal', 1)
+        ->where('products.status', 1)
+        ->limit(8)->get();
+        $bd_new_arrivals =$products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_deal_new_arrival', 1)
+        ->where('products.status', 1)
+        ->limit(8)->get();
+        $bd_most_viewed =$products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_deal_most_viewed', 1)
+        ->where('status', 1)
+        ->limit(8)
+        ->get();        
+        $bd_deal_of_seasons = $products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.deal_of_season', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();        
+        $bd_big_needs = $products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_needs', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();        
+        $bd_big_quantity = $products
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('products.big_quantity', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();
+                
 
         return view('livewire.app.index-by-category-component-v3', [
             'new_arrivals' => $new_arrivals,
