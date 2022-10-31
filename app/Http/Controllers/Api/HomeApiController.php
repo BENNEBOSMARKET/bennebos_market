@@ -83,7 +83,17 @@ class HomeApiController extends Controller
             $categories = array_merge($categories, $subcategories);
             $subsubcategories = DB::table('categories')->whereIn('sub_parent_id', $categories)->pluck("id")->toArray();
             $categories = array_merge($categories, $subsubcategories);
-            $categories_data[$key]->products = Product::whereIn('category_id', $categories)->where('status', 1)->take(8)->get();
+            $categories_data[$key]->products = Product::whereIn('category_id', $categories)->where('status', 1)
+            ->select("name","id", "slug", "thumbnail",  "unit_price", "discount_date_from", "discount_date_to",  "discount", "avg_review" )
+            ->take(8)
+            ->get();
+            
+
+
+
+
+
+
         }
 
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($categories_data)->getJsonResponse();
