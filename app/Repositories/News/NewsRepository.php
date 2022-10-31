@@ -2,7 +2,6 @@
 namespace App\Repositories\News;
 
 use App\Models\NewsPage;
-use App\Models\Photo;
 use App\Repositories\Base\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +14,7 @@ class NewsRepository extends BaseRepository
         $this->news=$news;
     }
     public function getAllNews(){
-        return DB::table('news_pages')->get();
+        return DB::table('news_pages')->latest()->get();
     }
 
 

@@ -54,6 +54,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Store Seller</th>
                                         <th>Email Address</th>
                                         <th>Phone</th>
                                         <th>Date</th>
@@ -78,6 +79,8 @@
                                             <tr>
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $seller->name }}</td>
+
+                                                <td>{{ $seller->storeName->name }}</td>
                                                 <td>{{ $seller->email }}</td>
                                                 <td>{{ $seller->phone }}</td>
                                                 <td>{{ $seller->created_at }}</td>
@@ -128,8 +131,8 @@
                                                         @else
                                                             <a wire:click.prevent="enableConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Enable Seller</a>
                                                         @endif
-                                                        
-                                                        
+
+
                                                         <a wire:click.prevent="deleteConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Delete Seller</a>
                                                     </div>
                                                 </td>

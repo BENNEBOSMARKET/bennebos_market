@@ -121,6 +121,7 @@
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
                                 </select>
+
                                 @error('customer')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -249,5 +250,6 @@
             @this.publishStatus(id);
             });
         });
+
     </script>
 @endpush

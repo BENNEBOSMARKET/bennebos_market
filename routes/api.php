@@ -1,11 +1,18 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
+use App\Http\Controllers\Api\BolgsController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\ContacUsPageController;
+use App\Http\Controllers\Api\FeaturesPageController;
+use App\Http\Controllers\Api\HelpCenterPageController;
 use App\Http\Controllers\Api\HomeApiController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChecoutController;
+use App\Http\Controllers\Api\HowBuyPageController;
+use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\OurServicePageController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PhotoController;
 use App\Http\Controllers\Api\ProductController;
@@ -13,7 +20,7 @@ use App\Http\Controllers\Api\ProductsUpload;
 use App\Http\Controllers\Api\SendMoneyCustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WishListController;
-use App\Repositories\News\NewsRepository;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +55,7 @@ Route::group(['middleware'=>["auth:api"]],function(){
     Route::post('product/review',[ProductController::class, "makeReview"]);
     Route::put('wishlist/assign', [WishListController::class, 'assignUserToWishlist']);
 
-    Route::get('/sendMoney/get/{id}',[SendMoneyCustomerController::class, "getCustomerPoint"]);
+        Route::get('/sendMoney/get/{id}',[SendMoneyCustomerController::class, "getCustomerPoint"]);
 
     Route::group(['prefix' => "me"],function(){
         Route::get('info',[UserController::class, "getUserInfo"]);
@@ -144,7 +151,12 @@ Route::match(array('GET', 'POST'),'payment/callback',[PaymentController::class, 
 Route::post('products/upload/data',[ProductsUpload::class, 'productsUpload']);
 Route::get('search',[HomeApiController::class, "search"]);
 Route::get('filter',[ProductController::class, "filter"]);
-Route::get('allPhotos',[PhotoController::class,'getAllPhotos']);
-Route::get('allNews',[NewsRepository::class,'getAllNews']);
-
-
+Route::get('allCategoryPhotos/{id}',[PhotoController::class,'getCategoryPhoto']);
+Route::get('allHomePhotos',[PhotoController::class,'getHomePhoto']);
+Route::get('allNews',[NewsController::class,'getNews']);
+Route::get('HowBuyPage',[HowBuyPageController::class,'getAllHowBuyPage']);
+Route::get('AllFeatures',[FeaturesPageController::class,'getAllFeatures']);
+Route::get('AllHelpCenter',[HelpCenterPageController::class,'getAllHelp']);
+Route::get('AllOurService',[OurServicePageController::class,'getAllServices']);
+Route::get('GetContactUs',[ContacUsPageController::class,'getAllContactUsPage']);
+Route::get('GetAllBlogs',[BolgsController::class,'getAllBlogs']);

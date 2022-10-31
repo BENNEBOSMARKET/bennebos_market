@@ -11,7 +11,7 @@ class BlogComponent extends Component
     use WithPagination;
     public function render()
     {
-        $blogs = Blog::where('status', 1)->paginate(20);
+        $blogs = Blog::where('status', 1)->latest()->get();
         return view('livewire.app.blog.blog-component', ['blogs'=>$blogs])->layout('livewire.layouts.base');
     }
 }

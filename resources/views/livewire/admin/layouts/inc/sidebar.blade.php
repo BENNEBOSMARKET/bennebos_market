@@ -617,6 +617,29 @@
                                             class="nav-link {{ request()->is('admin/setting/phone-codes') || request()->is('admin/setting/phone-codes/*') ? 'active' : '' }}">Phone
                                             Codes</a>
                                     </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('admin.HowBuy') }}"
+                                           class="nav-link {{ request()->is('admin/setting/HowBuy') || request()->is('admin/setting/HowBuy/*') ? 'active' : '' }}">Edıt  How Buy Page</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('admin.Feature') }}"
+                                           class="nav-link {{ request()->is('admin/ /setting/Feature') || request()->is('admin/ /setting/Feature/*') ? 'active' : '' }}">Edıt Feature Page</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('admin.HelpCenterPage') }}"
+                                           class="nav-link {{ request()->is('admin/setting/HelpCenterPage') || request()->is('admin/setting/HelpCenterPage/*') ? 'active' : '' }}">Edıt Help Center Page</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('admin.OurService') }}"
+                                           class="nav-link {{ request()->is('admin/setting/OurServicePage') || request()->is('admin/setting/OurServicePage/*') ? 'active' : '' }}">Edıt Our Service Page</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('admin.ContactUsPage') }}"
+                                           class="nav-link {{ request()->is('admin/setting/ContactUsPage') || request()->is('admin/setting/ContactUsPage/*') ? 'active' : '' }}">Edıt Contact Us Page</a>
+                                    </li>
+
+
+
                                 </ul>
                             </div>
                         </li>

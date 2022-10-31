@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Photo;
+use App\Repositories\HowBuyPage\HowBuyPageRepository;
 use App\Repositories\News\NewsRepository;
 use App\Repositories\Photo\PhotosRepository;
+use App\Repositories\User\UserRepositoryInterface;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -17,9 +21,9 @@ class NewsController extends Controller
 
     }
 
-    public function getAllPhotos()
+    public function getAllNews()
     {
-        $news = $this->newsRepository->getAllNews();
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($news)->getJsonResponse();
+        $buyPage = $this->newsRepository->getAllNews();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($buyPage)->getJsonResponse();
     }
 }
