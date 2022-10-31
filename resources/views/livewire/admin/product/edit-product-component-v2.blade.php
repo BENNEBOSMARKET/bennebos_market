@@ -774,11 +774,11 @@
                 enableExif: true,
                 viewport: {
                     width: 400,
-                    height: 600,
+                    height: 500,
                     type: 'rectangle'
                 },
                 boundary: {
-                    width: 500,
+                    width: 400,
                     height: 700
                 }
             });
@@ -800,9 +800,9 @@
             $('.crop_image').click(function(event) {
                 $image_crop.croppie('result', {
                     type: 'canvas',
-                    size: 'viewport'
+                    size: 'originala'
                 }).then(function(response) {
-                    var proImage = new Image(100, 150);
+                    var proImage = new Image(100, 100);
                     proImage.src = '' + response + '';
                     $('#imgElem').html(proImage);
                     $('#uploadThumbnailModal').modal('hide');
