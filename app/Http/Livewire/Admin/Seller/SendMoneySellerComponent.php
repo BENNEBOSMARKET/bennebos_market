@@ -110,7 +110,9 @@ class SendMoneySellerComponent extends Component
     public function render()
     {
         $sellers=Seller::all();
-        $sellerMoneys = SendMoneySeller::paginate($this->sortingValue);
+        $sellerMoneys = SendMoneySeller::join('sellers','send_money_sellers.seller_id','=','sellers.id')->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('money', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('description', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.seller.send-money-seller-component', ['sellerMoneys' => $sellerMoneys,'sellers'=>$sellers])->layout('livewire.admin.layouts.base');
+        }
     }
-}

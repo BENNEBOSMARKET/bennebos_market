@@ -1,6 +1,7 @@
 @if(auth()->user()->role != "sub-admin" )
     <div>
         <div class="container-fluid">
+
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -29,7 +30,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col align-self-center">
-                                    <div class="media">
+                                    <a href="{{url('admin/commission-history')}}" class="media">
                                         <img src="{{ asset('assets/admin/images/logos/money-beg.png') }}" alt=""
                                              class="align-self-center" height="40">
                                         <div class="media-body align-self-center ms-3">
@@ -37,7 +38,7 @@
                                             <p class="text-muted mb-0">Total Revenue</p>
                                         </div>
                                         <!--end media body-->
-                                    </div>
+                                    </a>
                                     <!--end media-->
                                 </div>
                                 <!--end col-->
@@ -55,7 +56,7 @@
                     <!--end card-->
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a href="{{url('admin/commission-history')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -66,12 +67,12 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-body-->
                         </div>
                         <!--end col-->
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a  href="{{url('admin/sales/all-orders')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -82,11 +83,11 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-body-->
                         </div>
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a href="{{url('admin/sales/all-orders')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -97,12 +98,12 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-body-->
                         </div>
                         <!--end col-->
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a href="{{url('admin/sales/inhouse-orders')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -113,12 +114,12 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-body-->
                         </div>
                         <!--end col-->
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a href="{{url('admin/seller/all-seller')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -129,11 +130,11 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-->
                         </div>
                         <div class="col-12 col-lg-6">
-                            <div class="card">
+                            <a href="{{url('admin/seller/all-seller')}}" class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col text-center">
@@ -144,7 +145,7 @@
                                     </div> <!-- end row -->
                                 </div>
                                 <!--end card-body-->
-                            </div>
+                            </a>
                             <!--end card-->
                         </div>
                         <!--end col-->
@@ -233,63 +234,26 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="border-top-0">Date</th>
-                                        <th class="border-top-0">Item Count</th>
-                                        <th class="border-top-0">Text</th>
-                                        <th class="border-top-0">Earnings</th>
+                                        <th class="border-top-0">Seller</th>
+                                        <th class="border-top-0">Admin commission</th>
+                                        <th class="border-top-0">Seller Earning</th>
+                                        <th class="border-top-0">-</th>
                                     </tr>
                                     <!--end tr-->
                                     </thead>
                                     <tbody>
+                                    @foreach($Commissions as $Commission)
                                     <tr>
-                                        <td>01 January</td>
-                                        <td>50</td>
-                                        <td class="text-danger">-$70</td>
-                                        <td>$15,000</td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>02 January</td>
-                                        <td>25</td>
-                                        <td>-</td>
-                                        <td>$9,500</td>
+                                        <td>{{date_format($Commission->created_at ,'M-d')}}</td>
+                                        <td>{{$Commission->name}}</td>
 
+                                        <td class="text-success">Tl {{$Commission->admin_commission}}</td>
+                                        <td class="text-primary">Tl {{$Commission->seller_earning}}</td>
+                                        <td class="text-danger">Tl {{$Commission->seller_earning - $Commission->admin_commission }}</td>
                                     </tr>
+                                    @endforeach
                                     <!--end tr-->
-                                    <tr>
-                                        <td>03 January</td>
-                                        <td>65</td>
-                                        <td class="text-danger">-$115</td>
-                                        <td>$35,000</td>
 
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>04 January</td>
-                                        <td>20</td>
-                                        <td>-</td>
-                                        <td>$8,500</td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>05 January</td>
-                                        <td>40</td>
-                                        <td class="text-danger">-$60</td>
-                                        <td>$12,000</td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>06 January</td>
-                                        <td>45</td>
-                                        <td class="text-danger">-$65</td>
-                                        <td>$13,500</td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>07 January</td>
-                                        <td>30</td>
-                                        <td>-</td>
-                                        <td>$15,500</td>
-                                    </tr>
                                     <!--end tr-->
                                     </tbody>
                                 </table>
@@ -321,118 +285,36 @@
                                     <tr>
                                         <th class="border-top-0">Product</th>
                                         <th class="border-top-0">Price</th>
-                                        <th class="border-top-0">Sell</th>
+                                        <th class="border-top-0">Unit</th>
                                         <th class="border-top-0">Status</th>
-                                        <th class="border-top-0">Action</th>
+
                                     </tr>
                                     <!--end tr-->
                                     </thead>
                                     <tbody>
+                                    @foreach($productsTopRanked as $productTopRanked)
                                     <tr>
+
                                         <td>
                                             <div class="media">
-                                                <img src="{{ asset('assets/admin/images/products/01.png') }}"
+                                                <img src="{{ $productsTopRanked->thumbnail  }}"
                                                      height="30" class="me-3 align-self-center rounded" alt="...">
                                                 <div class="media-body align-self-center">
-                                                    <h6 class="m-0">Unikit Camera EDM 5D(White)</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: A3652</a>
+                                                    <h6 class="m-0">{{$productsTopRanked->name}}</h6>
+                                                    <a href="#" class="font-12 text-primary">ID: {{$productsTopRanked->barcode}}</a>
                                                 </div>
                                                 <!--end media body-->
                                             </div>
                                         </td>
-                                        <td>$50 <del class="text-muted font-10">$70</del></td>
-                                        <td>450 <small class="text-muted">(550)</small></td>
-                                        <td><span class="badge badge-soft-warning px-2">Stock</span></td>
-                                        <td>
-                                            <a href="#"><i class="las la-pen text-secondary font-18"></i></a>
-                                            <a href="#"><i class="las la-trash-alt text-secondary font-18"></i></a>
-                                        </td>
+
+                                        <td>Tl {{$productsTopRanked->unit_price}} </td>
+                                        <td> {{$productsTopRanked->unit}} </td>
+                                        <td><span class="badge badge-soft-warning px-2">{{$productsTopRanked->status}}</span></td>
+
                                     </tr>
+                                    @endforeach
                                     <!--end tr-->
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <img src="{{ asset('assets/admin/images/products/02.png') }}"
-                                                     height="30" class="me-3 align-self-center rounded" alt="...">
-                                                <div class="media-body align-self-center">
-                                                    <h6 class="m-0">Unikit Shoes Max-Zon</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: A5002</a>
-                                                </div>
-                                                <!--end media body-->
-                                            </div>
-                                        </td>
-                                        <td>$99 <del class="text-muted font-10">$150</del></td>
-                                        <td>750 <small class="text-muted">(00)</small></td>
-                                        <td><span class="badge badge-soft-primary px-2">Out of Stock</span></td>
-                                        <td>
-                                            <a href="#"><i class="las la-pen text-secondary font-18"></i></a>
-                                            <a href="#"><i class="las la-trash-alt text-secondary font-18"></i></a>
-                                        </td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <img src="{{ asset('assets/admin/images/products/04.png') }}"
-                                                     height="30" class="me-3 align-self-center rounded" alt="...">
-                                                <div class="media-body align-self-center">
-                                                    <h6 class="m-0">Unikit Mask N99 [ISI]</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: A6598</a>
-                                                </div>
-                                                <!--end media body-->
-                                            </div>
-                                        </td>
-                                        <td>$199 <del class="text-muted font-10">$250</del></td>
-                                        <td>280 <small class="text-muted">(220)</small></td>
-                                        <td><span class="badge badge-soft-warning px-2">Stock</span></td>
-                                        <td>
-                                            <a href="#"><i class="las la-pen text-secondary font-18"></i></a>
-                                            <a href="#"><i class="las la-trash-alt text-secondary font-18"></i></a>
-                                        </td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <img src="{{ asset('assets/admin/images/products/07.png') }}"
-                                                     height="30" class="me-3 align-self-center rounded" alt="...">
-                                                <div class="media-body align-self-center">
-                                                    <h6 class="m-0">Unikit Bag (Blue)</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: A9547</a>
-                                                </div>
-                                                <!--end media body-->
-                                            </div>
-                                        </td>
-                                        <td>$40 <del class="text-muted font-10">$49</del></td>
-                                        <td>500 <small class="text-muted">(1000)</small></td>
-                                        <td><span class="badge badge-soft-primary px-2">Out of Stock</span></td>
-                                        <td>
-                                            <a href="#"><i class="las la-pen text-secondary font-18"></i></a>
-                                            <a href="#"><i class="las la-trash-alt text-secondary font-18"></i></a>
-                                        </td>
-                                    </tr>
-                                    <!--end tr-->
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <img src="{{ asset('assets/admin/images/products/05.png') }}"
-                                                     height="30" class="me-3 align-self-center rounded" alt="...">
-                                                <div class="media-body align-self-center">
-                                                    <h6 class="m-0">Unikit Fever Gun</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: A2047</a>
-                                                </div>
-                                                <!--end media body-->
-                                            </div>
-                                        </td>
-                                        <td>$80 <del class="text-muted font-10">$59</del></td>
-                                        <td>800 <small class="text-muted">(2000)</small></td>
-                                        <td><span class="badge badge-soft-primary px-2">Out of Stock</span></td>
-                                        <td>
-                                            <a href="#"><i class="las la-pen text-secondary font-18"></i></a>
-                                            <a href="#"><i class="las la-trash-alt text-secondary font-18"></i></a>
-                                        </td>
-                                    </tr>
-                                    <!--end tr-->
+
                                     </tbody>
                                 </table>
                                 <!--end table-->

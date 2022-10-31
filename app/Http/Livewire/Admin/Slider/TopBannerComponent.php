@@ -105,7 +105,9 @@ class TopBannerComponent extends Component
 
     public function render()
     {
-        $topBanners = TopBanner::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $topBanners = TopBanner::where('festival_name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('title', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('slug', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.slider.top-banner-component', ['topBanners' => $topBanners])->layout('livewire.admin.layouts.base');
     }
 }

@@ -136,7 +136,10 @@ class ReferralComponent extends Component
 
     public function render()
     {
-        $referrals = Referral::where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
+        $referrals = Referral::where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('referral_code', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('sellers_count', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.referrals.referrals-component', ['referrals' => $referrals])->layout('livewire.admin.layouts.base');
     }
 }

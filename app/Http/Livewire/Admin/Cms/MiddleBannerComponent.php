@@ -103,7 +103,7 @@ class MiddleBannerComponent extends Component
 
     public function render()
     {
-        $middleBanners = MiddleBanner::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $middleBanners = MiddleBanner::orderBy('id', 'DESC')->where('title', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.cms.middle-banner-component', ['middleBanners' => $middleBanners])->layout('livewire.admin.layouts.base');
     }
 }

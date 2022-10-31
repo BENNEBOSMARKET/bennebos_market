@@ -13,7 +13,10 @@ class CustomerComponent extends Component
 
     public function render()
     {
-        $customers = User::paginate($this->sortingValue);
+        $customers = User::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')
+            ->paginate($this->sortingValue);
         return view('livewire.admin.customer.customer-component', ['customers' => $customers])->layout('livewire.admin.layouts.base');
     }
 }

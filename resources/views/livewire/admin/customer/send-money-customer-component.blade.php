@@ -115,16 +115,14 @@
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Customer</label>
                             <div class="col-sm-8">
-                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" wire:model="customer">
-                                    <option selected="selected">Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>California</option>
-                                    <option>Delaware</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Washington</option>
+                                <div wire:ignore>
+                                <select class="form-control" id="SelectCustomer" wire:model="customer">
+                                    <option value="">Select Customer</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    @endforeach
                                 </select>
-
+                                </div>
                                 @error('customer')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -176,15 +174,18 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="updateData">
+
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Customer</label>
                             <div class="col-sm-8">
-                                <select class="form-control" wire:model="customer">
+                                <div wire:ignore>
+                                <select class="form-control" id="customerSelect"  wire:model="customer">
                                     <option value="">Select Customer</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
                                 </select>
+                                </div>
                                 @error('customer')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -239,19 +240,27 @@
 
     <script>
         //Success Delete
-        window.addEventListener('sliderDeleted', event => {
+        window.addEventListener('DealsDeleted', event => {
             Swal.fire(
                 'Deleted!',
                 'Slider has been deleted successfully.',
                 'success'
             )
         });
-
         $(document).ready(function(){
             $('.publishStatus').on('click', function(){
                 var id = $(this).data('slider_id');
+
             @this.publishStatus(id);
             });
+        });
+
+        var countrySelector = new Selectr('#SelectCustomer', {
+            placeholder: 'Select Customer',
+        });
+        countrySelector.on('selectr.change', function(option) {
+            var id = $('#SelectCustomer').val();
+        @this.set('customer', id);
         });
 
     </script>

@@ -131,7 +131,8 @@ class CompanyCategoryComponent extends Component
 
     public function render()
     {
-        $categories = CompanyCategory::where('name', 'like', '%'.$this->searchTerm.'%')->paginate($this->sortingValue);
+        $categories = CompanyCategory::where('name', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('category_id', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.company-info.company-category-component',['categories' => $categories])->layout('livewire.admin.layouts.base');
     }
 }

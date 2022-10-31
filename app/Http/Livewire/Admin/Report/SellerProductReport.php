@@ -24,7 +24,7 @@ class SellerProductReport extends Component
             $sellerReport = $sellerReport->whereBetween('created_at', [$start_date, $end_date]);
         }
 
-        $sellerReports = $sellerReport->where('added_by', 'seller')->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $sellerReports = $sellerReport->where('added_by', 'seller')->where('name', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.report.seller-product-report', ['sellerReports' => $sellerReports])->layout('livewire.admin.layouts.base');
     }
 }

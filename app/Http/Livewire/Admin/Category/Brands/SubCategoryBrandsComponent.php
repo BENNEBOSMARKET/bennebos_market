@@ -38,9 +38,9 @@ class SubCategoryBrandsComponent extends Component
             }
             $this->dispatchBrowserEvent('success', ['message'=>'Added Pinned Category brand']);
         }
-        
+
     }
-    
+
     public function render()
     {
         $this->category = Category::find($this->subcategory_id);

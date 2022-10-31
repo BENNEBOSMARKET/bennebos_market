@@ -35,6 +35,9 @@ class PendingProductComponent extends Component
         $pending_products = Product::where('name', 'like', '%'.$this->searchTerm.'%')
         ->where('admin_approval', 0)->orderBy('id', 'DESC')->paginate($this->sortingValue);
 
+
+
+
         return view('livewire.admin.pending-product.pending-product-component', ['pending_products' => $pending_products])->layout('livewire.admin.layouts.base');
     }
 }

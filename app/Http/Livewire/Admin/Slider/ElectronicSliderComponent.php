@@ -102,7 +102,7 @@ class ElectronicSliderComponent extends Component
 
     public function render()
     {
-        $electronicSliders = ElectroniSlider::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $electronicSliders = ElectroniSlider::where('title', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.slider.electronic-slider-component', ['electronicSliders' => $electronicSliders])->layout('livewire.admin.layouts.base');
     }
 }

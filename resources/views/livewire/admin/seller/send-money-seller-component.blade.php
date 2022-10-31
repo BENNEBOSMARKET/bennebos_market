@@ -112,15 +112,18 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="storeData">
+
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Seller</label>
                             <div class="col-sm-8">
-                                <select class="form-control"  wire:model="seller">
+                                <div wire:ignore>
+                                <select class="form-control"  id="SelectSeller"  wire:model="seller">
                                     <option value="">Select Seller</option>
                                     @foreach ($sellers as $seller)
                                         <option value="{{ $seller->id }}">{{ $seller->name }}</option>
                                     @endforeach
                                 </select>
+                                </div>
                                 @error('seller')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -248,6 +251,14 @@
                 var id = $(this).data('slider_id');
             @this.publishStatus(id);
             });
+        });
+
+        var countrySelector = new Selectr('#SelectSeller', {
+            placeholder: 'Select Seller',
+        });
+        countrySelector.on('selectr.change', function(option) {
+            var id = $('#SelectSeller').val();
+        @this.set('seller', id);
         });
     </script>
 @endpush

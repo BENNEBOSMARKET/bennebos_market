@@ -104,7 +104,7 @@ class BottomBannerComponent extends Component
 
     public function render()
     {
-        $bottomBanners = BottomBanner::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $bottomBanners = BottomBanner::orderBy('id', 'DESC')->where('title', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.cms.bottom-banner-component', ['bottomBanners' => $bottomBanners])->layout('livewire.admin.layouts.base');
     }
 }
