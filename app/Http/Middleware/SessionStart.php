@@ -18,7 +18,7 @@ class SessionStart
      */
     public function handle(Request $request, Closure $next)
     {
-        
+        dd(request()->ip());   
         if(is_null(Session::get('delivery_country_id'))){
             $ip = request()->ip();
             $ipdat = @json_decode(file_get_contents(
