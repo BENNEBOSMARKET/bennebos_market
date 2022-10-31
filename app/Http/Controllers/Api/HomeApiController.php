@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
@@ -100,6 +101,7 @@ class HomeApiController extends Controller
                 )
                 ->take(8)
                 ->get();
+                $categories_data[$key]->brands = Brand::whereIn("id", $category->brands)->get();
         }
 
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($categories_data)->getJsonResponse();
