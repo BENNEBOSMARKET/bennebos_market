@@ -110,7 +110,7 @@ class IndexComponentV3 extends Component
     private function getAllQueries(){
 
         $new_arrivals = Product::leftJoin("categories","products.category_id", "=","categories.id")
-            ->select('products.name', 'products.slug','products.id as id', 'products.thumbnail', 'products.unit_price', 'discount')
+            ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
             ->where('products.new_arrival', 1)
             ->where('categories.country_id', Session::get("delivery_country_id"))
             ->where('products.status', 1)
@@ -121,7 +121,7 @@ class IndexComponentV3 extends Component
         $top_products = Product::leftJoin("categories","products.category_id", "=","categories.id")
             ->where('products.top_ranked', 1)
             ->where('categories.country_id', Session::get("delivery_country_id"))
-            ->select('products.name', 'products.slug','products.id as id', 'products.thumbnail', 'products.unit_price', 'discount')
+            ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
             ->where('products.status', 1)
             ->limit(20)
             ->orderBy('products.updated_at', 'DESC')
@@ -129,7 +129,7 @@ class IndexComponentV3 extends Component
 
         $dropshippings = Product::leftJoin("categories","products.category_id", "=","categories.id")
         ->where('products.dropshipping', 1)
-        ->select('products.name', 'products.slug','products.id as id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
         ->where('categories.country_id', Session::get("delivery_country_id"))
         ->where('products.status', 1)
         ->limit(20)
@@ -138,7 +138,7 @@ class IndexComponentV3 extends Component
 
         $opportunities = Product::leftJoin("categories","products.category_id", "=","categories.id")
         ->where('products.true_view', 1)
-        ->select('products.name', 'products.slug','products.id as id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
         ->where('categories.country_id', Session::get("delivery_country_id"))
         ->where('products.status', 1)
         ->limit(20)
@@ -146,7 +146,7 @@ class IndexComponentV3 extends Component
         ->get();
 
         $best_selling = Product::leftJoin("categories","products.category_id", "=","categories.id")
-        ->select('products.name', 'products.slug','products.id as id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'discount')
         ->where('products.best_selling', 1)
         ->where('categories.country_id', Session::get("delivery_country_id"))
         ->where('products.status', 1)
@@ -192,7 +192,7 @@ class IndexComponentV3 extends Component
                 "products.slug", "products.name","products.thumbnail",
                 "products.unit_price","products.id","products.user_id",
                 'shops.logo as shop_logo', 'shops.name as shop_name',
-                "products.discount",'products.id as id',
+                "products.discount",
                 'deals_of_days.date_to',
                 // count total reviews
                 DB::raw('(SELECT COUNT(id) FROM reviews WHERE reviews.product_id = products.id) as total_reviews'),
