@@ -73,11 +73,24 @@
                                     @enderror
                                 </div>
                             </div>
-
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-2">shipping country</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" wire:model='country_id'>
+                                        <option value="">Select shipping Country</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>                                    
+                                    @error('country_id')
+                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="category">Category *</label>
                                 <div class="col-sm-9">
-                                    <div wire:ignore>
+                                    <div>
                                         <select class="form-control" id="category" wire:model="category">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
@@ -100,7 +113,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="brand">Brand</label>
                                 <div class="col-sm-9">
-                                    <div wire:ignore>
+                                    <div>
                                         <select class="form-control" id="brand" wire:model="brand">
                                             <option value="">Select Brand</option>
                                             @foreach ($brands as $brand)

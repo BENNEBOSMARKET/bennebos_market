@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductSize;
@@ -24,7 +25,7 @@ class AddProductComponentV2 extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $name, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
+    public $name, $slug, $category, $country_id, $brand, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
     public $store_status;
 
 
@@ -63,6 +64,7 @@ class AddProductComponentV2 extends Component
             'color_name'=>'required',
             'color_image'=>'required',
             'color_gallery'=>'required',
+            'country_id'=>'required',
         ]);
     }
 
@@ -356,12 +358,14 @@ class AddProductComponentV2 extends Component
 
     public function render()
     {
-        $categories = Category::all();
-        $brands = Brand::where('status', 1)->get();
+        $countries = Country::all();
+        $categories = Category::where("country_id", $this->country_id)->get();
+        $brands = Brand::where('status', 1)->where("country_id", $this->country_id)->get();
         $sizes = Size::all();
         $sellers = Seller::get(['id', 'name']);
 
         return view('livewire.admin.product.add-product-component-v2', [
+            'countries' => $countries,
             'categories' => $categories,
             'brands' => $brands,
             'sizes' => $sizes,
