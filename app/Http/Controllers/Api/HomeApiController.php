@@ -97,7 +97,8 @@ class HomeApiController extends Controller
                     "products.discount_date_from",
                     "products.discount_date_to",
                     "products.discount",
-                    "products.avg_review"
+                    "products.avg_review",
+                    "products.gallery_image"
                 )
                 ->take(8)
                 ->get();
