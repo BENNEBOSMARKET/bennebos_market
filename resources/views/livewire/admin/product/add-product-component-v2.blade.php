@@ -697,6 +697,7 @@
                             <div class="col-sm-9">
                                 <div wire:ignore>
                                     <select id="ProductSizeColor" wire:model="color_size">
+                                        <option value="">Select size</option>
                                         @foreach ($sizes as $size)
                                             <option value="{{ $size->id }}">{{ $size->size }}</option>
                                         @endforeach
@@ -713,6 +714,7 @@
                             <div class="col-sm-9">
                                 <div wire:ignore>
                                     <select id="ProductSeller" wire:model="seller" name="seller">
+                                        <option value="">Select Seller</option>
                                         @foreach ($sellersOptions as $new_seller)
                                             <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>
                                         @endforeach
