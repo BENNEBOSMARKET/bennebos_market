@@ -101,7 +101,7 @@ class HomeApiController extends Controller
                 )
                 ->take(8)
                 ->get();
-                $categories_data[$key]->brands = Brand::whereIn("id", $category->brands)->get();
+                $categories_data[$key]->brands = Brand::whereIn("id", json_decode($category->brands))->get();
         }
 
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($categories_data)->getJsonResponse();
