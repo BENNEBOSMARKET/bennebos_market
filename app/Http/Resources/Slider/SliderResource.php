@@ -19,7 +19,7 @@ class SliderResource extends JsonResource
             "category_id" => $this->category_id,
             "shop_link" => $this->shop_link,
             "status" => (bool) $this->status,
-            "banner" => url('uploads/slider/'.$this->banner),
+            "banner" => $this->banner,
         ];
     }
 }
