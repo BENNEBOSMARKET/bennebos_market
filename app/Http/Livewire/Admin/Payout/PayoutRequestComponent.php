@@ -30,10 +30,9 @@ class PayoutRequestComponent extends Component
 
     public function render()
     {
-        $paymentsRequest = Withdraw::join('sellers','withdraws.seller_id','=','sellers.id')->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('withdraws.amount', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('withdraws.message', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('withdraws.created_at', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('withdraws.id', 'DESC')->paginate($this->sortingValue);
+        $paymentsRequest = Withdraw::where('amount', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('message', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.payout.payout-request-component', ['paymentsRequest' => $paymentsRequest])->layout('livewire.admin.layouts.base');
     }
 }

@@ -75,13 +75,10 @@ class QutotationComponent extends Component
     }
     public function render()
     {
-        $qutotations = Qutotation::join('users','qutotations.user_id','=','users.id')->join('categories','qutotations.category_id','=','categories.id')
-            ->where('qutotations.name', 'like', '%'.$this->searchTerm.'%')
-            ->orWhere('categories.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('users.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('qutotations.sourcing_type', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('qutotations.quantity', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orderBy('qutotations.id', 'DESC')->paginate($this->sortingValue);
+        $qutotations = Qutotation::where('name', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('sourcing_type', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('quantity', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orderBy('id', 'DESC')->paginate($this->sortingValue);
 
         return view('livewire.admin.qutotation.qutotation-component', ['qutotations'=> $qutotations])->layout('livewire.admin.layouts.base');
     }
