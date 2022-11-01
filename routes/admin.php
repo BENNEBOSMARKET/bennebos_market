@@ -37,6 +37,7 @@ use App\Http\Livewire\Admin\Cms\SearchComponent;
 use App\Http\Livewire\Admin\CompanyInfo\CompanyCategoryComponent;
 use App\Http\Livewire\Admin\CompanyInfo\CompanyInfoComponent;
 use App\Http\Livewire\Admin\Contactus\ContactUsComponent;
+use App\Http\Livewire\Admin\Country\CountryComponent;
 use App\Http\Livewire\Admin\Coupon\CouponComponent;
 use App\Http\Livewire\Admin\DealsOfDay\DealsOfDayComponent;
 use App\Http\Livewire\Admin\Marketing\NewsletterComponent;
@@ -124,6 +125,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/category/sub-categories/products/{id}', SubCategoryProductsComponent::class)->name('subCategoryProducts');
     Route::get('/category/sub-categories/brands/{id}', SubCategoryBrandsComponent::class)->name('subCategoryBrands');
     Route::get('/category/translations/{id}', CategoryTranslationComponent::class)->name('categoryTranslation');
+    Route::get('/country', CountryComponent::class)->name('country-list');
 
     //Product Routes
     Route::get('/products', ProductComponent::class)->name('products');

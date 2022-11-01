@@ -804,9 +804,9 @@
 
                                 <li class="cart_number flag_icon_area" id="countryButtonDesk">
                                     <button type="button" class="flag_btn">
-                                        {{__("auth.settings")}}
-                                        {{-- <img src="{{ asset('' . session('delivery_country_asset') . '') }}"
-                                            class="flag_main_img" /> --}}
+                                        {{-- {{__("auth.settings")}} --}}
+                                        <img src="{{ countryFlag(Session::get("delivery_country_id")) }}"
+                                            class="flag_main_img" />
                                     </button>
                                     <div class="cart_product_area country_select_area" id="countryDesk">
                                         <form action="" class="form_area select_form">
