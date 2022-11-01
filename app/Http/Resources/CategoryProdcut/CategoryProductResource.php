@@ -23,6 +23,7 @@ class CategoryProductResource extends JsonResource
             "thumbnail" => $this->thumbnail,
             "price" => json_decode($this->unit_price),
             "total_review" => $this->total_review,
+            "avg_review" => $this->avg_review,
             "has_discount" => (Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?true:false,
             "discount" =>(Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?$this->discount: null,
             "meta_title" => $this->meta_title,
