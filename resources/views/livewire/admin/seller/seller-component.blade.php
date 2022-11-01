@@ -104,10 +104,12 @@
 
                                                 {{-- @endif --}}
                                                 <td>
+                                                    @if(!is_null(shop($seller->id)))
                                                     @if (shop($seller->id)->verification_status == 1)
                                                         <span class="text-success">Approved</span>
                                                     @else
                                                         <span class="text-danger">Not-Approved</span>
+                                                    @endif
                                                     @endif
                                                 </td>
                                                 <td>{{ sellerProducts($seller->id)->count() }}</td>
