@@ -201,9 +201,13 @@ class   CategoryComponent extends Component
     public function render()
     {
 
-        $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
+        $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->where(function ($q) {
+            $q->where('name', 'like', '%' . $this->searchTerm . '%')->orWhere('commision_rate', 'like', '%' . $this->searchTerm . '%')->orWhere('created_at', 'like', '%' . $this->searchTerm . '%');
+        })->paginate($this->sortingValue);
         $countries = Country::all();
         return view('livewire.admin.category.category-component', ['categories' => $categories, 'countries' => $countries])->layout('livewire.admin.layouts.base');
 
     }
+
+
 }
