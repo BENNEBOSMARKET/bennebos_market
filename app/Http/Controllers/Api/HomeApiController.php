@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
@@ -28,7 +29,7 @@ class HomeApiController extends Controller
     public function homeSliderAndBanner($type)
     {
         $slider = $this->userRepository->getSliderAndBanner($type);
-        return $this->apiResponse->setSuccess(__( "Data retrieved successfully"))->setData($slider)->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($slider)->getJsonResponse();
     }
 
 
@@ -63,7 +64,7 @@ class HomeApiController extends Controller
             $product = $product->inRandomOrder()->take('3');
         } elseif ($type == 'all') {
             $product = $product->orderBy('created_at', 'DESC')->take('3');
-        } elseif ($type == 'deals_of_the_day'){
+        } elseif ($type == 'deals_of_the_day') {
             $product = $product->inRandomOrder()->take(4);
         }
 
@@ -75,39 +76,57 @@ class HomeApiController extends Controller
 
     public function subCategoryTopThree()
     {
-        $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(3)->get();
-        foreach($categories_data as $key => $category){
+        $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(5)->get();
+        foreach ($categories_data as $key => $category) {
             $categories = [$category->id];
 
             $subcategories = DB::table('categories')->where('parent_id', $category->id)->pluck("id")->toArray();
             $categories = array_merge($categories, $subcategories);
             $subsubcategories = DB::table('categories')->whereIn('sub_parent_id', $categories)->pluck("id")->toArray();
             $categories = array_merge($categories, $subsubcategories);
-            $categories_data[$key]->products = Product::whereIn('category_id', $categories)->where('status', 1)->take(8)->get();
+            $categories_data[$key]->products = Product::leftJoin('brands', "products.brand_id", "brands.id")->whereIn('products.category_id', $categories)->where('products.status', 1)
+                ->select(
+                    "brands.id as brand_id",
+                    "brands.name as brand_name",
+                    "brands.logo as brand_banner",
+                    "products.name as product_name",
+                    "products.id as products_id",
+                    "products.slug as product_slug",
+                    "products.thumbnail as product_thumbnail",
+                    "products.unit_price",
+                    "products.discount_date_from",
+                    "products.discount_date_to",
+                    "products.discount",
+                    "products.avg_review",
+                    "products.gallery_image"
+                )
+                ->take(8)
+                ->get();
+                $categories_data[$key]->brands = Brand::whereIn("id", json_decode($category->brands))->get();
         }
 
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($categories_data)->getJsonResponse();
     }
-    
-    public function search(Request $request){
-        try{
+
+    public function search(Request $request)
+    {
+        try {
             $limit = $request->has("limit") ? $request->limit : 20;
-            $tag = $request->has('tag')? $request->tag : "";
-            $products = Product::where("name", "LIKE", "%$tag%")->groupBy("main_product_id")->paginate($limit);    
+            $tag = $request->has('tag') ? $request->tag : "";
+            $products = Product::where("name", "LIKE", "%$tag%")->groupBy("main_product_id")->paginate($limit);
             return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(new CategoryProductCollection($products))->getJsonResponse();
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($e->getMessage())->getJsonResponse();
-            
         }
-        
     }
-    
-    public function getCountries(){
+
+    public function getCountries()
+    {
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(Country::all())->getJsonResponse();
     }
 
-    public function getStates(Country $country){
+    public function getStates(Country $country)
+    {
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(State::where("country_id", $country->id)->get())->getJsonResponse();
     }
-
 }

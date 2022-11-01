@@ -13,6 +13,7 @@ use App\Models\MiddleBanner;
 use App\Models\Partner;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class IndexComponentV3 extends Component
 {
@@ -108,57 +109,70 @@ class IndexComponentV3 extends Component
 
     private function getAllQueries(){
 
-        $new_arrivals = Product::select('name', 'slug', 'thumbnail', 'unit_price', 'discount')
-            ->where('new_arrival', 1)
-            ->where('status', 1)
+        $new_arrivals = Product::leftJoin("categories","products.category_id", "=","categories.id")
+            ->select('products.name', 'products.slug', 'products.id', 'products.thumbnail', 'products.unit_price', 'discount')
+            ->where('products.new_arrival', 1)
+            ->where('categories.country_id', Session::get("delivery_country_id"))
+            ->where('products.status', 1)
             ->limit(20)
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('products.updated_at', 'DESC')
             ->get();
 
-        $top_products = Product::where('top_ranked', 1)
-            ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-            ->where('status', 1)
+        $top_products = Product::leftJoin("categories","products.category_id", "=","categories.id")
+            ->where('products.top_ranked', 1)
+            ->where('categories.country_id', Session::get("delivery_country_id"))
+            ->select('products.name', 'products.slug', 'products.id', 'products.thumbnail', 'products.unit_price', 'discount')
+            ->where('products.status', 1)
             ->limit(20)
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('products.updated_at', 'DESC')
             ->get();
 
-        $dropshippings = Product::where('dropshipping', 1)
-        ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('status', 1)
+        $dropshippings = Product::leftJoin("categories","products.category_id", "=","categories.id")
+        ->where('products.dropshipping', 1)
+        ->select('products.name', 'products.slug', 'products.id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
-        $opportunities = Product::where('true_view', 1)
-        ->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('status', 1)
+        $opportunities = Product::leftJoin("categories","products.category_id", "=","categories.id")
+        ->where('products.true_view', 1)
+        ->select('products.name', 'products.slug', 'products.id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
-        $best_selling = Product::select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')
-        ->where('best_selling', 1)
-        ->where('status', 1)
+        $best_selling = Product::leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.id', 'products.thumbnail', 'products.unit_price', 'discount')
+        ->where('products.best_selling', 1)
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.status', 1)
         ->limit(20)
-        ->orderBy('updated_at', 'DESC')
+        ->orderBy('products.updated_at', 'DESC')
         ->get();
 
 
         $middle_banner = MiddleBanner::select('banner', 'title')->orderBy('created_at', 'DESC')->first();
         $bottom_banner = BottomBanner::select('banner', 'title')->orderBy('created_at', 'DESC')->first();
         $subCategorytopFive = Category::select('name', 'slug', 'featured_image', 'id', 'featured_image')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             ->take(5)
             ->get();
 
         $subCategoryF9 = Category::select('name', 'slug', 'featured_image', 'id', 'banner')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             ->take(9)
             ->get();
 
         $subCategoryT_all = Category::select('id', 'slug', 'banner', 'name')
+            ->where('country_id', Session::get("delivery_country_id"))
             ->where('parent_id', '!=', 0)
             ->where('sub_parent_id', 0)
             
@@ -168,15 +182,17 @@ class IndexComponentV3 extends Component
             ->where('products.status', 1)
             ->where('products.deal_of_day', 1)
             ->orderBy('products.id', 'DESC')
+            ->leftJoin("categories","products.category_id", "=","categories.id")
             ->leftJoin('shops', 'shops.seller_id', '=', 'products.user_id')
             ->leftJoin('reviews', 'reviews.product_id', '=', 'products.id')
             ->leftJoin('deals_of_days', 'deals_of_days.product_id', '=', 'products.id')
+            ->where('categories.country_id', Session::get("delivery_country_id"))
             ->limit(7)
             ->select(
                 "products.slug", "products.name","products.thumbnail",
                 "products.unit_price","products.id","products.user_id",
                 'shops.logo as shop_logo', 'shops.name as shop_name',
-                "products.discount",
+                "products.discount", 'products.id',
                 'deals_of_days.date_to',
                 // count total reviews
                 DB::raw('(SELECT COUNT(id) FROM reviews WHERE reviews.product_id = products.id) as total_reviews'),
@@ -189,12 +205,51 @@ class IndexComponentV3 extends Component
         $partners = Partner::where('status', 1)->get();
 
         //BigDeals
-        $bd_best_deals = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('best_big_deal', 1)->where('status', 1)->limit(8)->get();
-        $bd_new_arrivals = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_deal_new_arrival', 1)->where('status', 1)->limit(8)->get();
-        $bd_most_viewed = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_deal_most_viewed', 1)->where('status', 1)->limit(8)->get();
-        $bd_deal_of_seasons = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('deal_of_season', 1)->where('status', 1)->limit(8)->get();
-        $bd_big_needs = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_needs', 1)->where('status', 1)->limit(8)->get();
-        $bd_big_quantity = DB::table('products')->select('name', 'slug', 'thumbnail', 'unit_price', 'id', 'discount')->where('big_quantity', 1)->where('status', 1)->limit(8)->get();
+        $bd_best_deals = DB::table('products')
+        ->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.best_big_deal', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();
+        $bd_new_arrivals = DB::table('products')->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_deal_new_arrival', 1)
+        ->where('products.status', 1)
+        ->limit(8)->get();
+        $bd_most_viewed = DB::table('products')
+        ->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_deal_most_viewed', 1)
+        ->where('status', 1)
+        ->limit(8)
+        ->get();
+        $bd_deal_of_seasons = DB::table('products')
+        ->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.deal_of_season', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();
+        $bd_big_needs = DB::table('products')
+        ->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('categories.country_id', Session::get("delivery_country_id"))
+        ->where('products.big_needs', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();
+        $bd_big_quantity = DB::table('products')
+        ->leftJoin("categories","products.category_id", "=","categories.id")
+        ->select('products.name', 'products.slug', 'products.thumbnail', 'products.unit_price', 'products.id', 'discount')
+        ->where('products.big_quantity', 1)
+        ->where('products.status', 1)
+        ->limit(8)
+        ->get();
         
         return [
             'new_arrivals' => $new_arrivals,

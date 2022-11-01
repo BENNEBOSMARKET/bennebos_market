@@ -115,8 +115,10 @@
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Customer</label>
                             <div class="col-sm-8">
+
                                 <div wire:ignore>
                                 <select class="form-control" id="SelectCustomer" wire:model="customer">
+
                                     <option value="">Select Customer</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>

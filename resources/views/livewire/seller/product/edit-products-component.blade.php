@@ -792,11 +792,11 @@
                 enableExif: true,
                 viewport: {
                     width: 400,
-                    height: 600,
+                    height: 500,
                     type: 'rectangle'
                 },
                 boundary: {
-                    width: 500,
+                    width: 400,
                     height: 700
                 }
             });

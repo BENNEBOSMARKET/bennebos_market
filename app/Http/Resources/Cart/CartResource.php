@@ -4,6 +4,7 @@ namespace App\Http\Resources\Cart;
 
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\User\UserResource;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class CartResource extends JsonResource
             "id" => $this->id,
             //"owner_id" => $this->seller->id,
             //"seller" => $this->seller,
-            "user" => !is_null($this->user_id)? new UserResource(Auth::user()) :null,
+            "user" => !is_null($this->user_id)? new UserResource(User::find($this->user_id)) :null,
             "product" =>  isset($this->product_id)? new ProductResource($this->product): null,
             "address_id" => $this->address_id,
             "price" => $this->price,

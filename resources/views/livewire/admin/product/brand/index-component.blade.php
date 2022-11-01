@@ -131,6 +131,20 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="" class="col-sm-2">shipping country</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" wire:model='country_id'>
+                                            <option value="">{{ __('auth.select_country') }}</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>                                    
+                                        @error('country_id')
+                                            <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Slug</label>
                                     <div class="col-sm-9">
@@ -145,13 +159,15 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="BrandCategory">Category *</label>
                                     <div class="col-sm-9">
-                                        <div wire:ignore>
+                                        <div >
                                             <select class="form-control" id="BrandCategory" wire:model="category_id"
                                                 multiple>
-                                                <option value="">Select Category</option>
+                                                <option value="" disabled>Select Category</option>
                                                 @foreach ($categories as $category)
+                                                    @if(!is_array($category) )
                                                     <option value="{{ $category->id }}">{{ $category->name }}
                                                     </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -247,6 +263,20 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="" class="col-sm-2">shipping country</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" wire:model='country_id' disabled>
+                                            <option value="">{{ __('auth.select_country') }}</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>                                    
+                                        @error('country_id')
+                                            <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Slug</label>
                                     <div class="col-sm-9">
@@ -265,8 +295,10 @@
                                             <select class="form-control" id="EditBrandCategory"
                                                 wire:model="category_id" multiple>
                                                 @foreach ($categories as $category)
+                                                    @if(!is_array($category))
                                                     <option value="{{ $category->id }}">{{ $category->name }}
                                                     </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -366,20 +398,20 @@
             multiple: true,
             placeholder: 'Select Category'
         });
-        sizeSelector.on('selectr.change', function(option) {
-            var category_id = $('#BrandCategory').val();
-            @this.set('category_id', category_id);
-        });
+        // sizeSelector.on('selectr.change', function(option) {
+        //     var category_id = $('#BrandCategory').val();
+        //     @this.set('category_id', category_id);
+        // });
 
         // selector edit
         var sizeSelector = new Selectr('#EditBrandCategory', {
             multiple: true,
             placeholder: 'Select Category'
         });
-        sizeSelector.on('selectr.change', function(option) {
-            var category_id = $('#EditBrandCategory').val();
-            @this.set('category_id', category_id);
-        });
+        // sizeSelector.on('selectr.change', function(option) {
+        //     var category_id = $('#EditBrandCategory').val();
+        //     @this.set('category_id', category_id);
+        // });
 
         //Success Delete
         window.addEventListener('brandDeleted', event => {

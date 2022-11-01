@@ -21,8 +21,8 @@ class SendMoneyCustomerRepository extends BaseRepository
     {
         $this->sendMoneyCustomer=$sendMoneyCustomer;
     }
-    public function getCustomerPoint($user){
-        return DB::table('send_money_customers')->where('customer_id',$user->id)->get();
+    public function getCustomerPoint($id){
+        return DB::table('send_money_customers')->where('customer_id',$id)->get();
     }
 
 

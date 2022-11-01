@@ -22,6 +22,8 @@ class Seller extends Authenticatable
         'email',
         'password',
         'avatar',
+        'aras_assigned',
+        'aras_address_id',
     ];
 
     /**

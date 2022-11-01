@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -18,7 +19,7 @@ class IndexComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $name, $slug, $logo, $meta_title, $meta_description, $uploadedLogo, $category_id, $selected_category;
+    public $name, $slug, $logo, $country_id, $meta_title, $meta_description, $uploadedLogo, $category_id, $selected_category;
 
     public $edit_id, $delete_id;
 
@@ -26,6 +27,10 @@ class IndexComponent extends Component
 
     public function mount()
     {
+        // if(!is_null($this->country_id)){
+        //     dd(1);
+        //     $this->categories = DB::table('categories')->select('id', 'name')->where('parent_id', 0)->where('sub_parent_id', 0)->where("country_id", $this->country_id)->get();
+        // } 
     }
 
     public function generateSlug()
@@ -40,6 +45,7 @@ class IndexComponent extends Component
             'slug' => 'required|unique:brands,slug,' . $this->edit_id . '',
             'logo' => 'required',
             'category_id' => 'required',
+            'country_id' => 'required',
         ]);
     }
 
@@ -50,6 +56,7 @@ class IndexComponent extends Component
             'slug' => 'required|unique:brands',
             'logo' => 'required',
             'category_id' => 'required',
+            'country_id' => 'required',
         ]);
 
         $data = new Brand();
@@ -58,6 +65,7 @@ class IndexComponent extends Component
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
         $data->category_id = json_encode($this->category_id);
+        $data->country_id = $this->country_id;
 
         $imageName = Carbon::now()->timestamp . '.' . $this->logo->extension();
         $this->logo->storeAs('imgs/brand', $imageName, 's3');
@@ -81,6 +89,7 @@ class IndexComponent extends Component
         $this->logo = '';
         $this->uploadedLogo = '';
         $this->category_id = '';
+        $this->country_id = '';
     }
 
 
@@ -94,7 +103,8 @@ class IndexComponent extends Component
         $this->meta_title = $getData->meta_title;
         $this->meta_description = $getData->meta_description;
         $this->uploadedLogo = $getData->logo;
-        $this->selected_category = $getData->category_id;
+        $this->category_id = $getData->category_id;
+        $this->country_id = $getData->country_id;
 
         $this->dispatchBrowserEvent('showEditModal');
     }
@@ -104,6 +114,7 @@ class IndexComponent extends Component
         $this->validate([
             'name' => 'required|unique:brands,name,' . $this->edit_id . '',
             'slug' => 'required|unique:brands,slug,' . $this->edit_id . '',
+            'country_id' => 'required',
         ]);
 
         $data = Brand::where('id', $this->edit_id)->first();
@@ -111,6 +122,7 @@ class IndexComponent extends Component
         $data->slug = $this->slug;
         $data->meta_title = $this->meta_title;
         $data->meta_description = $this->meta_description;
+        $data->country_id = $this->country_id;
         $data->logo = $this->uploadedLogo;
         if ($this->category_id != '') {
             $data->category_id = json_encode($this->category_id);
@@ -145,11 +157,13 @@ class IndexComponent extends Component
         $this->resetInputs();
     }
 
+    public $categories = [];
     public function render()
     {
-        $categories = DB::table('categories')->select('id', 'name')->where('parent_id', 0)->where('sub_parent_id', 0)->get();
+        $countries = Country::all();
+        $this->categories = DB::table('categories')->select('id', 'name',"country_id")->where('parent_id', 0)->where('sub_parent_id', 0)->where("country_id",$this->country_id)->get();
         $brands = DB::table('brands')->select('id', 'logo', 'name', 'category_id', 'created_at')->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
+        return view('livewire.admin.product.brand.index-component', ['brands' => $brands, 'countries' => $countries])->layout('livewire.admin.layouts.base');
 
-        return view('livewire.admin.product.brand.index-component', ['brands' => $brands, 'categories' => $categories])->layout('livewire.admin.layouts.base');
     }
 }
