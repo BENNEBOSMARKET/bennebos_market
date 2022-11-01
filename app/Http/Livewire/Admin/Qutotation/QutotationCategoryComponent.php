@@ -113,7 +113,8 @@ class QutotationCategoryComponent extends Component
 
     public function render()
     {
-       $qutotationCategory = QutotationCategory::orderBy('id', 'DESC')->paginate($this->sortingValue);
+       $qutotationCategory = QutotationCategory::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+           ->orWhere('slug', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.qutotation.qutotation-category-component', ['qutotationCategory'=>$qutotationCategory])->layout('livewire.admin.layouts.base');
     }
 }

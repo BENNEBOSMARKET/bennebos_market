@@ -22,7 +22,7 @@ class StockProductReport extends Component
         }
 
         $productCategory = Category::all();
-        $stockProduct = $stockProductReport->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $stockProduct = $stockProductReport->where('name', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.report.stock-product-report', ['stockProduct' => $stockProduct, 'productCategory' => $productCategory])->layout('livewire.admin.layouts.base');
     }
 }

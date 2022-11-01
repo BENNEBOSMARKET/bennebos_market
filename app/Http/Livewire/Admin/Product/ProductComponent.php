@@ -100,7 +100,12 @@ class ProductComponent extends Component
 
     public function render()
     {
-        $products = Product::where('name', 'like', '%'.$this->searchTerm.'%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $products = Product::join('users','products.user_id','=','users.id')->join('categories','products.category_id','=','categories.id')
+            ->where('products.name', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('categories.name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('users.name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('products.unit_price', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orderBy('products.id', 'DESC')->paginate($this->sortingValue);
 
         return view('livewire.admin.product.product-component', ['products'=>$products])->layout('livewire.admin.layouts.base');
     }

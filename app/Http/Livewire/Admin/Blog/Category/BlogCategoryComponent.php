@@ -23,7 +23,7 @@ class BlogCategoryComponent extends Component
 
     public function mount()
     {
- 
+
     }
 
     public function generateSlug()
@@ -110,7 +110,9 @@ class BlogCategoryComponent extends Component
 
     public function render()
     {
-        $categories = BlogCategory::where('name', 'like', '%'.$this->searchTerm.'%')->paginate($this->sortingValue);
+        $categories = BlogCategory::where('name', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('slug', 'LIKE', '%' . $this->searchTerm . '%')
+          ->paginate($this->sortingValue);
 
         return view('livewire.admin.blog.category.blog-category-component', ['categories' => $categories])->layout('livewire.admin.layouts.base');
     }

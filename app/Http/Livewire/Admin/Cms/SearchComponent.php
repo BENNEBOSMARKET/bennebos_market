@@ -23,7 +23,8 @@ class SearchComponent extends Component
 
     public function render()
     {
-        $recent_searchs = Searches::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $recent_searchs = Searches::orderBy('id', 'DESC')->where('query', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('count', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.cms.search-component', ['recent_searchs'=>$recent_searchs])->layout('livewire.admin.layouts.base');
     }
 }

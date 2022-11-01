@@ -132,7 +132,7 @@ class SliderComponent extends Component
     public function render()
     {
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
-        $sliders = Slider::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $sliders = Slider::where('shop_link', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.slider.slider-component', ['sliders' => $sliders, 'categories'=>$categories])->layout('livewire.admin.layouts.base');
     }
 }

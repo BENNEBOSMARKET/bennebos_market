@@ -228,7 +228,7 @@ class EditPhotoComponent extends Component
     public function render()
     {
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
-        $photosCategory=Photo::where('category_id','!=',null)->latest()->get();
+        $photosCategory=Photo::where('category_id','!=',null)->orderBy('category_id','asc')->get();
         $photosHome=Photo::where('home','home')->get();
         return view('livewire.admin.slider.edit-photo-component',['photosCategory' => $photosCategory,'categories'=>$categories,'photosHome'=>$photosHome])->layout('livewire.admin.layouts.base');
     }

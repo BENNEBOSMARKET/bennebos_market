@@ -93,7 +93,7 @@ class DealsOfDayComponent extends Component
     //         'date_to' => 'required',
     //     ]);
 
-        
+
     //     $data = DealsOfDay::where('id', $this->edit_id)->first();
     //     $data->product_id = $this->product_id;
     //     $data->date_from = $this->date_from;
@@ -104,7 +104,7 @@ class DealsOfDayComponent extends Component
     //     $this->dispatchBrowserEvent('success', ['message'=>'Deals updated successfully']);
 
     //     $this->resetInputs();
-        
+
     // }
 
     public function deleteConfirmation($id)
@@ -140,7 +140,7 @@ class DealsOfDayComponent extends Component
     public function render()
     {
         $products = DB::table('products')->select('id','name')->where('deal_of_day', 0)->orderBy('id', 'ASC')->limit(100)->get();
-        $dealsofDay = Product::where('deal_of_day', 1)->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $dealsofDay = Product::where('deal_of_day', 1)->where('name', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
 
         return view('livewire.admin.deals-of-day.deals-of-day-component', ['dealsofDay'=>$dealsofDay, 'products'=>$products])->layout('livewire.admin.layouts.base');
     }
