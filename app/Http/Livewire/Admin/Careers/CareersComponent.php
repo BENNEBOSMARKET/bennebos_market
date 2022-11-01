@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class CareersComponent extends Component
 {
     use WithPagination;
-    
+
     public $subject, $slug, $type, $description, $status;
     public $sortingValue = 10, $searchTerm;
     public $delete_id;
@@ -30,13 +30,13 @@ class CareersComponent extends Component
             'type'=>'required',
             'description'=>'required',
         ]);
-        
+
         $blog = new Career();
         $blog->subject = $this->subject;
         $blog->slug = $this->slug;
         $blog->type = $this->type;
         $blog->description = $this->description;
-     
+
         $blog->save();
         return redirect()->route('admin.career')->with('success', 'Job posted successfully');
     }
@@ -70,7 +70,8 @@ class CareersComponent extends Component
 
     public function render()
     {
-        $careers = Career::orderBy('created_at', 'DESC')->paginate($this->sortingValue);
+        $careers = Career::where('subject', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('type', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.careers.careers-component', ['careers'=>$careers])->layout('livewire.admin.layouts.base');
     }
 }

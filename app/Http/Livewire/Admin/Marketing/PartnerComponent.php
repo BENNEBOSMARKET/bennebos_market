@@ -72,7 +72,7 @@ class PartnerComponent extends Component
         $data = Partner::where('id', $this->edit_id)->first();
         $data->name = $this->name;
         $data->logo = $this->uploadedLogo;
-       
+
         if ($this->logo != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->logo->extension();
             $this->logo->storeAs('imgs/partner', $imageName, 's3');
@@ -103,7 +103,7 @@ class PartnerComponent extends Component
 
     public function render()
     {
-        $partners = Partner::orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $partners = Partner::where('name', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.marketing.partner-component', ['partners'=>$partners])->layout('livewire.admin.layouts.base');
     }
 }

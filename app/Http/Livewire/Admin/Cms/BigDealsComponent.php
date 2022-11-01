@@ -126,7 +126,8 @@ class BigDealsComponent extends Component
             $products = $products->whereIn('category_id', $categories)->where('status', 1);
         }
 
-        $products = $products->where('name', 'like', '%'.$this->searchTerm.'%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $products = $products->where('name', 'like', '%'.$this->searchTerm.'%')
+            ->orderBy('id', 'DESC')->paginate($this->sortingValue);
 
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
 

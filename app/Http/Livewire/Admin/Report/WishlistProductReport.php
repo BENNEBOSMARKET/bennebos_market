@@ -19,7 +19,9 @@ class WishlistProductReport extends Component
             $productWlishlist = $productWlishlist->where('id', $this->product_wishlist_filter);
         }
 
-        $products = $productWlishlist->orderBy('id', 'DESC')->paginate($this->sortingValue);
+        $products = $productWlishlist->where('name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('added_by', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('slug', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.report.wishlist-product-report', ['products' => $products])->layout('livewire.admin.layouts.base');
     }
 }

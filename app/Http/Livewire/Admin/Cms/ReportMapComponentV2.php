@@ -27,7 +27,7 @@ class ReportMapComponentV2 extends Component
 
     public function mount()
     {
- 
+
     }
 
     public function generateSlug()
@@ -52,7 +52,7 @@ class ReportMapComponentV2 extends Component
             'country_code' => 'required',
             'value' => 'required',
             'vector_map' => 'required',
-            
+
         ]);
 
         $data = new ReportMapv2();
@@ -176,7 +176,7 @@ class ReportMapComponentV2 extends Component
                 $this->dispatchBrowserEvent('error', ['message'=>'Already added']);
             }
             else{
-                
+
                 $data = new ReportImportCountry();
                 $data->report_map_id = $this->profile->id;
                 $data->country = $this->details_country;
@@ -184,7 +184,7 @@ class ReportMapComponentV2 extends Component
                 $data->save();
 
                 $this->dispatchBrowserEvent('success', ['message'=>'Import data added successfully']);
-            
+
             }
         }
         if($this->details_type == 'export'){
@@ -193,7 +193,7 @@ class ReportMapComponentV2 extends Component
                 $this->dispatchBrowserEvent('error', ['message'=>'Already added']);
             }
             else{
-                
+
                 $data = new ReportExportCountry();
                 $data->report_map_id = $this->profile->id;
                 $data->country = $this->details_country;
@@ -201,7 +201,7 @@ class ReportMapComponentV2 extends Component
                 $data->save();
 
                 $this->dispatchBrowserEvent('success', ['message'=>'Export data added successfully']);
-            
+
             }
         }
 
@@ -226,7 +226,10 @@ class ReportMapComponentV2 extends Component
 
     public function render()
     {
-        $countries = ReportMapV2::orderBy('country', 'ASC')->paginate($this->sortingValue);
+        $countries = ReportMapV2::where('country', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('country_code', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('value', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('country', 'ASC')
+            ->paginate($this->sortingValue);
         $allCountries = Country::orderBy('name', 'ASC')->get();
 
         if($this->profile != ''){

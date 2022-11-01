@@ -37,7 +37,7 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="row ">
+                        <div class="row " style="background-color: beige;">
                                 <h2 class="text-primary">Home Photos</h2>
                             @foreach($photosHome as $photo)
                                 <div class="col-xl-3">
@@ -214,7 +214,7 @@
                                     @endif
                                         <?php $suc=0 ?>
                                     @foreach($photosHome as $emp)
-                                        @if($emp->place == "الصورة الرئيسية  الأولى")
+                                        @if($emp->place == "الصورة الرئيسية  الثانية")
                                                 <?php $suc=1 ?>
 
                                         @endif
@@ -355,6 +355,8 @@
                             <div class="col-sm-8">
                                 <select class="form-control" wire:model="category">
                                     <option value="">Select category</option>
+
+
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach

@@ -145,7 +145,10 @@ class SubAdminComponent extends Component
 
     public function render()
     {
-        $admins = Admin::where('role', 'sub-admin')->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
+        $admins = Admin::where('role', 'sub-admin')->where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('phone', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.administrator.sub-admin-component', ['admins' => $admins])->layout('livewire.admin.layouts.base');
     }
 }

@@ -11,7 +11,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
 
-class CategoryComponent extends Component
+class   CategoryComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -200,8 +200,10 @@ class CategoryComponent extends Component
 
     public function render()
     {
+
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->where('name', 'like', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         $countries = Country::all();
         return view('livewire.admin.category.category-component', ['categories' => $categories, 'countries' => $countries])->layout('livewire.admin.layouts.base');
+
     }
 }

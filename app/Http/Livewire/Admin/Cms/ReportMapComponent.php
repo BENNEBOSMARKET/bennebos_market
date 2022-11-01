@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ReportMapComponent extends Component
+class   ReportMapComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -156,8 +156,12 @@ class ReportMapComponent extends Component
 
     public function render()
     {
-        $countries = ReportMap::orderBy('name', 'ASC')->paginate($this->sortingValue);
-        $allCountries = Country::orderBy('name', 'ASC')->get();
+        $countries = ReportMap::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('latitude', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('longitude', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('position', 'LIKE', '%' . $this->searchTerm . '%')
+            ->paginate($this->sortingValue);
+        $allCountries = Country::orderBy('name', 'ASC')->orderBy('name', 'ASC')->get();
 
         return view('livewire.admin.cms.report-map-component', ['countries' => $countries, 'allCountries' => $allCountries])->layout('livewire.admin.layouts.base');
     }

@@ -121,7 +121,10 @@ class CouponComponent extends Component
 
     public function render()
     {
-        $coupons = Coupon::where('coupon_code', 'like', '%'.$this->searchTerm.'%')->paginate($this->sortingValue);
+        $coupons = Coupon::where('coupon_code', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('discount', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('discount_type', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('date', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
         return view('livewire.admin.coupon.coupon-component', ['coupons' => $coupons])->layout('livewire.admin.layouts.base');
     }
 }
