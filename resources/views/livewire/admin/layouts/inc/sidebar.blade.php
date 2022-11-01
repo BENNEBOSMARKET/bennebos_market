@@ -518,6 +518,9 @@
                                     <li class="nav-item {{ request()->is('admin/big-deals') || request()->is('admin/big-deals/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.bigDeals') }}" class="nav-link">Big Deals</a>
                                     </li>
+                                    <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.country-list') }}" class="nav-link">Countries</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
