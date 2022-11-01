@@ -190,8 +190,8 @@ class SellerComponent extends Component
         }catch(Exception $e){
             $this->dispatchBrowserEvent('error', ['message' => $e->getMessage()]);
         }
-        
-        
+
+
     }
 
     public function updateSeller()
@@ -225,13 +225,12 @@ class SellerComponent extends Component
     public function render()
     {
         $profile = Seller::find($this->seller_id);
-        $sellers = Seller::join('shops','sellers.id','=','shops.seller_id')->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('shops.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
+        $sellers = Seller::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('email', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('phone', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('referral_code', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.seller.seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
     }
 }
