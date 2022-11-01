@@ -297,19 +297,19 @@
 
                                         <td>
                                             <div class="media">
-                                                <img src="{{ $productsTopRanked->thumbnail  }}"
+                                                <img src="{{ $productTopRanked->thumbnail  }}"
                                                      height="30" class="me-3 align-self-center rounded" alt="...">
                                                 <div class="media-body align-self-center">
-                                                    <h6 class="m-0">{{$productsTopRanked->name}}</h6>
-                                                    <a href="#" class="font-12 text-primary">ID: {{$productsTopRanked->barcode}}</a>
+                                                    <h6 class="m-0">{{$productTopRanked->name}}</h6>
+                                                    <a href="#" class="font-12 text-primary">ID: {{$productTopRanked->barcode}}</a>
                                                 </div>
                                                 <!--end media body-->
                                             </div>
                                         </td>
 
-                                        <td>Tl {{$productsTopRanked->unit_price}} </td>
-                                        <td> {{$productsTopRanked->unit}} </td>
-                                        <td><span class="badge badge-soft-warning px-2">{{$productsTopRanked->status}}</span></td>
+                                        <td>Tl {{$productTopRanked->unit_price}} </td>
+                                        <td> {{$productTopRanked->unit}} </td>
+                                        <td><span class="badge badge-soft-warning px-2">{{$productTopRanked->status}}</span></td>
 
                                     </tr>
                                     @endforeach
