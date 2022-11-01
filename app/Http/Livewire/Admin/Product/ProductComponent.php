@@ -117,7 +117,6 @@ class ProductComponent extends Component
         else{
             $products=$products->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
             if ($this->searchTerm != ''){
-//                dd($products);
             }
         }
         return view('livewire.admin.product.product-component', ['products'=>$products])->layout('livewire.admin.layouts.base');
