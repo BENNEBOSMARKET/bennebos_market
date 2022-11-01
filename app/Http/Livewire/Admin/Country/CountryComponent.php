@@ -156,7 +156,7 @@ class  CountryComponent extends Component
 
     public function render()
     {
-        $countries = Country::all()->paginate($this->sortingValue);
+        $countries = Country::where('name', "LIKE", "%$this->searchTerm%")->paginate($this->sortingValue);
         return view('livewire.admin.country.country-component', ['countries' => $countries])->layout('livewire.admin.layouts.base');
     }
 
