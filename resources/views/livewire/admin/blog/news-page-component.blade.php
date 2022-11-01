@@ -35,65 +35,29 @@
                     </div>
                     <div class="card-body">
                         <div class="row ">
-                            <div class="col">
-                        @foreach($newsPageVideo as $n)
-
-
-
-                                <div class="card rounded left" style=" background-color: #006fff3d;     width: 50%;">
-
-
-                                    <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
-                                        {{$n->type}}
-                                        <video  height="240" controls  style="    width: 100%">
-                                            <source src="{{$n->banner}}" type="video/mp4">
-                                        </video>
-
-
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title text-primary " style="font-size: xx-large;">{{$n->title}}               </h4>
-                                        <br>
-                                        <h4 class="card-title text-info mt-2 " style="font-size: x-large;"> {{$n->category}}</h4>
-                                        <br>
-                                        <p class="card-text mt-2">{{$n->news}}.</p>
-                                        <p class="card-text mt-2">{{date_format($n->created_at,'Y/M/D')}}.</p>
-                                        <div class="button-items">
-                                            <a type="button" href="#" class="btn btn-outline-success btn-icon-circle btn-icon-circle-sm"
-                                               wire:click.prevent="editData({{ $n->id }})"><i class="ti ti-edit"></i></a>
-                                            <a wire:click.prevent="deleteConfirmation({{ $n->id }})"
-                                               type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                        @endforeach
-                            </div>
-                            <div class="col ">
                             @foreach($newsPageIMG as $n)
 
+                                <div class="col-sm-2">
+                                    <div class="card {{$n->type == 'IMG'? 'bg-info':' bg-warning' }}" >
 
 
-                                    <div class="card rounded " style="background-color: #f7090917;     width: 50%;">
 
-                                        <div class="bg-image hover-overlay ripple text-center " data-mdb-ripple-color="light">
-                                            {{$n->type}}
 
-                                            <img src="{{$n->banner}}" class="img-fluid mt-2" height="240" style="width: 100% "/>
+                                        <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
+
+                                            <img src="{{$n->banner}}" class="img-fluid mt-4" height="240" style="width: 100% "/>
                                             <a href="#!">
                                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                                             </a>
 
+
                                         </div>
                                         <div class="card-body">
-                                            <h4 class="card-title text-primary " style="font-size: xx-large;">{{$n->title}}               </h4>
+                                            <h4 class="card-title text-dark " style="font-size: xx-large;">{{$n->title}}               </h4>
                                             <br>
-                                            <h4 class="card-title text-info mt-2 " style="font-size: x-large;"> {{$n->category}}</h4>
+                                            <h4 class="card-title text-purple mt-2 " style="font-size: x-large;"> {{$n->category}}</h4>
                                             <br>
-                                            <p class="card-text mt-2">{{$n->news}}.</p>
+                                            <p class="card-text mt-2 text-white">{{$n->news}}.</p>
                                             <p class="card-text mt-2">{{date_format($n->created_at,'Y/M/D')}}.</p>
                                             <div class="button-items">
                                                 <a type="button" href="#" class="btn btn-outline-success btn-icon-circle btn-icon-circle-sm"
@@ -106,16 +70,58 @@
 
 
 
-
+                                </div>
                             @endforeach
+                        </div>
+                        <div class="row ">
+
+
+                            @foreach($newsPageVideo as $n)
+
+                                <div class="col-sm-2">
+                                    <div class="card {{$n->type == 'IMG'? 'bg-info':' bg-warning' }}" >
+
+
+
+
+                                        <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
+
+                                                <video  height="240" controls  style="    width: 100%">
+                                                    <source src="{{$n->banner}}" type="video/mp4">
+                                                </video>
+
+
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title text-dark " style="font-size: xx-large;">{{$n->title}}               </h4>
+                                            <br>
+                                            <h4 class="card-title text-purple mt-2 " style="font-size: x-large;"> {{$n->category}}</h4>
+                                            <br>
+                                            <p class="card-text mt-2 text-white">{{$n->news}}.</p>
+                                            <p class="card-text mt-2">{{date_format($n->created_at,'Y/M/D')}}.</p>
+                                            <div class="button-items">
+                                                <a type="button" href="#" class="btn btn-outline-success btn-icon-circle btn-icon-circle-sm"
+                                                   wire:click.prevent="editData({{ $n->id }})"><i class="ti ti-edit"></i></a>
+                                                <a wire:click.prevent="deleteConfirmation({{ $n->id }})"
+                                                   type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            @endforeach
+                        </div>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
-    </div>
+
+
 
     {{-- <div wire:poll></div> --}}
     <!-- Modal -->
