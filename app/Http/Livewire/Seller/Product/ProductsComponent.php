@@ -50,7 +50,7 @@ class ProductsComponent extends Component
         else{
             $this->dispatchBrowserEvent('error', ['message'=>'Your shop is not verified!']);
         }
-        
+
     }
 
     public function render()
@@ -68,4 +68,6 @@ class ProductsComponent extends Component
 
         return view('livewire.seller.product.products-component', ['products'=>$products])->layout('livewire.seller.layouts.base');
     }
+
+
 }
