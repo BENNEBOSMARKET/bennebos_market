@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
 
-class SizeComponent extends Component
+class  SizeComponent extends Component
 {
     use WithPagination;
     public $sortingValue = 10, $searchTerm;

@@ -236,11 +236,10 @@ class CompanyInfoComponent extends Component
 
     public function render()
     {
-        $companyinfos = CompanyInfo::join('countries','company_infos.country_id','=','countries.id')->where('company_infos.company_name', 'like', '%'.$this->searchTerm.'%')
-            ->orWhere('company_infos.category', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('countries.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('company_infos.address', 'LIKE', '%' . $this->searchTerm . '%')
-          ->orderBy('company_infos.id', 'DESC')->paginate($this->sortingValue);
+        $companyinfos = CompanyInfo::where('company_name', 'like', '%'.$this->searchTerm.'%')
+            ->orWhere('category', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('address', 'LIKE', '%' . $this->searchTerm . '%')
+          ->orderBy('id', 'DESC')->paginate($this->sortingValue);
         $countries = Country::all();
         $states = State::where('country_id', $this->country_id)->get();
         return view('livewire.admin.company-info.company-info-component', ['companyinfos' => $companyinfos, 'countries' => $countries, 'states' => $states])->layout('livewire.admin.layouts.base');

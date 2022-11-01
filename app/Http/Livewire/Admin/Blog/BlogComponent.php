@@ -47,8 +47,7 @@ class BlogComponent extends Component
 
     public function render()
     {
-        $blogs = Blog::where('name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('title', 'LIKE', '%' . $this->searchTerm . '%')
+        $blogs = Blog::where('title', 'LIKE', '%' . $this->searchTerm . '%')
             ->orderBy('created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.blog.blog-component', ['blogs' => $blogs])->layout('livewire.admin.layouts.base');
     }

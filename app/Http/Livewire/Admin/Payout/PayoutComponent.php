@@ -15,10 +15,9 @@ class PayoutComponent extends Component
 
     public function render()
     {
-        $payments = Payout::join('sellers','payouts.seller_id','=','sellers.id')->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('payouts.request_amount', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('payouts.message', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('payouts.created_at', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('payouts.id', 'DESC')->where('payouts.status', 1)->paginate($this->sortingValue);
+        $payments = Payout::where('request_amount', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('message', 'LIKE', '%' . $this->searchTerm . '%')
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')->orderBy('id', 'DESC')->where('status', 1)->paginate($this->sortingValue);
         return view('livewire.admin.payout.payout-component', ['payments' => $payments])->layout('livewire.admin.layouts.base');
     }
 }
