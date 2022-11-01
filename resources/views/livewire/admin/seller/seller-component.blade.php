@@ -80,7 +80,8 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $seller->name }}</td>
 
-                                                <td>{{ $seller->storeName->name }}</td>
+                                                <td>
+                                                    {{!is_null($seller->storeName)? $seller->storeName->name:'' }}</td>
                                                 <td>{{ $seller->email }}</td>
                                                 <td>{{ $seller->phone }}</td>
                                                 <td>{{ $seller->created_at }}</td>
