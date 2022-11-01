@@ -8,7 +8,7 @@ use App\Repositories\Base\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 
-class HowBuyPageRepository extends BaseRepository
+class  HowBuyPageRepository extends BaseRepository
 {
     public $photo;
 

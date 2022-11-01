@@ -102,7 +102,7 @@
                                     </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->user_id }}</td>
-                                    <td>{{ brand($product->brand_id)->name }}</td>
+                                    <td></td>
                                     <td>
                                         <small><strong>Number of Sale:</strong> 0</small> <br>
                                         <small><strong>Base Price:</strong> 320</small> <br>

@@ -50,7 +50,7 @@ class NewsPgaeComponent extends Component
 
         $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/slider/news',$imageName, 's3');
-        $data->banner = env('AWS_BUCKET_URL') . 'imgs/slider/news/'.$imageName;
+        $data->banner = 'https://bennebos.s3.amazonaws.com/imgs/slider/news/'.$imageName;
 
         $data->save();
 
