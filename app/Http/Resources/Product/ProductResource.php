@@ -79,7 +79,7 @@ class ProductResource extends JsonResource
             "seller_address" => shop($this->user_id) ? shop($this->user_id)->address . " " .shop($this->user_id)->state_name ." ".shop($this->user_id)->country_name : null,
             "seller_country" => shop($this->user_id) ?shop($this->user_id)->country_name : null,
             "seller_country_flag" => shop($this->user_id) ? shop($this->user_id)->country_flag : null,
-            "supplier_products" => new CategoryProductResource(Product::where("user_id",$this->user_id)->where("product_id" ,"!=",$this->id)->take(8)->get()),
+            "supplier_products" => new CategoryProductResource(Product::where("user_id",$this->user_id)->where("id" ,"!=",$this->id)->take(8)->get()),
             "popular_products" => new CategoryProductCollection(Product::where('products.status', 1)->orderBy('products.total_review', 'DESC')->take('7')->get()),
             "similar_products" => new CategoryProductCollection(Product::where('products.status', 1)->where('products.category_id', $this->category_id)->where('products.id', '!=', $this->id)->take('8')->get()),
             "price" => json_decode($this->unit_price),
