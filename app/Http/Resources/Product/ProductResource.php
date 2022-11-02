@@ -77,7 +77,7 @@ class ProductResource extends JsonResource
             */
             "seller" => $this->seller,
             "popular_products" => new CategoryProductCollection(Product::where('products.status', 1)->orderBy('products.total_review', 'DESC')->take('7')->get()),
-            "similar_products" => new CategoryProductCollection(Product::where('products.status', 1)->where('products.category_id', $this->category_id)->where('products.id', '!=', $this->product_id)->take('8')->get()),
+            "similar_products" => new CategoryProductCollection(Product::where('products.status', 1)->where('products.category_id', $this->category_id)->where('products.id', '!=', $this->id)->take('8')->get()),
             "price" => json_decode($this->unit_price),
             "has_discount" => (Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?true:false,
             "discount" =>(Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?$this->discount: null,
