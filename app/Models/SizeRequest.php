@@ -10,4 +10,15 @@ class SizeRequest extends Model
     use HasFactory;
 
     protected $table = 'size_requests';
+    protected $fillable = [
+        "product_id",
+        "user_id",
+        "requested_sizes",
+        "message",
+    ];
+    
+
+
+
+
 }
