@@ -161,5 +161,5 @@ Route::get('AllHelpCenter',[HelpCenterPageController::class,'getAllHelp']);
 Route::get('AllOurService',[OurServicePageController::class,'getAllServices']);
 Route::get('GetContactUs',[ContacUsPageController::class,'getAllContactUsPage']);
 Route::get('GetAllBlogs',[BolgsController::class,'getAllBlogs']);
-Route::get('GetCountSeller',[SellerController::class,'getCountSeller']);
+//Route::get('GetCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('GetInfoSeller',[SellerController::class,'getInfoSeller']);

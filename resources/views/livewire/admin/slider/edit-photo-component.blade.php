@@ -129,9 +129,9 @@
                                     <option value="">Select Place</option>
 
 
-                                    <option value="الصورة المتحركة">الصورة المتحركة</option>
-                                    <option value="الصورة الرئيسية  الأولى">الصورة الرئيسية  الأولى</option>
-                                    <option value="الصورة الرئيسية  الثانية">الصورة الرئيسية  الثانية</option>
+                                    <option value="slider-right-image">slider-right-image</option>
+                                    <option value="first-banner">first-banner</option>
+                                    <option value="second-banner">second-banner</option>
 
 
 
@@ -193,34 +193,34 @@
 
                                             <?php $suc=0 ?>
                                     @foreach($photosHome as $emp)
-                                            @if($emp->place == "الصورة المتحركة")
+                                            @if($emp->place == "slider-right-image")
                                                     <?php $suc=1 ?>
 
                                              @endif
                                     @endforeach
                                         @if($suc == 0)
-                                                <option value="الصورة المتحركة">الصورة المتحركة</option>
+                                                <option value="slider-right-image">slider-right-image</option>
                                         @endif
 
                                         <?php $suc=0 ?>
                                     @foreach($photosHome as $emp)
-                                        @if($emp->place == "الصورة الرئيسية  الأولى")
+                                        @if($emp->place == "first-banner")
                                                 <?php $suc=1 ?>
 
                                         @endif
                                     @endforeach
                                     @if($suc == 0)
-                                        <option value="الصورة الرئيسية  الأولى">الصورة الرئيسية  الأولى</option>
+                                        <option value="first-banner">first-banner</option>
                                     @endif
                                         <?php $suc=0 ?>
                                     @foreach($photosHome as $emp)
-                                        @if($emp->place == "الصورة الرئيسية  الثانية")
+                                        @if($emp->place == "second-banner")
                                                 <?php $suc=1 ?>
 
                                         @endif
                                     @endforeach
                                     @if($suc == 0)
-                                        <option value="الصورة الرئيسية  الثانية">الصورة الرئيسية  الثانية</option>
+                                        <option value="second-banner">second-banner</option>
                                     @endif
 
 
@@ -293,9 +293,9 @@
                                 <select class="form-control" wire:model="place">
                                     <option value="">Select Place</option>
 
-                                    <option value="الصورة المتحركة">الصورة المتحركة</option>
-                                    <option value="الصورة الرئيسية  الأولى">الصورة الرئيسية  الأولى</option>
-                                    <option value="الصورة الرئيسية  الثانية">الصورة الرئيسية  الثانية</option>
+                                    <option value="slider-right-image">slider-right-image</option>
+                                    <option value="first-banner">first-banner</option>
+                                    <option value="second-banner">second-banner</option>
 
 
 
@@ -372,9 +372,9 @@
                                 <select class="form-control" wire:model="place">
                                     <option value="">Select Place</option>
 
-                                    <option value="الصورة المتحركة">الصورة المتحركة</option>
-                                    <option value="الصورة الرئيسية  الأولى">الصورة الرئيسية  الأولى</option>
-                                    <option value="الصورة الرئيسية  الثانية">الصورة الرئيسية  الثانية</option>
+                                    <option value="slider-right-image">slider-right-image</option>
+                                    <option value="first-banner">first-banner</option>
+                                    <option value="second-banner">second-banner</option>
 
 
 
