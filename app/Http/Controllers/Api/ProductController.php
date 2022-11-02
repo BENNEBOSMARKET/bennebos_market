@@ -15,76 +15,80 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Exception;
 use App\Models\Review;
+use App\Models\SizeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function __construct( ApiResponse $apiResponse, ProductRepositoryInterface $repository, CategoryRepositoryInterface $categoryRepository, Review $reviewModel)
+    public function __construct(ApiResponse $apiResponse, ProductRepositoryInterface $repository, CategoryRepositoryInterface $categoryRepository, SizeRequest $sizeRequestModel, Review $reviewModel)
     {
         $this->apiResponse = $apiResponse;
         $this->repository = $repository;
         $this->categoryRepository = $categoryRepository;
         $this->reviewModel = $reviewModel;
+        $this->sizeRequestModel = $sizeRequestModel;
     }
 
-    public function getProducts(Request $request){
+    public function getProducts(Request $request)
+    {
 
         try {
 
             $products = $this->repository->model
-            ->where('status',1)
-            ->paginate($request->limit);
-            
+                ->where('status', 1)
+                ->paginate($request->limit);
+
             return $this->apiResponse->setSuccess("products_listed_successfully")
                 ->setData(new CategoryProductCollection($products))
                 ->getJsonResponse();
-
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             return $this->apiResponse->setSuccess($exception->getMessage())->setData()->getJsonResponse();
         }
     }
 
-    public function getSingleProduct($product_id){
+    public function getSingleProduct($product_id)
+    {
         try {
             $product = $this->repository->getSingleProduct($product_id);
             return $this->apiResponse->setSuccess("product_loaded_successfully")
                 ->setData(new ProductResource($product))
                 ->getJsonResponse();
-
-        } catch(Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
     }
 
     public function getProductByColorAndSize($productId)
     {
-        $sizeId = request('size_id',null);
-        $colorId = request('color_id',null);
-        $product = $this->repository->productBySizeOrColor($productId,$sizeId ,$colorId);
+        $sizeId = request('size_id', null);
+        $colorId = request('color_id', null);
+        $product = $this->repository->productBySizeOrColor($productId, $sizeId, $colorId);
 
         return $this->apiResponse->setSuccess("product_loaded_successfully")
             ->setData(new ProductResource($product))
             ->getJsonResponse();
-
     }
 
-    public function getDiscountProducts(Request $request){
-        try{
+    public function getDiscountProducts(Request $request)
+    {
+        try {
             $products = $this->repository->getDiscountProducts($request->limit);
-        return $this->apiResponse->setSuccess("products_with_discount_loaded_successfully")->setData(new ProductCollection($products))->getJsonResponse();
-        }catch(Exception $exception){
+            return $this->apiResponse->setSuccess("products_with_discount_loaded_successfully")->setData(new ProductCollection($products))->getJsonResponse();
+        } catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
     }
-    public function getCategoryProducts(Request $request, $category_id){
+    public function getCategoryProducts(Request $request, $category_id)
+    {
         try {
 
             $category = $this->categoryRepository->find($category_id);
-            $limit = $request->limit? $request->limit : 10;
-            if($category) {
-                $products = $this->repository->getCategoryProducts($category_id,$limit);
+            $limit = $request->limit ? $request->limit : 10;
+            if ($category) {
+                $products = $this->repository->getCategoryProducts($category_id, $limit);
 
                 return $this->apiResponse->setSuccess("Category_products_loaded_successfully")
                     ->setData(new CategoryProductCollection($products))
@@ -92,49 +96,48 @@ class ProductController extends Controller
             } else {
                 return $this->apiResponse->setError("Category_does_not_exist")->setData()->getJsonResponse();
             }
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
-
     }
-    public function getRelatedProducts(Request $request, $category_id, $product_id){
-        try{
+    public function getRelatedProducts(Request $request, $category_id, $product_id)
+    {
+        try {
             $category = $this->categoryRepository->find($category_id);
-            $limit = $request->limit? $request->limit : 10;
-            if($category){
+            $limit = $request->limit ? $request->limit : 10;
+            if ($category) {
                 $products = $category->products()
                     ->withCount('wishlists')
                     //->translate()
                     //->selectAll()
-                    ->where('products.id',"!=",$product_id)
+                    ->where('products.id', "!=", $product_id)
                     ->paginate($limit);
 
                 return $this->apiResponse
                     ->setSuccess("Category_products_loaded_successfully")
                     ->setData(new CategoryProductCollection($products))
                     ->getJsonResponse();
-
-            }else{
+            } else {
                 return $this->apiResponse->setError("Category_or_products_does_not_exist")->setData()->getJsonResponse();
             }
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
-
     }
-    public function makeReview(ProductRequest $productRequest){
+    public function makeReview(ProductRequest $productRequest)
+    {
         DB::beginTransaction();
-        try{
+        try {
             $user_id = Auth::id();
-            $review = $this->reviewModel->create(array_merge(['user_id' => $user_id],$productRequest->validated()));
+            $review = $this->reviewModel->create(array_merge(['user_id' => $user_id], $productRequest->validated()));
             $product = $this->repository->model->find($productRequest->product_id);
             $product->increment('total_review');
-            $rate_avg = $this->reviewModel->where('product_id',$productRequest->product_id)->avg('rating');
+            $rate_avg = $this->reviewModel->where('product_id', $productRequest->product_id)->avg('rating');
             $product->update(['avg_review' => $rate_avg]);
             $product->refresh();
             DB::commit();
             return $this->apiResponse->setSuccess("User_Updated_Successfully")->setData(new ReviewResource($review))->getJsonResponse();
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             DB::rollback();
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
@@ -143,41 +146,62 @@ class ProductController extends Controller
 
     public function productByCategorySlug($slug, ProductRequest $productRequest)
     {
-        try{
+        try {
             $category = $this->repository->productByCategorySlug($slug, $productRequest);
-            if($category){
+            if ($category) {
                 return $this->apiResponse->setSuccess("Category_products_loaded_successfully")->setData(new ProductCollection($category))->getJsonResponse();
-            }else{
+            } else {
                 return $this->apiResponse->setError("Category_does_not_exist")->setData()->getJsonResponse();
             }
-        }catch(Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError(
-                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+                $exception->getMessage() . " " . $exception->getLine() . " " . $exception->getFile()
             )->setData()->getJsonResponse();
         }
     }
-    public function statisticsProducts(){
-        try{
+    public function statisticsProducts()
+    {
+        try {
             $limit = request()->has('limit') ? request('limit') : 8;
             $products_data = $this->repository->getSomeStatisitcsProducts($limit);
             return $this->apiResponse->setSuccess("proucts_statistics_loaded_successfully")->setData($products_data)->getJsonResponse();
-        }catch( Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError(
-                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+                $exception->getMessage() . " " . $exception->getLine() . " " . $exception->getFile()
             )->setData()->getJsonResponse();
         }
     }
-    public function filter(Request $request){
-        try{
+    public function filter(Request $request)
+    {
+        try {
             $limit = $request->has('limit') ? $request->limit : 20;
             $filter_queries = $request->query();
             $products = $this->repository->filterProducts($filter_queries, $limit);
             return $this->apiResponse->setSuccess("Filtered Products Loaded Successfully")->setData(new CategoryProductCollection($products))->getJsonResponse();
-        }catch( Exception $exception){
+        } catch (Exception $exception) {
             return $this->apiResponse->setError(
-                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+                $exception->getMessage() . " " . $exception->getLine() . " " . $exception->getFile()
             )->setData()->getJsonResponse();
         }
     }
 
+    public function requestSize(Request $request)
+    {
+        $validation = Validator::make(
+            $request->all(),
+            [
+                "product_id" => "required|exists:products,id",
+                "requested_sizes" => "required|string|min:1",
+                "message" => "required|string|min:1",
+            ]
+        );
+
+        if($validation->errors()->first()){
+            return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
+        }
+
+        $sizeRequest = $this->sizeRequestModel->create(array_merge($request->all(),["user_id" => Auth::id()]));
+        return $this->apiResponse->setSuccess("size request added successfully")->setData($sizeRequest)->getJsonResponse();
+
+    }
 }
