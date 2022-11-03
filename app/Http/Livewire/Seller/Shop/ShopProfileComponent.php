@@ -59,8 +59,9 @@ class ShopProfileComponent extends Component
      {
          $this->validate([
              'name'=>'required',
-             'address'=>'required'
-         ]);
+             'address'=>'required',
+             "phone" => "required|regex:/(05)[0-9]{9}/"
+         ],["phone.regex" => "The phone must be a turkish number and starts with 05 and have 11 digits"]);
  
          $shop = Shop::where('id', $this->shop_id)->first();
          $shop->name = $this->name;
