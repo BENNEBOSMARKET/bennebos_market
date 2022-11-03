@@ -36,6 +36,293 @@
                         </li>
                         @endif
 
+
+
+                            <!-- Orders -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sidebarOrder" data-bs-toggle="collapse" role="button"
+                                   aria-expanded="false" aria-controls="sidebarOrder">
+                                    <i class="ti ti-report-money menu-icon"></i>
+                                    <span>Orders</span>
+                                    <span style="margin-left: 50%;"  class="badge bg-primary">{{$orders}}</span></a>
+                                </a>
+                                <div class="collapse {{ request()->is('admin/sales') || request()->is('admin/sales/*') ? 'show' : '' }}"
+                                     id="sidebarOrder">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.all-orders') }}"
+                                               class="nav-link {{ ((request()->is('admin/sales/all-orders') || request()->is('admin/sales/all-orders/*')) && !request()->is('admin/sales/all-orders/refund')) ? 'active' : '' }}">All
+                                                Orders</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.inhouse-orders') }}"
+                                               class="nav-link {{ request()->is('admin/sales/inhouse-orders') || request()->is('admin/sales/inhouse-orders/*') ? 'active' : '' }}">Inhouse
+                                                Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.seller-orders') }}"
+                                               class="nav-link {{ request()->is('admin/sales/seller-orders') || request()->is('admin/sales/seller-orders/*') ? 'active' : '' }}">Seller
+                                                Orders</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- Pending Products -->
+
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->is('admin/pending/products') || request()->is('admin/pending/products/edit-product/*') ? 'active' : '' }}" href="{{ route('admin.pending.products') }}"  >
+                                    <i class=" fas fa-fill menu-icon" style="font-size: initial;"></i>
+                                    <span> Pending Products</span>
+                                </a>
+                            </li>
+
+
+                            <!-- Pending Sellers -->
+
+                            <li class="nav-item">
+                                <a    class="nav-link {{ request()->is('admin/seller/PendingSellers') || request()->is('admin/seller/PendingSellers/*') ? 'active' : '' }}" href="{{ route('admin.pendingSellers') }}"  >
+                                    <i class=" fas fa-user-slash menu-icon" style="font-size: initial;"></i>
+                                    <span> Pending Sellers</span>
+                                    <span style="margin-left: 20%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
+                                </a>
+                            </li>
+
+                            {{--   Payouts Request--}}
+                            <li class="nav-item">
+                                <a href="{{ route('admin.payout.request') }}"
+                                   class="nav-link {{ request()->is('admin/payout/request') || request()->is('admin/payout/request/*') ? 'active' : '' }}">
+                                    <i class=" fas fa-cloud-download-alt menu-icon" style="font-size: initial;"></i>
+
+                                    <span> Payouts Request</span></a>
+                            </li>
+                               {{--   ticket--}}
+                            <li class="nav-item">
+                                <a href="{{ route('admin.ticket') }}"
+                                   class="nav-link {{ request()->is('admin/ticket') || request()->is('admin/ticket/*') ? 'active' : '' }}">
+                                    <i class=" fas fa-ticket-alt menu-icon" style="font-size: initial;"></i>
+
+                                    <span> Ticket</span>
+                                    <span style="margin-left: 55%;" class="badge bg-primary">{{$ticket}}</span></a>
+                            </li>
+
+                            @if(auth()->user()->role != "sub-admin" )
+                                <!-- Categories -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarCategory" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarCategory">
+                                        <i class="ti ti-layout-2 menu-icon"></i>
+                                        <span>Category</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/category') || request()->is('admin/category/*') ? 'show' : '' }}"
+                                         id="sidebarCategory">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.category') }}"
+                                                   class="nav-link {{ request()->is('admin/category/main-categories') || request()->is('admin/category/main-categories/*') ? 'active' : '' }}">Main
+                                                    Category</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.subCategory') }}"
+                                                   class="nav-link {{ request()->is('admin/category/sub-categories') || request()->is('admin/category/sub-categories/*') ? 'active' : '' }}">Sub
+                                                    Category</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.subSubCategory') }}"
+                                                   class="nav-link {{ request()->is('admin/category/sub-sub-categories') || request()->is('admin/category/sub-sub-categories/*') ? 'active' : '' }}">Sub
+                                                    Sub Category</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            @endif
+
+                            <!-- Sellers -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sidebarSeller" data-bs-toggle="collapse" role="button"
+                                   aria-expanded="false" aria-controls="sidebarSeller">
+                                    <i class="ti ti-users menu-icon"></i>
+                                    <span>Sellers</span>
+                                </a>
+                                <div class="collapse {{ request()->is('admin/seller') || request()->is('admin/seller/*') ? 'show' : '' }}"
+                                     id="sidebarSeller">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.sellerList') }}"
+                                               class="nav-link {{ request()->is('admin/seller/list') || request()->is('admin/seller/list/*') ? 'active' : '' }}">All
+                                                Seller</a>
+                                        </li>
+                                        @if(auth()->user()->role != "sub-admin" )
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.payout') }}"
+                                                   class="nav-link {{ request()->is('admin/payout') || request()->is('admin/payout/*') ? 'active' : '' }}">Payouts</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.payout.request') }}"
+                                                   class="nav-link {{ request()->is('admin/payout/request') || request()->is('admin/payout/request/*') ? 'active' : '' }}">Payouts
+                                                    Request</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.commission.history') }}#" class="nav-link {{ request()->is('admin/commission-history') || request()->is('admin/commission-history/*') ? 'active' : '' }}">Seller Commision</a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- user -->
+                            @if(auth()->user()->role != "sub-admin" )
+                                <!-- User Management -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarUser" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarUser">
+                                        <i class="ti ti-users menu-icon"></i>
+                                        <span>User Management</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/user-management') || request()->is('admin/user-management/*') ? 'show' : '' }}"
+                                         id="sidebarUser">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.customersList') }}"
+                                                   class="nav-link {{ request()->is('admin/customer/list') || request()->is('admin/user-management/customer/list/*') ? 'active' : '' }}">Customer
+                                                    List</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.administratorList') }}"
+                                                   class="nav-link {{ request()->is('admin/admin/list') || request()->is('admin/user-management/admin/list/*') ? 'active' : '' }}">Admin
+                                                    List</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.sub.admins') }}"
+                                                   class="nav-link {{ request()->is('admin/subadmin/list') || request()->is('admin/user-management/subadmin/list/*') ? 'active' : '' }}">Sub-Admins
+                                                    List</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.sendMoneyCustomer') }}"
+                                                   class="nav-link {{ request()->is('admin/admin/send-money-Customer') || request()->is('admin/user-management/admin/send-money-Customer/*') ? 'active' : '' }}">Send Points Customers
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.sendMoneySeller') }}"
+                                                   class="nav-link {{ request()->is('admin/admin/send-money-seller') || request()->is('admin/user-management/admin/send-money-seller/*') ? 'active' : '' }}">Send Points Sellers</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <!-- Refunds -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarRefund" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarRefund">
+                                        <i class="ti ti-report-money menu-icon"></i>
+                                        <span>Refunds</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/refund') || request()->is('admin/refund/*') ? 'show' : '' }}"
+                                         id="sidebarRefund">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.refundRequests') }}" class="nav-link {{ request()->is('admin/refund/requests') ? 'active' : '' }}">Refund Requests</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.acceptedRefund') }}" class="nav-link {{ request()->is('admin/refund/accepted') ? 'active' : '' }}">Accepted Refunds</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.rejectedRefund') }}" class="nav-link {{ request()->is('admin/refund/rejected') ? 'active' : '' }}">Rejected Refunds</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{ route('admin.refundConfig') }}" class="nav-link {{ request()->is('admin/refund/config') ? 'active' : '' }}">Refund Configuration</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <!-- Reports -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarReport" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarReport">
+                                        <i class="ti ti-report-analytics menu-icon"></i>
+                                        <span>Reports</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/Report') || request()->is('admin/Report/*') ? 'show' : '' }}"
+                                         id="sidebarReport">
+                                        <ul class="nav flex-column">
+                                            <li
+                                                class="nav-item {{ request()->is('admin/inhouse/product/reports') || request()->is('admin/inhouse/product/reports/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.inhouse-product-reports') }}" class="nav-link">Inhouse
+                                                    Products Report</a>
+                                            </li>
+                                            <li
+                                                class="nav-item {{ request()->is('admin/seller/product/reports') || request()->is('admin/seller/product/reports/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.seller-product-reports') }}" class="nav-link">Seller
+                                                    Products Report</a>
+                                            </li>
+                                            <li
+                                                class="nav-item {{ request()->is('admin/stock/product/reports') || request()->is('admin/stock/product/reports/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.stock-product-reports') }}" class="nav-link">Products
+                                                    Stock Report</a>
+                                            </li>
+                                            <li
+                                                class="nav-item {{ request()->is('	admin/wishlist/product/reports') || request()->is('	admin/wishlist/product/reports/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.wishlist-product-reports') }}"
+                                                   class="nav-link">Products WishList</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- Company Info -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarCompanyInfo" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarCompanyInfo">
+                                        <i class="ti ti-world menu-icon"></i>
+                                        <span>Company Info</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/company-infomation') || request()->is('admin/company-infomation/*') ? 'show' : '' }}"
+                                         id="sidebarCompanyInfo">
+                                        <ul class="nav flex-column">
+                                            <li
+                                                class="nav-item {{ request()->is('admin/company-categories/') || request()->is('admin/company-categories/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.companyCategory') }}" class="nav-link">Company
+                                                    Category</a>
+                                            </li>
+                                            <li
+                                                class="nav-item {{ request()->is('admin/company-infomation/') || request()->is('admin/company-infomation/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.company.info') }}" class="nav-link">Company
+                                                    Info</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <!-- Qutotations -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#sidebarQutotations" data-bs-toggle="collapse" role="button"
+                                       aria-expanded="false" aria-controls="sidebarQutotations">
+                                        <i class="ti ti-atom menu-icon"></i>
+                                        <span>Qutotations</span>
+                                    </a>
+                                    <div class="collapse {{ request()->is('admin/qutotations') || request()->is('admin/qutotations/*') ? 'show' : '' }}"
+                                         id="sidebarQutotations">
+                                        <ul class="nav flex-column">
+                                            <li
+                                                class="nav-item {{ request()->is('admin/qutotations/') || request()->is('admin/qutotations/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.qutotations') }}" class="nav-link">Qutotations List</a>
+                                            </li>
+                                            <li
+                                                class="nav-item {{ request()->is('admin/qutotations/') || request()->is('admin/qutotations/*') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.qutotation-category') }}" class="nav-link">Qutotations
+                                                    Category</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endif
+
+
                         <!-- Products -->
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
@@ -94,246 +381,8 @@
                                 </ul>
                             </div>
                         </li>
-                        @if(auth()->user()->role != "sub-admin" )
-                        <!-- Categories -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarCategory" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarCategory">
-                                <i class="ti ti-layout-2 menu-icon"></i>
-                                <span>Category</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/category') || request()->is('admin/category/*') ? 'show' : '' }}"
-                                id="sidebarCategory">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.category') }}"
-                                            class="nav-link {{ request()->is('admin/category/main-categories') || request()->is('admin/category/main-categories/*') ? 'active' : '' }}">Main
-                                            Category</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.subCategory') }}"
-                                            class="nav-link {{ request()->is('admin/category/sub-categories') || request()->is('admin/category/sub-categories/*') ? 'active' : '' }}">Sub
-                                            Category</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.subSubCategory') }}"
-                                            class="nav-link {{ request()->is('admin/category/sub-sub-categories') || request()->is('admin/category/sub-sub-categories/*') ? 'active' : '' }}">Sub
-                                            Sub Category</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
 
-                        <!-- Orders -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarOrder" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarOrder">
-                                <i class="ti ti-report-money menu-icon"></i>
-                                <span>Orders</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/sales') || request()->is('admin/sales/*') ? 'show' : '' }}"
-                                id="sidebarOrder">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.all-orders') }}"
-                                            class="nav-link {{ ((request()->is('admin/sales/all-orders') || request()->is('admin/sales/all-orders/*')) && !request()->is('admin/sales/all-orders/refund')) ? 'active' : '' }}">All
-                                            Orders</a>
-                                    </li>
 
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.inhouse-orders') }}"
-                                            class="nav-link {{ request()->is('admin/sales/inhouse-orders') || request()->is('admin/sales/inhouse-orders/*') ? 'active' : '' }}">Inhouse
-                                            Orders</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.seller-orders') }}"
-                                            class="nav-link {{ request()->is('admin/sales/seller-orders') || request()->is('admin/sales/seller-orders/*') ? 'active' : '' }}">Seller
-                                            Orders</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        @endif
-                        <!-- Sellers -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarSeller" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarSeller">
-                                <i class="ti ti-users menu-icon"></i>
-                                <span>Sellers</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/seller') || request()->is('admin/seller/*') ? 'show' : '' }}"
-                                id="sidebarSeller">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.sellerList') }}"
-                                            class="nav-link {{ request()->is('admin/seller/list') || request()->is('admin/seller/list/*') ? 'active' : '' }}">All
-                                            Seller</a>
-                                    </li>
-                                    @if(auth()->user()->role != "sub-admin" )
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.payout') }}"
-                                            class="nav-link {{ request()->is('admin/payout') || request()->is('admin/payout/*') ? 'active' : '' }}">Payouts</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.payout.request') }}"
-                                            class="nav-link {{ request()->is('admin/payout/request') || request()->is('admin/payout/request/*') ? 'active' : '' }}">Payouts
-                                            Request</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.commission.history') }}#" class="nav-link {{ request()->is('admin/commission-history') || request()->is('admin/commission-history/*') ? 'active' : '' }}">Seller Commision</a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </li>
-                        @if(auth()->user()->role != "sub-admin" )
-                        <!-- User Management -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarUser" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarUser">
-                                <i class="ti ti-users menu-icon"></i>
-                                <span>User Management</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/user-management') || request()->is('admin/user-management/*') ? 'show' : '' }}"
-                                id="sidebarUser">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.customersList') }}"
-                                            class="nav-link {{ request()->is('admin/customer/list') || request()->is('admin/user-management/customer/list/*') ? 'active' : '' }}">Customer
-                                            List</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.administratorList') }}"
-                                            class="nav-link {{ request()->is('admin/admin/list') || request()->is('admin/user-management/admin/list/*') ? 'active' : '' }}">Admin
-                                            List</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.sub.admins') }}"
-                                            class="nav-link {{ request()->is('admin/subadmin/list') || request()->is('admin/user-management/subadmin/list/*') ? 'active' : '' }}">Sub-Admins
-                                            List</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.sendMoneyCustomer') }}"
-                                           class="nav-link {{ request()->is('admin/admin/send-money-Customer') || request()->is('admin/user-management/admin/send-money-Customer/*') ? 'active' : '' }}">Send Points Customers
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.sendMoneySeller') }}"
-                                           class="nav-link {{ request()->is('admin/admin/send-money-seller') || request()->is('admin/user-management/admin/send-money-seller/*') ? 'active' : '' }}">Send Points Sellers</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Refunds -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarRefund" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarRefund">
-                                <i class="ti ti-report-money menu-icon"></i>
-                                <span>Refunds</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/refund') || request()->is('admin/refund/*') ? 'show' : '' }}"
-                                id="sidebarRefund">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.refundRequests') }}" class="nav-link {{ request()->is('admin/refund/requests') ? 'active' : '' }}">Refund Requests</a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.acceptedRefund') }}" class="nav-link {{ request()->is('admin/refund/accepted') ? 'active' : '' }}">Accepted Refunds</a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.rejectedRefund') }}" class="nav-link {{ request()->is('admin/refund/rejected') ? 'active' : '' }}">Rejected Refunds</a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.refundConfig') }}" class="nav-link {{ request()->is('admin/refund/config') ? 'active' : '' }}">Refund Configuration</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Reports -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarReport" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarReport">
-                                <i class="ti ti-report-analytics menu-icon"></i>
-                                <span>Reports</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/Report') || request()->is('admin/Report/*') ? 'show' : '' }}"
-                                id="sidebarReport">
-                                <ul class="nav flex-column">
-                                    <li
-                                        class="nav-item {{ request()->is('admin/inhouse/product/reports') || request()->is('admin/inhouse/product/reports/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.inhouse-product-reports') }}" class="nav-link">Inhouse
-                                            Products Report</a>
-                                    </li>
-                                    <li
-                                        class="nav-item {{ request()->is('admin/seller/product/reports') || request()->is('admin/seller/product/reports/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.seller-product-reports') }}" class="nav-link">Seller
-                                            Products Report</a>
-                                    </li>
-                                    <li
-                                        class="nav-item {{ request()->is('admin/stock/product/reports') || request()->is('admin/stock/product/reports/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.stock-product-reports') }}" class="nav-link">Products
-                                            Stock Report</a>
-                                    </li>
-                                    <li
-                                        class="nav-item {{ request()->is('	admin/wishlist/product/reports') || request()->is('	admin/wishlist/product/reports/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.wishlist-product-reports') }}"
-                                            class="nav-link">Products WishList</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- Company Info -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarCompanyInfo" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarCompanyInfo">
-                                <i class="ti ti-world menu-icon"></i>
-                                <span>Company Info</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/company-infomation') || request()->is('admin/company-infomation/*') ? 'show' : '' }}"
-                                id="sidebarCompanyInfo">
-                                <ul class="nav flex-column">
-                                    <li
-                                        class="nav-item {{ request()->is('admin/company-categories/') || request()->is('admin/company-categories/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.companyCategory') }}" class="nav-link">Company
-                                            Category</a>
-                                    </li>
-                                    <li
-                                        class="nav-item {{ request()->is('admin/company-infomation/') || request()->is('admin/company-infomation/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.company.info') }}" class="nav-link">Company
-                                            Info</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Qutotations -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sidebarQutotations" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarQutotations">
-                                <i class="ti ti-atom menu-icon"></i>
-                                <span>Qutotations</span>
-                            </a>
-                            <div class="collapse {{ request()->is('admin/qutotations') || request()->is('admin/qutotations/*') ? 'show' : '' }}"
-                                id="sidebarQutotations">
-                                <ul class="nav flex-column">
-                                    <li
-                                        class="nav-item {{ request()->is('admin/qutotations/') || request()->is('admin/qutotations/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.qutotations') }}" class="nav-link">Qutotations List</a>
-                                    </li>
-                                    <li
-                                        class="nav-item {{ request()->is('admin/qutotations/') || request()->is('admin/qutotations/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.qutotation-category') }}" class="nav-link">Qutotations
-                                            Category</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        @endif
 
                         <!-- Blogs -->
                         <li class="nav-item">
@@ -429,11 +478,6 @@
                                 id="sidebarTicket">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.ticket') }}"
-                                            class="nav-link {{ request()->is('admin/ticket') || request()->is('admin/ticket/*') ? 'active' : '' }}">Ticket
-                                            <span style="margin-left: 50%;" class="badge bg-primary">5</span></a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="#" class="nav-link">Product Queries</a>
                                     </li>
                                 </ul>
@@ -518,8 +562,14 @@
                                     <li class="nav-item {{ request()->is('admin/big-deals') || request()->is('admin/big-deals/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.bigDeals') }}" class="nav-link">Big Deals</a>
                                     </li>
+                                    <li class="nav-item {{ request()->is('admin/cms/report-map/addCoordinates') || request()->is('admin/cms/report-map/addCoordinates/*') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.addCoordinates') }}" class="nav-link">Country Coordinates
+                                            <span style="margin-left: 10%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>
+
+
                                     <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.country-list') }}" class="nav-link">Countries</a>
+
                                     </li>
                                 </ul>
                             </div>
