@@ -232,8 +232,7 @@ class SellerComponent extends Component
                 ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
-                })
-        ->where('application_status','!=',1);
+                });
         $shops=Shop::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
         if ($shops and $this->searchTerm != ''){
              $sellers=$sellers->orWhere('id',$shops->seller_id)->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
