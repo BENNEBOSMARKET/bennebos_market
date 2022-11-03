@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Seller;
 
 use App\Models\DealsOfDay;
 use App\Models\Product;
+use App\Models\ShopVerification;
 use Livewire\WithPagination;
 use Livewire\Component;
 use App\Models\Seller;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
 
-class SellerComponent extends Component
+class PendingSellersComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -225,21 +226,23 @@ class SellerComponent extends Component
     public function render()
     {
         $profile = Seller::find($this->seller_id);
-        $sellers = Seller::
-        where(function ($q) {
-                $q->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-                ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
-                ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
-                ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
-                ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
-                });
-        $shops=Shop::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
-        if ($shops and $this->searchTerm != ''){
-             $sellers=$sellers->orWhere('id',$shops->seller_id)->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
-        }
-        else{
-            $sellers=$sellers->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
-        }
+
+
+
+
+
+        $sellers = Seller::join('shops','sellers.id','shops.seller_id')->where('shops.verification_status','!=',1)
+            ->select('sellers.id','sellers.name','sellers.phone','sellers.email','sellers.referral_code','sellers.referral_code',
+                'sellers.email_verified_at','sellers.disabled','sellers.password','sellers.avatar','sellers.application_status',
+                'sellers.aras_assigned','sellers.aras_address_id','sellers.created_at','shops.verification_status'
+            )->where(function ($q) {
+                $q->where('sellers.name', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.phone', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.email', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.created_at', 'like', '%' . $this->searchTerm . '%');
+
+            })->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.seller.seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
     }
 }
+

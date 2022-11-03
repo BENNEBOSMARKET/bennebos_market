@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
 use App\Http\Livewire\Admin\Customer\SendMoneyCustomerComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Product\ProductComponent;
+use App\Http\Livewire\Admin\Seller\PendingSellersComponent;
 use App\Http\Livewire\Admin\Seller\SendMoneySellerComponent;
 use App\Http\Livewire\Admin\Setting\Color\ColorComponent;
 use App\Http\Livewire\Admin\Customer\CustomerComponent;
@@ -167,6 +168,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     // Seller
     Route::get('/seller/all-seller', SellerComponent::class)->name('sellerList');
+    Route::get('/seller/PendingSellers', PendingSellersComponent::class)->name('pendingSellers');
     Route::get('/seller/all-seller/verification-info/{seller_id}', ShopVerificationInfoComponent::class)->name('seller.shopVerificationInfo');
     Route::get('/seller/profile/{id}', SellerProfileComponent::class)->name('seller.profile');
     Route::get('/send-money-seller', SendMoneySellerComponent::class)->name('sendMoneySeller');
@@ -252,7 +254,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     //CMS
     Route::get('/cms/report-map', ReportMapComponentV2::class)->name('reportMap');
-    Route::get('/cms/report-map/upload', ReportMapComponent::class);
+    Route::get('/cms/report-map/addCoordinates', ReportMapComponent::class)->name('addCoordinates');
     Route::get('/cms/middle-banner', MiddleBannerComponent::class)->name('middle-banner');
     Route::get('/cms/right-grid-banner', RightGridBannerComponent::class)->name('right-grid-banner');
     Route::get('/cms/bottom-banner', BottomBannerComponent::class)->name('bottom-banner');

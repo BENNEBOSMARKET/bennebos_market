@@ -16,7 +16,7 @@ class  CountryComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $parent_id = 0, $sub_parent_id = 0, $name, $phonecode, $flag, $banner, $uploadedBanner, $mega_banner, $uploadedMegaBanner;
+    public $parent_id = 0, $sub_parent_id = 0, $name, $phonecode, $flag, $banner, $uploadedBanner, $latitude, $longitude, $mega_banner, $uploadedMegaBanner;
 
     public $edit_id, $delete_id;
 
@@ -37,6 +37,8 @@ class  CountryComponent extends Component
             'name' => 'required',
             'phonecode' => 'required',
             'banner' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
     }
 
@@ -46,11 +48,15 @@ class  CountryComponent extends Component
             'name' => 'required',
             'phonecode' => 'required',
             'banner' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         $data = new Country();
         $data->name = $this->name;
         $data->phonecode = $this->phonecode;
+        $data->latitude = $this->latitude;
+        $data->longitude = $this->longitude;
 
         $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/country', $imageName, 's3');
@@ -81,7 +87,8 @@ class  CountryComponent extends Component
         $this->name = $getData->name;
         $this->phonecode = $getData->phonecode;
         $this->uploadedBanner= $getData->flag;
-
+        $this->latitude = $getData->latitude;
+        $this->longitude = $getData->longitude;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -90,11 +97,15 @@ class  CountryComponent extends Component
         $this->validate([
             'name' => 'required',
             'phonecode' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         $data = Country::where('id', $this->edit_id)->first();
         $data->name = $this->name;
         $data->phonecode = $this->phonecode;
+        $data->latitude = $this->latitude;
+        $data->longitude = $this->longitude;
 
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
@@ -156,7 +167,11 @@ class  CountryComponent extends Component
 
     public function render()
     {
-        $countries = Country::where('name', "LIKE", "%$this->searchTerm%")->paginate($this->sortingValue);
+        $countries = Country::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+                            ->orWhere('latitude', 'LIKE', '%' . $this->searchTerm . '%')
+                            ->orWhere('longitude', 'LIKE', '%' . $this->searchTerm . '%')
+                            ->orWhere('sortname', 'LIKE', '%' . $this->searchTerm . '%')
+                            ->orderBy('name', 'ASC')->paginate($this->sortingValue);
         return view('livewire.admin.country.country-component', ['countries' => $countries])->layout('livewire.admin.layouts.base');
     }
 
