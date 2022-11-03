@@ -24,7 +24,7 @@ class AddProductsComponent extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $name, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
+    public $name, $slug, $category, $brand, $unit, $minimum_qty, $guarantee, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
     public $store_status;
 
 
@@ -63,6 +63,8 @@ class AddProductsComponent extends Component
             'color_name'=>'required',
             'color_image'=>'required',
             'color_gallery'=>'required',
+            'guarantee'=>'required',
+            
         ]);
     }
 
@@ -247,39 +249,6 @@ class AddProductsComponent extends Component
                      'name'  => Str::lower($this->color_names[$index]),
                      'image' => $this->saveProductDetailsImages($this->color_images[$index])
                 ]);
-                $data = [
-                    "name" => Str::lower($this->color_titles[$index]),
-                    "slug" => Str::slug(Str::lower($this->color_titles[$index])) . "-" . uniqid(),
-                    "title" => Str::lower($this->color_titles[$index]),
-                    "added_by" => 'admin',
-                    "description" => trim($this->color_descriptions[$index]),
-                    "category_id" => $this->category,
-                    "size_id" => $this->color_sizes[$index][0],
-                    "brand_id" => $this->brand,
-                    "color_id" => $color->id,
-                    "user_id" => $this->sellers[$index],
-                    "gallery_image" => is_array($images) ? json_encode($images): $images,
-                    "thumbnail" => $thumbnail,
-                    "status" => 1,
-                    "min_qty" => $this->minimum_qty,
-                    "quantity" => $this->quantity,
-                    "unit" => $this->unit,
-                    "refundable" => $this->refundable,
-                    "discount_date_from" => $this->discount_date_from,
-                    "discount_date_to" => $this->discount_date_to,
-                    "discount" => $this->discount,
-                    "sku" => $this->sku,
-                    "video" => $this->video_link,
-                    "meta_title" => trim($this->meta_title),
-                    "meta_description" => trim($this->meta_description),
-                    "unit_price" => (float)$this->color_prices[$index],
-                    "featured" => $this->featured,
-                    "color_image" => json_encode([]),
-                    "color_titles" => json_encode([]),
-                    "color_prices" => json_encode([]),
-                    "size" => json_encode([]),
-                    "color" => json_encode([]),
-                ];
                 if ( $index == 0) {
                     $newProduct = Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
@@ -294,6 +263,7 @@ class AddProductsComponent extends Component
                         "user_id" => $this->sellers[$index],
                         "gallery_image" => is_array($images) ? json_encode($images): $images,
                         "thumbnail" => $thumbnail,
+                        "guarantee" => $this->guarantee,
                         "status" => 1,
                         "min_qty" => $this->minimum_qty,
                         "quantity" => $this->quantity,
@@ -335,6 +305,7 @@ class AddProductsComponent extends Component
                         "user_id" => $this->sellers[$index],
                         "gallery_image" => is_array($images) ? json_encode($images): $images,
                         "thumbnail" => $thumbnail,
+                        "guarantee" => $this->guarantee,
                         "status" => 1,
                         "min_qty" => $this->minimum_qty,
                         "quantity" => $this->quantity,
@@ -386,6 +357,7 @@ class AddProductsComponent extends Component
                 "user_id" => authSeller()->id?? null, //needs modification
                 "gallery_image" => is_array($images) ? json_encode($images): $images,
                 "thumbnail" => $thumbnail,
+                "guarantee" => $this->guarantee,
                 "status" => 1,
                 "min_qty" => $this->minimum_qty,
                 "quantity" => $this->quantity,

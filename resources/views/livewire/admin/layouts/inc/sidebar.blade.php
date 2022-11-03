@@ -86,6 +86,7 @@
                                     <i class=" fas fa-user-slash menu-icon" style="font-size: initial;"></i>
                                     <span> Pending Sellers</span>
 
+
                                     <span style="margin-left: 25%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
 
                                 </a>
@@ -566,9 +567,11 @@
                                     </li>
 
 
+
                                     <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.country-list') }}" class="nav-link">Countries
                                             <span style="margin-left: 50%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>
+
 
                                     </li>
                                 </ul>

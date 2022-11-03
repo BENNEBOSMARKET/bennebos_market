@@ -10,4 +10,5 @@ class Searches extends Model
     use HasFactory;
 
     protected $table = 'searches';
+    protected $fillable = ["query", "count"];
 }

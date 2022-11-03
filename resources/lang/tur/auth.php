@@ -62,7 +62,7 @@ return [
  'off_or_more' => '%10 veya daha fazla indirim',
  'delivery_country' => 'Teslimat ülkesi',
  'settings' => 'Ayarlar',
-
+ 'guarantee' =>"Garanti Yılları",
  
 'bennebos_offer' => 'les offers de Bennebos',
   'big_deals' => 'Big Deals',

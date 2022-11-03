@@ -226,6 +226,7 @@ class SellerComponent extends Component
     {
         $profile = Seller::find($this->seller_id);
         $sellers = Seller:: where(function ($q) {
+
                 $q->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
