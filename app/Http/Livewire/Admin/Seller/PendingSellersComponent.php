@@ -237,7 +237,7 @@ class PendingSellersComponent extends Component
         else{
             $sellers=$sellers->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
         }
-        return view('livewire.admin.seller.seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.seller.pending-seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
     }
 }
 
