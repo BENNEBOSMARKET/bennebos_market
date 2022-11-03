@@ -225,15 +225,13 @@ class SellerComponent extends Component
     public function render()
     {
         $profile = Seller::find($this->seller_id);
-        $sellers = Seller::
-        where(function ($q) {
+        $sellers = Seller:: where(function ($q) {
                 $q->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
                 ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
-                })
-        ->where('application_status','!=',1);
+                });
         $shops=Shop::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
         if ($shops and $this->searchTerm != ''){
              $sellers=$sellers->orWhere('id',$shops->seller_id)->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);

@@ -85,7 +85,9 @@
                                 <a    class="nav-link {{ request()->is('admin/seller/PendingSellers') || request()->is('admin/seller/PendingSellers/*') ? 'active' : '' }}" href="{{ route('admin.pendingSellers') }}"  >
                                     <i class=" fas fa-user-slash menu-icon" style="font-size: initial;"></i>
                                     <span> Pending Sellers</span>
-                                    <span style="margin-left: 20%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
+
+                                    <span style="margin-left: 25%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
+
                                 </a>
                             </li>
 
@@ -559,16 +561,14 @@
                                     <li class="nav-item {{ request()->is('admin/cms/manage/home/product/') || request()->is('admin/cms/manage/home/product/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.manage.product') }}" class="nav-link">Manage Product View</a>
                                     </li>
-                                    <li class="nav-item {{ request()->is('admin/big-deals') || request()->is('admin/big-deals/*') ? 'active' : '' }}">
+                                   <li class="nav-item {{ request()->is('admin/big-deals') || request()->is('admin/big-deals/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.bigDeals') }}" class="nav-link">Big Deals</a>
                                     </li>
-                                    <li class="nav-item {{ request()->is('admin/cms/report-map/addCoordinates') || request()->is('admin/cms/report-map/addCoordinates/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.addCoordinates') }}" class="nav-link">Country Coordinates
-                                            <span style="margin-left: 10%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>
 
 
                                     <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.country-list') }}" class="nav-link">Countries</a>
+                                        <a href="{{ route('admin.country-list') }}" class="nav-link">Countries
+                                            <span style="margin-left: 50%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>
 
                                     </li>
                                 </ul>
