@@ -114,6 +114,17 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="guarantee">{{ __("auth.guarantee") }}</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="guarantee"
+                                        placeholder="{{ __("auth.guarantee") }} " wire:model="guarantee" />
+                                    @error('guarantee')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="unit">{{ __('seller.unit') }}</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="unit"

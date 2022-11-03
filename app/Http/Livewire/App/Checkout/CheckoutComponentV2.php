@@ -16,6 +16,7 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\OrderDetails;
 use App\Models\BusinessSetting;
+use App\Models\Seller;
 use App\Services\IyzicoPayment;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -206,6 +207,9 @@ class CheckoutComponentV2 extends Component
             $order->address_id = $this->address_id;
             $order->delivery_status = 'pending';
             $order->payment_type = $this->payment_method;
+
+
+            Seller::find($seller)->increment('transactions');
 
             $orderCode = strtoupper(Str::random(14));
 

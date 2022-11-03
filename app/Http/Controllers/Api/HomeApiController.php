@@ -9,20 +9,23 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\Searches;
 use App\Models\State;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class HomeApiController extends Controller
 {
-    public function __construct(ApiResponse $apiResponse, UserRepositoryInterface $userRepository, Client $client)
+    public function __construct(ApiResponse $apiResponse, UserRepositoryInterface $userRepository, Client $client, Searches $searchModel)
     {
         $this->apiResponse = $apiResponse;
         $this->userRepository = $userRepository;
         $this->client = $client;
+        $this->searchModel = $searchModel;
     }
 
 
@@ -128,5 +131,35 @@ class HomeApiController extends Controller
     public function getStates(Country $country)
     {
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(State::where("country_id", $country->id)->get())->getJsonResponse();
+    }
+
+    public function setSearch(Request $request){
+        $validation = Validator::make($request->all(),[
+            "query" => "required|string|min:1",
+        ]);
+        if($validation->errors()->first()){
+            return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
+        }
+        
+        $searchExisits = $this->searchModel->where("query","LIKE","%".$request->input('query')."%")->first();
+        if($searchExisits){
+            $searchExisits->increment("count");
+            $searchExisits->refresh();
+            return $this->apiResponse->setSuccess("Data added successfully")->setData($searchExisits)->getJsonResponse();
+        }
+        $newSearch = $this->searchModel->create(["query" => $request->input("query"), "count" => 1]);
+
+        return $this->apiResponse->setSuccess("Data added successfully")->setData($newSearch)->getJsonResponse();
+    }
+
+    public function mostSearchedProducts(){
+        $mostSearchs = $this->searchModel->orderBy('count',"DESC")->take(20)->pluck("query");
+        $products = Product::where(function($query) use($mostSearchs){
+            foreach($mostSearchs as $seach){
+                $query->orwhere('name', 'like',  '%' . $seach .'%');
+            }
+        })->get();
+        
+        return $this->apiResponse->setSuccess("Data added successfully")->setData(new CategoryProductCollection($products))->getJsonResponse();
     }
 }
