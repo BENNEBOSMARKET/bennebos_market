@@ -21,8 +21,7 @@ class EditProductsComponent extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $product_id, $name, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
-
+    public $product_id, $name, $guarantee, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
     public $color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [];
     public $get_color_names = [], $get_color_images = [], $get_color_galleries = [], $get_color_prices = [], $get_color_titles = [], $get_color_sizes = [];
     public $edited_color_names = [], $edited_color_images = [], $edited_color_galleries = [], $edited_color_prices = [], $edited_color_titles = [], $edited_color_sizes = [], $edited_gallery_images = [];
@@ -71,6 +70,7 @@ class EditProductsComponent extends Component
         $this->category = $product->category_id;
         $this->brand = $product->brand_id;
         $this->unit = $product->unit;
+        $this->guarantee = $product->guarantee;
         $this->minimum_qty = $product->min_qty;
         $this->barcode = $product->barcode;
         $this->refundable = $product->refundable;
@@ -326,6 +326,7 @@ class EditProductsComponent extends Component
         $product->brand_id = $this->brand;
         $product->unit = $this->unit;
         $product->min_qty = $this->minimum_qty;
+        $product->guarantee = $this->guarantee;
         $product->barcode = $this->barcode;
         $product->refundable = $this->refundable;
         $product->unit_price = $this->unit_price;

@@ -164,3 +164,5 @@ Route::get('GetContactUs',[ContacUsPageController::class,'getAllContactUsPage'])
 Route::get('GetAllBlogs',[BolgsController::class,'getAllBlogs']);
 //Route::get('GetCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('GetInfoSeller',[SellerController::class,'getInfoSeller']);
+Route::post('search/create',[HomeApiController::class, "setSearch"]);
+Route::get('search/products',[HomeApiController::class, "mostSearchedProducts"]);

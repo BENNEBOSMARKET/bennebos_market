@@ -62,6 +62,7 @@ return [
   'index_hot_seller' => 'البائع الاكثر تميزا',
   'index_new_trends_release' => 'إصدار الاتجاهات الجديدة',
   'off_or_more' => '10٪ خصم أو أكثر',
+  'guarantee' =>"سنوات الضمان",
 
   'bennebos_offer' => 'Bennebos عروض',
   'big_deals' => 'عروض كبرى',

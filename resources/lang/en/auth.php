@@ -16,6 +16,7 @@ return [
     'head_info' => 'Info',
     'delivery_country' => 'Delivery Country',
     'settings' => 'settings',
+    'guarantee' =>"Years of Guarantee",
     'recent_rearch' => 'Recent Search',
     'clear_all' => 'Clear All',
     'search_history' => 'Search History',

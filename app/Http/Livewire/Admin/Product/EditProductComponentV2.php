@@ -22,7 +22,7 @@ class EditProductComponentV2 extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $product_id, $name, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
+    public $product_id, $guarantee, $name, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
 
     public $color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [];
     public $get_color_names = [], $get_color_images = [], $get_color_galleries = [], $get_color_prices = [], $get_color_titles = [], $get_color_sizes = [];
@@ -78,6 +78,7 @@ class EditProductComponentV2 extends Component
         $this->discount_date_from = $product->discount_date_from;
         $this->discount_date_to = $product->discount_date_to;
         $this->discount = $product->discount;
+        $this->guarantee = $product->guarantee;
         $this->quantity = $product->quantity;
         $this->sku = $product->sku;
         $this->description = $product->description;
@@ -343,6 +344,7 @@ class EditProductComponentV2 extends Component
         $product->discount_date_to = $this->discount_date_to;
         $product->discount = $this->discount;
         $product->quantity = $this->quantity;
+        $product->guarantee = $this->guarantee;
         $product->sku = $this->sku;
         $product->description = $this->description;
         $product->thumbnail = $this->uploadedThumbnailImage;

@@ -50,7 +50,7 @@ return [
    // Index Page
    'delivery_country' => 'Pays de livraison',
    'settings' => 'Réglages',
-
+   'guarantee' =>"Années de garantie",
    'my_markets' => 'Catégories',
    'index_hot_seller' => 'Article qui se vend bien ',
    'index_new_trends_release' => 'Lancement de nouveautés.',
