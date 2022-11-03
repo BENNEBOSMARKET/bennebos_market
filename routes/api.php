@@ -55,8 +55,9 @@ Route::group(['middleware'=>["auth:api"]],function(){
 
     Route::post('product/review',[ProductController::class, "makeReview"]);
     Route::put('wishlist/assign', [WishListController::class, 'assignUserToWishlist']);
+    Route::post('product/request/size', [ProductController::class, 'requestSize']);
 
-        Route::get('/sendMoney/get/{id}',[SendMoneyCustomerController::class, "getCustomerPoint"]);
+    Route::get('/sendMoney/get/{id}',[SendMoneyCustomerController::class, "getCustomerPoint"]);
 
     Route::group(['prefix' => "me"],function(){
         Route::get('info',[UserController::class, "getUserInfo"]);

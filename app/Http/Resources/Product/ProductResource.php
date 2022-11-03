@@ -3,7 +3,10 @@
 namespace App\Http\Resources\Product;
 
 use App\Http\Resources\Brand\BrandResource;
+use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
+use App\Http\Resources\CategoryProdcut\CategoryProductResource;
 use App\Http\Resources\Review\ReviewCollection;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -73,7 +76,12 @@ class ProductResource extends JsonResource
             "color_prices" => json_decode($this->color_prices),
             */
             "seller" => $this->seller,
-
+            "seller_address" => shop($this->user_id) ? shop($this->user_id)->address . " " .shop($this->user_id)->state_name ." ".shop($this->user_id)->country_name : null,
+            "seller_country" => shop($this->user_id) ?shop($this->user_id)->country_name : null,
+            "seller_country_flag" => shop($this->user_id) ? shop($this->user_id)->country_flag : null,
+            "supplier_products" => new CategoryProductCollection(Product::where("user_id",$this->user_id)->where("id" ,"!=",$this->id)->take(8)->get()),
+            "popular_products" => new CategoryProductCollection(Product::where('products.status', 1)->orderBy('products.total_review', 'DESC')->take('7')->get()),
+            "similar_products" => new CategoryProductCollection(Product::where('products.status', 1)->where('products.category_id', $this->category_id)->where('products.id', '!=', $this->id)->take('8')->get()),
             "price" => json_decode($this->unit_price),
             "has_discount" => (Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?true:false,
             "discount" =>(Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?$this->discount: null,

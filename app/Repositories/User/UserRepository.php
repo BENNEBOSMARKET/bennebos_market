@@ -54,7 +54,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $middle_banners = [];
         if ( $type == 'banner' ){
-            $middle_banners = MiddleBanner::orderBy('created_at', 'DESC')->take('1')->get();
+            $middle_banners = MiddleBanner::orderBy('created_at', 'DESC')->get();
         } elseif ( $type == 'slider' ){
             $middle_banners = Slider::where('status', 1)->get();
         }

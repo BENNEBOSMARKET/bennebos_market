@@ -27,9 +27,9 @@ class SocialAccountsService
             if (!$user) {
                 $user = User::create([
                     'name' => $providerUser->getName(),
-                    'email' => $providerUser->getEmail(),
+                    'email' => $providerUser->getEmail() ? $providerUser->getEmail() : $providerUser->getName() . "@" . $provider .".com",
                     'email_verified_at' => Carbon::now(),
-                    ]);
+                ]);
             }
             $user->linkedSocialAccounts()->create([
                 'provider_id' => $providerUser->getId(),

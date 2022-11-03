@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+
 use Laravel\Passport\Client as PassportClient;
 
 function admin()
@@ -735,3 +736,6 @@ function totalSale($product_id)
     return $sale;
 }
 
+function countryFlag($id){
+    return Country::find($id)->flag;
+}

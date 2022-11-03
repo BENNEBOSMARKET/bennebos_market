@@ -566,6 +566,10 @@
                                         <a href="{{ route('admin.addCoordinates') }}" class="nav-link">Country Coordinates
                                             <span style="margin-left: 10%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>
 
+
+                                    <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.country-list') }}" class="nav-link">Countries</a>
+
                                     </li>
                                 </ul>
                             </div>
