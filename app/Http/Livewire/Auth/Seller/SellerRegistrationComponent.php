@@ -61,7 +61,7 @@ class SellerRegistrationComponent extends Component
             $this->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'phone' => 'required',
+                "phone" => "required|regex:/(05)[0-9]{9}/",
                 'category' => 'required',
                 'company_type' => 'required',
                 'country_id' => 'required',
@@ -75,7 +75,8 @@ class SellerRegistrationComponent extends Component
                 'checkbox' => 'required',
                 'tin' => 'required',
             ],[
-                'checkbox.required'=>'You must accept our terms & conditions'
+                'checkbox.required'=>'You must accept our terms & conditions',
+                "phone.regex" => "The phone must be a turkish number and starts with 05 and have 11 digits"
             ]);
 
             $seller = new Seller();
@@ -123,7 +124,7 @@ class SellerRegistrationComponent extends Component
             $this->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'phone' => 'required',
+                "phone" => "required|regex:/(05)[0-9]{9}/",
                 'category' => 'required',
                 'company_type' => 'required',
                 'country_id' => 'required',
@@ -136,7 +137,8 @@ class SellerRegistrationComponent extends Component
                 'tin' => 'required',
                 'checkbox' => 'required',
             ],[
-                'checkbox.required'=>'You must accept our terms & conditions'
+                'checkbox.required'=>'You must accept our terms & conditions',
+                "phone.regex" => "The phone must be a turkish number and starts with 05 and have 11 digits"
             ]);
 
             $seller = new Seller();
