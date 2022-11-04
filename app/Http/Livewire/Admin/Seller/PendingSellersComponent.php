@@ -227,17 +227,24 @@ class PendingSellersComponent extends Component
     {
         $profile = Seller::find($this->seller_id);
 
-        $sellers = Seller::where('application_status','!=',1);
 
 
-        $shops=Shop::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
-        if ($shops and $this->searchTerm != ''){
-            $sellers=$sellers->orWhere('id',$shops->seller_id)->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
-        }
-        else{
-            $sellers=$sellers->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
-        }
+
+
+
+ $sellers = Seller::join('shops','sellers.id','shops.seller_id')->where('shops.verification_status','!=',1)
+            ->select('sellers.id','sellers.name','sellers.phone','sellers.email','sellers.referral_code','sellers.referral_code',
+                'sellers.email_verified_at','sellers.disabled','sellers.password','sellers.avatar','sellers.application_status',
+                'sellers.aras_assigned','sellers.aras_address_id','sellers.created_at','shops.verification_status'
+            )->where(function ($q) {
+                $q->where('sellers.name', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.phone', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.email', 'like', '%' . $this->searchTerm . '%')
+                    ->orWhere('sellers.created_at', 'like', '%' . $this->searchTerm . '%');
+
+            })->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);
         return view('livewire.admin.seller.pending-seller-component', ['sellers' => $sellers, 'profile' => $profile])->layout('livewire.admin.layouts.base');
+
     }
 }
 

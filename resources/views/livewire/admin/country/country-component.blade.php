@@ -7,7 +7,7 @@
             width: 275px;
             padding: 10px;
         }
-        
+
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -57,6 +57,8 @@
                                         <th>Flag</th>
                                         <th>Country Name</th>
                                         <th>Country Phonecode</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -72,6 +74,8 @@
                                                 <td>{{ $country->name }}</td>
                                                 {{-- <td>{{ maincountryProduct($country->id) }}</td> --}}
                                                 <td>{{ $country->phonecode }}</td>
+                                                <td>{{ $country->latitude }}</td>
+                                                <td>{{ $country->longitude }}</td>
                                                 <td style="text-align: center;">
                                                     <div class="button-items">
                                                         <a type="button" href="#" class="btn btn-outline-primary btn-icon-circle btn-icon-circle-sm" wire:click.prevent="editData({{ $country->id }})"><i class="ti ti-edit"></i></a>
@@ -136,6 +140,26 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="example-tel-input"
+                                   class="col-sm-3 col-form-label">Latitude</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" step="any" type="number" wire:model="latitude" placeholder="Enter latitude" />
+                                @error('latitude')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="example-tel-input"
+                                   class="col-sm-3 col-form-label">Longitude</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" step="any" type="number" wire:model="longitude" placeholder="Enter longitude" />
+                                @error('longitude')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="example-number-input" class="col-sm-3 col-form-label">Flag<br><small class="text-muted">(183x123)</small></label>
                             <div class="col-sm-9">
                                 <input class="form-control mb-2" type="file" wire:model="banner">
@@ -182,7 +206,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="mb-3 row">
                             <label for="example-tel-input"
                                 class="col-sm-3 col-form-label">PhoneCode</label>
@@ -190,6 +214,26 @@
                                 <input class="form-control" type="number" wire:model="phonecode" placeholder="Enter code" />
                                 @error('phonecode')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="example-tel-input"
+                                   class="col-sm-3 col-form-label">Latitude</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" step="any" type="number" wire:model="latitude" placeholder="Enter latitude" />
+                                @error('latitude')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="example-tel-input"
+                                   class="col-sm-3 col-form-label">Longitude</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" step="any" type="number" wire:model="longitude" placeholder="Enter longitude" />
+                                @error('longitude')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
