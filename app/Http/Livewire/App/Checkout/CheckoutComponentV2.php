@@ -16,6 +16,7 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\OrderDetails;
 use App\Models\BusinessSetting;
+use App\Models\County;
 use App\Models\Seller;
 use App\Services\IyzicoPayment;
 use Illuminate\Support\Facades\Http;
@@ -26,7 +27,7 @@ use Stevebauman\Location\Facades\Location;
 class CheckoutComponentV2 extends Component
 {
     public $first_name, $last_name, $email, $phone, $country, $state, $address, $formStatus = 0, $edit_id, $address_id, $payment_method = 'cod';
-    public $totalItem, $subtotal, $totalDiscount, $shippingfee = 0, $couponDiscount = 0, $grandTotal = 0, $accept_terms, $use_point, $point_amount, $use_my_points;
+    public $totalItem, $subtotal, $county, $totalDiscount, $shippingfee = 0, $couponDiscount = 0, $grandTotal = 0, $accept_terms, $use_point, $point_amount, $use_my_points;
 
     public function updated($fields)
     {
@@ -54,6 +55,7 @@ class CheckoutComponentV2 extends Component
             'country' => 'required',
             'state' => 'required',
             'address' => 'required',
+            'county' => 'required',
         ]);
 
         $data = new Address();
@@ -65,6 +67,7 @@ class CheckoutComponentV2 extends Component
         $data->country = $this->country;
         $data->state = $this->state;
         $data->address = $this->address;
+        $data->county = $this->county;
         $data->save();
 
         $this->dispatchBrowserEvent('success', ['message' => 'New address added successfully']);
@@ -446,9 +449,10 @@ class CheckoutComponentV2 extends Component
         $addresses = Address::where('user_id', user()->id)->orderBy('created_at', 'DESC')->get();
         $countries = Country::all();
         $states = State::where('country_id', $this->country)->get();
+        $counties = County::where('state_id', $this->state)->get();
 
         if (Session::has('checkout')) {
-            return view('livewire.app.checkout.checkout-component-v2', ['addresses' => $addresses, 'countries' => $countries, 'states' => $states])->layout('livewire.layouts.base');
+            return view('livewire.app.checkout.checkout-component-v2', ['addresses' => $addresses, 'countries' => $countries, 'states' => $states, 'counties' => $counties])->layout('livewire.layouts.base');
         } else {
             abort(404);
         }

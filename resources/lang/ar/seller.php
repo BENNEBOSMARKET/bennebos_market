@@ -19,6 +19,9 @@ return [
     'kargo_company_sidebar' => 'شركة شحن',
     'support_ticket' => 'بطاقة الدعم',
     'settings_sidebar' => 'إعدادات',
+    'county' => 'المقاطعه',
+    'select_county' => 'اختر المقاطعة',
+
 
     // Dashboard  Page
     'dashboard_top_title' => 'لوحة القيادة',

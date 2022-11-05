@@ -19,7 +19,8 @@ return [
     'kargo_company_sidebar' => 'Kargo Company',
     'support_ticket' => 'Support Ticket',
     'settings_sidebar' => 'Settings',
-
+    'county' => 'Comté',
+    'select_county' => 'Sélectionnez le comté',
 
     // Dashboard  Page
     'dashboard_top_title' => 'Dashboard',
