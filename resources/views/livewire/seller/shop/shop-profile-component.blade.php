@@ -51,10 +51,10 @@
                             <div class="row mb-3">
                                 <label for="" class="col-sm-2">{{ __('seller.country') }}</label>
                                 <div class="col-sm-9">
-                                    <select class="customSelect" wire:model='country_id'>
-                                        <option value="">{{ __('auth.select_country') }}</option>
+                                    <select class="customSelect form-control" wire:model='country_id'>
+                                        <option value="" style="color: black">{{ __('auth.select_country') }}</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            <option value="{{ $country->id }}" style="color: black">{{ $country->name }}</option>
                                         @endforeach
                                     </select>                                    
                                     @error('country_id')
@@ -65,13 +65,27 @@
                             <div class="row mb-3">
                                 <label for="" class="col-sm-2">{{ __('seller.state') }}</label>
                                 <div class="col-sm-9">
-                                    <select class="customSelect" wire:model='state_id'>
-                                        <option value="">{{ __('auth.select_state') }}</option>
+                                    <select class="customSelect form-control" wire:model='state_id'>
+                                        <option value="" style="color: black">{{ __('auth.select_state') }}</option>
                                         @foreach ($states as $state)
-                                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                            <option value="{{ $state->id }}" style="color: black">{{ $state->name }}</option>
                                         @endforeach
                                     </select>                                    
                                     @error('state_id')
+                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-2">{{ __('seller.county') }}</label>
+                                <div class="col-sm-9">
+                                    <select class="customSelect form-control" wire:model='county_id'>
+                                        <option value="" style="color: black">{{ __('seller.select_county') }}</option>
+                                        @foreach ($counties as $county)
+                                            <option value="{{ $county->id }}" style="color: black">{{ $county->name }}</option>
+                                        @endforeach
+                                    </select>                                    
+                                    @error('county_id')
                                         <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
