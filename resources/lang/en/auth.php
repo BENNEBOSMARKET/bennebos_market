@@ -25,6 +25,7 @@ return [
     'america' => 'America',
     'english' => 'English',
     'arabic' => 'Arabic',
+    "searched_products" => "Most Searched Products",
     'usd'=>'USD',
     'tl'=>'TL',
     'tnd'=>'TND',
