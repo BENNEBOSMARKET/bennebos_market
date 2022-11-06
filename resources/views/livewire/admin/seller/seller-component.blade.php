@@ -75,7 +75,9 @@
                                         $sl = $sellers->perPage() * $sellers->currentPage() - ($sellers->perPage() - 1);
                                     @endphp
                                     @if ($sellers->count() > 0)
+                                        
                                         @foreach ($sellers as $seller)
+                                        @if(auth()->user()->role != "sub-admin")
                                             <tr>
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $seller->name }}</td>
@@ -141,6 +143,73 @@
                                                 </td>
                                                 @endif
                                             </tr>
+                                        @elseif(auth()->user()->role == 'sub-admin' && $seller->referral_code == auth()->user()->referral_code)
+                                        <tr>
+                                            <td>{{ $sl++ }}</td>
+                                            <td>{{ $seller->name }}</td>
+
+                                            <td>
+                                                {{!is_null($seller->shop)? $seller->shop->name:'' }}</td>
+                                            <td>{{ $seller->email }}</td>
+                                            <td>{{ $seller->phone }}</td>
+                                            <td>{{ $seller->created_at }}</td>
+                                            <td>{{ $seller->referral_code }}</td>
+                                            {{-- @if(auth()->user()->role != "sub-admin" ) --}}
+                                            <td>
+                                                @if ($seller->application_status == 1)
+                                                    <a href="{{ route('admin.seller.shopVerificationInfo', ['seller_id'=>$seller->id]) }}"><span class="badge bg-info" style="font-size: 12.5px;">Show</span></a>
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                @if ($seller->aras_assigned != 1)
+                                                    <button wire:loading.remove wire:target="assignSellerAddress({{$seller->id}})" wire:click.prevent="assignSellerAddress({{$seller->id}})"  class="btn btn-primary">Assign Address</button>
+                                                    <span wire:loading wire:target="assignSellerAddress({{$seller->id}})" style="font-size: 12.5px;" class="btn btn-success">loading.. </span>
+                                                @else
+                                                    <span class="badge bg-info" style="font-size: 12.5px;">address assigned to aras</span>
+                                                @endif
+                                            </td>
+
+                                            {{-- @endif --}}
+                                            <td>
+                                                @if(!is_null(shop($seller->id)))
+                                                @if (shop($seller->id)->verification_status == 1)
+                                                    <span class="text-success">Approved</span>
+                                                @else
+                                                    <span class="text-danger">Not-Approved</span>
+                                                @endif
+                                                @endif
+                                            </td>
+                                            <td>{{ sellerProducts($seller->id)->count() }}</td>
+                                            @if(auth()->user()->role != "sub-admin" )
+                                            <td style="text-align: center;">
+                                                <button type="button" class="btn btn-outline-info btn-icon-circle btn-icon-circle-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-chevron-down"></i></button>
+                                                <div class="dropdown-menu" style="width: auto;">
+                                                    <a class="dropdown-item" href="" wire:click.prevent="showProfile({{ $seller->id }})">Profile</a>
+
+                                                    <a class="dropdown-item"  href="javascript:void(0)" target="_blank"
+                                                    onclick="event.preventDefault(); document.getElementById('login-form_{{ $seller->id }}').submit();">Log in as this seller</a>
+
+                                                    <form id="login-form_{{ $seller->id }}" style="display: none;" method="POST" action="{{ route('loginAsSeller') }}">
+                                                        @csrf
+                                                        <input type="text" name="email" value="{{ seller($seller->id)->email }}" id="email">
+                                                        <input type="text" name="password" value="{{ seller($seller->id)->password }}" id="password">
+                                                    </form>
+
+                                                    <a wire:click.prevent="editSeller({{ $seller->id }})" class="dropdown-item" type="button">Edit Seller</a>
+                                                    @if ($seller->disabled == 0)
+                                                        <a wire:click.prevent="disableConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Disable Seller</a>
+                                                    @else
+                                                        <a wire:click.prevent="enableConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Enable Seller</a>
+                                                    @endif
+
+
+                                                    <a wire:click.prevent="deleteConfirmation({{ $seller->id }})" class="dropdown-item" type="button">Delete Seller</a>
+                                                </div>
+                                            </td>
+                                            @endif
+                                        </tr>
+                                        @endif
                                         @endforeach
                                     @else
                                         <tr>

@@ -86,9 +86,9 @@
                                     <i class=" fas fa-user-slash menu-icon" style="font-size: initial;"></i>
                                     <span> Pending Sellers</span>
 
-
+                                    @if(auth()->user()->role != 'sub-admin')
                                     <span style="margin-left: 25%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
-
+                                    @endif
                                 </a>
                             </li>
 

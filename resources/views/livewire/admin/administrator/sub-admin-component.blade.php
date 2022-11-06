@@ -7,7 +7,6 @@
             width: 275px;
             padding: 10px;
         }
-        
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -56,6 +55,7 @@
                                         <th>#</th>
                                         <th>name</th>
                                         <th>email</th>
+                                        <th>referral code</th>
                                         <th>Created Date</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -70,6 +70,7 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $admin->name }}</td>
                                                 <td>{{ $admin->email }}</td>
+                                                <td>{{ $admin->referral_code }}</td>
                                                 <td>{{ $admin->created_at }}</td>
                                                 <td style="text-align: center;">
                                                     <div class="button-items">
@@ -120,6 +121,20 @@
                             <div class="col-sm-9">
                                 <input class="form-control" type="email" wire:model="email" placeholder="Enter email">
                                 @error('email')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2">Referral Code</label>
+                            <div class="col-sm-9">
+                                <select class="customSelect form-control" wire:model='referral_code'>
+                                    <option value="" style="color: black">Assign Referral Code</option>
+                                    @foreach ($referralCodes as $code)
+                                        <option value="{{ $code->referral_code }}" style="color: black">{{ $code->name }} - {{ $code->referral_code }}</option>
+                                    @endforeach
+                                </select>                                    
+                                @error('referral_code')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -185,7 +200,20 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2">Referral Code</label>
+                            <div class="col-sm-9">
+                                <select class="customSelect form-control" wire:model='referral_code'>
+                                    <option value="" style="color: black">Assign Referral Code</option>
+                                    @foreach ($referralCodes as $code)
+                                        <option value="{{ $code->referral_code }}" style="color: black">{{ $code->name }} - {{ $code->referral_code }}</option>
+                                    @endforeach
+                                </select>                                    
+                                @error('referral_code')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">password</label>
                             <div class="col-sm-9">
