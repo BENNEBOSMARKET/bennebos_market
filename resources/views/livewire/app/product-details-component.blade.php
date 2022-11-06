@@ -601,6 +601,85 @@
             </div>
         </div>
     </section>
+
+    {{-- Most Searched Products --}}
+    <section class="your_product_wrapper default_section_gap">
+        <div class="my-container">
+            <div class="header_area d-flex align-items-center justify-content-between flex-wrap-wrap g-sm">
+                <h2 class="page_title">{{ __('auth.searched_products') }}</h2>
+            </div>
+            <div class="for_your_product_area product_dispaly_bg">
+                @foreach ($mostSearchedProducts as $mostSearchedProduct)
+                    <div class="product_item">
+                        <a href="{{ route('front.productDetails', ['slug' => $mostSearchedProduct->slug]) }}"
+                            class="product_img">
+                            <img src="{{ asset('assets/images/placeholder.png') }}"
+                                data-original="{{ $mostSearchedProduct->thumbnail }}"
+                                onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';"
+                                alt="{{ $mostSearchedProduct->name }}" />
+                        </a>
+                        <button type="button"
+                            class="best_cart_btn @if (checkIfWishlisted($mostSearchedProduct->id) > 0) dealsBookarkActive @endif"
+                            wire:click.prevent="wishlist({{ $mostSearchedProduct->id }})" id="dealsCartButton">
+                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.3115 2.46071C16.9773 0.0803204 14.2743 1.08425 12.6007 2.14593C11.655 2.74582 10.345 2.74582 9.39929 2.14593C7.72564 1.08427 5.02272 0.0803466 2.68853 2.46072C-2.85249 8.11136 6.64988 19 11 19C15.3502 19 24.8525 8.11136 19.3115 2.46071Z"
+                                    stroke="#424C60" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                        </button>
+                        <div class="product_content">
+                            <div class="deliver_icon d-flex align-items-center g-sm">
+                                <img src="{{ asset('assets/front/images/icon/delivery-truck.svg') }}" alt=""
+                                    class="deliver_img" />
+                                <h4 class="delivery_text">
+                                    {{ __('auth.fast_delivery_text') }}
+                                </h4>
+                            </div>
+                            <h3>
+                                <a
+                                    href="{{ route('front.productDetails', ['slug' => $mostSearchedProduct->slug]) }}">{{ $mostSearchedProduct->name }}</a>
+                            </h3>
+                            <div
+                                class="product_cart_ratting_area d-flex align-items-center justify-content-between flex-wrap-wrap g-sm">
+                                <div class="product_ratting_area">
+                                    <img src="{{ asset('assets/front/images/icon/star_single.svg') }}"
+                                        alt="" />
+                                    {{ product_avg_review($mostSearchedProduct->id) }}
+                                    <span>({{ product_review($mostSearchedProduct->id) }} Reviews)</span>
+                                </div>
+                                <div>
+                                    <button type="button "
+                                        wire:click.prevent="addToCartSingle({{ $mostSearchedProduct->id }})"
+                                        class="product_cart_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            @if ($mostSearchedProduct->discount > 0)
+                                <div class="product_price product_price_side">
+                                    <div class="percentage_offer">{{ $mostSearchedProduct->discount }}%</div>
+                                    <h4>₺{{ discountPrice($mostSearchedProduct->id) }}</h4>
+                                    <h4 class="discount_price">
+                                        <del>₺{{ $mostSearchedProduct->unit_price }}</del>
+                                    </h4>
+                                </div>
+                            @else
+                                <div class="product_price product_price_side">
+                                    <h4>₺{{ $mostSearchedProduct->unit_price }}</h4>
+                                </div>
+                            @endif
+
+                            <p class="bottom_text">
+                                {{-- 96,69 TL'den Başlayan Taksitlerle --}}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
     <!-- ShareThis social share -->
     <div class="modal_wrapper share_modal" id="modalID1">
         <div class="modal_dialog">
