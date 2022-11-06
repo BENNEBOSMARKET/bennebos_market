@@ -174,6 +174,10 @@
                                     {{ category($selected_category)->getTranslation('name') }}
                                 @elseif ($sortByBrand != '')
                                     {{ brand($sortByBrand)->name }}
+                                @elseif ($new_arrivals == true)
+                                    {{ __("auth.new_rivals") }}
+                                @elseif ($top_ranked == true)
+                                    {{ __("auth.top_ranked_products") }}
                                 @else
                                     {{ __('auth.all_products') }}
                                 @endif
