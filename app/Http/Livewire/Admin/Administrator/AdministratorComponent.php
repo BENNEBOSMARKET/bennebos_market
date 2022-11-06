@@ -13,11 +13,12 @@ class AdministratorComponent extends Component
 
     public function render()
     {
-        $administrator = Admin::where('name', 'LIKE', '%' . $this->searchTerm . '%')
+        $administrator = Admin::where("role", "!=", "sub-admin")->where(function($query){
+            $query->where('name', 'LIKE', '%' . $this->searchTerm . '%')
             ->orWhere('email', 'LIKE', '%' . $this->searchTerm . '%')
             ->orWhere('phone', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')
-         ->paginate($this->sortingValue);
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%');
+        })->paginate($this->sortingValue);
         return view('livewire.admin.administrator.administrator-component', ['administrator' => $administrator])->layout('livewire.admin.layouts.base');
     }
 }

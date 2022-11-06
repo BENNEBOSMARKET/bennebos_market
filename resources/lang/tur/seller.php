@@ -22,7 +22,8 @@ return [
     'qutation_amount' => 'Teklif Tutarı',
     'sourcing_type' => 'Kaynak Türü',
     'destination' => 'Hedef',
-
+    'county' => 'Seçin',
+    'select_county' => 'İlçe Seçin',
     // details page
     'max_budget' => 'Maksimum bütçe',
     'quantity_required' => 'Gerekli Miktar',

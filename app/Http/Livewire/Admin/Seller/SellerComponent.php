@@ -173,7 +173,7 @@ class SellerComponent extends Component
                         "EMail"=>$shippingSeller->email,
                         "CustomerAddressId"=>uniqid().$seller_id,
                         "CityName"=>$shop->state_name,
-                        "TownName"=>$shop->country_name,
+                        "TownName"=>$shop->county_name,
                         "AccountId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}",
                         "CustomerAddressInfoId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}"
                     ]

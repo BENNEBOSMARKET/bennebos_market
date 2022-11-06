@@ -205,6 +205,18 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="input_row">
+                                        <label for="state_id">{{ __('seller.county') }} </label>
+                                        <select class="customSelect" wire:model="county">
+                                            <option value="">{{ __('seller.select_county') }}</option>
+                                            @foreach ($counties as $county)
+                                                <option value="{{ $county->id }}">{{ $county->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('county')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="input_row">

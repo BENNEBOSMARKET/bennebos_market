@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Administrator;
 
 use App\Models\Admin;
+use App\Models\Referral;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -17,7 +18,7 @@ class SubAdminComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $name, $email, $password, $password_confirmation;
+    public $name, $email, $password, $password_confirmation, $referral_code;
 
     public $edit_id, $delete_id;
 
@@ -32,7 +33,8 @@ class SubAdminComponent extends Component
         $this->validateOnly($fields, [
             'name' => 'required',
             'email' => 'required|email|unique:admins,email',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'referral_code' => 'required'
         ]);
     }
 
@@ -41,12 +43,14 @@ class SubAdminComponent extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'referral_code' => 'required'
         ]);
 
         $data = new Admin();
         $data->name = $this->name;
         $data->email = $this->email;
+        $data->referral_code = $this->referral_code;
         $data->password = Hash::make($this->password);
         $data->role = "sub-admin";
         $data->save();
@@ -62,6 +66,7 @@ class SubAdminComponent extends Component
         $this->delete_id = '';
         $this->name = '';
         $this->email = '';
+        $this->referral_code = '';
         $this->password = '';
         $this->password_confirmation = '';
     }
@@ -74,6 +79,7 @@ class SubAdminComponent extends Component
         $this->edit_id = $getData->id;
         $this->name = $getData->name;
         $this->email = $getData->email;
+        $this->referral_code = $getData->referral_code;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -82,12 +88,14 @@ class SubAdminComponent extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,'.$this->edit_id,
-            'password' => 'nullable|confirmed|min:6'
+            'password' => 'nullable|confirmed|min:6',
+            'referral_code' => 'required'
         ]);
 
         $data = Admin::where('id', $this->edit_id)->first();
         $data->name = $this->name;
         $data->email = $this->email;
+        $data->referral_code = $this->referral_code;
         if(request()->has("password")) $data->password = Hash::make($this->password);
         $data->role = "sub-admin";
 
@@ -145,10 +153,13 @@ class SubAdminComponent extends Component
 
     public function render()
     {
-        $admins = Admin::where('role', 'sub-admin')->where('name', 'like', '%' . $this->searchTerm . '%')
+        $admins = Admin::where('role', 'sub-admin')->where(function($query){
+            $query->orWhere('name', 'like', '%' . $this->searchTerm . '%')
             ->orWhere('email', 'LIKE', '%' . $this->searchTerm . '%')
             ->orWhere('phone', 'LIKE', '%' . $this->searchTerm . '%')
-            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
-        return view('livewire.admin.administrator.sub-admin-component', ['admins' => $admins])->layout('livewire.admin.layouts.base');
+            ->orWhere('created_at', 'LIKE', '%' . $this->searchTerm . '%');
+        })->paginate($this->sortingValue);       
+        $referralCodes = Referral::all(); 
+        return view('livewire.admin.administrator.sub-admin-component', ['admins' => $admins, 'referralCodes' => $referralCodes])->layout('livewire.admin.layouts.base');
     }
 }
