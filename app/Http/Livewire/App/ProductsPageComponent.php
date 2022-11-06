@@ -33,7 +33,7 @@ class ProductsPageComponent extends Component
 
     public $sortCategoryID = '', $sortSubCategoryID = '', $sortSubSubCategoryID = '', $uiStatus = '0';
 
-    public $maincategory, $sub_category, $sub_sub_category, $sQuery;
+    public $maincategory, $new_arrivals = false, $top_ranked = false, $sub_category, $sub_sub_category, $sQuery;
 
     public function mount($slug)
     {
@@ -42,6 +42,10 @@ class ProductsPageComponent extends Component
         }
         elseif($slug == 'search'){
             $this->sQuery = request()->get('q');
+        }elseif($slug == "new-arrivals"){
+            $this->new_arrivals = true;
+        }elseif($slug == "top-ranked"){
+            $this->top_ranked = true;
         }
         else{
             if(request()->is('products/brand/*')){
@@ -276,6 +280,12 @@ class ProductsPageComponent extends Component
 
         $products_db =  DB::table('products');
         $product = $products_db->where('products.id','!=', '');
+        if($this->new_arrivals == true){
+            $product = $product->where('products.new_arrival', 1);
+        }
+        if($this->top_ranked == true){
+            $product = $product->where('products.top_ranked', 1);
+        }
         if($this->sortByPrice == 'low_to_high'){
             $product = $product->orderBy('products.unit_price', 'ASC');
         }
