@@ -17,7 +17,17 @@ class NewsController extends Controller
 
     public function getNews()
     {
-        $newsRepository = $this->newsRepository->getAllNews();
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($newsRepository)->getJsonResponse();
+        try {
+
+                $limit = request()->has('limit') ? request('limit') : 10;
+                $newsRepository = $this->newsRepository->getAllNews($limit);
+                return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($newsRepository)->getJsonResponse();
+                 }
+                 catch( Exception $exception) {
+                return $this->apiResponse->setError(
+                    $exception->getMessage() . " " . $exception->getLine() . " " . $exception->getFile()
+                )->setData()->getJsonResponse();
+        }
+
     }
 }
