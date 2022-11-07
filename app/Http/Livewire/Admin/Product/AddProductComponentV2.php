@@ -14,6 +14,7 @@ use App\Models\Size;
 use App\Repositories\Product\ProductRepository;
 use App\Traits\FileHandler;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
@@ -29,8 +30,8 @@ class AddProductComponentV2 extends Component
     public $store_status;
 
 
-    public $color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [];
-    public $color_name, $color_image, $color_title, $color_price, $color_size = [], $color_gallery = [];
+    public $product_names=[],$color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [],$types_id=[],$product_sizes=[];
+    public $color_name, $color_image, $color_title, $color_price, $color_size = [], $color_gallery = [],$product_size=[],$type_id=[];
     public $color_description, $color_descriptions = [] , $seller, $sellers = [];
 
     public function selectGalleryType($val)
@@ -104,6 +105,7 @@ class AddProductComponentV2 extends Component
             'color_description'=>'required',
         ]);
 
+//        dd($this->all());
         array_push($this->color_names, $this->color_name);
         array_push($this->color_images, $this->color_image);
         array_push($this->color_galleries, $this->color_gallery);
@@ -123,6 +125,26 @@ class AddProductComponentV2 extends Component
         $this->seller = '';
         $this->color_size = [];
         $this->color_description = '';
+
+        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatchBrowserEvent('success', ['message'=>'New Item Added!']);
+    }
+    public function addProductSize()
+    {
+        $this->validate([
+
+            'type_id'=>'required',
+            'product_size'=>'required',
+
+        ]);
+
+//        dd($this->all());
+        array_push($this->types_id,$this->type_id);
+        array_push($this->product_sizes, $this->product_size);
+
+        $this->type_id = '';
+        $this->product_size = '';
+
 
         $this->dispatchBrowserEvent('closeModal');
         $this->dispatchBrowserEvent('success', ['message'=>'New Item Added!']);
@@ -220,14 +242,14 @@ class AddProductComponentV2 extends Component
 
         $main_product_id = null;
         if ( $this->galleryType == '2' ) {
-
+//            dd($this->all());
             foreach ($this->color_names as $index => $name) {
 
                 $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
                 $images = $this->saveProductDetailsImages($this->color_galleries[$index]);
                 $color = Color::create([
-                     'name'  => Str::lower($this->color_names[$index]),
-                     'image' => $this->saveProductDetailsImages($this->color_images[$index])
+                    'name'  => Str::lower($this->color_names[$index]),
+                    'image' => $this->saveProductDetailsImages($this->color_images[$index])
                 ]);
 
                 if ( $index == 0) {
@@ -313,17 +335,26 @@ class AddProductComponentV2 extends Component
 
         } elseif ( $this->galleryType == '1' ) {
 
+            foreach ($this->types_id as $index => $name) {
+
+
+
+//            dd($this->all());
+
             $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
             $images = $this->saveProductDetailsImages($this->gallery_images);
+//            dd($this->all());
+                if ( $index == 0) {
 
-            $newProduct = Product::create([
+                    $newProduct = Product::create([
                 "name" => trim($this->name),
                 "slug" => $this->slug . "-" . uniqid(),
                 "title" => trim($this->name),
                 "added_by" => 'admin',
                 "description" => trim($this->description),
                 "category_id" => $this->category,
-                "size_id" => $this->size[0], //needs modification
+                "size_id" =>  $this->product_sizes[$index],
+                "type_id" =>  $this->types_id[$index],//needs modification
                 "brand_id" => $this->brand,
                 "color_id" => null,
                 "user_id" => $this->seller?? null, //needs modification
@@ -350,11 +381,56 @@ class AddProductComponentV2 extends Component
                 "size" => json_encode([]),
                 "color" => json_encode([]),
             ]);
+                    $main_product_id = $newProduct->id;
+                    $newProduct->update(['main_product_id' => $newProduct->id]);
+                    $newProduct->refresh();
+                    }
+                else{
+//dd( $this->types_id[$index]);
+                    Product::create([
+                        "name" => trim($this->name),
+                        "slug" => $this->slug . "-" . uniqid(),
+                        "title" => trim($this->name),
+                        "added_by" => 'admin',
+                        'main_product_id' => $main_product_id,
+                        "description" => trim($this->description),
+                        "category_id" => $this->category,
+                        "size_id" =>  $this->product_sizes[$index], //needs modification
+                        "type_id" =>  $this->types_id[$index],
+                        "brand_id" => $this->brand,
+                        "color_id" => null,
+                        "user_id" => $this->seller?? null, //needs modification
+                        "gallery_image" => $images,
+                        "thumbnail" => $thumbnail,
+                        "status" => 1,
+                        "min_qty" => $this->minimum_qty,
+                        "quantity" => $this->quantity,
+                        "unit" => $this->unit,
+                        "refundable" => $this->refundable,
+                        "discount_date_from" => $this->discount_date_from,
+                        "discount_date_to" => $this->discount_date_to,
+                        "discount" => $this->discount,
+                        "sku" => $this->sku,
+                        "video" => $this->video_link,
+                        "meta_title" => trim($this->meta_title),
+                        "meta_description" => trim($this->meta_description),
+                        "unit_price" => (float)$this->unit_price,
+                        "featured" => $this->featured,
+                        "color_image" => json_encode([]),
+                        "color_titles" => json_encode([]),
+                        "color_prices" => json_encode([]),
+                        "size" => json_encode([]),
+                        "color" => json_encode([]),
+                    ]);
+                }
+
+
 
             $newProduct->update(['main_product_id' => $newProduct->id]);
             $newProduct->refresh();
 
         }
+            }
 
         return redirect()->route('admin.products')->with('success', 'New product added successfully');
 
@@ -364,6 +440,8 @@ class AddProductComponentV2 extends Component
     {
         $countries = Country::all();
         $categories = Category::where("country_id", $this->country_id)->get();
+        $types = DB::table('product_types')->get();
+        $sizesProducts = Size::where("type_id", $this->type_id)->get();
         $brands = Brand::where('status', 1)->where("country_id", $this->country_id)->get();
         $sizes = Size::all();
         $sellers = Seller::get(['id', 'name']);
@@ -374,6 +452,8 @@ class AddProductComponentV2 extends Component
             'brands' => $brands,
             'sizes' => $sizes,
             'sellersOptions' => $sellers,
+            'types' => $types,
+            'sizesProducts' => $sizesProducts,
         ])->layout('livewire.admin.layouts.base');
     }
 }

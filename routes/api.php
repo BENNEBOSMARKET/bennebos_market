@@ -153,9 +153,10 @@ Route::match(array('GET', 'POST'),'payment/callback',[PaymentController::class, 
 Route::post('products/upload/data',[ProductsUpload::class, 'productsUpload']);
 Route::get('search',[HomeApiController::class, "search"]);
 Route::get('filter',[ProductController::class, "filter"]);
-Route::get('allCategoryPhotos/{id}',[PhotoController::class,'getCategoryPhoto']);
-Route::get('allHomePhotos',[PhotoController::class,'getHomePhoto']);
-Route::get('allNews',[NewsController::class,'getNews']);
+Route::get('AllCategoryPhotos/{id}',[PhotoController::class,'getCategoryPhoto']);
+Route::get('SliderRightProductPhotos/{id}',[PhotoController::class,'getSliderRightProductPhoto']);
+Route::get('AllHomePhotos',[PhotoController::class,'getHomePhoto']);
+Route::get('AllNews',[NewsController::class,'getNews']);
 Route::get('HowBuyPage',[HowBuyPageController::class,'getAllHowBuyPage']);
 Route::get('AllFeatures',[FeaturesPageController::class,'getAllFeatures']);
 Route::get('AllHelpCenter',[HelpCenterPageController::class,'getAllHelp']);

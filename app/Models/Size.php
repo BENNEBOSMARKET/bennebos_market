@@ -9,6 +9,11 @@ class Size extends Model
 {
     use HasFactory;
     protected $table = "sizes";
-    protected $fillable = ['size','image'];
+    protected $fillable = ['size','image','type_id'];
+
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class,'type_id');
+    }
 
 }

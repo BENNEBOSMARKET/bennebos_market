@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Photos\PhotosResource;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\User;
@@ -29,8 +30,15 @@ class PhotoController extends Controller
     public function getCategoryPhoto($id)
     {
         $photo = $this->photosRepository->getCategoryPhoto($id);
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(new PhotosResource($photo))->getJsonResponse();
+    }
+
+    public function getSliderRightProductPhoto($id)
+    {
+        $photo = $this->photosRepository->getSliderRightProductPhoto($id);
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
     }
+
     public function getHomePhoto()
     {
         $photo = $this->photosRepository->getHomePhoto();

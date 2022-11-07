@@ -360,6 +360,10 @@
                                             class="nav-link {{ request()->is('admin/brands') || request()->is('admin/brands/edit-product') ? 'active' : '' }}">Brands</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('admin.productType') }}"
+                                           class="nav-link {{ request()->is('admin/products/type') || request()->is('admin/products/type/*') ? 'active' : '' }}">Product Type</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('admin.productSizes') }}"
                                             class="nav-link {{ request()->is('admin/products/sizes') || request()->is('admin/products/sizes/*') ? 'active' : '' }}">Sizes</a>
                                     </li>
@@ -565,8 +569,10 @@
                                    <li class="nav-item {{ request()->is('admin/big-deals') || request()->is('admin/big-deals/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.bigDeals') }}" class="nav-link">Big Deals</a>
                                     </li>
-
-
+{{--                                    <li class="nav-item {{ request()->is('admin/cms/report-map/addCoordinates') || request()->is('admin/cms/report-map/addCoordinates/*') ? 'active' : '' }}">--}}
+{{--                                        <a href="{{ route('admin.addCoordinates') }}" class="nav-link">Country Coordinates--}}
+{{--                                            <span style="margin-left: 10%;"  class="badge bg-primary">{{$countCoordinatesNon}}</span></a>--}}
+{{--                                    </li>--}}
 
                                     <li class="nav-item {{ request()->is('admin/country') || request()->is('admin/country/*') ? 'active' : '' }}">
                                         <a href="{{ route('admin.country-list') }}" class="nav-link">Countries

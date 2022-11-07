@@ -7,8 +7,10 @@ use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
 use App\Http\Resources\CategoryProdcut\CategoryProductResource;
 use App\Http\Resources\Review\ReviewCollection;
 use App\Models\Product;
+use App\Models\Size;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class ProductResource extends JsonResource
 {
@@ -20,6 +22,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+
         /*$color_images = $this->color_images ? json_decode($this->color_images): [];
         array_walk($color_images,function(&$value, $key){$value = url("uploads/product/".$value);});
         */
@@ -30,6 +33,7 @@ class ProductResource extends JsonResource
         // Handle Colors and sizes
         $colors = [];
         $sizes = [];
+        $sizesStatus=[];
         if (isset($this->commonColors)) {
             foreach ($this->commonColors as $commonColor) {
 
@@ -44,12 +48,45 @@ class ProductResource extends JsonResource
         if (isset($this->commonSizes)) {
             foreach ($this->commonSizes as $commonSize) {
 
-                $sizes[$commonSize->id] = [
-                    'id' => $commonSize->id,
-                    'size' => $commonSize->size,
-                ];
+
+                    $sizes[$commonSize->id] = [
+                        'id' => $commonSize->id,
+                        'size' => $commonSize->size,
+
+                    ];
+
+
             }
         }
+
+        if (isset($this->statuses)){
+            if (isset($this->commonSizes)) {
+
+                foreach ($this->statuses as $status){
+                    $s=false;
+                    foreach ($this->commonSizes as $commonSize) {
+
+                            if ($commonSize->id == $status->id ){
+
+                                $s=true;
+                            }
+                    }
+
+
+                                $sizesStatus[$status->id] = [
+                                    'id' => $status->id,
+                                    'size' => $status->size,
+                                    'status'=>$s
+
+                                ];
+
+
+
+                }
+
+            }
+        }
+
 
         return [
             "id" => $this->id,
@@ -69,6 +106,7 @@ class ProductResource extends JsonResource
             "size_id" => $this->size_id,
             "color_id" => $this->color_id,
             "sizes" => $sizes,
+            "all-sizes"=>$sizesStatus,
             "colors" => $colors,
 
             /*"color_images" => $color_images,
