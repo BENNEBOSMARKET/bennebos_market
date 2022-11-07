@@ -91,7 +91,7 @@
                                             <tbody>
                                                 @foreach ($productSize as $size)
                                                     <tr>
-                                                        <td>{{$size->productType->type}}</td>
+                                                        <td>{{!is_null($size->productType)? $size->productType->type:'' }}</td>
                                                         <td>{{ $size->size }}</td>
                                                         <td>
                                                             <a wire:click.prevent="deleteData({{ $size->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
