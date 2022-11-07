@@ -44,6 +44,6 @@ class  ProductTypeComponent extends Component
     public function render()
     {
         $productType = ProductType::where('type', 'like', '%'.$this->searchTerm.'%')->get();
-        return view('livewire.admin.variations.Product-type-component', ['productType'=>$productType])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.variations.product-type-component', ['productType'=>$productType])->layout('livewire.admin.layouts.base');
     }
 }

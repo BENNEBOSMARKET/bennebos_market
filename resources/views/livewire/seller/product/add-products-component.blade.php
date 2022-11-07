@@ -436,31 +436,46 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="card @if($galleryType != '1') d-none @endif">
                                             <div class="card-header">
-                                                <h4 class="card-title">{{ __('seller.product_size') }}</h4>
+                                                <h6 class="float-start"><strong>{{ __('seller.product_size') }}</strong></h6>
+                                                <button type="button" style="padding: 3px 10px;" class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addProductSizeModal">{{ __('seller.product_size') }}</button>
                                             </div>
                                             <div class="card-body">
-                                                <div class="row mb-3">
-                                                    <label class="col-sm-3 col-form-label" for="size">{{ __('seller.product_size') }}</label>
-                                                    <div class="col-sm-9">
-                                                        <div wire:ignore>
-                                                            <select id="ProductSize" wire:model="size" multiple>
-                                                                @foreach ($sizes as $size)
-                                                                <option value="{{ $size->id }}">{{ $size->size }}
-                                                                </option>
+                                                <div class="row justify-content-center mt-3">
+                                                    <div class="col-md-12">
+                                                        <table class="table table-sm">
+                                                            <thead>
+
+                                                            <th>Size</th>
+
+                                                            <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                            @if (count($types_id) >0)
+                                                                @foreach ($types_id as $key => $c_name)
+                                                                    <tr>
+
+
+                                                                        <td>{{ json_decode($product_sizes[$key]) }}</td>
+                                                                        <td>
+                                                                            <a href="" wire:click.prevent="removeFromArray({{ $key }})"><i class="fa fa-times text-danger"></i></a>
+                                                                        </td>
+                                                                    </tr>
                                                                 @endforeach
-                                                            </select>
-                                                        </div>
-                                                        @error('size')
-                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message
-                                                            }}</span>
-                                                        @enderror
+                                                            @else
+                                                                <tr>
+                                                                    <td colspan="7" class="text-muted" style="text-align: center; font-size: 12.5px; padding: 20px 0px;">No Color Found</td>
+                                                                </tr>
+                                                            @endif
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                     </div>
                                 </div>
 
@@ -648,6 +663,64 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="addProductSizeModal" tabindex="-1" data-bs-backdrop="static"
+         data-bs-keyboard="false" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Color Varient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="addProductSize">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2">shipping country</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" wire:model='type_id'>
+                                    <option value="">Select shipping Country</option>
+                                    @foreach ($types as $country)
+                                        <option value="{{ $country->id }}">{{ $country->type }}</option>
+                                    @endforeach
+                                </select>
+                                @error('type_id')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="category">Category *</label>
+                            <div class="col-sm-9">
+                                <div>
+                                    <select class="form-control" id="category" wire:model="product_size" >
+                                        <option value="">Select Category</option>
+                                        @foreach ($sizesProducts as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->size }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('product_size')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-sm btn-primary">{!! loadingStateWithText('addProductSize', 'Submit') !!}</button>
+                                <button type="button" class="btn btn-sm btn-danger"
+                                        data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

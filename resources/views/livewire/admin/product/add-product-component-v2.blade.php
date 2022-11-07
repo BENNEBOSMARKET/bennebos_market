@@ -822,7 +822,7 @@
                             <label class="col-sm-3 col-form-label" for="category">Category *</label>
                             <div class="col-sm-9">
                                 <div>
-                                    <select class="form-control" id="category" wire:model="product_size" >
+                                    <select class="form-control" id="productSize" wire:model="product_size" >
                                         <option value="">Select Category</option>
                                         @foreach ($sizesProducts as $category)
                                             <option value="{{ $category->id }}">
@@ -979,6 +979,21 @@
             $('#brand').select2({
                 dropdownAutoWidth: true,
             });
+            $('#productSizeType').select2({
+                dropdownAutoWidth: true,
+            });
+
+
+        });
+
+
+
+
+        //add model value
+        $('#productSizeType').on('change', function() {
+            var value = $(this).val();
+        @this.set('category', value);
+        });
 
 
             //add model value
@@ -990,7 +1005,7 @@
                 var value = $(this).val();
                 @this.set('brand', value);
             });
-        });
+
 
         $(function() {
             // Summernote

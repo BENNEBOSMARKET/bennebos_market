@@ -312,7 +312,7 @@
                         <div class="swiper-button-prev slider_single_prev_arrow new_arrival_prev_arrow"></div>
                     </div>
                     <div class="text-center">
-                        <a href="/" class="view_all_btn">View All</a>
+                        <a href="{{ route('front.allProducts', ['slug' => "new-arrivals"]) }}" class="view_all_btn">View All</a>
                     </div>
                 </div>
                 <div class="category_card">
@@ -367,7 +367,7 @@
                         <div class="swiper-button-prev slider_single_prev_arrow top_ranking_prev_arrow"></div>
                     </div>
                     <div class="text-center">
-                        <a href="/" class="view_all_btn">View All</a>
+                        <a href="{{ route('front.allProducts', ['slug' => "top-ranked"]) }}" class="view_all_btn">View All</a>
                     </div>
                 </div>
                 <div class="category_card">

@@ -119,7 +119,7 @@ class EditProductsComponent extends Component
         $this->slug = Str::slug($this->name).'-'.Str::random(6);
     }
 
-    
+
     public function addColor()
     {
         $this->validate([
@@ -191,14 +191,14 @@ class EditProductsComponent extends Component
             if($newskey == $key){
                 $image = ProductSize::find($siz->id);
                 $image->delete();
-                
+
             }
         }
-        
+
         $this->dispatchBrowserEvent('success', ['message'=>'Color gallery item deleted successfully!']);
 
         $this->getProductDetails();
-        
+
     }
 
     public function removeGalleryImageFromArray($key)
@@ -315,7 +315,7 @@ class EditProductsComponent extends Component
     }
 
 
- 
+
     public function updateProduct()
     {
 
@@ -350,7 +350,7 @@ class EditProductsComponent extends Component
 
         if($this->galleryType == '1'){
             if(count($this->gallery_images) > 0){
-                
+
                 foreach ($this->gallery_images as $key => $galImg) {
                     $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->gallery_images[$key]->extension();
                     $this->gallery_images[$key]->storeAs('imgs/product', $imageName, 's3');
@@ -360,13 +360,13 @@ class EditProductsComponent extends Component
             }
 
             // dd($this->edited_gallery_images);
-            
+
             $product->size = json_encode($this->size);
             $product->color = '[]';
         }
 
-        if($this->galleryType == '2'){ 
-            
+        if($this->galleryType == '2'){
+
             foreach ($this->color_names as $key => $colors) {
                 $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_images[$key]->extension();
                 $this->color_images[$key]->storeAs('imgs/product', $imageName, 's3');
@@ -388,8 +388,8 @@ class EditProductsComponent extends Component
             }
             else{
                 $product->size = json_encode($this->color_sizes[0]);
-            }   
-            
+            }
+
         }
 
         $product->video = $this->video_link;
@@ -445,7 +445,7 @@ class EditProductsComponent extends Component
         $sizes = Size::all();
 
         return view('livewire.seller.product.edit-products-component', ['categories' => $categories, 'brands' => $brands, 'sizes' => $sizes])->layout('livewire.seller.layouts.base');
-        
+
 
     }
 }
