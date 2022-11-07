@@ -75,7 +75,7 @@
                                         $sl = $sellers->perPage() * $sellers->currentPage() - ($sellers->perPage() - 1);
                                     @endphp
                                     @if ($sellers->count() > 0)
-                                        
+
                                         @foreach ($sellers as $seller)
                                         @if(auth()->user()->role != "sub-admin")
                                             <tr>
