@@ -18,7 +18,7 @@
                             <li class="breadcrumb-item active">Product Size</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Product Size</h4>
+                    <h4 class="page-title">Product Type</h4>
                 </div>
             </div>
         </div>
@@ -27,41 +27,24 @@
             <div class="col-md-12">
                 <div class="card" style="min-height: 70vh;">
                     <div class="card-header text-center">
-                        Product Sizes management
+                        Product Type management
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Add Size</h4>
+                                        <h4 class="card-title">Add Type</h4>
                                     </div>
                                     <div class="card-body">
                                         <form wire:submit.prevent='storeData'>
+
                                             <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label">Product Type</label>
-                                                <div class="col-sm-8">
-                                                    <select class="form-control" wire:model="type_id">
-                                                        <option value="">Select Type</option>
 
-                                                        @foreach ($productType as $type)
-
-                                                            <option value="{{ $type->id }}">{{ $type->type }}</option>
-
-                                                        @endforeach
-
-                                                    </select>
-                                                    @error('type_id')
-                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label">Enter Size</label>
                                                 <div class="col-8">
-
-                                                    <input class="form-control" type="text" wire:model="size" placeholder="Enter size">
-                                                    @error('size')
+                                                    <label for="">Enter Type</label>
+                                                    <input class="form-control" type="text" wire:model="type" placeholder="Enter size">
+                                                    @error('type')
                                                         <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -77,24 +60,22 @@
                             <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">All Sizes</h4>
+                                        <h4 class="card-title">All Type</h4>
                                     </div>
                                     <div class="card-body p-1 pb-4">
                                         <table class="table table-md">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>Type</th>
-                                                    <th>Size</th>
                                                     <th style="width: 10%;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($productSize as $size)
+                                                @foreach ($productType as $type)
                                                     <tr>
-                                                        <td>{{$size->productType->type}}</td>
-                                                        <td>{{ $size->size }}</td>
+                                                        <td>{{ $type->type }}</td>
                                                         <td>
-                                                            <a wire:click.prevent="deleteData({{ $size->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
+                                                            <a wire:click.prevent="deleteData({{ $type->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

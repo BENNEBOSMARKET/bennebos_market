@@ -13,8 +13,8 @@ class NewsRepository extends BaseRepository
     {
         $this->news=$news;
     }
-    public function getAllNews(){
-        return DB::table('news_pages')->latest()->get();
+    public function getAllNews($limit){
+        return DB::table('news_pages')->latest()->paginate($limit);;
     }
 
 

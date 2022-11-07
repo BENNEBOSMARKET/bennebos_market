@@ -15,8 +15,8 @@ class BlogRepository extends BaseRepository
     {
         $this->blogCategory=$blogCategory;
     }
-    public function getAllBlogs(){
-        return DB::table('blogs')->latest()->get();
+    public function getAllBlogs($limit){
+        return DB::table('blogs')->latest()->paginate($limit);;
     }
 
 

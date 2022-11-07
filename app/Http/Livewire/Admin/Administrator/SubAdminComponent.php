@@ -17,7 +17,7 @@ class SubAdminComponent extends Component
 
     public $sortingValue = 10, $searchTerm;
 
-    public $name, $email, $password, $password_confirmation;
+    public $name, $email, $password, $password_confirmation,$referral;
 
     public $edit_id, $delete_id;
 
@@ -32,7 +32,8 @@ class SubAdminComponent extends Component
         $this->validateOnly($fields, [
             'name' => 'required',
             'email' => 'required|email|unique:admins,email',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'referral'=>'required'
         ]);
     }
 
@@ -41,10 +42,12 @@ class SubAdminComponent extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+             'referral'=>'unique:admins'
         ]);
 
         $data = new Admin();
+        $data->referral = $this->referral;
         $data->name = $this->name;
         $data->email = $this->email;
         $data->password = Hash::make($this->password);
@@ -64,6 +67,7 @@ class SubAdminComponent extends Component
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
+        $this->referral = '';
     }
 
 
@@ -74,6 +78,7 @@ class SubAdminComponent extends Component
         $this->edit_id = $getData->id;
         $this->name = $getData->name;
         $this->email = $getData->email;
+        $this->referral = $getData->referral;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -82,12 +87,14 @@ class SubAdminComponent extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,'.$this->edit_id,
-            'password' => 'nullable|confirmed|min:6'
+            'password' => 'nullable|confirmed|min:6',
+            'referral'=>'required'
         ]);
 
         $data = Admin::where('id', $this->edit_id)->first();
         $data->name = $this->name;
         $data->email = $this->email;
+        $data->referral = $this->referral;
         if(request()->has("password")) $data->password = Hash::make($this->password);
         $data->role = "sub-admin";
 
@@ -115,32 +122,6 @@ class SubAdminComponent extends Component
         $this->resetInputs();
     }
 
-
-    // public function deleteChild()
-    // {
-    //     $id = 281;
-    //     $categories = [$id];
-
-    //     $subCategories = Category::where('parent_id', $id)->where('sub_parent_id', 0)->pluck('id')->toArray();
-    //     $categories = array_merge($categories, $subCategories);
-    //     $subCategories = Category::whereIn('sub_parent_id', $categories)->pluck('id')->toArray();
-    //     $categories = array_merge($categories, $subCategories);
-
-
-    //     foreach($categories as $category){
-    //         $products = Product::where('category_id', $category)->get();
-    //         foreach($products as $product){
-    //             $pro = Product::find($product->id);
-    //             $pro->delete();
-    //         }
-
-    //         $category = Category::find($category);
-    //         $category->delete();
-    //     }
-
-    //     $this->dispatchBrowserEvent('success', ['message'=>'Deleted']);
-
-    // }
 
 
     public function render()

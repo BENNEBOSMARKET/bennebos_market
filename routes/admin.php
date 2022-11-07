@@ -91,6 +91,7 @@ use App\Http\Livewire\Admin\Slider\ElectronicSliderComponent;
 use App\Http\Livewire\Admin\Slider\SliderComponent;
 use App\Http\Livewire\Admin\Slider\TopBannerComponent;
 use App\Http\Livewire\Admin\Ticket\TicketComponent;
+use App\Http\Livewire\Admin\Variations\ProductTypeComponent;
 use App\Http\Livewire\Admin\Variations\SizeComponent;
 use App\Http\Livewire\Admin\Websitesetup\FooterSectionComponent;
 use App\Http\Livewire\Admin\Websitesetup\HeaderSectionComponent;
@@ -251,6 +252,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     // Product Variations
     Route::get('/products/sizes', SizeComponent::class)->name('productSizes');
+    Route::get('/products/type', ProductTypeComponent::class)->name('productType');
 
     //CMS
     Route::get('/cms/report-map', ReportMapComponentV2::class)->name('reportMap');

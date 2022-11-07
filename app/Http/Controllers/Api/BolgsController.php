@@ -19,7 +19,16 @@ class BolgsController extends Controller
 
     public function getAllBlogs()
     {
-        $blog = $this->blogRepository->getAllBlogs();
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($blog)->getJsonResponse();
+        try {
+            $limit = request()->has('limit') ? request('limit') : 10;
+            $blog = $this->blogRepository->getAllBlogs($limit);
+            return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($blog)->getJsonResponse();
+        }
+        catch( Exception $exception) {
+            return $this->apiResponse->setError(
+                $exception->getMessage() . " " . $exception->getLine() . " " . $exception->getFile()
+            )->setData()->getJsonResponse();
+        }
+
     }
 }

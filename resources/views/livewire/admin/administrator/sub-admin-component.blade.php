@@ -7,7 +7,7 @@
             width: 275px;
             padding: 10px;
         }
-        
+
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -56,6 +56,7 @@
                                         <th>#</th>
                                         <th>name</th>
                                         <th>email</th>
+                                        <th>referral</th>
                                         <th>Created Date</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -70,6 +71,7 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $admin->name }}</td>
                                                 <td>{{ $admin->email }}</td>
+                                                <td>{{$admin->referral}}</td>
                                                 <td>{{ $admin->created_at }}</td>
                                                 <td style="text-align: center;">
                                                     <div class="button-items">
@@ -142,7 +144,16 @@
                                 @enderror
                             </div>
                         </div>
-                        
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Referral</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" wire:model="referral" placeholder="Enter Referral">
+                                @error('referral')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="mb-3 row">
                             <label for="example-number-input" class="col-sm-3 col-form-label"></label>
@@ -202,6 +213,15 @@
                                 <input class="form-control" type="password" wire:model="password_confirmation"  placeholder="Enter password confirmation">
                                 @error('password_confirmation')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Referral</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" wire:model="referral" placeholder="Enter Referral">
+                                @error('referral')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>

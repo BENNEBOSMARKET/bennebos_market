@@ -77,6 +77,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->where('size_id', $sizeId)
             ->where('main_product_id', $mainProduct->main_product_id);
 
+
+
         if ($colorId)
             $product = $product->where('color_id', $colorId);
 
@@ -97,12 +99,21 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->pluck('size_id')
             ->toArray();
 
+
+        $commonTypes = Product::where('main_product_id', $product->main_product_id)
+            ->pluck('type_id')
+            ->toArray();
+
         $commonSizes = Size::whereIn('id', $commonSizes)->get(['size','id']);
+
+        $statuses=Size::whereIn('type_id',$commonTypes)->get(['size','id']);
+
         $commonColors = Color::whereIn('id', $commonColors)->get(['name','image','id']);
 
 
         $product->setAttribute('commonColors', $commonColors);
         $product->setAttribute('commonSizes', $commonSizes);
+        $product->setAttribute('statuses', $statuses);
 
         return  $product;
     }
@@ -278,7 +289,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                             $brand->refresh();
                         }
                     }
-                    
+
                     if (isset($productData['color'])) {
                         $color_name = array_keys($productData['color'])[0];
                         $color = $this->colorModel->create(
@@ -314,7 +325,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                         }
                         if((isset($productData['images']) && count($productData['images']) > 0 && $productData['images'][0] != "") && !str_contains($productData['images'][0],"legal-requirement-card-new-white.png") && !str_contains($productData['images'][0],"seller-selection-stamp-v14.png") && !str_contains($productData['images'][0],"indexing-sticker-stamp/moon/aa7816f3-395f-43b0-a9fc-0b806f923a6a.png")){
                             $status = 0;
-                        }else{                        
+                        }else{
                             $status = 1;
                         }
                         if ($key == 0) {
@@ -363,7 +374,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 }
             }
         }
-        
+
     public function saveProductDetailsImages($images)
     {
         $image_names = [];
@@ -436,15 +447,15 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         ->limit($limit)
         ->select("products.slug", "products.gallery_image", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('best_big_deal',1)
         ->orderBy('products.id', 'DESC')
-        ->get());  
-        
+        ->get());
+
         $products_data['big_deals']['new_arrivals'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->limit($limit)
         ->select("products.slug", "products.gallery_image", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_deal_new_arrival',1)
         ->orderBy('products.id', 'DESC')
         ->get());
-        
+
         $products_data['big_deals']['most_viewed'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->limit($limit)

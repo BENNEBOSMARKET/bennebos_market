@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Variations;
 
+use App\Models\ProductType;
 use App\Models\Size;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,23 +12,20 @@ class  SizeComponent extends Component
 {
     use WithPagination;
     public $sortingValue = 10, $searchTerm;
-    public $size;
+    public $size,$type_id;
 
-    public function updated($fields)
-    {
-        $this->validateOnly($fields, [
-            'size' => 'required|unique:sizes',
-        ]);
-    }
+
 
     public function storeData()
     {
         $this->validate([
             'size' => 'required|unique:sizes',
+            'type_id' => 'required',
         ]);
 
         $data = new Size();
         $data->size = $this->size;
+        $data->type_id = $this->type_id;
         $data->save();
         $this->dispatchBrowserEvent('success', ['message'=>'Size added successfully']);
         $this->resetInputs();
@@ -36,6 +34,7 @@ class  SizeComponent extends Component
     public function resetInputs()
     {
         $this->size = '';
+        $this->type_id = '';
     }
 
     public function deleteData($id)
@@ -48,7 +47,9 @@ class  SizeComponent extends Component
 
     public function render()
     {
-        $productSize = Size::where('size', 'like', '%'.$this->searchTerm.'%')->get();
-        return view('livewire.admin.variations.size-component', ['productSize'=>$productSize])->layout('livewire.admin.layouts.base');
+        $productType = ProductType::get();
+
+        $productSize = Size::where('size', 'like', '%'.$this->searchTerm.'%')->orderBy('type_id','desc')->get();
+        return view('livewire.admin.variations.size-component', ['productSize'=>$productSize,'productType'=>$productType])->layout('livewire.admin.layouts.base');
     }
 }
