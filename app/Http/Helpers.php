@@ -317,6 +317,8 @@ function shop($seller_id)
         $join->on('countries.id', '=', 'shops.country_id');
       })->leftJoin('states', function($join) {
         $join->on('states.id', '=', 'shops.state_id');
+      })->leftJoin('counties', function($join) {
+        $join->on('counties.id', '=', 'shops.county_id');
       })->where('shops.seller_id', $seller_id)->first([
         
         "shops.address as address",
@@ -325,6 +327,7 @@ function shop($seller_id)
         "countries.id as country_id",
         "countries.flag as country_flag",
         "states.name as state_name",
+        "counties.name as county_name",
         "shops.name as name",
         "shops.slug as slug",
         "shops.logo as logo",

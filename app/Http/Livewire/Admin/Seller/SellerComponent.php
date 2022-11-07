@@ -173,7 +173,7 @@ class SellerComponent extends Component
                         "EMail"=>$shippingSeller->email,
                         "CustomerAddressId"=>uniqid().$seller_id,
                         "CityName"=>$shop->state_name,
-                        "TownName"=>$shop->country_name,
+                        "TownName"=>$shop->county_name,
                         "AccountId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}",
                         "CustomerAddressInfoId"=>"{913CA874-370A-13DC-AFA4-B94E7CCD14B3}"
                     ]
@@ -225,27 +225,13 @@ class SellerComponent extends Component
     public function render()
     {
         $profile = Seller::find($this->seller_id);
-        if (Auth::guard('admin')->user()->role == "sub-admin"){
-            $sellers = Seller::where('referral_code',Auth::guard('admin')->user()->referral )
-                ->where('referral_code','!=',null )
-                ->where(function ($q) {
+        $sellers = Seller:: where(function ($q) {
                 $q->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
-            });
-        }
-        else{
-            $sellers = Seller::where(function ($q) {
-                $q->where('sellers.name', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
-                    ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
-            });
-        }
-
+                ->orWhere('sellers.email', 'LIKE', '%' . $this->searchTerm . '%')
+                ->orWhere('sellers.phone', 'LIKE', '%' . $this->searchTerm . '%')
+                ->orWhere('sellers.referral_code', 'LIKE', '%' . $this->searchTerm . '%')
+                ->orWhere('sellers.created_at', 'LIKE', '%' . $this->searchTerm . '%');
+                });
         $shops=Shop::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
         if ($shops and $this->searchTerm != ''){
              $sellers=$sellers->orWhere('id',$shops->seller_id)->orderBy('sellers.created_at', 'DESC')->paginate($this->sortingValue);

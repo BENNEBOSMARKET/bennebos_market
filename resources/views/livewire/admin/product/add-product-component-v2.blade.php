@@ -140,6 +140,17 @@
                                 </div>
 
                             </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="guarantee">Years of Guarantee</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="guarantee"
+                                        placeholder="Years of Guarantee " wire:model="guarantee" />
+                                    @error('guarantee')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                            </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="minqty">Minimum Purchase Quantity *</label>

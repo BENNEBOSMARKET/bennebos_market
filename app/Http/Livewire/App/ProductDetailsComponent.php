@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductSize;
 use App\Models\Review;
+use App\Models\Searches;
 use App\Models\Shop;
 use App\Models\Size;
 use App\Models\SizeRequest;
@@ -381,8 +382,13 @@ class ProductDetailsComponent extends Component
             $similarProducts = $products_query->where('products.status', 1)->where('products.category_id', $this->category_id)->where('products.id', '!=', $this->product_id)->take('8')->get();
 
             $product_reviews = Review::where('product_id', $this->product_id)->paginate(5);
-
-            return view('livewire.app.product-details-component', ['gImages' => $gImages, 'supplierPoducts' => $supplierPoducts, 'popularProducts' => $popularProducts, 'similarProducts' => $similarProducts, 'product_reviews' => $product_reviews])->layout('livewire.layouts.base');
+            $mostSearchs = Searches::orderBy('count',"DESC")->take(20)->pluck("query");
+            $mostSearchedProducts = Product::where("status", 1)->where(function($query) use($mostSearchs){
+                foreach($mostSearchs as $seach){
+                    $query->orwhere('name', 'like',  '%' . $seach .'%');
+                }
+            })->get();
+            return view('livewire.app.product-details-component', ['gImages' => $gImages, 'supplierPoducts' => $supplierPoducts, 'popularProducts' => $popularProducts, 'similarProducts' => $similarProducts, 'product_reviews' => $product_reviews, "mostSearchedProducts" => $mostSearchedProducts])->layout('livewire.layouts.base');
         } else {
             abort('404');
         }

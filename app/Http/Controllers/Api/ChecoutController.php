@@ -12,6 +12,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use App\Models\Seller;
 use App\Models\Wallet;
 use App\Services\IyzicoPayment;
 use Carbon\Carbon;
@@ -119,6 +120,7 @@ class ChecoutController extends Controller
                 "payment_type" => $request->payment_method,
                 "code" => strtoupper(Str::random(14)),
             ];
+            Seller::find($seller_id)->increment('transactions');
 
             $cart = $this->cartModel::where("user_id", Auth::id())->where("owner_id", $seller_id);
             $cart_count = $cart->count();

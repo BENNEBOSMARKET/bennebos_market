@@ -31,7 +31,8 @@ return [
     'kargo_company_sidebar' => 'Kargo Company',
     'support_ticket' => 'Support Ticket',
     'settings_sidebar' => 'Settings',
-
+    'county' => 'County',
+    'select_county' => 'Select County',
 
     // Dashboard  Page
     'dashboard_top_title' => 'Dashboard',

@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Searches extends Model
+class County extends Model
 {
     use HasFactory;
-
-    protected $table = 'searches';
-    protected $fillable = ["query", "count"];
+    protected $table = "counties";
 }

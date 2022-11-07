@@ -130,6 +130,7 @@ class ProductResource extends JsonResource
             "description" => $this->description,
             "meta_title" => $this->meta_title,
             "meta_description" => $this->meta_description,
+            "guarantee" => $this->guarantee,
             "featured" => (bool)$this->featured,
             "status" => (bool)$this->status,
             "is_favourite" => isset($this->wishlists_count) ? (bool)$this->wishlists_count : false,

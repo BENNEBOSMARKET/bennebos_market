@@ -19,8 +19,8 @@ class CreateCountriesTable extends Migration
             $table->string('name')->nullable();
             $table->string('phonecode')->nullable();
             $table->string('flag')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude    ')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->timestamps();
         });
     }
