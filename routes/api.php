@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AllMiddleBannerController;
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
 use App\Http\Controllers\Api\BolgsController;
 use App\Http\Controllers\Api\BrandController;
@@ -153,17 +154,18 @@ Route::match(array('GET', 'POST'),'payment/callback',[PaymentController::class, 
 Route::post('products/upload/data',[ProductsUpload::class, 'productsUpload']);
 Route::get('search',[HomeApiController::class, "search"]);
 Route::get('filter',[ProductController::class, "filter"]);
-Route::get('AllCategoryPhotos/{id}',[PhotoController::class,'getCategoryPhoto']);
-Route::get('SliderRightProductPhotos/{id}',[PhotoController::class,'getSliderRightProductPhoto']);
-Route::get('AllHomePhotos',[PhotoController::class,'getHomePhoto']);
-Route::get('AllNews',[NewsController::class,'getNews']);
-Route::get('HowBuyPage',[HowBuyPageController::class,'getAllHowBuyPage']);
-Route::get('AllFeatures',[FeaturesPageController::class,'getAllFeatures']);
-Route::get('AllHelpCenter',[HelpCenterPageController::class,'getAllHelp']);
-Route::get('AllOurService',[OurServicePageController::class,'getAllServices']);
-Route::get('GetContactUs',[ContacUsPageController::class,'getAllContactUsPage']);
-Route::get('GetAllBlogs',[BolgsController::class,'getAllBlogs']);
-Route::get('GetCountSeller',[SellerController::class,'getCountSeller']);
-Route::get('GetInfoSeller',[SellerController::class,'getInfoSeller']);
+Route::get('allCategoryPhotos/{id}',[PhotoController::class,'getCategoryPhoto']);
+Route::get('sliderRightProductPhotos/{id}',[PhotoController::class,'getSliderRightProductPhoto']);
+Route::get('allHomePhotos',[PhotoController::class,'getHomePhoto']);
+Route::get('allNews',[NewsController::class,'getNews']);
+Route::get('howBuyPage',[HowBuyPageController::class,'getAllHowBuyPage']);
+Route::get('allFeatures',[FeaturesPageController::class,'getAllFeatures']);
+Route::get('allHelpCenter',[HelpCenterPageController::class,'getAllHelp']);
+Route::get('allOurService',[OurServicePageController::class,'getAllServices']);
+Route::get('getContactUs',[ContacUsPageController::class,'getAllContactUsPage']);
+Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
+Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
+Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
+Route::get('getMiddleBanner',[AllMiddleBannerController::class,'getMiddleBannerPhoto']);
 Route::post('search/create',[HomeApiController::class, "setSearch"]);
 Route::get('search/products',[HomeApiController::class, "mostSearchedProducts"]);
