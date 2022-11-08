@@ -15,7 +15,7 @@ class SliderComponent extends Component
     use WithFileUploads;
 
     public $sortingValue = 10, $searchTerm;
-    public $slider_link, $status, $banner, $new_banner, $category;
+    public $slider_link, $language, $status, $banner, $new_banner, $category;
     public $edit_id, $delete_id;
 
     protected $listeners = ['deleteConfirmed'=>'deleteData'];
@@ -42,6 +42,7 @@ class SliderComponent extends Component
             'slider_link' => 'required',
             'banner' => 'required',
             'category' => 'required',
+            'language' => 'required',
         ]);
     }
 
@@ -56,10 +57,11 @@ class SliderComponent extends Component
         $data = new Slider();
         $data->shop_link = $this->slider_link;
         $data->category_id = $this->category;
+        $data->language = $this->language;
 
         $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/slider',$imageName, 's3');
-        $data->banner = env('AWS_BUCKET_URL') . 'imgs/slider/'.$imageName;
+        $data->banner = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/slider/'.$imageName;
 
         $data->save();
 
@@ -85,6 +87,7 @@ class SliderComponent extends Component
         $this->slider_link = $getData->shop_link;
         $this->status = $getData->status;
         $this->category = $getData->category_id;
+        $this->language = $getData->language;
         $this->new_banner = $getData->banner;
         $this->dispatchBrowserEvent('showEditModal');
     }
@@ -99,12 +102,13 @@ class SliderComponent extends Component
         $data = Slider::where('id', $this->edit_id)->first();
         $data->shop_link = $this->slider_link;
         $data->category_id = $this->category;
+        $data->language = $this->language;
         $data->banner = $this->new_banner;
 
         if($this->banner != ''){
             $imageName = Carbon::now()->timestamp. '.' . $this->banner->extension();
             $this->banner->storeAs('imgs/slider',$imageName, 's3');
-            $data->banner = env('AWS_BUCKET_URL') . 'imgs/slider/'.$imageName;
+            $data->banner = env('AWS_BUCKET_URL',"https://bennebos.s3.amazonaws.com/") . 'imgs/slider/'.$imageName;
         }
 
         $data->save();
