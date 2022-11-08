@@ -109,7 +109,7 @@ class Headerv3 extends Component
             $hotsellers = Shop::where('verification_status', 1)->orderBy('total_sale', 'DESC')->where('category_id', $this->category_id)->first();
             $new_trends = Product::where('status', 1)->orderBy('created_at', 'DESC')->where('category_id', $this->category_id)->inRandomOrder()->first();
             $discount_products = Product::where('status', 1)->where('category_id', $this->category_id)->where('discount', '!=', 0)->first();
-            $this->homeSliders = Slider::select('shop_link', 'banner')->where('category_id', $this->category_id)->where('status', 1)->get();
+            $this->homeSliders = Slider::select('shop_link', 'banner')->where('category_id', $this->category_id)->where('status', 1)->where("language",Session::get("locale"))->get();
             $allSubCategories = Category::select('icon', 'name', 'id')->where('parent_id', $this->category_id)->where('sub_parent_id', 0)->limit(7)->get();
             $getBrands = DB::table('brands')->select('slug', 'logo', 'name', 'category_id')->get();
 
@@ -123,7 +123,7 @@ class Headerv3 extends Component
             $hotsellers = Shop::where('verification_status', 1)->orderBy('total_sale', 'DESC')->first();
             $new_trends = DB::table('products')->where('status', 1)->orderBy('created_at', 'DESC')->first();
             $discount_products = DB::table('products')->where('discount', '!=', 0)->where('status', 1)->first();
-            $this->homeSliders = Slider::select('shop_link', 'banner')->where('status', 1)->get();
+            $this->homeSliders = Slider::select('shop_link', 'banner')->where('status', 1)->where("language",Session::get("locale"))->get();
             $allSubCategories = Category::select('icon', 'name', 'id')->where("country_id",Session::get("delivery_country_id"))->where('parent_id', '!=', 0)->where('sub_parent_id', 0)->where('featured', 1)->limit(7)->get();
             $getBrands = DB::table('brands')->where("country_id",Session::get("delivery_country_id"))->limit('20')->get();
             foreach ($getBrands as $brnd) {

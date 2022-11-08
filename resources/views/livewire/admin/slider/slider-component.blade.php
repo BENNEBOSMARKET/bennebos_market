@@ -57,6 +57,7 @@
                                         <th>#</th>
                                         <th>Image</th>
                                         <th>Link</th>
+                                        <th>language</th>
                                         <th>Status</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -72,6 +73,7 @@
                                         <td><img style="height: 50px;"
                                                 src="{{ $slider->banner }}" alt=""></td>
                                         <td>{{ $slider->shop_link }}</td>
+                                        <td>{{ $slider->language }}</td>
                                         <td>
                                             <div class="form-check form-switch form-switch-success"
                                                 style="margin-left: 25px;">
@@ -117,6 +119,21 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="storeData">
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Language</label>
+                            <div class="col-sm-8">
+                                <select  class="form-control" wire:model="language">
+                                    <option value="">Select Language</option>
+                                    <option value="ar">Arabic</option>
+                                    <option value="en">English</option>
+                                    <option value="fr">French</option>
+                                    <option value="tur">Turkish</option>
+                                </select>
+                                @error('language')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-8">
@@ -180,6 +197,21 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="updateData">
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Language</label>
+                            <div class="col-sm-8">
+                                <select  class="form-control" wire:model="language">
+                                    <option value="">Select Language</option>
+                                    <option value="ar">Arabic</option>
+                                    <option value="en">English</option>
+                                    <option value="fr">French</option>
+                                    <option value="tur">Turkish</option>
+                                </select>
+                                @error('language')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-8">
