@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AllMiddleBannerController;
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
 use App\Http\Controllers\Api\BolgsController;
 use App\Http\Controllers\Api\BrandController;
@@ -165,5 +166,6 @@ Route::get('getContactUs',[ContacUsPageController::class,'getAllContactUsPage'])
 Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
 Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
+Route::get('getMiddleBanner',[AllMiddleBannerController::class,'getMiddleBannerPhoto']);
 Route::post('search/create',[HomeApiController::class, "setSearch"]);
 Route::get('search/products',[HomeApiController::class, "mostSearchedProducts"]);

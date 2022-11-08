@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Seller\Product;
 
 use App\Models\Product;
+use App\Models\ProductType;
+use App\Models\SellerRequest;
 use App\Models\Shop;
+use App\Models\Size;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,6 +31,30 @@ class ProductsComponent extends Component
         $product->delete();
 
         $this->dispatchBrowserEvent('productDeleted');
+    }
+
+    public function storeData()
+    {
+dd($this->all());
+        $this->validate([
+            'type_id' => 'required',
+            'size'=>'required',
+
+
+        ]);
+
+
+        $data = new SellerRequest();
+        $data->type_id=$this->type_id;
+        $data->authSeller()->id;
+        $data->size=$this->size;
+
+
+        $data->save();
+
+        $this->dispatchBrowserEvent('success', ['message'=>'Send successfully']);
+        $this->dispatchBrowserEvent('closeModal');
+        $this->resetInputs();
     }
 
     public function publishStatus($id)
@@ -65,8 +92,9 @@ class ProductsComponent extends Component
         $products = $sortedproducts->where('user_id', authSeller()->id)->where('name', 'like', '%'.$this->searchTerm.'%')->orderBy('created_at', 'DESC')->paginate(15);
 
         $this->categories = Product::where('user_id', authSeller()->id)->groupBy('category_id')->get();
+        $types=ProductType::all();
 
-        return view('livewire.seller.product.products-component', ['products'=>$products])->layout('livewire.seller.layouts.base');
+        return view('livewire.seller.product.products-component', ['products'=>$products,'types'=>$types])->layout('livewire.seller.layouts.base');
     }
 
 
