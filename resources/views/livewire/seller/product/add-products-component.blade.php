@@ -76,9 +76,9 @@
                                 <div class="col-sm-9">
                                     <div wire:ignore>
                                         <select class="form-control" id="category" wire:model="category">
-                                            <option value="">{{ __('seller.select_category') }}</option>
+                                            <option  class="text-dark"value="">{{ __('seller.select_category') }}</option>
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
+                                            <option  class="text-dark"value="{{ $category->id }}">
                                                 @if ($category->parent_id != 0 && $category->sub_parent_id == 0)
                                                 -
                                                 @elseif($category->parent_id != 0 && $category->sub_parent_id != 0)
@@ -99,9 +99,9 @@
                                 <div class="col-sm-9">
                                     <div wire:ignore>
                                         <select class="form-control" id="brand" wire:model="brand">
-                                            <option value="">{{ __('seller.select_brand') }}</option>
+                                            <option  class="text-dark"value="">{{ __('seller.select_brand') }}</option>
                                             @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">
+                                            <option  class="text-dark"value="{{ $brand->id }}">
                                                 {{ $brand->name }}
                                             </option>
                                             @endforeach
@@ -247,25 +247,25 @@
                                 <div class="col-sm-9">
                                     <div wire:ignore>
                                         <select class="form-control" id="discount">
-                                            <option value="0">0 %</option>
-                                            <option value="5">5 %</option>
-                                            <option value="10">10 %</option>
-                                            <option value="15">15 %</option>
-                                            <option value="20">20 %</option>
-                                            <option value="25">25 %</option>
-                                            <option value="30">30 %</option>
-                                            <option value="35">35 %</option>
-                                            <option value="40">40 %</option>
-                                            <option value="45">45 %</option>
-                                            <option value="50">50 %</option>
-                                            <option value="55">55 %</option>
-                                            <option value="60">60 %</option>
-                                            <option value="65">65 %</option>
-                                            <option value="70">70 %</option>
-                                            <option value="75">75 %</option>
-                                            <option value="80">80 %</option>
-                                            <option value="85">85 %</option>
-                                            <option value="90">90 %</option>
+                                            <option  class="text-dark"value="0">0 %</option>
+                                            <option  class="text-dark"value="5">5 %</option>
+                                            <option  class="text-dark"value="10">10 %</option>
+                                            <option  class="text-dark"value="15">15 %</option>
+                                            <option  class="text-dark"value="20">20 %</option>
+                                            <option  class="text-dark"value="25">25 %</option>
+                                            <option  class="text-dark"value="30">30 %</option>
+                                            <option  class="text-dark"value="35">35 %</option>
+                                            <option  class="text-dark"value="40">40 %</option>
+                                            <option  class="text-dark"value="45">45 %</option>
+                                            <option  class="text-dark"value="50">50 %</option>
+                                            <option  class="text-dark"value="55">55 %</option>
+                                            <option  class="text-dark"value="60">60 %</option>
+                                            <option  class="text-dark"value="65">65 %</option>
+                                            <option  class="text-dark"value="70">70 %</option>
+                                            <option  class="text-dark"value="75">75 %</option>
+                                            <option  class="text-dark"value="80">80 %</option>
+                                            <option  class="text-dark"value="85">85 %</option>
+                                            <option  class="text-dark"value="90">90 %</option>
                                         </select>
                                     </div>
                                     @error('discount')
@@ -682,9 +682,9 @@
                             <label for="" class="col-sm-2">shipping country</label>
                             <div class="col-sm-9">
                                 <select class="form-control" wire:model='type_id'>
-                                    <option value="">Select shipping Country</option>
+                                    <option  class="text-dark"value="">Select shipping Country</option>
                                     @foreach ($types as $country)
-                                        <option value="{{ $country->id }}">{{ $country->type }}</option>
+                                        <option  class="text-dark" class="text-dark" value="{{ $country->id }}">{{ $country->type }}</option>
                                     @endforeach
                                 </select>
                                 @error('type_id')
@@ -697,9 +697,9 @@
                             <div class="col-sm-9">
                                 <div>
                                     <select class="form-control" id="category" wire:model="product_size" >
-                                        <option value="">Select Category</option>
+                                        <option  class="text-dark"value="">Select Category</option>
                                         @foreach ($sizesProducts as $category)
-                                            <option value="{{ $category->id }}">
+                                            <option  class="text-dark"value="{{ $category->id }}">
                                                 {{ $category->size }}
                                             </option>
                                         @endforeach
@@ -817,7 +817,7 @@
                                 <div wire:ignore>
                                     <select id="ProductSizeColor" wire:model="color_size" multiple>
                                         @foreach ($sizes as $size)
-                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                        <option  class="text-dark"value="{{ $size->id }}">{{ $size->size }}</option>
                                         @endforeach
                                     </select>
                                 </div>
