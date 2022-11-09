@@ -36,7 +36,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $categories = array_merge($categories, $subcategories);
         $subsubcategories = DB::table('categories')->whereIn('sub_parent_id', $subcategories)->pluck("id")->toArray();
         $categories = array_merge($categories, $subsubcategories);
-        
+
         $products_db =  Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->limit($limit)
@@ -95,8 +95,8 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         ->limit($limit)
         ->select("products.slug", "products.gallery_image", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('best_big_deal',1)
         ->orderBy('products.id', 'DESC')
-        ->get());  
-        
+        ->get());
+
         $products_data['big_deals']['new_arrivals'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->whereIn('category_id',$categories)
@@ -104,7 +104,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         ->select("products.slug", "products.gallery_image", "products.name","products.thumbnail","products.unit_price","products.id", "products.total_review", "products.avg_review", "sellers.name as seller_name", "sellers.avatar as seller_logo")->where('big_deal_new_arrival',1)
         ->orderBy('products.id', 'DESC')
         ->get());
-        
+
         $products_data['big_deals']['most_viewed'] = (Product::leftJoin("sellers","products.user_id", "=","sellers.id")
         ->where('products.status',1)
         ->whereIn('category_id',$categories)
@@ -137,5 +137,14 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         ->orderBy('products.id', 'DESC')
         ->get());
         return $products_data;
+    }
+
+
+    public function getAllHeaderCategory(){
+        return $this->model->where('parent_id', 0)->where('sub_parent_id', 0)->take(7)->get();
+    }
+
+    public function getAllHeaderSubCategory($id){
+        return $this->model->where('id',$id)->where('parent_id', 0)->where('sub_parent_id', 0)->get();
     }
 }
