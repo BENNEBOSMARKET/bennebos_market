@@ -26,6 +26,7 @@ class HeaderCategoryResource extends JsonResource
                 'id' => $sub_category->id,
                 'banner' => $sub_category->banner,
                 "name"=>$sub_category->name,
+                  "icon"=>$sub_category->icon,
                 'sub_parent_id'=>$sub_category->sub_parent_id,
                 "sub_sub_categoirs"=>count($sub_sub_categories)?$sub_sub_categories : []
 
