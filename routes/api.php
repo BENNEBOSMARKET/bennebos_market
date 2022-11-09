@@ -108,6 +108,8 @@ Route::prefix('cart')->name('cart.')->group(function () {
 });
 
 Route::group(['prefix' =>"category", "middleware" => "api.localization"],function(){
+    Route::get('headerCategories',[CategoryController::class,'getAllHeaderCategory']);
+    Route::get('headerSubCategories/{id}',[CategoryController::class,'getAllHeaderSubCategory']);
     Route::get('/',[CategoryController::class, "getCategories"]);
     Route::get('/single/{id}',[CategoryController::class, "getSingleCategory"]);
     Route::get('/categories/',[CategoryController::class, "getMainCategories"]);
@@ -167,7 +169,6 @@ Route::get('getContactUs',[ContacUsPageController::class,'getAllContactUsPage'])
 Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
 Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
-Route::get('getMiddleBanner',[AllMiddleBannerController::class,'getMiddleBannerPhoto']);
 Route::get('getJobList',[JobController::class,'getJobList']);
 
 Route::post('search/create',[HomeApiController::class, "setSearch"]);

@@ -6,17 +6,19 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\Category\HeaderCategoryResource;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct( ApiResponse $apiResponse, CategoryRepositoryInterface $repository)
+    public function __construct( ApiResponse $apiResponse, CategoryRepositoryInterface $repository ,CategoryRepository $categoryRepository)
     {
         $this->apiResponse = $apiResponse;
         $this->repository = $repository;
+        $this->categoryRepository=$categoryRepository;
     }
     public function getCategories(){
         try{
@@ -35,7 +37,7 @@ class CategoryController extends Controller
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
         }
     }
-    
+
     public function getSubCategories(Request $request, $category_id){
         try{
             $limit = $request->has('limit')? $request->limit : 20;
@@ -84,6 +86,18 @@ class CategoryController extends Controller
                 $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
             )->setData()->getJsonResponse();
         }
+    }
+
+    public function getAllHeaderCategory()
+    {
+        $countSeller = $this->categoryRepository->getAllHeaderCategory();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(HeaderCategoryResource::collection($countSeller))->getJsonResponse();
+    }
+
+    public function getAllHeaderSubCategory($id)
+    {
+        $countSeller = $this->categoryRepository->getAllHeaderSubCategory($id);
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(HeaderCategoryResource::collection($countSeller))->getJsonResponse();
     }
 
 }
