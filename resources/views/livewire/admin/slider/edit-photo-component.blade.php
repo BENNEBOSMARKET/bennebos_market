@@ -97,18 +97,11 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="storeData">
-{{--                 --}}
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Category</label>
                             <div class="col-sm-8">
                                 <select class="form-control" wire:model="category">
                                     <option value="">Select category</option>
-
-{{--                                    <option value="">الرئيسية</option>--}}
-
-
-
-
                                 @foreach ($categories as $category)
 
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>

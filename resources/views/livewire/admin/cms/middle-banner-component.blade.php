@@ -56,6 +56,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Banner</th>
+                                        <th>Category</th>
                                         <th>Title</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -70,6 +71,8 @@
                                         <td>{{ $sl++ }}</td>
                                         <td><img style="height: 50px; width: 150px;"
                                                 src="{{ $middleBanner->banner }}" alt=""></td>
+
+                                        <td>{{!is_null($middleBanner->category_id)? $middleBanner->category->name:'home' }}</td>
                                         <td>{{ $middleBanner->title }}</td>
                                         <td style="text-align: center;">
                                             <div class="button-items">
@@ -108,6 +111,30 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="storeData">
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Category</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" wire:model="category">
+                                    <option value="">Select category</option>
+
+                                    {{--                                    <option value="">الرئيسية</option>--}}
+
+
+
+
+                                    @foreach ($categories as $category)
+
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                                    @endforeach
+
+
+                                </select>
+                                @error('category')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Title</label>
                             <div class="col-sm-8">
@@ -156,6 +183,24 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="updateData">
+                        <div class="mb-3 row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Category</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" wire:model="category">
+                                    <option value="">Select category</option>
+                                    @foreach ($categories as $category)
+
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                                    @endforeach
+
+
+                                </select>
+                                @error('category')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="example-text-input" class="col-sm-3 col-form-label">Title</label>
                             <div class="col-sm-8">
