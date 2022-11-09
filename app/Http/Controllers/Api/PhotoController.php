@@ -30,7 +30,7 @@ class PhotoController extends Controller
     public function getCategoryPhoto($id)
     {
         $photo = $this->photosRepository->getCategoryPhoto($id);
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(new PhotosResource($photo))->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData( PhotosResource::collection($photo))->getJsonResponse();
     }
 
     public function getSliderRightProductPhoto($id)
@@ -42,6 +42,6 @@ class PhotoController extends Controller
     public function getHomePhoto()
     {
         $photo = $this->photosRepository->getHomePhoto();
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($photo)->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(PhotosResource::collection($photo))->getJsonResponse();
     }
 }

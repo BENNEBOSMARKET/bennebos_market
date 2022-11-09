@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\HomeApiController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChecoutController;
 use App\Http\Controllers\Api\HowBuyPageController;
+use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\OurServicePageController;
 use App\Http\Controllers\Api\PaymentController;
@@ -167,5 +168,7 @@ Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
 Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
 Route::get('getMiddleBanner',[AllMiddleBannerController::class,'getMiddleBannerPhoto']);
+Route::get('getJobList',[JobController::class,'getJobList']);
+
 Route::post('search/create',[HomeApiController::class, "setSearch"]);
 Route::get('search/products',[HomeApiController::class, "mostSearchedProducts"]);

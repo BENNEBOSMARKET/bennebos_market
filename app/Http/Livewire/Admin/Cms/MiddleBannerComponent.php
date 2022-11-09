@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Cms;
 
+use App\Models\Category;
 use App\Models\MiddleBanner;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class MiddleBannerComponent extends Component
     use WithFileUploads;
 
     public $sortingValue = 10, $searchTerm;
-    public $title, $banner, $new_banner;
+    public $title, $banner, $new_banner,$category;
     public $edit_id, $delete_id;
 
     protected $listeners = ['deleteConfirmed' => 'deleteData'];
@@ -36,6 +37,12 @@ class MiddleBannerComponent extends Component
 
         $data = new MiddleBanner();
         $data->title = $this->title;
+        if ($this->category == null){
+            $data->category_id = null;
+        }
+        else{
+            $data->category_id = $this->category;
+        }
 
         $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
         $this->banner->storeAs('imgs/banner', $imageName, 's3');
@@ -52,6 +59,7 @@ class MiddleBannerComponent extends Component
         $this->title = '';
         $this->banner = '';
         $this->new_banner = '';
+        $this->category='';
     }
 
     public function editData($id)
@@ -61,6 +69,7 @@ class MiddleBannerComponent extends Component
         $this->edit_id = $getData->id;
         $this->title = $getData->title;
         $this->new_banner = $getData->banner;
+        $this->category = $getData->category_id;
         $this->dispatchBrowserEvent('showEditModal');
     }
 
@@ -73,6 +82,12 @@ class MiddleBannerComponent extends Component
         $data = MiddleBanner::where('id', $this->edit_id)->first();
         $data->title = $this->title;
         $data->banner = $this->new_banner;
+        if ($this->category == null){
+            $data->category_id = null;
+        }
+        else{
+            $data->category_id = $this->category;
+        }
 
         if ($this->banner != '') {
             $imageName = Carbon::now()->timestamp . '.' . $this->banner->extension();
@@ -103,7 +118,20 @@ class MiddleBannerComponent extends Component
 
     public function render()
     {
-        $middleBanners = MiddleBanner::orderBy('id', 'DESC')->where('title', 'LIKE', '%' . $this->searchTerm . '%')->paginate($this->sortingValue);
-        return view('livewire.admin.cms.middle-banner-component', ['middleBanners' => $middleBanners])->layout('livewire.admin.layouts.base');
+        $categories=Category::all();
+        $middleBanners = MiddleBanner::orderBy('id', 'DESC')->where('title', 'LIKE', '%' . $this->searchTerm . '%');
+
+        $category=Category::where('name','LIKE', '%' . $this->searchTerm . '%')->first();
+        if ($category and $this->searchTerm != ''){
+            $middleBanners=$middleBanners->orWhere('category_id',$category->id)->orderBy('middle_banners.created_at', 'DESC')->paginate($this->sortingValue);
+        }
+        else{
+            $middleBanners=$middleBanners->orderBy('middle_banners.created_at', 'DESC')->paginate($this->sortingValue);
+        }
+
+
+
+
+        return view('livewire.admin.cms.middle-banner-component', ['middleBanners' => $middleBanners,'categories'=>$categories])->layout('livewire.admin.layouts.base');
     }
 }
