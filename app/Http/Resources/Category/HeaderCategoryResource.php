@@ -17,7 +17,7 @@ class HeaderCategoryResource extends JsonResource
     {
         $categories_table = DB::table('categories');
         $sub_categories = $categories_table->where('parent_id',$this->id)->get();
-        $sub_sub_categories = $categories_table->whereIn('sub_parent_id',$sub_categories->pluck('id'))->get();
+        $sub_sub_categories = $categories_table->whereIn('sub_parent_id',$sub_categories->pluck('id'))->get(['id','name','banner','image','icon']);
         $sub_categories=$sub_categories->where('sub_parent_id','0');
         foreach ($sub_categories as $sub_category){
 
