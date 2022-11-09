@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Auth;
 
-class GetPhotosCategoryRequest extends FormRequest
+class JobApplicationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +25,15 @@ class GetPhotosCategoryRequest extends FormRequest
      */
     public function rules()
     {
-
-        if(str_contains($this->path(),"allPhotos/{id}")){
-            return [
-            'id' => 'sometimes|nullable|integer|exists:categories,id',
-            ];
-        }
-
+        return [
+            'name'    => 'required|',
+            'email'    => 'required|unique:job_applications',
+            'phone'      => 'required',
+            'description'    => 'nullable',
+            'file'   => 'required',
+        ];
     }
+
 
     protected function failedValidation(Validator $validator)
     {
@@ -62,5 +62,4 @@ class GetPhotosCategoryRequest extends FormRequest
             )
         );
     }
-
 }
