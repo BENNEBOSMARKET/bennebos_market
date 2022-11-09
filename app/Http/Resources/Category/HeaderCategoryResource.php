@@ -41,9 +41,7 @@ class HeaderCategoryResource extends JsonResource
             "id" => $this->id,
             "banner" => $this->banner,
             "name"=>$this->name,
-            "sub_categoirs" => [
-                    count($sizesStatus)?$sizesStatus : []
-                 ],
+            "sub_categoirs" => count($sizesStatus)?$sizesStatus : [],
 
             ];
 
