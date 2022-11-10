@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Photos\PhotosColliction;
 use App\Http\Resources\Photos\PhotosResource;
 use App\Models\Category;
 use App\Models\Photo;
@@ -30,7 +31,7 @@ class PhotoController extends Controller
     public function getCategoryPhoto($id)
     {
         $photo = $this->photosRepository->getCategoryPhoto($id);
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData( PhotosResource::collection($photo))->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData( new PhotosColliction($photo))->getJsonResponse();
     }
 
     public function getSliderRightProductPhoto($id)
@@ -42,6 +43,6 @@ class PhotoController extends Controller
     public function getHomePhoto()
     {
         $photo = $this->photosRepository->getHomePhoto();
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(PhotosResource::collection($photo))->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(new PhotosColliction($photo))->getJsonResponse();
     }
 }
