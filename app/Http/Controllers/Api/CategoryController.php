@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryResource;
 use App\Http\Resources\Category\HeaderCategoryResource;
+use App\Http\Resources\Category\HeaderSubCategoryResource;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Exception;
@@ -97,7 +98,7 @@ class CategoryController extends Controller
     public function getAllHeaderSubCategory($id)
     {
         $countSeller = $this->categoryRepository->getAllHeaderSubCategory($id);
-        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(HeaderCategoryResource::collection($countSeller))->getJsonResponse();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(HeaderSubCategoryResource::collection($countSeller))->getJsonResponse();
     }
 
 }

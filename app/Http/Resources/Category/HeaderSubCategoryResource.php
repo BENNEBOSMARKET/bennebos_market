@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Category;
 
+use App\Models\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 
-class HeaderCategoryResource extends JsonResource
+class HeaderSubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +17,7 @@ class HeaderCategoryResource extends JsonResource
     public function toArray($request)
     {
         $categories_table = DB::table('categories');
-        $sub_categories = $categories_table->where('parent_id',$this->id)->get();
-        $sub_sub_categories = $categories_table->where('parent_id',$this->id)->whereIn('sub_parent_id',$sub_categories->pluck('id'))->get(['id','name','banner','image','icon']);
-        $sub_categories=$sub_categories->where('sub_parent_id','0');
+        $sub_categories = $categories_table->where('parent_id',$this->id)->take(7)->get();
         foreach ($sub_categories as $sub_category){
 
 
@@ -26,17 +25,25 @@ class HeaderCategoryResource extends JsonResource
                 'id' => $sub_category->id,
                 'banner' => $sub_category->banner,
                 "name"=>$sub_category->name,
-                  "icon"=>$sub_category->icon,
-                'sub_parent_id'=>$sub_category->sub_parent_id,
-                "sub_sub_categoirs"=>count($sub_sub_categories)?$sub_sub_categories : []
+                "icon"=>$sub_category->icon,
 
             ];
+            $sub_sub_categories = Category::where('parent_id',$this->id)->where('sub_parent_id',$sub_category->id)->get(['id','name','banner','image','icon']);
+
+            foreach ($sub_sub_categories as $sub_sub_category){
+
+                $sub_sub[$sub_sub_category->id]=[
+                    'id' => $sub_sub_category->id,
+                    'banner' => $sub_sub_category->banner,
+                    "name"=>$sub_sub_category->name,
+                    "icon"=>$sub_sub_category->icon,
+                    'sub_parent_id'=>$sub_category->id,
+                ];
+            }
 
 
 
         }
-
-
 
         return [
             "id" => $this->id,
@@ -44,8 +51,9 @@ class HeaderCategoryResource extends JsonResource
             "name"=>$this->name,
             "icon"=>$this->icon,
             "sub_categoirs" => count($sizesStatus)?$sizesStatus : [],
+            "sub_sub_categoirs" => count($sub_sub)?$sub_sub : [],
 
-            ];
+        ];
 
     }
 }
