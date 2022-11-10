@@ -170,6 +170,6 @@ Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
 Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
 Route::get('getJobList',[JobController::class,'getJobList']);
-
+Route::post('jobApplication',[JobController::class,'getJobApplication']);
 Route::post('search/create',[HomeApiController::class, "setSearch"]);
 Route::get('search/products',[HomeApiController::class, "mostSearchedProducts"]);

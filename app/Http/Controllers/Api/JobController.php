@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobApplicationRequest;
 use App\Repositories\Job\JobRepository;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,12 @@ class JobController extends Controller
     public function getJobList()
     {
         $JobList = $this->jobRepository->getJobList();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($JobList)->getJsonResponse();
+    }
+
+    public function getJobApplication(JobApplicationRequest $jobApplicationRequest)
+    {
+        $JobList = $this->jobRepository->getJobApplication($jobApplicationRequest);
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($JobList)->getJsonResponse();
     }
 }
