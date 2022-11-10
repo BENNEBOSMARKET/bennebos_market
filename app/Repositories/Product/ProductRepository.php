@@ -494,7 +494,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
     public function filterProducts($filter_queries, $limit){
         $fillables = $this->model->getFillable();
-        $fillables = array_merge($fillables,["min_price", "max_price"]);
+        $fillables = array_merge($fillables,["min_price", "max_price","search"]);
         $query = $this->model;
         foreach($filter_queries  as $key => $value){
             if(in_array($key, $fillables)){
@@ -510,7 +510,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                     $query = $query->where('unit_price', ">=" ,$value);
                 }elseif($key == "max_price"){
                     $query = $query->where('unit_price', "<=" ,$value);
-                }else{
+
+                }elseif ($key  == 'search'){
+
+                    $query = $query->where("name", "LIKE", "%$value%")->groupBy("main_product_id");
+
+                }
+                else{
                     $query = $query->where($key,$value);
                 }
             }
