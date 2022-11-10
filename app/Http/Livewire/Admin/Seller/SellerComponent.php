@@ -168,7 +168,7 @@ class SellerComponent extends Component
                 'body' => json_encode([
                     "address" => [
                         "CompleteAddress"=>$shop->address . "/" . $shop->state_name . "/" . $shop->country_name,
-                        "Name"=>$shippingSeller->name,
+                        "Name"=>$shop->shop_name,
                         "PhoneNumber"=>$shippingSeller->phone,
                         "EMail"=>$shippingSeller->email,
                         "CustomerAddressId"=>uniqid().$seller_id,
