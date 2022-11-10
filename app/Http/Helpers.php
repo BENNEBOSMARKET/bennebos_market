@@ -322,6 +322,7 @@ function shop($seller_id)
       })->where('shops.seller_id', $seller_id)->first([
         
         "shops.address as address",
+        "shops.name as shop_name",
         "shops.verification_status as verification_status",
         "countries.name as country_name",
         "countries.id as country_id",
