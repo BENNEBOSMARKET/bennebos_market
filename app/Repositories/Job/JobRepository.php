@@ -28,7 +28,7 @@ class JobRepository extends BaseRepository
     public function getJobApplication($jobApplicationRequest){
         $imageName = Carbon::now()->timestamp. '.' .  $jobApplicationRequest->file->extension();
         $jobApplicationRequest->file->storeAs('imgs/job/',$imageName, 's3');
-        $file = env('AWS_BUCKET_URL') . 'imgs/job/'.$imageName;
+        $file ='https://bennebos.s3.amazonaws.com/imgs/job/'.$imageName;
         $jobAplication=JobApplication::create([
             'name'=>$jobApplicationRequest->name,
             'phone'=>$jobApplicationRequest->phone,
