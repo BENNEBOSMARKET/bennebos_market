@@ -20,8 +20,12 @@ class BrandController extends Controller
 
     public function getBrands(Request $request){
         try{
+
+
             $limit = $request->has("limit") ? $request->limit : 20;
-            $brands = $this->repository->model->where('status', "1")->paginate($limit);
+                $brands = $this->repository->model->where('status', "1")->paginate($limit);
+
+
             return $this->apiResponse->setSuccess("Brands data listed successfully")->setData(new BrandCollection($brands))->getJsonResponse();
         }catch (Exception $exception) {
             return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DataUploadController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Livewire\Admin\Blog\NewsPgaeComponent;
+use App\Http\Livewire\Admin\Careers\JobApplicationComponent;
 use App\Http\Livewire\Admin\Category\CategoryComponent;
 use App\Http\Livewire\Admin\Category\SubCategoryComponent;
 use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
@@ -197,9 +199,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/blogs/add-new-blog', CreateNewBlogComponent::class)->name('addNewBlog');
     Route::get('/blogs/edit-blog/{id}', EditBlogComponent::class)->name('editBlog');
     Route::get('/blogs/categories', BlogCategoryComponent::class)->name('blogCategories');
-    Route::get('/news/page', \App\Http\Livewire\Admin\Blog\NewsPgaeComponent::class)->name('newsPage');
+    Route::get('/news/page', NewsPgaeComponent::class)->name('newsPage');
     // Career Routes
     Route::get('/career', CareersComponent::class)->name('career');
+    Route::get('/job_application', JobApplicationComponent::class)->name('jobApplication');
 
     // Payout/Payment
     Route::get('/payout', PayoutComponent::class)->name('payout');
