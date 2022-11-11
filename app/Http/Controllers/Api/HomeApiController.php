@@ -79,7 +79,15 @@ class HomeApiController extends Controller
 
     public function subCategoryTopThree()
     {
-        $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(5)->get();
+        $id = request()->has('id') ? request('id') : 0;
+        if ($id == 0){
+            $categories_data = Category::where('parent_id', '!=', 0)->where('sub_parent_id', 0)->take(5)->get();
+        }
+        else{
+
+            $categories_data = Category::where('parent_id', $id)->where('sub_parent_id', 0)->take(5)->get();
+        }
+
         foreach ($categories_data as $key => $category) {
             $categories = [$category->id];
 
@@ -140,7 +148,7 @@ class HomeApiController extends Controller
         if($validation->errors()->first()){
             return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
         }
-        
+
         $searchExisits = $this->searchModel->where("query","LIKE","%".$request->input('query')."%")->first();
         if($searchExisits){
             $searchExisits->increment("count");
@@ -159,7 +167,7 @@ class HomeApiController extends Controller
                 $query->orwhere('name', 'like',  '%' . $seach .'%');
             }
         })->get();
-        
+
         return $this->apiResponse->setSuccess("Data added successfully")->setData(new CategoryProductCollection($products))->getJsonResponse();
     }
 }
