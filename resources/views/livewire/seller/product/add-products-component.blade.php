@@ -639,6 +639,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="size">Product Shipping</label>
+                                <div class="col-sm-9">
+                                    <div wire:ignore>
+                                        <select class="form-control" wire:model="shipping">
+                                            <option  class="text-dark" value="">Select Shipping Time</option>
+                                            <option  class="text-dark" value=1>1 day</option>
+                                            <option  class="text-dark" value=2>2 days</option>
+                                            <option  class="text-dark" value=3>3 days</option>
+                                            <option  class="text-dark" value=4>4 days</option>
+                                            <option  class="text-dark" value=5>5 days</option>
+                                        </select>
+                                    </div>
+                                    @error('shipping')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -826,21 +844,7 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Product Seller</label>
-                            <div class="col-sm-9">
-                                <div wire:ignore>
-                                    <select id="ProductSeller" wire:model="seller" name="seller">
-                                        @foreach ($sellersOptions as $new_seller)
-                                            <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('seller')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div> --}}
+
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label">Product Description</label>
                             <div class="col-sm-9">

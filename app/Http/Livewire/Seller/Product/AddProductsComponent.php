@@ -26,7 +26,7 @@ class AddProductsComponent extends Component
     public $galleryType;
 
     public $name, $slug, $category, $brand, $unit, $minimum_qty, $guarantee, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
-    public $store_status;
+    public $store_status,$shipping;
 
 
     public $product_names=[],$color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [],$types_id=[],$product_sizes=[];
@@ -221,46 +221,6 @@ class AddProductsComponent extends Component
 
     public function storeProduct()
     {
-        // $product = new Product();
-        // $product->added_by = 'Seller';
-        // $product->user_id = authSeller()->id;
-        // $product->name = $this->name;
-        // $product->slug = $this->slug;
-        // $product->category_id = $this->category;
-        // $product->brand_id = $this->brand;
-        // $product->unit = $this->unit;
-        // $product->min_qty = $this->minimum_qty;
-        // $product->barcode = $this->barcode;
-        // $product->refundable = $this->refundable;
-        // $product->unit_price = $this->unit_price;
-        // $product->discount_date_from = $this->discount_date_from;
-        // $product->discount_date_to = $this->discount_date_to;
-        // $product->discount = $this->discount;
-        // $product->quantity = $this->quantity;
-        // $product->sku = $this->sku;
-        // $product->description = $this->description;
-
-        // $image_array_1 = explode(";", $this->thumbnail_image);
-        // $image_array_2 = explode(",", $image_array_1[1]);
-        // $data = base64_decode($image_array_2[1]);
-
-        // $imageName = rand(100000, 999999).time() . '.png';
-        // Storage::disk('s3')->put('imgs/product/'.$imageName, $data);
-
-        // $product->thumbnail = ("https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
-
-        // if($this->galleryType == '1'){
-        //     $galImgArray = [];
-        //     foreach ($this->gallery_images as $key => $galImg) {
-        //         $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->gallery_images[$key]->extension();
-        //         $this->gallery_images[$key]->storeAs('imgs/product', $imageName, 's3');
-        //         $galImgArray[] = ("https://bennebos.s3.amazonaws.com/") . 'imgs/product/'.$imageName;
-        //     }
-
-        //     $product->gallery_image = json_encode($galImgArray);
-        //     $product->size = json_encode($this->size);
-        //     $product->color = '[]';
-        // }
         $main_product_id = null;
         if($this->galleryType == '2'){
             foreach ($this->color_names as $index => $name) {
@@ -296,6 +256,7 @@ class AddProductsComponent extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),
@@ -338,6 +299,7 @@ class AddProductsComponent extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),
@@ -400,6 +362,7 @@ class AddProductsComponent extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),
@@ -441,6 +404,7 @@ class AddProductsComponent extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),

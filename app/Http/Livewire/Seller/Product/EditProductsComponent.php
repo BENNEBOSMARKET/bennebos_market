@@ -21,7 +21,7 @@ class EditProductsComponent extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $product_id, $name, $guarantee, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
+    public $product_id,$shipping, $name, $guarantee, $slug, $category, $brand, $unit, $minimum_qty, $barcode, $refundable, $gallery_images = [], $thumbnail_image, $uploadedThumbnailImage, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount, $quantity, $sku, $description, $meta_title, $meta_description, $featured, $status, $color, $selectedcolors, $size, $selectedsizes, $user_id, $uploadedGalleryImages;
     public $color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [];
     public $get_color_names = [], $get_color_images = [], $get_color_galleries = [], $get_color_prices = [], $get_color_titles = [], $get_color_sizes = [];
     public $edited_color_names = [], $edited_color_images = [], $edited_color_galleries = [], $edited_color_prices = [], $edited_color_titles = [], $edited_color_sizes = [], $edited_gallery_images = [];
@@ -80,6 +80,7 @@ class EditProductsComponent extends Component
         $this->discount = $product->discount;
         $this->quantity = $product->quantity;
         $this->sku = $product->sku;
+        $this->shipping=$product->shipping;
         $this->description = $product->description;
         $this->uploadedThumbnailImage = $product->thumbnail;
         $this->uploadedGalleryImages = json_decode($product->gallery_image);
@@ -235,6 +236,7 @@ class EditProductsComponent extends Component
             'unit_price'=>'required',
             'description'=>'required',
             'sku'=>'required',
+            'shipping'=>'required'
         ]);
     }
 
@@ -335,6 +337,7 @@ class EditProductsComponent extends Component
         $product->discount = $this->discount;
         $product->quantity = $this->quantity;
         $product->sku = $this->sku;
+        $product->shipping = $this->shipping;
         $product->description = $this->description;
         $product->thumbnail = $this->uploadedThumbnailImage;
 
