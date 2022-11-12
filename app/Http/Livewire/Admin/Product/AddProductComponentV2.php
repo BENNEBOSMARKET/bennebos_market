@@ -27,7 +27,7 @@ class AddProductComponentV2 extends Component
     public $galleryType;
 
     public $name, $slug, $category, $country_id, $brand,$guarantee, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
-    public $store_status;
+    public $store_status,$shipping;
 
 
     public $product_names=[],$color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [],$types_id=[],$product_sizes=[];
@@ -62,6 +62,7 @@ class AddProductComponentV2 extends Component
             'description'=>'required',
             'thumbnail_image'=>'required',
             'sku'=>'required',
+            'shipping'=>'required',
             'color_name'=>'required',
             'color_image'=>'required',
             'color_gallery'=>'required',
@@ -227,18 +228,6 @@ class AddProductComponentV2 extends Component
 
     public function storeProduct()
     {
-        // $this->validate([
-        //     'name'=>'required',
-        //     'slug'=>'required|unique:products,slug',
-        //     'category'=>'required',
-        //     'minimum_qty'=>'required',
-        //     'unit_price'=>'required',
-        //     'description'=>'required',
-        //     'thumbnail_image'=>'required',
-        //     'sku'=>'required',
-        // ]);
-
-        //dd($this->galleryType, $this->color_names, $this->color_prices, $this->color_titles, $this->color_descriptions);
 
         $main_product_id = null;
         if ( $this->galleryType == '2' ) {
@@ -278,6 +267,8 @@ class AddProductComponentV2 extends Component
                         "discount" => $this->discount,
                         "sku" => $this->sku,
                         "video" => $this->video_link,
+
+                        "shipping" => $this->shipping,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),
                         "unit_price" => (float)$this->color_prices[$index],
@@ -319,6 +310,7 @@ class AddProductComponentV2 extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),
@@ -370,6 +362,7 @@ class AddProductComponentV2 extends Component
                 "discount_date_to" => $this->discount_date_to,
                 "discount" => $this->discount,
                 "sku" => $this->sku,
+                 "shipping" => $this->shipping,
                 "video" => $this->video_link,
                 "meta_title" => trim($this->meta_title),
                 "meta_description" => trim($this->meta_description),
@@ -411,6 +404,7 @@ class AddProductComponentV2 extends Component
                         "discount_date_to" => $this->discount_date_to,
                         "discount" => $this->discount,
                         "sku" => $this->sku,
+                        "shipping" => $this->shipping,
                         "video" => $this->video_link,
                         "meta_title" => trim($this->meta_title),
                         "meta_description" => trim($this->meta_description),

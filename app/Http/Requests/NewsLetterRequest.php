@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class JobApplicationRequest extends FormRequest
+class NewsLetterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,7 @@ class JobApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required|',
-            'email'    => 'required|email|unique:job_applications',
-            'phone'      => 'required|integer',
-            'description'    => 'nullable',
-            'file'   => 'required',
+            'email'    => 'required|email|unique:news_letters',
         ];
     }
 

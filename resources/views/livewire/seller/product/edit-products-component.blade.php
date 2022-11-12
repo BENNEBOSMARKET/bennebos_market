@@ -618,6 +618,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="size">Product Shipping</label>
+                                <div class="col-sm-9">
+                                    <div wire:ignore>
+                                        <select class="form-control" wire:model="shipping">
+                                            <option  class="text-dark" value="">Select Shipping Time</option>
+                                            <option  class="text-dark" value=1>1 day</option>
+                                            <option  class="text-dark" value=2>2 days</option>
+                                            <option  class="text-dark" value=3>3 days</option>
+                                            <option  class="text-dark" value=4>4 days</option>
+                                            <option  class="text-dark" value=5>5 days</option>
+                                        </select>
+                                    </div>
+                                    @error('shipping')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
