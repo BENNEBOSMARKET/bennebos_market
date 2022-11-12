@@ -12,7 +12,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $fillable = ["guarantee", 'id', 'color_id', 'size_id','type_id', 'seller_id', 'added_by', 'user_id', 'name', 'category_id', 'brand_id', 'main_product_id', 'slug', 'unit', 'min_qty', 'barcode', 'refundable', 'thumbnail', 'video', 'color', 'color_image', 'size', 'unit_price', 'discount_date_from', 'discount_date_to', 'discount', 'quantity', 'sku', 'total_review', 'avg_review', 'description', 'meta_title', 'meta_description', 'featured', 'status', 'color_titles', 'color_prices', 'gallery_image'];
+    protected $fillable = ["guarantee", 'id', 'color_id', 'size_id','type_id', 'seller_id', 'added_by', 'user_id', 'name', 'category_id', 'brand_id', 'main_product_id', 'slug', 'unit', 'min_qty', 'barcode', 'refundable', 'thumbnail', 'video', 'color', 'color_image', 'size', 'unit_price', 'discount_date_from', 'discount_date_to', 'discount', 'quantity', 'sku', 'total_review', 'avg_review', 'description', 'meta_title', 'meta_description', 'featured', 'status', 'color_titles', 'color_prices', 'gallery_image','shipping'];
 
 
     public function brand()

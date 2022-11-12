@@ -16,6 +16,8 @@ class HeaderSubCategoryResource extends JsonResource
      */
     public function toArray($request)
     {
+        $sizesStatus=[];
+        $sub_sub=[];
         $categories_table = DB::table('categories');
         $sub_categories = $categories_table->where('parent_id',$this->id)->take(7)->get();
         foreach ($sub_categories as $sub_category){

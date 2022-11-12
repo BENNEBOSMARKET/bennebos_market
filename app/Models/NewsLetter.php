@@ -10,4 +10,5 @@ class NewsLetter extends Model
     use HasFactory;
 
     protected $table = 'news_letters';
+    protected $guarded=[];
 }
