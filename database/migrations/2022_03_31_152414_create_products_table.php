@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained()->nullable();
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->bigInteger('size_id')->unsigned()->nullable();
-            $table->foreignId('type_id')->constrained('product_types')->nullable();
+            $table->bigInteger('subCategory_id')->unsigned()->nullable();
+            $table->bigInteger('sub_sub_category_id')->unsigned()->nullable();
             $table->bigInteger('color_id')->unsigned()->nullable();
             $table->bigInteger('main_product_id')->unsigned()->nullable();
             $table->string('name')->nullable();

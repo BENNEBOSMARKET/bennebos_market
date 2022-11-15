@@ -41,12 +41,12 @@
                                             <div class="mb-3 row justify-content-center">
                                                 <label for="example-text-input" class="col-sm-3 col-form-label">Product Type</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" wire:model="type_id">
+                                                    <select class="form-control" wire:model="sub_sub_category_id">
                                                         <option value="">Select Type</option>
 
                                                         @foreach ($productType as $type)
 
-                                                            <option value="{{ $type->id }}">{{ $type->type }}</option>
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
 
                                                         @endforeach
 

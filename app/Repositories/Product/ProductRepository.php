@@ -101,12 +101,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
 
         $commonTypes = Product::where('main_product_id', $product->main_product_id)
-            ->pluck('type_id')
+            ->pluck('sub_sub_category_id')
             ->toArray();
 
         $commonSizes = Size::whereIn('id', $commonSizes)->get(['size','id']);
 
-        $statuses=Size::whereIn('type_id',$commonTypes)->get(['size','id']);
+        $statuses=Size::whereIn('sub_sub_category_id',$commonTypes)->get(['size','id']);
 
         $commonColors = Color::whereIn('id', $commonColors)->get(['name','image','id']);
 
