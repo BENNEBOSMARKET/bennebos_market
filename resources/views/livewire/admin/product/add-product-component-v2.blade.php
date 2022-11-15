@@ -94,18 +94,35 @@
                                         <select class="form-control" id="category" wire:model="category">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">
-                                                    @if ($category->parent_id != 0 && $category->sub_parent_id == 0)
-                                                        -
-                                                    @elseif($category->parent_id != 0 && $category->sub_parent_id != 0)
-                                                        --
-                                                    @endif {{ $category->name }}
+                                                @if ($category->parent_id != 0 && $category->sub_parent_id == 0)
+                                                @elseif($category->parent_id != 0 && $category->sub_parent_id != 0)
+                                                @else
+                                                    <option value="{{ $category->id }}">{{ $category->name }}   </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('category')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="subCategory">Sub Category *</label>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <select class="form-control" id="subCategory"  wire:model="subCategory_id">
+                                            <option value="">Select Sub Category</option>
+                                            @foreach ($subCategories as $subCategory)
+                                                <option value="{{ $subCategory->id }}">
+
+                                                    {{ $subCategory->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     @error('category')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -426,24 +443,24 @@
 
                                                         <th></th>
                                                         </thead>
-                                                        <tbody>
-                                                        @if (count($types_id) >0)
-                                                            @foreach ($types_id as $key => $c_name)
-                                                                <tr>
+{{--                                                        <tbody>--}}
+{{--                                                        @if (count($types_id) >0)--}}
+{{--                                                            @foreach ($types_id as $key => $c_name)--}}
+{{--                                                                <tr>--}}
 
 
-                                                                     <td>{{ json_decode($product_sizes[$key]) }}</td>
-                                                                    <td>
-                                                                        <a href="" wire:click.prevent="removeFromArray({{ $key }})"><i class="fa fa-times text-danger"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @else
-                                                            <tr>
-                                                                <td colspan="7" class="text-muted" style="text-align: center; font-size: 12.5px; padding: 20px 0px;">No Color Found</td>
-                                                            </tr>
-                                                        @endif
-                                                        </tbody>
+{{--                                                                     <td>{{ json_decode($product_sizes[$key]) }}</td>--}}
+{{--                                                                    <td>--}}
+{{--                                                                        <a href="" wire:click.prevent="removeFromArray({{ $key }})"><i class="fa fa-times text-danger"></i></a>--}}
+{{--                                                                    </td>--}}
+{{--                                                                </tr>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        @else--}}
+{{--                                                            <tr>--}}
+{{--                                                                <td colspan="7" class="text-muted" style="text-align: center; font-size: 12.5px; padding: 20px 0px;">No Color Found</td>--}}
+{{--                                                            </tr>--}}
+{{--                                                        @endif--}}
+{{--                                                        </tbody>--}}
                                                     </table>
                                                 </div>
                                             </div>
@@ -512,7 +529,7 @@
                                                                             @endforeach
                                                                         </td>
                                                                         <td>
-                                                                            {{ $color_sizes[$key] }}
+                                                                            {{ $product_sizes[$key] }}
                                                                             {{--@foreach ($color_sizes[$key] as $sitem)
                                                                                 {!! $sitem !!},
                                                                             @endforeach--}}
@@ -624,7 +641,7 @@
                                 <label class="col-sm-3 col-form-label" for="size">Product Shipping</label>
                                 <div class="col-sm-9">
                                     <div wire:ignore>
-                                        <select class="form-control" wire:model="shipping">
+                                        <select class="form-control" wire:model="shipping" required>
                                             <option value="">Select Shipping Time</option>
                                             <option value=1>1 day</option>
                                             <option value=2>2 days</option>
@@ -750,19 +767,36 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Product Size</label>
+
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2"> type</label>
                             <div class="col-sm-9">
-                                <div wire:ignore>
-                                    <select id="ProductSizeColor" wire:model="color_size">
+                                <select class="form-control" wire:model='sub_sub_category_id'>
+                                    <option value="">Select type</option>
+                                    @foreach ($subSubCategories as $subSubCategory)
+                                        <option class="text-d" value="{{ $subSubCategory->id }}">{{ $subSubCategory->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('type_id')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="category">size *</label>
+                            <div class="col-sm-9">
+                                <div>
+                                    <select class="form-control" id="productSize" wire:model="product_size" >
                                         <option value="">Select size</option>
-                                        @foreach ($sizes as $size)
-                                            <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                        @foreach ($sizesProducts as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->size }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('color_size')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @error('product_size')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -825,13 +859,13 @@
                         <div class="row mb-3">
                             <label for="" class="col-sm-2">shipping country</label>
                             <div class="col-sm-9">
-                                <select class="form-control" wire:model='type_id'>
+                                <select class="form-control" wire:model='sub_sub_category_id'>
                                     <option value="">Select shipping Country</option>
-                                    @foreach ($types as $country)
-                                        <option value="{{ $country->id }}">{{ $country->type }}</option>
+                                    @foreach ($subSubCategories as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('type_id')
+                                @error('sub_sub_category_id')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>

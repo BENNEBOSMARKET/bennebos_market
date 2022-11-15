@@ -44,7 +44,6 @@ class ProductResource extends JsonResource
                 ];
             }
         }
-
         if (isset($this->commonSizes)) {
             foreach ($this->commonSizes as $commonSize) {
 
@@ -58,7 +57,6 @@ class ProductResource extends JsonResource
 
             }
         }
-
         if (isset($this->statuses)){
             if (isset($this->commonSizes)) {
 
@@ -125,6 +123,7 @@ class ProductResource extends JsonResource
             "discount" =>(Carbon::now() >= $this->discount_date_from && Carbon::now() <= $this->discount_date_to)?$this->discount: null,
             "quantity" => $this->quantity,
             "sku" => $this->sku,
+            "shipping" => $this->shipping,
             "total_review" => $this->total_review,
             "avg_review" => $this->avg_review,
             "description" => $this->description,

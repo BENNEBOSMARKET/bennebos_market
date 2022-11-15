@@ -26,12 +26,12 @@ class AddProductComponentV2 extends Component
     public $tabStatus = 0;
     public $galleryType;
 
-    public $name, $slug, $category, $country_id, $brand,$guarantee, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
+    public $name, $slug, $category, $country_id,$subCategory_id, $brand,$guarantee, $unit, $minimum_qty, $barcode, $refundable = 1, $gallery_images = [], $thumbnail_image, $video_link, $unit_price, $discount_date_from, $discount_date_to, $discount = 0, $quantity, $sku, $description, $meta_title, $meta_description, $featured = 0, $status, $color = [], $size = [], $user_id;
     public $store_status,$shipping;
 
 
-    public $product_names=[],$color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [],$types_id=[],$product_sizes=[];
-    public $color_name, $color_image, $color_title, $color_price, $color_size = [], $color_gallery = [],$product_size=[],$type_id=[];
+    public $product_names=[],$color_names = [], $color_images = [], $color_galleries = [], $color_titles = [], $color_sizes = [], $color_prices = [],$sub_sub_categories_id=[],$product_sizes=[];
+    public $color_name, $color_image, $color_title, $color_price, $color_size = [], $color_gallery = [],$product_size=[],$sub_sub_category_id=[];
     public $color_description, $color_descriptions = [] , $seller, $sellers = [];
 
     public function selectGalleryType($val)
@@ -101,7 +101,8 @@ class AddProductComponentV2 extends Component
             'color_gallery'=>'required',
             'color_title'=>'required',
             'color_price'=>'required',
-            'color_size'=>'required',
+            'sub_sub_category_id'=>'required',
+            'product_size'=>'required',
             'seller'=>'required',
             'color_description'=>'required',
         ]);
@@ -111,10 +112,11 @@ class AddProductComponentV2 extends Component
         array_push($this->color_images, $this->color_image);
         array_push($this->color_galleries, $this->color_gallery);
         array_push($this->color_titles, $this->color_title);
-        array_push($this->color_sizes, $this->color_size);
         array_push($this->color_prices, $this->color_price);
         array_push($this->sellers, $this->seller);
         array_push($this->color_descriptions, $this->color_description);
+        array_push($this->sub_sub_categories_id,$this->sub_sub_category_id);
+        array_push($this->product_sizes, $this->product_size);
 
         // dd(json_encode($this->color_titles));
 
@@ -124,8 +126,10 @@ class AddProductComponentV2 extends Component
         $this->color_title = '';
         $this->color_price = '';
         $this->seller = '';
-        $this->color_size = [];
         $this->color_description = '';
+        $this->sub_sub_category_id = '';
+        $this->product_size = '';
+
 
         $this->dispatchBrowserEvent('closeModal');
         $this->dispatchBrowserEvent('success', ['message'=>'New Item Added!']);
@@ -134,16 +138,16 @@ class AddProductComponentV2 extends Component
     {
         $this->validate([
 
-            'type_id'=>'required',
+            'sub_sub_category_id'=>'required',
             'product_size'=>'required',
 
         ]);
 
 //        dd($this->all());
-        array_push($this->types_id,$this->type_id);
+        array_push($this->sub_sub_categories_id,$this->sub_sub_category_id);
         array_push($this->product_sizes, $this->product_size);
 
-        $this->type_id = '';
+        $this->sub_sub_category_id = '';
         $this->product_size = '';
 
 
@@ -242,7 +246,7 @@ class AddProductComponentV2 extends Component
                 ]);
 
                 if ( $index == 0) {
-
+//                 dd($this->all());
                     $newProduct = Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
                         "slug" => Str::slug(Str::lower($this->color_titles[$index])) . "-" . uniqid(),
@@ -250,7 +254,9 @@ class AddProductComponentV2 extends Component
                         "added_by" => 'admin',
                         "description" => trim($this->color_descriptions[$index]),
                         "category_id" => $this->category,
-                        "size_id" => $this->color_sizes[$index],
+                        'subCategory_id'=>$this->subCategory_id,
+                        "size_id" => $this->product_sizes[$index],
+                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                         "brand_id" => $this->brand,
                         "color_id" => $color->id,
                         "user_id" => $this->sellers[$index],
@@ -294,7 +300,8 @@ class AddProductComponentV2 extends Component
                         'main_product_id' => $main_product_id,
                         "description" => trim($this->color_descriptions[$index]),
                         "category_id" => $this->category,
-                        "size_id" => $this->color_sizes[$index],
+                        "size_id" => $this->product_sizes[$index],
+                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                         "brand_id" => $this->brand,
                         "color_id" => $color->id,
                         "user_id" => $this->sellers[$index],
@@ -327,7 +334,7 @@ class AddProductComponentV2 extends Component
 
         } elseif ( $this->galleryType == '1' ) {
 
-            foreach ($this->types_id as $index => $name) {
+            foreach ($this->sub_sub_categories_id as $index => $name) {
 
 
 
@@ -346,7 +353,7 @@ class AddProductComponentV2 extends Component
                 "description" => trim($this->description),
                 "category_id" => $this->category,
                 "size_id" =>  $this->product_sizes[$index],
-                "type_id" =>  $this->types_id[$index],//needs modification
+                "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
                 "brand_id" => $this->brand,
                 "color_id" => null,
                 "user_id" => $this->seller?? null, //needs modification
@@ -389,7 +396,8 @@ class AddProductComponentV2 extends Component
                         "description" => trim($this->description),
                         "category_id" => $this->category,
                         "size_id" =>  $this->product_sizes[$index], //needs modification
-                        "type_id" =>  $this->types_id[$index],
+                        "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
+
                         "brand_id" => $this->brand,
                         "color_id" => null,
                         "user_id" => $this->seller?? null, //needs modification
@@ -434,8 +442,10 @@ class AddProductComponentV2 extends Component
     {
         $countries = Country::all();
         $categories = Category::where("country_id", $this->country_id)->get();
-        $types = DB::table('product_types')->get();
-        $sizesProducts = Size::where("type_id", $this->type_id)->get();
+
+        $subCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',0)->get();
+        $subSubCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',$this->subCategory_id)->get();
+        $sizesProducts = Size::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
         $brands = Brand::where('status', 1)->where("country_id", $this->country_id)->get();
         $sizes = Size::all();
         $sellers = Seller::get(['id', 'name']);
@@ -446,8 +456,9 @@ class AddProductComponentV2 extends Component
             'brands' => $brands,
             'sizes' => $sizes,
             'sellersOptions' => $sellers,
-            'types' => $types,
             'sizesProducts' => $sizesProducts,
+            'subCategories'=>$subCategories,
+            'subSubCategories'=>$subSubCategories
         ])->layout('livewire.admin.layouts.base');
     }
 }
