@@ -18,7 +18,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     }
 
     public function parentCategories():Collection{
-        return $this->model->where('parent_id',"0")->get();
+        return $this->model->join('category_translations','categories.id','category_translations.category_id')->where('categories.parent_id',"0")->get();
     }
     public function subCategories($category_id, $limit){
         $subCategories = Category::where("parent_id", $category_id)->where('sub_parent_id',0)->paginate($limit);
