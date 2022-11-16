@@ -8,6 +8,7 @@ use App\Models\Color;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductsColor;
 use App\Models\ProductSize;
 use App\Models\Seller;
 use App\Models\Size;
@@ -240,12 +241,14 @@ class AddProductComponentV2 extends Component
 
                 $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
                 $images = $this->saveProductDetailsImages($this->color_galleries[$index]);
-                $color = Color::create([
-                    'name'  => Str::lower($this->color_names[$index]),
-                    'image' => $this->saveProductDetailsImages($this->color_images[$index])
-                ]);
+
 
                 if ( $index == 0) {
+                    $color = Color::create([
+                        'name'  => Str::lower($this->color_names[$index]),
+                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
+                        'image' => $this->saveProductDetailsImages($this->color_images[$index])
+                    ]);
 //                 dd($this->all());
                     $newProduct = Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
@@ -291,7 +294,11 @@ class AddProductComponentV2 extends Component
                     $newProduct->refresh();
 
                 } else {
-
+                    $color = Color::create([
+                        'name'  => Str::lower($this->color_names[$index]),
+                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
+                        'image' => $this->saveProductDetailsImages($this->color_images[$index])
+                    ]);
                     Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
                         "slug" => Str::slug(Str::lower($this->color_titles[$index])) . "-" . uniqid(),
@@ -446,6 +453,7 @@ class AddProductComponentV2 extends Component
         $subCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',0)->get();
         $subSubCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',$this->subCategory_id)->get();
         $sizesProducts = Size::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
+        $ColorsProducts = ProductsColor::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
         $brands = Brand::where('status', 1)->where("country_id", $this->country_id)->get();
         $sizes = Size::all();
         $sellers = Seller::get(['id', 'name']);
@@ -458,7 +466,8 @@ class AddProductComponentV2 extends Component
             'sellersOptions' => $sellers,
             'sizesProducts' => $sizesProducts,
             'subCategories'=>$subCategories,
-            'subSubCategories'=>$subSubCategories
+            'subSubCategories'=>$subSubCategories,
+            'ColorsProducts'=>$ColorsProducts
         ])->layout('livewire.admin.layouts.base');
     }
 }
