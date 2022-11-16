@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\ProductsColor;
 use App\Models\Seller;
 use App\Models\SellerWallet;
 use App\Models\Shop;
@@ -109,11 +110,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $statuses=Size::whereIn('sub_sub_category_id',$commonTypes)->get(['size','id']);
 
         $commonColors = Color::whereIn('id', $commonColors)->get(['name','image','id']);
-
+        $statusesColor=ProductsColor::join('colors','products_colors.sub_sub_category_id','colors.sub_sub_category_id')->whereIn('products_colors.sub_sub_category_id',$commonTypes)->get(['products_colors.color','products_colors.id','colors.name','colors.image']);
 
         $product->setAttribute('commonColors', $commonColors);
         $product->setAttribute('commonSizes', $commonSizes);
         $product->setAttribute('statuses', $statuses);
+        $product->setAttribute('statusesColor', $statusesColor);
 
         return  $product;
     }

@@ -34,16 +34,28 @@ class ProductResource extends JsonResource
         $colors = [];
         $sizes = [];
         $sizesStatus=[];
-        if (isset($this->commonColors)) {
-            foreach ($this->commonColors as $commonColor) {
 
-                $colors[] = [
-                    'id'    => $commonColor->id,
-                    'name'  => $commonColor->name,
-                    'image' => $commonColor->image,
-                ];
+        if (isset($this->statusesColor)) {
+            if (isset($this->commonColors)) {
+                foreach ($this->statusesColor as $statusColor) {
+                    $s = false;
+                    foreach ($this->commonColors as $commonColor) {
+                        if ($commonColor->name == $statusColor->id) {
+
+                            $s = true;
+                        }
+                        $colors[$statusColor->id] = [
+                            'id' => $statusColor->id,
+                            'name' => $statusColor->name,
+                            'image' => $statusColor->image,
+                            'color' => $statusColor->color,
+                            'status'=>$s
+                        ];
+                    }
+                }
             }
         }
+
         if (isset($this->commonSizes)) {
             foreach ($this->commonSizes as $commonSize) {
 

@@ -10,5 +10,5 @@ class Color extends Model
     use HasFactory;
 
     protected $table = 'colors';
-    protected $fillable = ['name', 'image'];
+    protected $fillable = ['name', 'image','sub_sub_category_id'];
 }

@@ -19,6 +19,7 @@ class CreateColorsTable extends Migration
             $table->string('code')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->default(1);
+            $table->foreignId('sub_sub_category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }
