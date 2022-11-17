@@ -13,7 +13,7 @@ class  SizeComponent extends Component
 {
     use WithPagination;
     public $sortingValue = 10, $searchTerm;
-    public $size,$sub_sub_category_id;
+    public $size,$sub_sub_category_id,$category,$subCategory_id;
 
 
 
@@ -48,9 +48,12 @@ class  SizeComponent extends Component
 
     public function render()
     {
-        $productType = Category::where('parent_id','!=',0)->where('sub_parent_id','!=',0)->get();
+        $categories = Category::get();
+
+        $subCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',0)->get();
+        $subSubCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',$this->subCategory_id)->get();
 
         $productSize = Size::where('size', 'like', '%'.$this->searchTerm.'%')->orderBy('sub_sub_category_id','desc')->get();
-        return view('livewire.admin.variations.size-component', ['productSize'=>$productSize,'productType'=>$productType])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.variations.size-component', ['productSize'=>$productSize,'categories'=>$categories,'subCategories'=>$subCategories,'subSubCategories'=>$subSubCategories])->layout('livewire.admin.layouts.base');
     }
 }

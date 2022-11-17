@@ -28,7 +28,7 @@
                             <li class="breadcrumb-item active">Add Product</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Add New Product</h4>
+                    <h4 class="page-title">Edit  Product</h4>
                 </div>
             </div>
         </div>
@@ -67,40 +67,55 @@
                                 <label class="col-sm-3 col-form-label" for="name">Product Name *</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="name" placeholder="Enter name"
-                                        wire:model="name" wire:keyup='generateslug' />
+                                           wire:model="name" wire:keyup='generateslug' />
                                     @error('name')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-    
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="category">Category *</label>
                                 <div class="col-sm-9">
-                                    <div wire:ignore>
-                                        <select class="form-control" id="category" wire:model="category">
+                                    <div>
+                                        <select disabled class="form-control"  wire:model="category" >
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">
-                                                    @if ($category->parent_id != 0 && $category->sub_parent_id == 0)
-                                                        -
-                                                    @elseif($category->parent_id != 0 && $category->sub_parent_id != 0)
-                                                        --
-                                                    @endif {{ $category->name }}
-                                                </option>
+                                                @if ($category->parent_id != 0 && $category->sub_parent_id == 0)
+                                                @elseif($category->parent_id != 0 && $category->sub_parent_id != 0)
+                                                @else
+                                                    <option value="{{ $category->id }}">{{ $category->name }}   </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
                                     @error('category')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-    
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="subCategory">Sub Category *</label>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <select disabled class="form-control"  wire:model="subCategory_id">
+                                            <option value="">Select Sub Category</option>
+                                            @foreach ($subCategories as $subCategory)
+                                                <option value="{{ $subCategory->id }}">
+
+                                                    {{ $subCategory->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>                                    </div>
+                                    @error('subCategory_id')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="brand">Brand</label>
                                 <div class="col-sm-9">
-                                    <div wire:ignore>
+                                    <div>
                                         <select class="form-control" id="brand" wire:model="brand">
                                             <option value="">Select Brand</option>
                                             @foreach ($brands as $brand)
@@ -111,73 +126,73 @@
                                         </select>
                                     </div>
                                     @error('brand')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-    
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="unit">Unit</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="unit"
-                                        placeholder="Enter unit (eg: KG, Pc etc)" wire:model="unit" />
+                                           placeholder="Enter unit (eg: KG, Pc etc)" wire:model="unit" />
                                     @error('unit')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
-    
+
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="guarantee">Years of Guarantee</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="guarantee"
-                                        placeholder="Years of Guarantee " wire:model="guarantee" />
+                                           placeholder="Years of Guarantee " wire:model="guarantee" />
                                     @error('guarantee')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                             </div>
-    
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="minqty">Minimum Purchase Quantity *</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="minqty" placeholder="Enter qty"
-                                        wire:model="minimum_qty" />
+                                           wire:model="minimum_qty" />
                                     @error('minimum_qty')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-    
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="barcode">Barcode</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="barcode" placeholder="Enter barcode"
-                                        wire:model="barcode" />
+                                           wire:model="barcode" />
                                     @error('barcode')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-    
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="refundable">Refundable</label>
                                 <div class="col-sm-9">
                                     <div class="form-check form-switch form-switch-success" style="margin-left: 30px;">
                                         <input class="form-check-input" type="checkbox" wire:click="refundableStatus"
-                                            id="customSwitchSuccess" @if ($refundable == 1) checked @endif>
+                                               id="customSwitchSuccess" @if ($refundable == 1) checked @endif>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="meta_title">Featured</label>
                                 <div class="col-sm-9">
                                     <div class="form-check form-switch form-switch-success" style="margin-left: 30px;">
                                         <input class="form-check-input" type="checkbox"
-                                            wire:click.prevent="featuredStatus" id="customSwitchSuccess"
-                                            @if ($featured == 1) checked @endif>
+                                               wire:click.prevent="featuredStatus" id="customSwitchSuccess"
+                                               @if ($featured == 1) checked @endif>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +200,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -212,12 +227,12 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label" for="unit_price">Unit Price <span
-                                    class="text-danger">*</span></label>
+                                        class="text-danger">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="unit_price"
-                                        placeholder="Enter unit price" wire:model="unit_price" />
+                                           placeholder="Enter unit price" wire:model="unit_price" />
                                     @error('unit_price')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -231,16 +246,16 @@
                                             <label for="" class="col-form-label">From</label>
                                             <input type="date" class="form-control" wire:model="discount_date_from" />
                                             @error('discount_date_from')
-                                                <span class="text-danger"
-                                                    style="font-size: 12.5px;">{{ $message }}</span>
+                                            <span class="text-danger"
+                                                  style="font-size: 12.5px;">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label for="" class="col-form-label">To</label>
                                             <input type="date" class="form-control" wire:model="discount_date_to" />
                                             @error('discount_date_to')
-                                                <span class="text-danger"
-                                                    style="font-size: 12.5px;">{{ $message }}</span>
+                                            <span class="text-danger"
+                                                  style="font-size: 12.5px;">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -251,9 +266,9 @@
                                 <label class="col-sm-3 col-form-label" for="discount">Discount(%)</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="discount" placeholder="Enter discount"
-                                        wire:model="discount" />
+                                           wire:model="discount" />
                                     @error('discount')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -262,9 +277,9 @@
                                 <label class="col-sm-3 col-form-label" for="quantity">Quantity</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="quantity" placeholder="Enter quantity"
-                                        wire:model="quantity" />
+                                           wire:model="quantity" />
                                     @error('quantity')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -274,9 +289,9 @@
                                         class="text-danger">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="sku" placeholder="Enter sku"
-                                        wire:model="sku" />
+                                           wire:model="sku" />
                                     @error('sku')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -284,7 +299,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -319,7 +334,7 @@
                                     </div>
 
                                     @error('description')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -327,7 +342,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -352,7 +367,7 @@
                 <div class="col-xl-7">
                     <div class="card">
                         <div class="card-header text-center">
-                            <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('1')" class="btn btn-outline-primary @if($galleryType == '1') active @endif">{!! loadingStateWithText('selectGalleryType(1)', 'Product Gallery') !!}</button>
+{{--                            <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('1')" class="btn btn-outline-primary @if($galleryType == '1') active @endif">{!! loadingStateWithText('selectGalleryType(1)', 'Product Gallery') !!}</button>--}}
                             <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('2')" class="btn btn-outline-primary @if($galleryType == '2') active @endif"">{!! loadingStateWithText('selectGalleryType(2)', 'Color Gallery') !!}</button>
                         </div>
                         <div class="card-body">
@@ -363,7 +378,7 @@
                                             <h4 class="card-title">Product Images</h4>
                                         </div>
                                         <div class="card-body">
-                                            
+
                                             <div class="row mb-3">
                                                 <label class="col-sm-3 col-form-label" for="gallery_images">Thumbnail Image <span class="text-danger">*</span></label>
                                                 <div class="col-sm-9">
@@ -376,22 +391,22 @@
                                                         </div>
                                                     </div>
                                                     @error('thumbnail_image')
-                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-                
+
                                             <div class="row mb-3 @if($galleryType != '1') d-none @endif">
                                                 <label class="col-sm-3 col-form-label" for="gallery_images">Gallery Images</label>
                                                 <div class="col-sm-9">
                                                     <input class="form-control mb-2" type="file" wire:model="gallery_images"
-                                                        multiple />
+                                                           multiple />
                                                     @error('gallery_images')
-                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
-                
+
                                                     <div wire:loading="gallery_images" wire:target="gallery_images" wire:key="gallery_images" style="font-size: 12.5px;" class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading</div>
-                
+
                                                     @if ($gallery_images)
                                                         @foreach ($gallery_images as $galKey => $galImg)
                                                             <img src="{{ $galImg->temporaryUrl() }}" width="80" class="mt-2 mb-2" />
@@ -409,108 +424,94 @@
                                         </div>
                                     </div>
 
-                                    <div class="card @if($galleryType != '1') d-none @endif">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Product Size</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label" for="size">Product Size</label>
-                                                <div class="col-sm-9">
-                                                    <div wire:ignore>
-                                                        <select id="ProductSize" wire:model="size" multiple>
-                                                            @foreach ($sizes as $size)
-                                                                <option value="{{ $size->size }}" @if(in_array($size->size, json_decode($selectedsizes))) selected @endif>{{ $size->size }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('size')
-                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {{--                                    <div class="card @if($galleryType != '1') d-none @endif">--}}
+                                    {{--                                        <div class="card-header">--}}
+                                    {{--                                            <h4 class="card-title">Product Size</h4>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                        <div class="card-body">--}}
+                                    {{--                                            <div class="row mb-3">--}}
+                                    {{--                                                <label class="col-sm-3 col-form-label" for="size">Product Size</label>--}}
+                                    {{--                                                <div class="col-sm-9">--}}
+                                    {{--                                                    <div wire:ignore>--}}
+                                    {{--                                                        <select id="ProductSize" wire:model="size" multiple>--}}
+                                    {{--                                                            @foreach ($sizes as $size)--}}
+                                    {{--                                                                <option value="{{ $size->size }}" @if(in_array($size->size, json_decode($selectedsizes))) selected @endif>{{ $size->size }}</option>--}}
+                                    {{--                                                            @endforeach--}}
+                                    {{--                                                        </select>--}}
+                                    {{--                                                    </div>--}}
+                                    {{--                                                    @error('size')--}}
+                                    {{--                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+                                    {{--                                                    @enderror--}}
+                                    {{--                                                </div>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                 </div>
                             </div>
 
                             <div class="row @if($galleryType != '2') d-none @endif">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h6 class="float-start"><strong>Color Variations</strong></h6>
-                                            <button type="button" style="padding: 3px 10px;" class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addColorModal">Add Color Variation</button>
-                                        </div>
+
                                         <div class="card-body">
-                                            <div class="row justify-content-center mt-3">
-                                                <div class="col-md-12">
-                                                    <table class="table table-sm">
-                                                        <thead>
-                                                            <th>Product Title</th>
-                                                            <th>Color</th>
-                                                            <th>Image</th>
-                                                            <th>Gallery</th>
-                                                            <th>Size</th>
-                                                            <th>Price</th>
-                                                            <th></th>
-                                                        </thead>
-                                                        <tbody>
-                                                            @if (count($color_names) > 0 || count($get_color_names) > 0)
-                                                                @if (count($get_color_names) > 0)
-                                                                    @foreach ($get_color_names as $getkey => $get_c_name)
-                                                                        <tr>
-                                                                            <td>{{ Str::replace('"', '',Str::limit($get_color_titles[$getkey], 25)) }}</td>
-                                                                            <td>{{ $get_c_name }}</td>
-                                                                            <td>
-                                                                                <img src="{{ $get_color_images[$getkey] }}" width="40" class="mt-2 mb-2" />
-                                                                            </td>
-                                                                            <td>
-                                                                                @foreach (json_decode(productGalleryImages($product_id, $getkey)) as $gallery_image)
-                                                                                    <img src="{{ $gallery_image }}" width="40" class="mt-2 mb-2" />
-                                                                                @endforeach
-                                                                            </td>
-                                                                            <td>
-                                                                                @foreach (json_decode(productColorSizes($product_id, $getkey)) as $usitem)
-                                                                                    {!! $usitem !!}, 
-                                                                                @endforeach
-                                                                            </td>
-                                                                            <td>{{ $get_color_prices[$getkey] }}</td>
-                                                                            <td>
-                                                                                <a href="" wire:click.prevent="removeColorGallery({{ $getkey }})"><i class="fa fa-times text-danger"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                @endif
-                                                                @foreach ($color_names as $key => $c_name)
-                                                                    <tr>
-                                                                        <td>{{ Str::replace('"', '',Str::limit(json_encode($color_titles[$key]), 25)) }}</td>
-                                                                        <td>{{ $c_name }}</td>
-                                                                        <td>
-                                                                            <img src="{{ $color_images[$key]->temporaryUrl() }}" width="25" class="mt-2 mb-2" />
-                                                                        </td>
-                                                                        <td>
-                                                                            @foreach ($color_galleries[$key] as $item)
-                                                                                <img src="{{ $item->temporaryUrl() }}" width="25" class="mt-2 mb-2" />
-                                                                            @endforeach
-                                                                        </td>
-                                                                        <td>
-                                                                            @foreach ($color_sizes[$key] as $sitem)
-                                                                                {!! $sitem !!}, 
-                                                                            @endforeach
-                                                                        </td>
-                                                                        <td>{{ json_decode($color_prices[$key]) }}</td>
-                                                                        <td>
-                                                                            <a href="" wire:click.prevent="removeFromArray({{ $key }})"><i class="fa fa-times text-danger"></i></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <tr>
-                                                                    <td colspan="4" class="text-muted" style="text-align: center; font-size: 12.5px; padding: 20px 0px;">No Color Found</td>
-                                                                </tr>
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
+
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-2"> type</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="productSize" wire:model="sub_sub_category_id" >
+                                                        <option value="">Select size</option>
+                                                        @foreach ($subSubCategories as $category)
+                                                            <option value="{{ $category->id }}">
+                                                                {{ $category->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('sub_sub_category_id')
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label class="col-sm-3 col-form-label" for="category">size *</label>
+                                                <div class="col-sm-9">
+                                                    <div>
+                                                        <select class="form-control" id="productSize" wire:model="size_id" >
+                                                            <option value="">Select size</option>
+                                                            @foreach ($sizesProducts as $category)
+                                                                <option value="{{ $category->id }}">
+                                                                    {{ $category->size }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    @error('size_id')
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="" class="col-sm-3 col-form-label">Color Name</label>
+                                                <div class="col-sm-9">
+                                                    <div class="d-flex justify-content-center" >
+                                                        <select class="form-control" id="productSize" wire:model="product_color_id" >
+                                                            <option value="">Select Color</option>
+                                                            @foreach ($ColorsProducts as $category)
+
+                                                                <option style="background-color:  {{ $category->color}} ;color: {{ $category->color}}" value="{{ $category->id }}">
+                                                                    {{ $category->color}}
+                                                                </option>
+
+                                                            @endforeach
+                                                        </select>
+                                                        <div><input wire:model="color_id" type="hidden" readonly ></div>
+                                                        @error('color_id')
+                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    @error('product_color_id')
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -529,9 +530,9 @@
                                                 <label class="col-sm-3 col-form-label" for="video_link">Video Link</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" id="video_link"
-                                                        placeholder="Enter video_link" wire:model="video_link" />
+                                                           placeholder="Enter video_link" wire:model="video_link" />
                                                     @error('video_link')
-                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -550,7 +551,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -582,10 +583,10 @@
                                 <label class="col-sm-3 col-form-label" for="meta_title">Meta Title</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="meta_title"
-                                        placeholder="Enter meta title" wire:model="meta_title" />
+                                           placeholder="Enter meta title" wire:model="meta_title" />
 
                                     @error('meta_title')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -596,7 +597,25 @@
                                     <textarea type="text" class="form-control" style="height: 200px;" id="meta_description" placeholder="Enter meta description" wire:model="meta_description"></textarea>
 
                                     @error('meta_description')
-                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label" for="size">Product Shipping</label>
+                                <div class="col-sm-9">
+                                    <div wire:ignore>
+                                        <select class="form-control" wire:model="shipping" required>
+                                            <option value="">Select Shipping Time</option>
+                                            <option value=1>1 day</option>
+                                            <option value=2>2 days</option>
+                                            <option value=3>3 days</option>
+                                            <option value=4>4 days</option>
+                                            <option value=5>5 days</option>
+                                        </select>
+                                    </div>
+                                    @error('shipping')
+                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -604,7 +623,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -626,125 +645,125 @@
     </div>
 
     <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="addColorModal" tabindex="-1" data-bs-backdrop="static"
-        data-bs-keyboard="false" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Color Varient</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form wire:submit.prevent="addColor">
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Color Name</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" placeholder="Enter name"
-                                    wire:model="color_name">
-                                @error('color_name')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+    {{--    <div wire:ignore.self class="modal fade" id="addColorModal" tabindex="-1" data-bs-backdrop="static"--}}
+    {{--        data-bs-keyboard="false" role="dialog">--}}
+    {{--        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">--}}
+    {{--            <div class="modal-content">--}}
+    {{--                <div class="modal-header">--}}
+    {{--                    <h5 class="modal-title">Add Color Varient</h5>--}}
+    {{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+    {{--                </div>--}}
+    {{--                <div class="modal-body">--}}
+    {{--                    <form wire:submit.prevent="addColor">--}}
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Color Name</label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <input class="form-control" type="text" placeholder="Enter name"--}}
+    {{--                                    wire:model="color_name">--}}
+    {{--                                @error('color_name')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Color Image<br><small
-                                    class="text-muted">(Min Height: 400px)</small></label>
-                            <div class="col-sm-9">
-                                <input class="form-control mb-2" type="file" wire:model="color_image">
-                                @error('color_image')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Color Image<br><small--}}
+    {{--                                    class="text-muted">(Min Height: 400px)</small></label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <input class="form-control mb-2" type="file" wire:model="color_image">--}}
+    {{--                                @error('color_image')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
 
-                                <div wire:loading="color_image" wire:target="color_image" wire:key="color_image"
-                                    style="font-size: 12.5px;" class="mr-2"><span
-                                        class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span> Uploading</div>
+    {{--                                <div wire:loading="color_image" wire:target="color_image" wire:key="color_image"--}}
+    {{--                                    style="font-size: 12.5px;" class="mr-2"><span--}}
+    {{--                                        class="spinner-border spinner-border-sm" role="status"--}}
+    {{--                                        aria-hidden="true"></span> Uploading</div>--}}
 
-                                @if ($color_image)
-                                    <img src="{{ $color_image->temporaryUrl() }}" width="80" class="mt-2 mb-2" />
-                                @endif
-                            </div>
-                        </div>
+    {{--                                @if ($color_image)--}}
+    {{--                                    <img src="{{ $color_image->temporaryUrl() }}" width="80" class="mt-2 mb-2" />--}}
+    {{--                                @endif--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Color Gallery <br><small
-                                    class="text-muted">(Min Height: 400px)</small></label>
-                            <div class="col-sm-9">
-                                <input class="form-control mb-2" type="file" multiple wire:model="color_gallery">
-                                @error('color_gallery')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Color Gallery <br><small--}}
+    {{--                                    class="text-muted">(Min Height: 400px)</small></label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <input class="form-control mb-2" type="file" multiple wire:model="color_gallery">--}}
+    {{--                                @error('color_gallery')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
 
-                                <div wire:loading="color_gallery" wire:target="color_gallery" wire:key="color_gallery"
-                                    style="font-size: 12.5px;" class="mr-2"><span
-                                        class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span> Uploading</div>
+    {{--                                <div wire:loading="color_gallery" wire:target="color_gallery" wire:key="color_gallery"--}}
+    {{--                                    style="font-size: 12.5px;" class="mr-2"><span--}}
+    {{--                                        class="spinner-border spinner-border-sm" role="status"--}}
+    {{--                                        aria-hidden="true"></span> Uploading</div>--}}
 
-                                @if ($color_gallery)
-                                    @foreach ($color_gallery as $cgallery)
-                                        <img src="{{ $cgallery->temporaryUrl() }}" width="80"
-                                            class="mt-2 mb-2" />
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
+    {{--                                @if ($color_gallery)--}}
+    {{--                                    @foreach ($color_gallery as $cgallery)--}}
+    {{--                                        <img src="{{ $cgallery->temporaryUrl() }}" width="80"--}}
+    {{--                                            class="mt-2 mb-2" />--}}
+    {{--                                    @endforeach--}}
+    {{--                                @endif--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Product Name</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="text" placeholder="Enter name"
-                                    wire:model="color_title">
-                                @error('color_title')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Product Name</label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <input class="form-control" type="text" placeholder="Enter name"--}}
+    {{--                                    wire:model="color_title">--}}
+    {{--                                @error('color_title')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Product Price</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="number" step="any" placeholder="Enter price"
-                                    wire:model="color_price">
-                                @error('color_price')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Product Price</label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <input class="form-control" type="number" step="any" placeholder="Enter price"--}}
+    {{--                                    wire:model="color_price">--}}
+    {{--                                @error('color_price')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label">Product Size</label>
-                            <div class="col-sm-9">
-                                <div wire:ignore>
-                                    <select id="ProductSizeColor" wire:model="color_size" multiple>
-                                        @foreach ($sizes as $size)
-                                            <option value="{{ $size->size }}">{{ $size->size }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('color_size')
-                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label">Product Size</label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <div wire:ignore>--}}
+    {{--                                    <select id="ProductSizeColor" wire:model="color_size" multiple>--}}
+    {{--                                        @foreach ($sizes as $size)--}}
+    {{--                                            <option value="{{ $size->size }}">{{ $size->size }}</option>--}}
+    {{--                                        @endforeach--}}
+    {{--                                    </select>--}}
+    {{--                                </div>--}}
+    {{--                                @error('color_size')--}}
+    {{--                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+    {{--                                @enderror--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-sm btn-primary">{!! loadingStateWithText('addColor', 'Submit') !!}</button>
-                                <button type="button" class="btn btn-sm btn-danger"
-                                    data-bs-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{--                        <div class="mb-3 row">--}}
+    {{--                            <label for="" class="col-sm-3 col-form-label"></label>--}}
+    {{--                            <div class="col-sm-9">--}}
+    {{--                                <button type="submit" class="btn btn-sm btn-primary">{!! loadingStateWithText('addColor', 'Submit') !!}</button>--}}
+    {{--                                <button type="button" class="btn btn-sm btn-danger"--}}
+    {{--                                    data-bs-dismiss="modal">Cancel</button>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </form>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 
     <!-- Modal -->
     <div wire:ignore class="modal" id="uploadThumbnailModal" tabindex="-1" role="dialog"
-        data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="modelTitleId" aria-hidden="true">
+         data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -817,7 +836,7 @@
                     proImage.src = '' + response + '';
                     $('#imgElem').html(proImage);
                     $('#uploadThumbnailModal').modal('hide');
-                    @this.set('thumbnail_image', response);
+                @this.set('thumbnail_image', response);
 
                 })
             });
@@ -826,43 +845,7 @@
 
     <script>
         // SizeSelector
-        var sizeSelector = new Selectr('#ProductSize', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector.on('selectr.change', function(option) {
-            var size = $('#ProductSize').val();
-            @this.set('size', size);
-        });
 
-        var sizeSelector2 = new Selectr('#ProductSizeColor', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector2.on('selectr.change', function(option) {
-            var size = $('#ProductSizeColor').val();
-            @this.set('size', size);
-        });
-
-        $(document).ready(function() {
-            $('#category').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#brand').select2({
-                dropdownAutoWidth: true,
-            });
-
-
-            //add model value
-            $('#category').on('change', function() {
-                var value = $(this).val();
-                @this.set('category', value);
-            });
-            $('#brand').on('change', function() {
-                var value = $(this).val();
-                @this.set('brand', value);
-            });
-        });
 
         $(function() {
             // Summernote
@@ -873,7 +856,7 @@
 
                 callbacks: {
                     onChange: function(contents, $editable) {
-                        @this.set('description', contents);
+                    @this.set('description', contents);
                     }
                 }
             });

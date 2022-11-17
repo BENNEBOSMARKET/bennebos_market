@@ -200,10 +200,8 @@ class AddProductComponentV2 extends Component
                 $this->validate([
                     'thumbnail_image'=>'required',
                 ]);
-                if($this->galleryType == '1'){
-                    $this->tabStatus = $value;
-                }
-                else{
+                if($this->galleryType == '2'){
+
                     if(count($this->color_names) > 0){
                         $this->tabStatus = $value;
                     }
@@ -241,14 +239,14 @@ class AddProductComponentV2 extends Component
 
                 $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
                 $images = $this->saveProductDetailsImages($this->color_galleries[$index]);
-
+                $color = Color::create([
+                    'name'  => Str::lower($this->color_names[$index]),
+                    "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
+                    'image' => $this->saveProductDetailsImages($this->color_images[$index])
+                ]);
 
                 if ( $index == 0) {
-                    $color = Color::create([
-                        'name'  => Str::lower($this->color_names[$index]),
-                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
-                        'image' => $this->saveProductDetailsImages($this->color_images[$index])
-                    ]);
+
 //                 dd($this->all());
                     $newProduct = Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
@@ -257,11 +255,12 @@ class AddProductComponentV2 extends Component
                         "added_by" => 'admin',
                         "description" => trim($this->color_descriptions[$index]),
                         "category_id" => $this->category,
-                        'subCategory_id'=>$this->subCategory_id,
+                        "subCategory_id" => $this->subCategory_id,
                         "size_id" => $this->product_sizes[$index],
                         "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                         "brand_id" => $this->brand,
                         "color_id" => $color->id,
+                        "product_color_id"=>$this->color_names[$index],
                         "user_id" => $this->sellers[$index],
                         "gallery_image" => $images,
                         "thumbnail" => $thumbnail,
@@ -294,23 +293,19 @@ class AddProductComponentV2 extends Component
                     $newProduct->refresh();
 
                 } else {
-                    $color = Color::create([
-                        'name'  => Str::lower($this->color_names[$index]),
-                        "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
-                        'image' => $this->saveProductDetailsImages($this->color_images[$index])
-                    ]);
                     Product::create([
                         "name" => Str::lower($this->color_titles[$index]),
                         "slug" => Str::slug(Str::lower($this->color_titles[$index])) . "-" . uniqid(),
                         "title" => Str::lower($this->color_titles[$index]),
                         "added_by" => 'admin',
-                        'main_product_id' => $main_product_id,
                         "description" => trim($this->color_descriptions[$index]),
                         "category_id" => $this->category,
+                        "subCategory_id" => $this->subCategory_id,
                         "size_id" => $this->product_sizes[$index],
                         "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                         "brand_id" => $this->brand,
                         "color_id" => $color->id,
+                        "product_color_id"=>$this->color_names[$index],
                         "user_id" => $this->sellers[$index],
                         "gallery_image" => $images,
                         "thumbnail" => $thumbnail,
@@ -455,14 +450,12 @@ class AddProductComponentV2 extends Component
         $sizesProducts = Size::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
         $ColorsProducts = ProductsColor::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
         $brands = Brand::where('status', 1)->where("country_id", $this->country_id)->get();
-        $sizes = Size::all();
         $sellers = Seller::get(['id', 'name']);
 
         return view('livewire.admin.product.add-product-component-v2', [
             'countries' => $countries,
             'categories' => $categories,
             'brands' => $brands,
-            'sizes' => $sizes,
             'sellersOptions' => $sellers,
             'sizesProducts' => $sizesProducts,
             'subCategories'=>$subCategories,

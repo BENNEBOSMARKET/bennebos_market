@@ -64,6 +64,8 @@
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Added By</th>
+                                        <th>Size</th>
+                                        <th>Color</th>
                                         <th>Category</th>
                                         <th>Info</th>
                                         <th style="text-align: center;">Publish</th>
@@ -81,6 +83,8 @@
                                                 <td><img style="height: 50px;" src="{{ $product->thumbnail }}" alt=""></td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->user_id }}</td>
+                                                <td>{{ !is_null($product->size_id)?$product->product_size->size:'' }}</td>
+                                                <td ><span style="background-color: {{ !is_null($product->product_color_id)?$product->colors->color:'' }};color: {{ !is_null($product->product_color_id)?$product->colors->color:'' }}">{{ !is_null($product->product_color_id)?$product->colors->color:'' }}</span></td>
                                                 <td>{{ category($product->category_id)->name }}</td>
                                                 <td>
                                                     <small><strong>Number of Sale:</strong> {{ totalSale($product->id) }}</small> <br>
@@ -97,7 +101,7 @@
                                                         <a href="{{ route('front.productDetails', ['slug'=>$product->slug]) }}" type="button" class="btn btn-outline-secondary btn-icon-circle btn-icon-circle-sm" target="_blank"><i class="ti ti-eye"></i></a>
 
                                                         <a href="{{ route('admin.editProduct', ['slug' => $product->slug]) }}" type="button" class="btn btn-outline-primary btn-icon-circle btn-icon-circle-sm"><i class="ti ti-edit"></i></a>
-                                                        
+
                                                         <a wire:click.prevent="deleteConfirmation({{ $product->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>
@@ -144,7 +148,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-4 mt-4 row">
                                     <label for="example-number-input" class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">
