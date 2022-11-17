@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Models\ProductsColor;
 use Carbon\Carbon;
 use App\Models\Size;
 use App\Models\Brand;
@@ -29,7 +30,7 @@ class EditProductComponentV2 extends Component
     public $edited_color_names = [], $edited_color_images = [], $edited_color_galleries = [], $edited_color_prices = [], $edited_color_titles = [], $edited_color_sizes = [], $edited_gallery_images = [];
     public $remove_color_names = [], $remove_color_images = [];
     public $remove_color_titles = [], $remove_color_prices = [];
-    public $color_name, $color_image, $color_gallery = [], $color_title, $color_price, $color_size = [];
+    public $color_name, $color_image, $product_color_id,$color_gallery = [], $color_title, $color_price, $color_size = [],$sub_sub_category_id,$subCategory_id,$color_id,$size_id;
 
     public $pro;
 
@@ -64,7 +65,11 @@ class EditProductComponentV2 extends Component
         $product = Product::where('slug', $this->product_slug)->first();
 
         $this->pro = $product->color;
-
+        $this->sub_sub_category_id = $product->sub_sub_category_id;
+        $this->subCategory_id = $product->subCategory_id;
+        $this->color_id = $product->color_id;
+        $this->product_color_id = $product->product_color_id;
+        $this->size_id = $product->size_id;
         $this->product_id = $product->id;
         $this->name = $product->name;
         $this->slug = $product->slug;
@@ -86,23 +91,23 @@ class EditProductComponentV2 extends Component
         $this->uploadedThumbnailImage = $product->thumbnail;
         $this->uploadedGalleryImages = json_decode($product->gallery_image);
         $this->video_link = $product->video;
-        $this->color = json_decode($product->color);
-        $this->get_color_names = json_decode($product->color??'[]');
-        $this->edited_color_names = json_decode($product->color);
-        $this->edited_color_titles = json_decode($product->color_titles);
-        $this->edited_color_prices = json_decode($product->color_prices);
-        $this->remove_color_names = json_decode($product->color);
-        $this->get_color_images = json_decode($product->color_image);
-        $this->get_color_titles = json_decode($product->color_titles);
-        $this->get_color_prices = json_decode($product->color_prices);
-        $this->edited_color_images = json_decode($product->color_image);
-        $this->edited_gallery_images = json_decode($product->gallery_image);
-        $this->remove_color_images = json_decode($product->color_image);
-        $this->remove_color_titles = json_decode($product->color_titles);
-        $this->remove_color_prices = json_decode($product->color_prices);
-        $this->selectedcolors = $product->color;
-        $this->size = json_decode($product->size);
-        $this->selectedsizes = $product->size??'[]';
+//        $this->color = json_decode($product->color);
+//        $this->get_color_names = json_decode($product->color??'[]');
+//        $this->edited_color_names = json_decode($product->color);
+//        $this->edited_color_titles = json_decode($product->color_titles);
+//        $this->edited_color_prices = json_decode($product->color_prices);
+//        $this->remove_color_names = json_decode($product->color);
+//        $this->get_color_images = json_decode($product->color_image);
+//        $this->get_color_titles = json_decode($product->color_titles);
+//        $this->get_color_prices = json_decode($product->color_prices);
+//        $this->edited_color_images = json_decode($product->color_image);
+//        $this->edited_gallery_images = json_decode($product->gallery_image);
+//        $this->remove_color_images = json_decode($product->color_image);
+//        $this->remove_color_titles = json_decode($product->color_titles);
+//        $this->remove_color_prices = json_decode($product->color_prices);
+//        $this->selectedcolors = $product->color;
+//        $this->size = json_decode($product->size);
+//        $this->selectedsizes = $product->size??'[]';
         $this->meta_title = $product->meta_title;
         $this->meta_description = $product->meta_description;
         $this->featured = $product->featured;
@@ -120,88 +125,88 @@ class EditProductComponentV2 extends Component
     {
         $this->slug = Str::slug($this->name).'-'.Str::random(6);
     }
-
-
-    public function addColor()
-    {
-        $this->validate([
-            'color_name'=>'required',
-            'color_image'=>'required',
-            'color_gallery'=>'required',
-            'color_title'=>'required',
-            'color_price'=>'required',
-            'color_size'=>'required',
-        ]);
-
-        array_push($this->color_names, $this->color_name);
-        array_push($this->color_images, $this->color_image);
-        array_push($this->color_galleries, $this->color_gallery);
-        array_push($this->color_titles, $this->color_title);
-        array_push($this->color_sizes, $this->color_size);
-        array_push($this->color_prices, $this->color_price);
-
-        $this->color_name = '';
-        $this->color_image = '';
-        $this->color_gallery = '';
-        $this->color_title = '';
-        $this->color_price = '';
-
-        $this->dispatchBrowserEvent('closeModal');
-        $this->dispatchBrowserEvent('success', ['message'=>'New Item Added!']);
-    }
-
-    public function removeFromArray($key)
-    {
-        unset($this->color_names[$key]);
-        unset($this->color_images[$key]);
-        unset($this->color_galleries[$key]);
-        unset($this->color_titles[$key]);
-        unset($this->color_sizes[$key]);
-        unset($this->color_prices[$key]);
-
-        $this->dispatchBrowserEvent('error', ['message'=>'Item Removed!']);
-    }
-
-    public function removeColorGallery($key)
-    {
-        unset($this->remove_color_names[$key]);
-        unset($this->remove_color_images[$key]);
-        unset($this->remove_color_titles[$key]);
-        unset($this->remove_color_prices[$key]);
-
-
-        $product = Product::where('id', $this->product_id)->first();
-        $product->color = json_encode(array_values($this->remove_color_names));
-        $product->color_image = json_encode(array_values($this->remove_color_images));
-        $product->color_titles = json_encode(array_values($this->remove_color_titles));
-        $product->color_prices = json_encode(array_values($this->remove_color_prices));
-        $product->save();
-
-        $images = ProductImage::where('product_id', $this->product_id)->get();
-        $sizes = ProductSize::where('product_id', $this->product_id)->get();
-
-        foreach($images as $newkey => $img){
-
-            if($newkey == $key){
-                $image = ProductImage::find($img->id);
-                $image->delete();
-            }
-        }
-
-        foreach($sizes as $newskey => $siz){
-
-            if($newskey == $key){
-                $image = ProductSize::find($siz->id);
-                $image->delete();
-
-            }
-        }
-
-        $this->dispatchBrowserEvent('success', ['message'=>'Color gallery item deleted successfully!']);
-
-        $this->getProductDetails();
-
-    }
+//
+//
+//    public function addColor()
+//    {
+//        $this->validate([
+//            'color_name'=>'required',
+//            'color_image'=>'required',
+//            'color_gallery'=>'required',
+//            'color_title'=>'required',
+//            'color_price'=>'required',
+//            'color_size'=>'required',
+//        ]);
+//
+//        array_push($this->color_names, $this->color_name);
+//        array_push($this->color_images, $this->color_image);
+//        array_push($this->color_galleries, $this->color_gallery);
+//        array_push($this->color_titles, $this->color_title);
+//        array_push($this->color_sizes, $this->color_size);
+//        array_push($this->color_prices, $this->color_price);
+//
+//        $this->color_name = '';
+//        $this->color_image = '';
+//        $this->color_gallery = '';
+//        $this->color_title = '';
+//        $this->color_price = '';
+//
+//        $this->dispatchBrowserEvent('closeModal');
+//        $this->dispatchBrowserEvent('success', ['message'=>'New Item Added!']);
+//    }
+//
+//    public function removeFromArray($key)
+//    {
+//        unset($this->color_names[$key]);
+//        unset($this->color_images[$key]);
+//        unset($this->color_galleries[$key]);
+//        unset($this->color_titles[$key]);
+//        unset($this->color_sizes[$key]);
+//        unset($this->color_prices[$key]);
+//
+//        $this->dispatchBrowserEvent('error', ['message'=>'Item Removed!']);
+//    }
+//
+//    public function removeColorGallery($key)
+//    {
+//        unset($this->remove_color_names[$key]);
+//        unset($this->remove_color_images[$key]);
+//        unset($this->remove_color_titles[$key]);
+//        unset($this->remove_color_prices[$key]);
+//
+//
+//        $product = Product::where('id', $this->product_id)->first();
+//        $product->color = json_encode(array_values($this->remove_color_names));
+//        $product->color_image = json_encode(array_values($this->remove_color_images));
+//        $product->color_titles = json_encode(array_values($this->remove_color_titles));
+//        $product->color_prices = json_encode(array_values($this->remove_color_prices));
+//        $product->save();
+//
+//        $images = ProductImage::where('product_id', $this->product_id)->get();
+//        $sizes = ProductSize::where('product_id', $this->product_id)->get();
+//
+//        foreach($images as $newkey => $img){
+//
+//            if($newkey == $key){
+//                $image = ProductImage::find($img->id);
+//                $image->delete();
+//            }
+//        }
+//
+//        foreach($sizes as $newskey => $siz){
+//
+//            if($newskey == $key){
+//                $image = ProductSize::find($siz->id);
+//                $image->delete();
+//
+//            }
+//        }
+//
+//        $this->dispatchBrowserEvent('success', ['message'=>'Color gallery item deleted successfully!']);
+//
+//        $this->getProductDetails();
+//
+//    }
 
     public function removeGalleryImageFromArray($key)
     {
@@ -294,16 +299,8 @@ class EditProductComponentV2 extends Component
                 ],[
                     'thumbnail_image.required_if'=>'This field is required',
                 ]);
-                if($this->galleryType == '1'){
+                if($this->galleryType == '2'){
                     $this->tabStatus = $value;
-                }
-                else{
-                    if(count($this->color_names) > 0 || count($this->get_color_names) > 0){
-                        $this->tabStatus = $value;
-                    }
-                    else{
-                        $this->dispatchBrowserEvent('error', ['message'=>'Add color variations']);
-                    }
                 }
             }
             else{
@@ -330,12 +327,21 @@ class EditProductComponentV2 extends Component
         //     'description'=>'required',
         //     'sku'=>'required',
         // ]);
-
+//        dd($this->all());
+        $color = Color::where('id', $this->color_id)->first();
+        $color->name = $this->product_color_id;
+        $color->sub_sub_category_id = $this->sub_sub_category_id;
+        $color->save();
         $product = Product::where('id', $this->product_id)->first();
         $product->added_by = 'admin';
         $product->name = $this->name;
         $product->slug = $this->slug;
         $product->category_id = $this->category;
+        $product->subCategory_id = $this->subCategory_id;
+        $product->sub_sub_category_id = $this->sub_sub_category_id;
+        $product->size_id = $this->size_id;
+        $product->color_id = $this->color_id;
+        $product->product_color_id = $this->product_color_id;
         $product->brand_id = $this->brand;
         $product->unit = $this->unit;
         $product->min_qty = $this->minimum_qty;
@@ -352,60 +358,61 @@ class EditProductComponentV2 extends Component
         $product->description = $this->description;
         $product->thumbnail = $this->uploadedThumbnailImage;
 
-        if($this->thumbnail_image != ''){
+        if ($this->thumbnail_image != '') {
             $image_array_1 = explode(";", $this->thumbnail_image);
             $image_array_2 = explode(",", $image_array_1[1]);
             $data = base64_decode($image_array_2[1]);
 
-            $imageName = rand(100000, 999999).time() . '.png';
-            Storage::disk('s3')->put('imgs/product/'.$imageName, $data);
+            $imageName = rand(100000, 999999) . time() . '.png';
+            Storage::disk('s3')->put('imgs/product/' . $imageName, $data);
 
-            $product->thumbnail = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+            $product->thumbnail = env('AWS_BUCKET_URL') . 'imgs/product/' . $imageName;
         }
 
-        if($this->galleryType == '1'){
-            if(count($this->gallery_images) > 0){
-
-                foreach ($this->gallery_images as $key => $galImg) {
-                    $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->gallery_images[$key]->extension();
-                    $this->gallery_images[$key]->storeAs('imgs/product', $imageName, 's3');
-                    $this->edited_gallery_images[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
-                }
-                $product->gallery_image = json_encode($this->edited_gallery_images);
-            }
-
-            // dd($this->edited_gallery_images);
-
-            $product->size = json_encode($this->size);
-            $product->color = '[]';
-        }
-
-        if($this->galleryType == '2'){
-
-            foreach ($this->color_names as $key => $colors) {
-                $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_images[$key]->extension();
-                $this->color_images[$key]->storeAs('imgs/product', $imageName, 's3');
-                $this->edited_color_images[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
-                $this->edited_color_names[] = $colors;
-                $this->edited_color_titles[] = $this->color_titles[$key];
-                $this->edited_color_prices[] = $this->color_prices[$key];
-            }
-            $product->color_image = json_encode($this->edited_color_images);
-            $product->color = json_encode($this->edited_color_names);
-            $product->color_titles = json_encode($this->edited_color_titles);
-            $product->color_prices = json_encode($this->edited_color_prices);
-
-            // dd($this->edited_color_titles);
-
-            $getSize = ProductSize::where('product_id', $this->product_id)->first();
-            if($getSize != ''){
-                $product->size = $getSize->size;
-            }
-            else{
-                $product->size = json_encode($this->color_sizes[0]);
-            }
-
-        }
+//
+//        if($this->galleryType == '1'){
+//            if(count($this->gallery_images) > 0){
+//
+//                foreach ($this->gallery_images as $key => $galImg) {
+//                    $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->gallery_images[$key]->extension();
+//                    $this->gallery_images[$key]->storeAs('imgs/product', $imageName, 's3');
+//                    $this->edited_gallery_images[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+//                }
+//                $product->gallery_image = json_encode($this->edited_gallery_images);
+//            }
+//
+//            // dd($this->edited_gallery_images);
+//
+//            $product->size = json_encode($this->size);
+//            $product->color = '[]';
+//        }
+//
+//        if($this->galleryType == '2'){
+//
+//            foreach ($this->color_names as $key => $colors) {
+//                $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_images[$key]->extension();
+//                $this->color_images[$key]->storeAs('imgs/product', $imageName, 's3');
+//                $this->edited_color_images[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+//                $this->edited_color_names[] = $colors;
+//                $this->edited_color_titles[] = $this->color_titles[$key];
+//                $this->edited_color_prices[] = $this->color_prices[$key];
+//            }
+//            $product->color_image = json_encode($this->edited_color_images);
+//            $product->color = json_encode($this->edited_color_names);
+//            $product->color_titles = json_encode($this->edited_color_titles);
+//            $product->color_prices = json_encode($this->edited_color_prices);
+//
+//            // dd($this->edited_color_titles);
+//
+//            $getSize = ProductSize::where('product_id', $this->product_id)->first();
+//            if($getSize != ''){
+//                $product->size = $getSize->size;
+//            }
+//            else{
+//                $product->size = json_encode($this->color_sizes[0]);
+//            }
+//
+//        }
 
         $product->video = $this->video_link;
         $product->meta_title = $this->meta_title;
@@ -414,50 +421,63 @@ class EditProductComponentV2 extends Component
         $product->status = 1;
 
         $product->save();
-
-        if($this->galleryType == '2'){
-            if(count($this->color_names) > 0){
-                foreach ($this->color_names as $key => $colors) {
-                    $imgArray = [];
-
-                    foreach($this->color_galleries[$key] as $sl => $item){
-                        $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_galleries[$key][$sl]->extension();
-                        $this->color_galleries[$key][$sl]->storeAs('imgs/product', $imageName, 's3');
-
-                        $imgArray[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
-                    }
-                    $pimage = new ProductImage();
-                    $pimage->product_id = $product->id;
-                    $pimage->image = json_encode($imgArray);
-                    $pimage->save();
-                }
-
-                foreach($this->color_sizes as $key=>$colos_size){
-                    $size = new ProductSize();
-                    $size->size = json_encode($this->color_sizes[$key]);
-                    $size->product_id = $product->id;
-                    $size->save();
-                }
-            }
-        }
-
         return redirect()->route('admin.products')->with('success', 'Product updated successfully');
-
     }
 
-    public function deleteImage($id)
-    {
-        $image = ProductImage::where('id', $id)->first();
-        $image->delete();
-    }
+//        if($this->galleryType == '2'){
+//            if(count($this->color_names) > 0){
+//                foreach ($this->color_names as $key => $colors) {
+//                    $imgArray = [];
+//
+//                    foreach($this->color_galleries[$key] as $sl => $item){
+//                        $imageName = Carbon::now()->timestamp . Str::random(10) . '.' . $this->color_galleries[$key][$sl]->extension();
+//                        $this->color_galleries[$key][$sl]->storeAs('imgs/product', $imageName, 's3');
+//
+//                        $imgArray[] = env('AWS_BUCKET_URL') . 'imgs/product/'.$imageName;
+//                    }
+//                    $pimage = new ProductImage();
+//                    $pimage->product_id = $product->id;
+//                    $pimage->image = json_encode($imgArray);
+//                    $pimage->save();
+//                }
+//
+//                foreach($this->color_sizes as $key=>$colos_size){
+//                    $size = new ProductSize();
+//                    $size->size = json_encode($this->color_sizes[$key]);
+//                    $size->product_id = $product->id;
+//                    $size->save();
+//                }
+//            }
+//        }
+//
+
+//
+//    }
+//
+//    public function deleteImage($id)
+//    {
+//        $image = ProductImage::where('id', $id)->first();
+//        $image->delete();
+//    }
 
     public function render()
     {
         // $this->getProductDetails();
-        $categories = Category::all();
-        $brands = Brand::where('status', 1)->get();
-        $sizes = Size::all();
+        $categories = Category::where("id", $this->category)->get();
 
-        return view('livewire.admin.product.edit-product-component-v2', ['categories' => $categories, 'brands' => $brands, 'sizes' => $sizes])->layout('livewire.admin.layouts.base');
+        $subCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',0)->get();
+        $subSubCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',$this->subCategory_id)->get();
+
+        $sizesProducts = Size::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
+        $ColorsProducts = ProductsColor::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
+        $brands = Brand::where('status', 1)->get();
+
+        return view('livewire.admin.product.edit-product-component-v2', [
+            'sizesProducts' => $sizesProducts,
+            'ColorsProducts'=>$ColorsProducts,
+            'subSubCategories'=>$subSubCategories,
+            'categories' => $categories,
+            'subCategories'=>$subCategories,
+            'brands' => $brands,])->layout('livewire.admin.layouts.base');
     }
 }

@@ -386,47 +386,47 @@
                             <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('2')" class="btn btn-outline-primary @if($galleryType == '2') active @endif"">{!! loadingStateWithText('selectGalleryType(2)', 'Color Gallery') !!}</button>
                         </div>
                         <div class="card-body">
-{{--                            <div class="row @if($galleryType == '') d-none @endif">--}}
-{{--                                <div class="col-md-12">--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h4 class="card-title">Product Images</h4>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
+                            <div class="row @if($galleryType == '') d-none @endif">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Product Images</h4>
+                                        </div>
+                                        <div class="card-body">
 
-{{--                                            <div class="row mb-3">--}}
-{{--                                                <label class="col-sm-3 col-form-label" for="gallery_images">Thumbnail Image <span class="text-danger">*</span></label>--}}
-{{--                                                <div class="col-sm-9">--}}
-{{--                                                    <div wire:ignore>--}}
-{{--                                                        <input class="form-control mb-2" type="file" id="thumbnail_image" />--}}
-{{--                                                        <div id="imgElem"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                    @error('thumbnail_image')--}}
-{{--                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
-{{--                                                    @enderror--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="row mb-3">
+                                                <label class="col-sm-3 col-form-label" for="gallery_images">Thumbnail Image <span class="text-danger">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <div wire:ignore>
+                                                        <input class="form-control mb-2" type="file" id="thumbnail_image" />
+                                                        <div id="imgElem"></div>
+                                                    </div>
+                                                    @error('thumbnail_image')
+                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
-{{--                                            <div class="row mb-3 @if($galleryType != '1') d-none @endif">--}}
-{{--                                                <label class="col-sm-3 col-form-label" for="gallery_images">Gallery Images</label>--}}
-{{--                                                <div class="col-sm-9">--}}
-{{--                                                    <input class="form-control mb-2" type="file" wire:model="gallery_images"--}}
-{{--                                                        multiple />--}}
-{{--                                                    @error('gallery_images')--}}
-{{--                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
-{{--                                                    @enderror--}}
+                                            <div class="row mb-3 @if($galleryType != '1') d-none @endif">
+                                                <label class="col-sm-3 col-form-label" for="gallery_images">Gallery Images</label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control mb-2" type="file" wire:model="gallery_images"
+                                                        multiple />
+                                                    @error('gallery_images')
+                                                        <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
 
-{{--                                                    <div wire:loading="gallery_images" wire:target="gallery_images" wire:key="gallery_images" style="font-size: 12.5px;" class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading</div>--}}
+                                                    <div wire:loading="gallery_images" wire:target="gallery_images" wire:key="gallery_images" style="font-size: 12.5px;" class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading</div>
 
-{{--                                                    @if ($gallery_images)--}}
-{{--                                                        @foreach ($gallery_images as $galImg)--}}
-{{--                                                            <img src="{{ $galImg->temporaryUrl() }}" width="80" class="mt-2 mb-2" />--}}
-{{--                                                        @endforeach--}}
-{{--                                                    @endif--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                                    @if ($gallery_images)
+                                                        @foreach ($gallery_images as $galImg)
+                                                            <img src="{{ $galImg->temporaryUrl() }}" width="80" class="mt-2 mb-2" />
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 {{--                                    <div class="card @if($galleryType != '1') d-none @endif">--}}
 {{--                                        <div class="card-header">--}}
@@ -467,32 +467,32 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 
-{{--                                    <div class="card @if($galleryType != '1') d-none @endif">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h4 class="card-title"></h4>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <div class="row mb-3">--}}
-{{--                                                <label class="col-sm-3 col-form-label" for="size">Product Seller</label>--}}
-{{--                                                <div class="col-sm-9">--}}
-{{--                                                    <div wire:ignore>--}}
-{{--                                                        <select id="ProductSeller_2" wire:model="seller" name="seller">--}}
-{{--                                                            <option value="">Select Seller</option>--}}
-{{--                                                            @foreach ($sellersOptions as $new_seller)--}}
-{{--                                                                <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>--}}
-{{--                                                            @endforeach--}}
-{{--                                                        </select>--}}
-{{--                                                    </div>--}}
-{{--                                                    @error('seller')--}}
-{{--                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
-{{--                                                    @enderror--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    <div class="card @if($galleryType != '1') d-none @endif">
+                                        <div class="card-header">
+                                            <h4 class="card-title"></h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <label class="col-sm-3 col-form-label" for="size">Product Seller</label>
+                                                <div class="col-sm-9">
+                                                    <div wire:ignore>
+                                                        <select class="form-control" wire:model="seller" name="seller">
+                                                            <option value="">Select Seller</option>
+                                                            @foreach ($sellersOptions as $new_seller)
+                                                                <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    @error('seller')
+                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-{{--                                </div>--}}
-{{--                            </div>--}}
+                                </div>
+                            </div>
 
                             <div class="row @if($galleryType != '2') d-none @endif">
                                 <div class="col-md-12">
@@ -702,7 +702,7 @@
                                         <option class="text-d" value="{{ $subSubCategory->id }}">{{ $subSubCategory->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('type_id')
+                                @error('sub_sub_category_id')
                                 <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -736,10 +736,6 @@
                                         </option>
                                     @endforeach
                                 </select>
-
-                                @error('color_name')
-                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
                                 @error('color_name')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
@@ -998,76 +994,8 @@
     </script>
 
     <script>
-        // SizeSelector
-        var sizeSelector = new Selectr('#ProductSize', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector.on('selectr.change', function(option) {
-            var size = $('#ProductSize').val();
-            @this.set('size', size);
-        });
-
-        var sizeSelector2 = new Selectr('#ProductSizeColor', {
-            multiple: false,
-            placeholder: 'Select size'
-        });
-        sizeSelector2.on('selectr.change', function(option) {
-            var size = $('#ProductSizeColor').val();
-            @this.set('size', size);
-        });
-
-        var sellerSelect = new Selectr('#ProductSeller', {
-            multiple: false,
-            placeholder: 'Select seller'
-        });
-        sellerSelect.on('selectr.change', function(option) {
-            var seller = $('#ProductSeller').val();
-            @this.set('seller', seller);
-        });
-
-        var sellerSelect2 = new Selectr('#ProductSeller_2', {
-            multiple: false,
-            placeholder: 'Select seller'
-        });
-        sellerSelect2.on('selectr.change', function(option) {
-            var seller = $('#ProductSeller_2').val();
-            @this.set('seller', seller);
-        });
-
-        $(document).ready(function() {
-            $('#category').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#brand').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#productSizeType').select2({
-                dropdownAutoWidth: true,
-            });
 
 
-        });
-
-
-
-
-        //add model value
-        $('#productSizeType').on('change', function() {
-            var value = $(this).val();
-        @this.set('category', value);
-        });
-
-
-            //add model value
-            $('#category').on('change', function() {
-                var value = $(this).val();
-                @this.set('category', value);
-            });
-            $('#brand').on('change', function() {
-                var value = $(this).val();
-                @this.set('brand', value);
-            });
 
 
         $(function() {
