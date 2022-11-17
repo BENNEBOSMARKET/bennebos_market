@@ -77,7 +77,9 @@ class CreateProductsTable extends Migration
             $table->string('deal_of_season')->default(0);
             $table->string('big_needs')->default(0);
             $table->string('big_quantity')->default(0);
-
+            $table->foreignId('sub_sub_category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('subCategory_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('product_color_id')->constrained('products_colors')->cascadeOnDelete();
             $table->timestamps();
         });
     }
