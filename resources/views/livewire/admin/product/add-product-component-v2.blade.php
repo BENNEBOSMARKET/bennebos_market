@@ -382,7 +382,7 @@
                 <div class="col-xl-7">
                     <div class="card">
                         <div class="card-header text-center">
-                            <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('1')" class="btn btn-outline-primary @if($galleryType == '1') active @endif">{!! loadingStateWithText('selectGalleryType(1)', 'Product Gallery') !!}</button>
+{{--                            <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('1')" class="btn btn-outline-primary @if($galleryType == '1') active @endif">{!! loadingStateWithText('selectGalleryType(1)', 'Product Gallery') !!}</button>--}}
                             <button type="button" style="padding: 3px 10px;" wire:click.prevent="selectGalleryType('2')" class="btn btn-outline-primary @if($galleryType == '2') active @endif"">{!! loadingStateWithText('selectGalleryType(2)', 'Color Gallery') !!}</button>
                         </div>
                         <div class="card-body">
@@ -428,21 +428,21 @@
                                         </div>
                                     </div>
 
-                                    <div class="card @if($galleryType != '1') d-none @endif">
-                                        <div class="card-header">
-                                            <h6 class="float-start"><strong>Color Variations</strong></h6>
-                                            <button type="button" style="padding: 3px 10px;" class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addProductSizeModal">Add Color Variation</button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row justify-content-center mt-3">
-                                                <div class="col-md-12">
-                                                    <table class="table table-sm">
-                                                        <thead>
+{{--                                    <div class="card @if($galleryType != '1') d-none @endif">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h6 class="float-start"><strong>Color Variations</strong></h6>--}}
+{{--                                            <button type="button" style="padding: 3px 10px;" class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addProductSizeModal">Add Color Variation</button>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <div class="row justify-content-center mt-3">--}}
+{{--                                                <div class="col-md-12">--}}
+{{--                                                    <table class="table table-sm">--}}
+{{--                                                        <thead>--}}
 
-                                                        <th>Size</th>
+{{--                                                        <th>Size</th>--}}
 
-                                                        <th></th>
-                                                        </thead>
+{{--                                                        <th></th>--}}
+{{--                                                        </thead>--}}
 {{--                                                        <tbody>--}}
 {{--                                                        @if (count($types_id) >0)--}}
 {{--                                                            @foreach ($types_id as $key => $c_name)--}}
@@ -461,11 +461,11 @@
 {{--                                                            </tr>--}}
 {{--                                                        @endif--}}
 {{--                                                        </tbody>--}}
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                                    </table>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <div class="card @if($galleryType != '1') d-none @endif">
                                         <div class="card-header">
@@ -476,7 +476,7 @@
                                                 <label class="col-sm-3 col-form-label" for="size">Product Seller</label>
                                                 <div class="col-sm-9">
                                                     <div wire:ignore>
-                                                        <select id="ProductSeller_2" wire:model="seller" name="seller">
+                                                        <select class="form-control" wire:model="seller" name="seller">
                                                             <option value="">Select Seller</option>
                                                             @foreach ($sellersOptions as $new_seller)
                                                                 <option value="{{ $new_seller->id }}">{{ $new_seller->name }}</option>
@@ -691,16 +691,57 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="addColor">
+
+
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2"> type</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" wire:model='sub_sub_category_id'>
+                                    <option value="">Select type</option>
+                                    @foreach ($subSubCategories as $subSubCategory)
+                                        <option class="text-d" value="{{ $subSubCategory->id }}">{{ $subSubCategory->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('sub_sub_category_id')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label" for="category">size *</label>
+                            <div class="col-sm-9">
+                                <div>
+                                    <select class="form-control" id="productSize" wire:model="product_size" >
+                                        <option value="">Select size</option>
+                                        @foreach ($sizesProducts as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->size }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('product_size')
+                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label">Color Name</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="text" placeholder="Enter name"
-                                    wire:model="color_name">
+                                <select class="form-control" id="productSize" wire:model="color_name" >
+                                    <option value="">Select size</option>
+                                    @foreach ($ColorsProducts as $category)
+                                        <option style='background-color: {{ $category->color }};color:{{ $category->color }} ' value="{{$category->id }}">
+                                            {{ $category->color }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('color_name')
                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label">Color Image<br><small
@@ -767,40 +808,6 @@
                             </div>
                         </div>
 
-
-                        <div class="row mb-3">
-                            <label for="" class="col-sm-2"> type</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" wire:model='sub_sub_category_id'>
-                                    <option value="">Select type</option>
-                                    @foreach ($subSubCategories as $subSubCategory)
-                                        <option class="text-d" value="{{ $subSubCategory->id }}">{{ $subSubCategory->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('type_id')
-                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-3 col-form-label" for="category">size *</label>
-                            <div class="col-sm-9">
-                                <div>
-                                    <select class="form-control" id="productSize" wire:model="product_size" >
-                                        <option value="">Select size</option>
-                                        @foreach ($sizesProducts as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->size }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('product_size')
-                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label">Product Seller</label>
                             <div class="col-sm-9">
@@ -846,63 +853,63 @@
     </div>
 
 
-    <div wire:ignore.self class="modal fade" id="addProductSizeModal" tabindex="-1" data-bs-backdrop="static"
-         data-bs-keyboard="false" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Color Varient</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form wire:submit.prevent="addProductSize">
-                        <div class="row mb-3">
-                            <label for="" class="col-sm-2">shipping country</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" wire:model='sub_sub_category_id'>
-                                    <option value="">Select shipping Country</option>
-                                    @foreach ($subSubCategories as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('sub_sub_category_id')
-                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-3 col-form-label" for="category">Category *</label>
-                            <div class="col-sm-9">
-                                <div>
-                                    <select class="form-control" id="productSize" wire:model="product_size" >
-                                        <option value="">Select Category</option>
-                                        @foreach ($sizesProducts as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->size }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('product_size')
-                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+{{--    <div wire:ignore.self class="modal fade" id="addProductSizeModal" tabindex="-1" data-bs-backdrop="static"--}}
+{{--         data-bs-keyboard="false" role="dialog">--}}
+{{--        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">--}}
+{{--            <div class="modal-content">--}}
+{{--                <div class="modal-header">--}}
+{{--                    <h5 class="modal-title">Add Color Varient</h5>--}}
+{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <form wire:submit.prevent="addProductSize">--}}
+{{--                        <div class="row mb-3">--}}
+{{--                            <label for="" class="col-sm-2">shipping country</label>--}}
+{{--                            <div class="col-sm-9">--}}
+{{--                                <select class="form-control" wire:model='sub_sub_category_id'>--}}
+{{--                                    <option value="">Select shipping Country</option>--}}
+{{--                                    @foreach ($subSubCategories as $country)--}}
+{{--                                        <option value="{{ $country->id }}">{{ $country->name }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                @error('sub_sub_category_id')--}}
+{{--                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="row mb-3">--}}
+{{--                            <label class="col-sm-3 col-form-label" for="category">Category *</label>--}}
+{{--                            <div class="col-sm-9">--}}
+{{--                                <div>--}}
+{{--                                    <select class="form-control" id="productSize" wire:model="product_size" >--}}
+{{--                                        <option value="">Select Category</option>--}}
+{{--                                        @foreach ($sizesProducts as $category)--}}
+{{--                                            <option value="{{ $category->id }}">--}}
+{{--                                                {{ $category->size }}--}}
+{{--                                            </option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                                @error('product_size')--}}
+{{--                                <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-sm btn-primary">{!! loadingStateWithText('addProductSize', 'Submit') !!}</button>
-                                <button type="button" class="btn btn-sm btn-danger"
-                                        data-bs-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                        <div class="mb-3 row">--}}
+{{--                            <label for="" class="col-sm-3 col-form-label"></label>--}}
+{{--                            <div class="col-sm-9">--}}
+{{--                                <button type="submit" class="btn btn-sm btn-primary">{!! loadingStateWithText('addProductSize', 'Submit') !!}</button>--}}
+{{--                                <button type="button" class="btn btn-sm btn-danger"--}}
+{{--                                        data-bs-dismiss="modal">Cancel</button>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <!-- Modal -->
     <div wire:ignore class="modal" id="uploadThumbnailModal" tabindex="-1" role="dialog"
@@ -987,76 +994,8 @@
     </script>
 
     <script>
-        // SizeSelector
-        var sizeSelector = new Selectr('#ProductSize', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector.on('selectr.change', function(option) {
-            var size = $('#ProductSize').val();
-            @this.set('size', size);
-        });
-
-        var sizeSelector2 = new Selectr('#ProductSizeColor', {
-            multiple: false,
-            placeholder: 'Select size'
-        });
-        sizeSelector2.on('selectr.change', function(option) {
-            var size = $('#ProductSizeColor').val();
-            @this.set('size', size);
-        });
-
-        var sellerSelect = new Selectr('#ProductSeller', {
-            multiple: false,
-            placeholder: 'Select seller'
-        });
-        sellerSelect.on('selectr.change', function(option) {
-            var seller = $('#ProductSeller').val();
-            @this.set('seller', seller);
-        });
-
-        var sellerSelect2 = new Selectr('#ProductSeller_2', {
-            multiple: false,
-            placeholder: 'Select seller'
-        });
-        sellerSelect2.on('selectr.change', function(option) {
-            var seller = $('#ProductSeller_2').val();
-            @this.set('seller', seller);
-        });
-
-        $(document).ready(function() {
-            $('#category').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#brand').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#productSizeType').select2({
-                dropdownAutoWidth: true,
-            });
 
 
-        });
-
-
-
-
-        //add model value
-        $('#productSizeType').on('change', function() {
-            var value = $(this).val();
-        @this.set('category', value);
-        });
-
-
-            //add model value
-            $('#category').on('change', function() {
-                var value = $(this).val();
-                @this.set('category', value);
-            });
-            $('#brand').on('change', function() {
-                var value = $(this).val();
-                @this.set('brand', value);
-            });
 
 
         $(function() {

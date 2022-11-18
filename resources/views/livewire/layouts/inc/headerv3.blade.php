@@ -453,7 +453,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="input_row">
                                         <label for="">{{ __('auth.delivery_country') }}</label>
                                         <div class="country_mobile">
@@ -827,7 +827,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            
+
                                             <div class="input_row">
                                                 <label for="">{{ __('auth.delivery_country') }}</label>
                                                 <div class="country">
@@ -869,7 +869,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="input_row select_row">
                                                 <label for="">{{ __('auth.select_curency') }}</label>
                                                 <select class="niceSelect">

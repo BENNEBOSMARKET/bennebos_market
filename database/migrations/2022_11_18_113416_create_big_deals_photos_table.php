@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSizesTable extends Migration
+class CreateBigDealsPhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSizesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('big_deals_photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sub_sub_category_id')->constrained('categories')->cascadeOnDelete();
-            $table->string('size')->nullable();
+            $table->foreignId('bigDealsPhoto_id')->constrained('big_deals_products')->cascadeOnDelete();
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSizesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('big_deals_photos');
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Livewire\Admin\Category\SubCategoryComponent;
 use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
 use App\Http\Livewire\Admin\Customer\SendMoneyCustomerComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
+use App\Http\Livewire\Admin\Product\BigDeals\AddBigDealsComponent;
 use App\Http\Livewire\Admin\Product\ProductComponent;
 use App\Http\Livewire\Admin\Seller\PendingSellersComponent;
 use App\Http\Livewire\Admin\Seller\SendMoneySellerComponent;
@@ -93,6 +94,7 @@ use App\Http\Livewire\Admin\Slider\ElectronicSliderComponent;
 use App\Http\Livewire\Admin\Slider\SliderComponent;
 use App\Http\Livewire\Admin\Slider\TopBannerComponent;
 use App\Http\Livewire\Admin\Ticket\TicketComponent;
+use App\Http\Livewire\Admin\Variations\ColorsComponent;
 use App\Http\Livewire\Admin\Variations\ProductTypeComponent;
 use App\Http\Livewire\Admin\Variations\SizeComponent;
 use App\Http\Livewire\Admin\Websitesetup\FooterSectionComponent;
@@ -139,6 +141,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/products/coupons', CouponComponent::class)->name('coupon');
     Route::get('/products/reviews', ReviewesComponent::class)->name('productReviewes');
     Route::get('/products/size-requests', SizeSizeRequestsComponent::class)->name('productSizeRequests');
+    Route::get('/products/add-big-deals', AddBigDealsComponent::class)->name('addBigDeals');
 
     // Pending product routes
     Route::get('/pending/products', PendingProductComponent::class)->name('pending.products');
@@ -255,6 +258,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     // Product Variations
     Route::get('/products/sizes', SizeComponent::class)->name('productSizes');
+    Route::get('/products/colors', ColorsComponent::class)->name('productColors');
     Route::get('/products/type', ProductTypeComponent::class)->name('productType');
 
     //CMS

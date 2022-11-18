@@ -367,6 +367,10 @@
                                         <a href="{{ route('admin.productSizes') }}"
                                             class="nav-link {{ request()->is('admin/products/sizes') || request()->is('admin/products/sizes/*') ? 'active' : '' }}">Sizes</a>
                                     </li>
+                                          <li class="nav-item">
+                                        <a href="{{ route('admin.productColors') }}"
+                                            class="nav-link {{ request()->is('admin/products/colors') || request()->is('admin/products/colors/*') ? 'active' : '' }}">Colors</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ route('admin.productSizeRequests') }}"
                                             class="nav-link {{ request()->is('admin/products/size-requests') || request()->is('admin/products/size-requests/*') ? 'active' : '' }}">Size Requests</a>

@@ -21,8 +21,6 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained()->nullable();
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->bigInteger('size_id')->unsigned()->nullable();
-            $table->bigInteger('subCategory_id')->unsigned()->nullable();
-            $table->bigInteger('sub_sub_category_id')->unsigned()->nullable();
             $table->bigInteger('color_id')->unsigned()->nullable();
             $table->bigInteger('main_product_id')->unsigned()->nullable();
             $table->string('name')->nullable();
@@ -77,7 +75,9 @@ class CreateProductsTable extends Migration
             $table->string('deal_of_season')->default(0);
             $table->string('big_needs')->default(0);
             $table->string('big_quantity')->default(0);
-
+            $table->foreignId('sub_sub_category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('subCategory_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('product_color_id')->constrained('products_colors')->cascadeOnDelete();
             $table->timestamps();
         });
     }

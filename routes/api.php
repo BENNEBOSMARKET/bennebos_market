@@ -99,7 +99,7 @@ Route::get('category/subcategory/topthree', [HomeApiController::class, 'subCateg
 
 
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::post('/add', [CartController::class,'addCart']);
+    Route::post( '/add', [CartController::class,'addCart']);
     Route::post('/add/multi', [CartController::class,'addCarts']);
     Route::post('/product/update', [CartController::class,'updateProductQuantity']);
     Route::delete('/remove', [CartController::class,'removeCart']);
@@ -131,6 +131,7 @@ Route::group(['prefix' =>"product", "middleware" => "api.localization"],function
     Route::get('/by/size/color/{product_id}',[ProductController::class, "getProductByColorAndSize"])->name('product.by.size.color');
     Route::get('/statisticsProducts',[ProductController::class, "statisticsProducts"]);
     Route::get('/categoryStatistics/{category_id}',[CategoryController::class, "categoryStatistics"]);
+    Route::get('/bigDeals',[\App\Http\Controllers\Api\BigDealsProductController::class, "getBigDealsProduct"]);
 
 });
 

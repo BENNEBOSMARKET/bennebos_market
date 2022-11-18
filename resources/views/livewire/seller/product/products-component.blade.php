@@ -55,6 +55,8 @@
                                     <th>{{ __('seller.product_component_image') }}</th>
                                     <th>{{ __('seller.product_component_name') }}</th>
                                     <th>{{ __('seller.product_component_category') }}</th>
+                                    <th>{{ __('seller.product_component_size') }}</th>
+                                    <th>{{ __('seller.product_component_color') }}</th>
                                     <th>{{ __('seller.product_component_info') }}</th>
                                     <th>{{ __('seller.publish') }}</th>
                                     <th style="text-align: center;">{{ __('seller.action') }}</th>
@@ -68,9 +70,12 @@
                                     @foreach ($products as $product)
                                         <tr>
                                             <td>{{ $sl++ }}</td>
-                                            <td><img style="height: 50px; width: 50px;" src="{{ $product->thumbnail }}" alt=""></td>
+                                            <td><img style="height: 50px;" src="{{ $product->thumbnail }}" alt=""></td>
                                             <td>{{ $product->name }}</td>
-                                            <td>{{ $product->category->name }}</td>
+                                            <td>{{ $product->user_id }}</td>
+                                            <td>{{ !is_null($product->size_id)?$product->product_size->size:'' }}</td>
+                                            <td ><span style="background-color: {{ !is_null($product->product_color_id)?$product->colors->color:'' }};color: {{ !is_null($product->product_color_id)?$product->colors->color:'' }}">{{ !is_null($product->product_color_id)?$product->colors->color:'' }}</span></td>
+                                            <td>{{ category($product->category_id)->name }}</td>
                                             <td>
                                                 <small><strong>{{ __('seller.base_price') }}</strong> {{ $product->unit_price }}</small> <br>
                                                 <small><strong>{{ __('seller.') }}</strong> {{ $product->quantity }}</small> <br>

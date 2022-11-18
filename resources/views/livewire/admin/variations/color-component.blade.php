@@ -39,56 +39,19 @@
                                     <div class="card-body">
                                         <form wire:submit.prevent='storeData'>
                                             <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label"> category</label>
-                                                <div class="col-sm-8">
-                                                    <select class="form-control" wire:model="category">
-                                                        <option value="">Select Category</option>
-
-                                                        @foreach ($categories as $t)
-
-                                                            <option value="{{ $t->id }}">{{ $t->name }}</option>
-
-                                                        @endforeach
-
-                                                    </select>
-                                                    @error('category')
-                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label" for="subCategory">Sub Category *</label>
-                                                <div class="col-sm-9">
-                                                    <div>
-                                                        <select class="form-control" id="subCategory"  wire:model="subCategory_id">
-                                                            <option value="">Select Sub Category</option>
-                                                            @foreach ($subCategories as $subCategory)
-                                                                <option value="{{ $subCategory->id }}">
-
-                                                                    {{ $subCategory->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('category')
-                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label">sub Sub category</label>
+                                                <label for="example-text-input" class="col-sm-3 col-form-label">Product Type</label>
                                                 <div class="col-sm-8">
                                                     <select class="form-control" wire:model="sub_sub_category_id">
-                                                        <option value="">Select Sub Sub category</option>
+                                                        <option value="">Select Type</option>
 
-                                                        @foreach ($subSubCategories as $type)
+                                                        @foreach ($productType as $type)
 
                                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
 
                                                         @endforeach
 
                                                     </select>
-                                                    @error('sub_sub_category_id')
+                                                    @error('type_id')
                                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -96,8 +59,7 @@
                                             <div class="mb-3 row justify-content-center">
                                                 <label for="example-text-input" class="col-sm-3 col-form-label">Enter Size</label>
                                                 <div class="col-8">
-
-                                                    <input class="form-control" type="text" wire:model="size" placeholder="Enter size">
+                                                    <input type="color"  wire:model="color"  value="#ff0000">
                                                     @error('size')
                                                         <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
@@ -128,8 +90,8 @@
                                             <tbody>
                                                 @foreach ($productSize as $size)
                                                     <tr>
-                                                        <td>{{!is_null($size->productType)? $size->productType->type:'' }}</td>
-                                                        <td>{{ $size->size }}</td>
+                                                        <td>{{$size->sub_sub_category_id }}</td>
+                                                        <td><input value="{{ $size->color }}"type="color" disabled ></td>
                                                         <td>
                                                             <a wire:click.prevent="deleteData({{ $size->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
                                                         </td>

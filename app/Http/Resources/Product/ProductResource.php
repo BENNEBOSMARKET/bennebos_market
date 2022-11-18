@@ -34,16 +34,28 @@ class ProductResource extends JsonResource
         $colors = [];
         $sizes = [];
         $sizesStatus=[];
-        if (isset($this->commonColors)) {
-            foreach ($this->commonColors as $commonColor) {
 
-                $colors[] = [
-                    'id'    => $commonColor->id,
-                    'name'  => $commonColor->name,
-                    'image' => $commonColor->image,
-                ];
+        if (isset($this->statusesColor)) {
+            if (isset($this->commonColors)) {
+                foreach ($this->statusesColor as $statusColor) {
+                    $s = false;
+                    foreach ($this->commonColors as $commonColor) {
+                        if ($commonColor->name == $statusColor->id) {
+
+                            $s = true;
+                        }
+                        $colors[$statusColor->id] = [
+                            'id' => $statusColor->id,
+                            'name' => $statusColor->name,
+                            'image' => $statusColor->image,
+                            'color' => $statusColor->color,
+                            'status'=>$s
+                        ];
+                    }
+                }
             }
         }
+
         if (isset($this->commonSizes)) {
             foreach ($this->commonSizes as $commonSize) {
 
@@ -114,6 +126,9 @@ class ProductResource extends JsonResource
             "seller" => $this->seller,
             "seller_address" => shop($this->user_id) ? shop($this->user_id)->address . " " .shop($this->user_id)->state_name ." ".shop($this->user_id)->country_name : null,
             "seller_country" => shop($this->user_id) ?shop($this->user_id)->country_name : null,
+            "seller_city_name" => shop($this->user_id) ?shop($this->user_id)->state_name : null,
+            "seller_county_name" => shop($this->user_id) ?shop($this->user_id)->county_name : null,
+            
             "seller_country_flag" => shop($this->user_id) ? shop($this->user_id)->country_flag : null,
             "supplier_products" => new CategoryProductCollection(Product::where("user_id",$this->user_id)->where("id" ,"!=",$this->id)->take(8)->get()),
             "popular_products" => new CategoryProductCollection(Product::where('products.status', 1)->orderBy('products.total_review', 'DESC')->take('7')->get()),

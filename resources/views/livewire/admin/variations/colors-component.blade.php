@@ -15,10 +15,10 @@
                     <div class="float-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Product Size</li>
+                            <li class="breadcrumb-item active">Product Color</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Product Size</h4>
+                    <h4 class="page-title">Product Color</h4>
                 </div>
             </div>
         </div>
@@ -39,66 +39,29 @@
                                     <div class="card-body">
                                         <form wire:submit.prevent='storeData'>
                                             <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label"> category</label>
-                                                <div class="col-sm-8">
-                                                    <select class="form-control" wire:model="category">
-                                                        <option value="">Select Category</option>
-
-                                                        @foreach ($categories as $t)
-
-                                                            <option value="{{ $t->id }}">{{ $t->name }}</option>
-
-                                                        @endforeach
-
-                                                    </select>
-                                                    @error('category')
-                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label" for="subCategory">Sub Category *</label>
-                                                <div class="col-sm-9">
-                                                    <div>
-                                                        <select class="form-control" id="subCategory"  wire:model="subCategory_id">
-                                                            <option value="">Select Sub Category</option>
-                                                            @foreach ($subCategories as $subCategory)
-                                                                <option value="{{ $subCategory->id }}">
-
-                                                                    {{ $subCategory->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('category')
-                                                    <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label">sub Sub category</label>
+                                                <label for="example-text-input" class="col-sm-3 col-form-label">Product Type</label>
                                                 <div class="col-sm-8">
                                                     <select class="form-control" wire:model="sub_sub_category_id">
-                                                        <option value="">Select Sub Sub category</option>
+                                                        <option value="">Select Type</option>
 
-                                                        @foreach ($subSubCategories as $type)
+                                                        @foreach ($productType as $type)
 
                                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
 
                                                         @endforeach
 
                                                     </select>
-                                                    @error('sub_sub_category_id')
+                                                    @error('type_id')
                                                     <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="mb-3 row justify-content-center">
-                                                <label for="example-text-input" class="col-sm-3 col-form-label">Enter Size</label>
+                                                <label for="example-text-input" class="col-sm-3 col-form-label">Enter Color</label>
                                                 <div class="col-8">
 
-                                                    <input class="form-control" type="text" wire:model="size" placeholder="Enter size">
-                                                    @error('size')
+                                                    <input type="color"  wire:model="color"  >
+                                                    @error('color')
                                                         <span class="text-danger" style="font-size: 12.5px;">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -114,24 +77,24 @@
                             <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">All Sizes</h4>
+                                        <h4 class="card-title">All Color</h4>
                                     </div>
                                     <div class="card-body p-1 pb-4">
                                         <table class="table table-md">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>Type</th>
-                                                    <th>Size</th>
+                                                    <th>Color</th>
                                                     <th style="width: 10%;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($productSize as $size)
+                                                @foreach ($productColor as $color)
                                                     <tr>
-                                                        <td>{{!is_null($size->productType)? $size->productType->type:'' }}</td>
-                                                        <td>{{ $size->size }}</td>
+                                                        <td>{{!is_null($color->sub_sub_category_id)? category($color->sub_sub_category_id)->name:'' }}</td>
+                                                        <td style="background-color: {{ $color->color }}"></td>
                                                         <td>
-                                                            <a wire:click.prevent="deleteData({{ $size->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
+                                                            <a wire:click.prevent="deleteData({{ $color->id }})" type="button" class="btn btn-outline-danger btn-icon-circle btn-icon-circle-sm"><i class="ti ti-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
