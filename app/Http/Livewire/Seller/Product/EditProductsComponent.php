@@ -320,6 +320,7 @@ class EditProductsComponent extends Component
     public function updateProduct()
     {
         $color = Color::where('id', $this->color_id)->first();
+        $color->product_color_id = $this->product_color_id;
         $color->name = $this->product_color_id;
         $color->sub_sub_category_id = $this->sub_sub_category_id;
         $color->save();
