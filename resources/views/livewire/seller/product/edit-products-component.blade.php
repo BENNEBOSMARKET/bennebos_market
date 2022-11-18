@@ -936,44 +936,7 @@
 
     <script>
         // SizeSelector
-        var sizeSelector = new Selectr('#ProductSize', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector.on('selectr.change', function(option) {
-            var size = $('#ProductSize').val();
-            @this.set('size', size);
-        });
-
-        var sizeSelector2 = new Selectr('#ProductSizeColor', {
-            multiple: true,
-            placeholder: 'Select size'
-        });
-        sizeSelector2.on('selectr.change', function(option) {
-            var size = $('#ProductSizeColor').val();
-            @this.set('size', size);
-        });
-
-        $(document).ready(function() {
-            $('#category').select2({
-                dropdownAutoWidth: true,
-            });
-            $('#brand').select2({
-                dropdownAutoWidth: true,
-            });
-
-
-            //add model value
-            $('#category').on('change', function() {
-                var value = $(this).val();
-                @this.set('category', value);
-            });
-            $('#brand').on('change', function() {
-                var value = $(this).val();
-                @this.set('brand', value);
-            });
-        });
-
+    
         $(function() {
             // Summernote
             $('#description').summernote({

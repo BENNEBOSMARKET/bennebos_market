@@ -240,6 +240,7 @@ class AddProductComponentV2 extends Component
                 $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
                 $images = $this->saveProductDetailsImages($this->color_galleries[$index]);
                 $color = Color::create([
+                    'product_color_id'  => Str::lower($this->color_names[$index]),
                     'name'  => Str::lower($this->color_names[$index]),
                     "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                     'image' => $this->saveProductDetailsImages($this->color_images[$index])

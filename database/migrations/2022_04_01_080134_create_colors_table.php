@@ -15,11 +15,13 @@ class CreateColorsTable extends Migration
     {
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('code')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->default(1);
             $table->foreignId('sub_sub_category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('product_color_id')->constrained('products_colors')->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
