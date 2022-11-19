@@ -114,6 +114,9 @@ class ProductResource extends JsonResource
             "seller" => $this->seller,
             "seller_address" => shop($this->user_id) ? shop($this->user_id)->address . " " .shop($this->user_id)->state_name ." ".shop($this->user_id)->country_name : null,
             "seller_country" => shop($this->user_id) ?shop($this->user_id)->country_name : null,
+            "seller_city_name" => shop($this->user_id) ?shop($this->user_id)->state_name : null,
+            "seller_county_name" => shop($this->user_id) ?shop($this->user_id)->county_name : null,
+            
             "seller_country_flag" => shop($this->user_id) ? shop($this->user_id)->country_flag : null,
             "supplier_products" => new CategoryProductCollection(Product::where("user_id",$this->user_id)->where("id" ,"!=",$this->id)->take(8)->get()),
             "popular_products" => new CategoryProductCollection(Product::where('products.status', 1)->orderBy('products.total_review', 'DESC')->take('7')->get()),
