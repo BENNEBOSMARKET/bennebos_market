@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\Seller\Product\BigDeals\AddBigDealsComponent;
+use App\Http\Livewire\Seller\Product\BigDeals\BigDealsProductComponent;
+use App\Http\Livewire\Seller\Product\BigDeals\EditBigDealsComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\LogoutController;
@@ -57,6 +60,9 @@ Route::prefix('seller')->name('seller.')->middleware('auth:seller')->group(funct
     Route::get('/products', ProductsComponent::class)->name('allProducts');
     Route::get('/add-new-product', AddProductsComponent::class)->name('addProduct');
     Route::get('/products/edit/{id}', EditProductsComponent::class)->name('editProduct');
+    Route::get('/add-big-deals', AddBigDealsComponent::class)->name('addBigDeals');
+    Route::get('/big-deals', BigDealsProductComponent::class)->name('BigDealsProduct');
+    Route::get('/edit-big-deals/{slug}', EditBigDealsComponent::class)->name('editBigDealsProduct');
 
     //Shop
     Route::get('/shop/apply-for-verification', ShopVerificationComponent::class)->name('shopVerification');

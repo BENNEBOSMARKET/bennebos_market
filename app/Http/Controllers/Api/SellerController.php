@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Review\ReviewResource;
+use App\Http\Resources\Seller\SellerProfileResource;
 use App\Http\Resources\Seller\SellerResource;
 use App\Repositories\Seller\SellerRepository;
 use Exception;
@@ -32,6 +33,19 @@ class SellerController extends Controller
             $limit = request()->has('limit') ? request('limit') : 10;
         $infoSeller = $this->sellerRepository->getInfoSeller($limit,$id);
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($infoSeller)->getJsonResponse();
+        }catch( Exception $exception){
+            return $this->apiResponse->setError(
+                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+            )->setData()->getJsonResponse();
+        }
+    }
+    public function getSellerProfile($id)
+    {
+
+        try{
+
+            $infoSeller = $this->sellerRepository->getSellerProfile($id);
+            return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData( SellerProfileResource::make( $infoSeller))->getJsonResponse();
         }catch( Exception $exception){
             return $this->apiResponse->setError(
                 $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()

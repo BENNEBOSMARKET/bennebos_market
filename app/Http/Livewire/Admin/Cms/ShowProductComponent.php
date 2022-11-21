@@ -8,28 +8,14 @@ use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
-class BigDealsComponent extends Component
+class ShowProductComponent extends Component
 {
     public $new_arrival, $top_ranked, $persona_protective, $dropshipping, $global_original_sources, $true_view;
 
     use WithPagination;
     public $sortingValue = 10, $searchTerm, $delete_id, $sort_category;
 
-    public function bestBigDeal($id)
-    {
-        $getProduct = Product::where('id', $id)->first();
 
-        if($getProduct->best_big_deal == 0){
-            $getProduct->best_big_deal = 1;
-            $getProduct->save();
-        }
-        else{
-            $getProduct->best_big_deal = 0;
-            $getProduct->save();
-        }
-
-        $this->dispatchBrowserEvent('success', ['message'=>'Right slider added!']);
-    }
 
     public function newArrival($id)
     {
@@ -131,6 +117,6 @@ class BigDealsComponent extends Component
 
         $categories = Category::where('parent_id', 0)->where('sub_parent_id', 0)->get();
 
-        return view('livewire.admin.cms.big-deals-component', ['products'=>$products, 'categories'=>$categories])->layout('livewire.admin.layouts.base');
+        return view('livewire.admin.cms.show-product-component', ['products'=>$products, 'categories'=>$categories])->layout('livewire.admin.layouts.base');
     }
 }

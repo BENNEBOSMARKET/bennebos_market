@@ -315,7 +315,6 @@ class EditProductComponentV2 extends Component
     }
 
 
-
     public function updateProduct()
     {
         // $this->validate([
