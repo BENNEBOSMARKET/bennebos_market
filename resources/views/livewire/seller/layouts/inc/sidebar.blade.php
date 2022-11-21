@@ -42,6 +42,21 @@
                         </li>
 
                         <li
+                            class="nav-item {{ request()->is('seller/big-deals') || request()->is('seller/big-deals/*') ? 'menuitem-active' : '' }}">
+                            <a class="nav-link {{ request()->is('seller/big-deals') || request()->is('seller/big-deals/*') ? 'active' : '' }}"
+                               href="{{ route('seller.BigDealsProduct') }}"><i class="ti ti-upload menu-icon"></i><span
+                                    style="padding-top: 4px;">{{ __('seller.my_big_deals') }}</span></a>
+                        </li>
+
+                        <li
+                            class="nav-item {{ request()->is('seller/add-big-deals') || request()->is('seller/add-big-deals/*') ? 'menuitem-active' : '' }}">
+                            <a class="nav-link {{ request()->is('seller/add-big-deals') || request()->is('seller/add-big-deals/*') ? 'active' : '' }}"
+                               href="{{ route('seller.addBigDeals') }}"><i class="ti ti-list menu-icon"></i><span
+                                    style="padding-top: 4px;">{{ __('seller.add_new_big_deals') }}</span></a>
+                        </li>
+
+
+                        <li
                             class="nav-item  {{ request()->is('seller/orders') || request()->is('seller/orders/*') ? 'menuitem-active' : '' }}">
                             <a class="nav-link {{ request()->is('seller/orders') || request()->is('seller/orders/*') ? 'active' : '' }}"
                                 href="{{ route('seller.all-orders') }}"><i

@@ -47,5 +47,12 @@ class  SellerRepository extends BaseRepository
 
     }
 
+    public function getSellerProfile($id){
+
+            $sellers= DB::table('sellers')->find($id);
+        return $sellers;
+
+    }
+
 
 }

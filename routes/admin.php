@@ -7,9 +7,12 @@ use App\Http\Livewire\Admin\Careers\JobApplicationComponent;
 use App\Http\Livewire\Admin\Category\CategoryComponent;
 use App\Http\Livewire\Admin\Category\SubCategoryComponent;
 use App\Http\Livewire\Admin\Category\SubSubCategoryComponent;
+use App\Http\Livewire\Admin\Cms\BigDealsCmsComponent;
 use App\Http\Livewire\Admin\Customer\SendMoneyCustomerComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Product\BigDeals\AddBigDealsComponent;
+use App\Http\Livewire\Admin\Product\BigDeals\BigDealsProductComponent;
+use App\Http\Livewire\Admin\Product\BigDeals\EditBigDealsComponent;
 use App\Http\Livewire\Admin\Product\ProductComponent;
 use App\Http\Livewire\Admin\Seller\PendingSellersComponent;
 use App\Http\Livewire\Admin\Seller\SendMoneySellerComponent;
@@ -30,7 +33,7 @@ use App\Http\Livewire\Admin\Careers\CareersComponent;
 use App\Http\Livewire\Admin\Category\Brands\SubCategoryBrandsComponent;
 use App\Http\Livewire\Admin\Category\CategoryTranslationComponent;
 use App\Http\Livewire\Admin\Category\Products\SubCategoryProductsComponent;
-use App\Http\Livewire\Admin\Cms\BigDealsComponent;
+use App\Http\Livewire\Admin\Cms\ShowProductComponent;
 use App\Http\Livewire\Admin\Cms\BottomBannerComponent;
 use App\Http\Livewire\Admin\Cms\ManageProductComponent;
 use App\Http\Livewire\Admin\Cms\MiddleBannerComponent;
@@ -142,7 +145,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/products/reviews', ReviewesComponent::class)->name('productReviewes');
     Route::get('/products/size-requests', SizeSizeRequestsComponent::class)->name('productSizeRequests');
     Route::get('/products/add-big-deals', AddBigDealsComponent::class)->name('addBigDeals');
-
+    Route::get('/products/big-deals', BigDealsProductComponent::class)->name('BigDealsProduct');
+    Route::get('/products/edit-big-deals/{slug}', EditBigDealsComponent::class)->name('editBigDealsProduct');
     // Pending product routes
     Route::get('/pending/products', PendingProductComponent::class)->name('pending.products');
     Route::get('/pending/products/{slug}', PendingProductDetailsComponent::class)->name('pending.products.details');
@@ -269,8 +273,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/cms/bottom-banner', BottomBannerComponent::class)->name('bottom-banner');
     Route::get('/cms/customer/search', SearchComponent::class)->name('recent.search');
     Route::get('/cms/manage/home/product', ManageProductComponent::class)->name('manage.product');
-    Route::get('/cms/big-deals', BigDealsComponent::class)->name('bigDeals');
-
+    Route::get('/cms/big-deals', BigDealsCmsComponent::class)->name('bigDealsCms');
+    Route::get('/cms/show-product', ShowProductComponent::class)->name('showProduct');
 
     // contact Message
     Route::get('/contact/message', ContactUsComponent::class)->name('contact.us.message');

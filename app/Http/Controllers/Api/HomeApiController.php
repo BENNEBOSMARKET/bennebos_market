@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\Searches;
@@ -20,12 +21,13 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeApiController extends Controller
 {
-    public function __construct(ApiResponse $apiResponse, UserRepositoryInterface $userRepository, Client $client, Searches $searchModel)
+    public function __construct(ApiResponse $apiResponse, UserRepositoryInterface $userRepository, Client $client, Searches $searchModel,CategoryTranslation $categoryTranslation)
     {
         $this->apiResponse = $apiResponse;
         $this->userRepository = $userRepository;
         $this->client = $client;
         $this->searchModel = $searchModel;
+        $this->categoryTranslation=$categoryTranslation;
     }
 
 
@@ -47,6 +49,11 @@ class HomeApiController extends Controller
     {
         $brands = $this->userRepository->getAllBrands();
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($brands)->getJsonResponse();
+    }
+    public function transliat()
+    {
+        $trans = CategoryTranslation::all();
+        return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($trans)->getJsonResponse();
     }
 
 
@@ -92,6 +99,7 @@ class HomeApiController extends Controller
             $categories = [$category->id];
 
             $subcategories = DB::table('categories')->where('parent_id', $category->id)->pluck("id")->toArray();
+
             $categories = array_merge($categories, $subcategories);
             $subsubcategories = DB::table('categories')->whereIn('sub_parent_id', $categories)->pluck("id")->toArray();
             $categories = array_merge($categories, $subsubcategories);
@@ -114,6 +122,8 @@ class HomeApiController extends Controller
                 ->take(8)
                 ->get();
                 $categories_data[$key]->brands = Brand::whereIn("id", json_decode($category->brands))->get();
+            $categories_data[$key]->categoryTranslation = CategoryTranslation::where("category_id", $category->id)->get();
+
         }
 
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData($categories_data)->getJsonResponse();

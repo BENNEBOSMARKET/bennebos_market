@@ -6,6 +6,8 @@ return [
     'dashboard_sidebar' => 'لوحة القيادة',
     'add_new_product_sidebar' => 'اضافة منتج جديد',
     'my_products' => 'منتجاتي',
+    'add_new_big_deals' => 'اضافة صفقة جديد',
+    'my_big_deals' => 'صفقاتي',
     'orders_sidebar' => 'ترتيب',
     'wishlisted_products' => 'المنتجات المفضلة',
     'wallet_sidebar' => 'محفظة',
@@ -45,6 +47,15 @@ return [
     'my_points' => 'نقاطي',
 
     //Add New Page
+    'model'=>'رقم المنتج',
+    'enter_model'=>'ادخل  رقم  المنتج',
+    'certification'=>'التوثيق',
+    'enter_certification'=>'ادخل رمز  التوثيق',
+    'condition'=>'الشروط',
+    'enter_condition'=>'ادخل  الشروط',
+    'note_page'=>'صفحة  الملاحظات',
+    'note'=>'Note',
+    'enter_note'=>'Enter Note',
     'add_new_top_title' => 'اضافة منتج جديد',
     'information' => 'معلومة',
     'price_stock' => 'السعر المخزون',
@@ -76,6 +87,7 @@ return [
     'product_images' => 'صور المنتج',
     'thumbnail_image' => 'صورة مصغرة',
     'gallery_images' => 'معرض الصور',
+    'gallery_images_big_deals' => 'معرض الصور للصفقات',
     'uploading' => 'تحميل',
     'product_size' => 'حجم المنتج',
     'color_variations' => 'اختلافات اللون',
@@ -117,10 +129,11 @@ return [
 
     // Edit Porduct Page
     'edit_product_top_title' => 'تحرير المنتج',
-
+    'edit_bid_deals_title' => 'تحرير الصفقة',
     //Product Component Page
     'all_products' => 'جميع المنتجات',
     'product_component_add_new' => 'اضافة منتج جديد',
+    'big_deals_component_add_new' => 'اضافة صفقة  جديدة',
     'sort_by' => 'صنف حسب',
     'product_component_number' => '#',
     'product_component_image' => 'صورة',
@@ -166,6 +179,7 @@ return [
     'all_orders' => 'جميع الطلبات',
     'sort_by_order' => 'صنف حسب',
     'all_products_order' => 'جميع المنتجات',
+    'all_big_deals' => 'جميع الصفقات',
     'order_id' => 'رقم التعريف الخاص بالطلب',
     'total_product' => 'إجمالي المنتجات',
     'customer_name' => "اسم العميل",

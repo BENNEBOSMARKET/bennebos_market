@@ -36,6 +36,8 @@ class BigDealsResource extends JsonResource
             'quantity'=>$this->quantity,
             'description'=>$this->description,
             'description_photo'=>$this->description_photo,
+            'note'=>$this->note,
+            'best_big_deal'=>$this->best_big_deal,
             'photoProduct'=>$photoProduct,
             'sellerInfo'=>$sellerInfo,
 

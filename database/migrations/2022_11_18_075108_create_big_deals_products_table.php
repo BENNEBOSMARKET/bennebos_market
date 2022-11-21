@@ -31,7 +31,9 @@ class CreateBigDealsProductsTable extends Migration
             $table->bigInteger('quantity');
             $table->longText('description');
             $table->longText('description_photo');
-            $table->string('refundable')->default(0);
+            $table->longText('note')->nullable();
+            $table->integer('refundable')->default(0);
+            $table->integer('best_big_deal')->default(0);
             $table->timestamps();
         });
     }

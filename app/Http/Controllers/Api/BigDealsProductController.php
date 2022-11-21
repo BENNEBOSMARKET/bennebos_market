@@ -22,7 +22,15 @@ class BigDealsProductController extends Controller
 
     public function getBigDealsProduct()
     {
-        $bigDeals= $this->bigDealsRepository->getBigDealsProduct();
+        try{
+            $id = request()->has('id')?request('id'):0;
+            $limit = request()->has('limit') ? request('limit') : 10;
+            $bigDeals = $this->bigDealsRepository->getBigDealsProduct($limit,$id);
         return $this->apiResponse->setSuccess(__("Data retrieved successfully"))->setData(BigDealsResource::collection($bigDeals))->getJsonResponse();
+        }catch( Exception $exception){
+            return $this->apiResponse->setError(
+                $exception->getMessage(). " " . $exception->getLine() . " " . $exception->getFile()
+            )->setData()->getJsonResponse();
+        }
     }
 }
