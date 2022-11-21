@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Product\BigDeals;
+namespace App\Http\Livewire\Seller\Product\BigDeals;
 
 use App\Models\BigDealsPhoto;
 use App\Models\BigDealsProduct;
@@ -60,7 +60,6 @@ class AddBigDealsComponent extends Component
         }
         else if($value == 2){
             $this->validate([
-                'seller'=>'required',
                 'model_no'=>'required',
                 'certification'=>'required',
                 'feet'=>'required',
@@ -109,7 +108,7 @@ class AddBigDealsComponent extends Component
             "subCategory_id"=>$this->subCategory_id,
             "sub_sub_category_id"=>$this->sub_sub_category_id,
             "country_id"=>$this->country_id,
-            "seller_id"=>$this->seller,
+            "seller_id"=>authSeller()->id,
             "model_no"=>$this->model_no,
             "certification"=>$this->certification,
             "feet"=>$this->feet,
@@ -143,8 +142,8 @@ class AddBigDealsComponent extends Component
 
     public function render()
     {
-        $countries = Country::all();
-        $categories = Category::where("country_id", $this->country_id)->get();
+        $allowed_country = shop(authSeller()->id)->country_id;
+        $categories = Category::where("country_id",$allowed_country)->get();;
 
         $subCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',0)->get();
         $subSubCategories = Category::where("parent_id", $this->category)->where('sub_parent_id',$this->subCategory_id)->get();
@@ -152,14 +151,13 @@ class AddBigDealsComponent extends Component
         $ColorsProducts = ProductsColor::where("sub_sub_category_id", $this->sub_sub_category_id)->get();
         $sellers = Seller::get(['id', 'name']);
 
-        return view('livewire.admin.product.bigDeals.add-big-deals-component', [
-            'countries' => $countries,
+        return view('livewire.seller.product.bigDeals.add-big-deals-component', [
             'categories' => $categories,
             'sellersOptions' => $sellers,
             'sizesProducts' => $sizesProducts,
             'subCategories'=>$subCategories,
             'subSubCategories'=>$subSubCategories,
             'ColorsProducts'=>$ColorsProducts
-        ])->layout('livewire.admin.layouts.base');
+        ])->layout('livewire.seller.layouts.base');
     }
 }

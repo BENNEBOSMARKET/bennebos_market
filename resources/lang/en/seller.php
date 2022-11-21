@@ -18,6 +18,8 @@ return [
     'dashboard_sidebar' => 'Dashboard',
     'add_new_product_sidebar' => 'Add New Product',
     'my_products' => 'My Products',
+    'add_new_big_deals' => 'Add New Big Deals',
+    'my_big_deals' => 'My Big Deals',
     'orders_sidebar' => 'Orders',
     'wishlisted_products' => 'Wishlisted Products',
     'wallet_sidebar' => 'Wallet',
@@ -56,6 +58,15 @@ return [
     'my_points' => 'My Points',
 
     //Add New Page
+    'model'=>'Model No',
+    'enter_model'=>'Enter Model No',
+    'certification'=>'Certification',
+    'enter_certification'=>'Enter Certification',
+    'condition'=>'Condition',
+    'enter_condition'=>'Enter Condition',
+    'note_page'=>'Note Page',
+    'note'=>'Note',
+    'enter_note'=>'Enter Note',
     'add_new_top_title' => '  Add New Product',
     'information' => 'Information',
     'price_stock' => 'Price & Stock',
@@ -89,6 +100,7 @@ return [
     'product_images' => 'Product Images',
     'thumbnail_image' => 'Thumbnail Image',
     'gallery_images' => 'Gallery Images',
+    'gallery_images_big_deals' => 'Gallery Images Big Deals',
     'uploading' => 'Uploading',
     'product_size' => 'Product Size',
     'color_variations' => 'Color Variations',
@@ -130,10 +142,12 @@ return [
 
     // Edit Porduct Page
     'edit_product_top_title' => 'Edit Product',
+    'edit_bid_deals_title' => 'Edit Big Deals',
 
     //Product Component Page
     'all_products' => 'All Products',
     'product_component_add_new' => 'Add New Product',
+    'big_deals_component_add_new' => 'Add New Product',
     'sort_by' => 'Sort By',
     'product_component_number' => '#',
     'product_component_image' => 'Image',
@@ -179,6 +193,7 @@ return [
     'all_orders' => 'All Orders',
     'sort_by_order' => 'Sort By',
     'all_products_order' => 'All Products',
+    'all_big_deals' => 'All Big Deals',
     'order_id' => 'ORDER ID',
     'total_product' => 'TOTAL PRODUCT',
     'customer_name' => "CUSTOMER'S NAME",

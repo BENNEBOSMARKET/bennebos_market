@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AllMiddleBannerController;
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
+use App\Http\Controllers\Api\BigDealsProductController;
 use App\Http\Controllers\Api\BolgsController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CartController;
@@ -131,7 +132,7 @@ Route::group(['prefix' =>"product", "middleware" => "api.localization"],function
     Route::get('/by/size/color/{product_id}',[ProductController::class, "getProductByColorAndSize"])->name('product.by.size.color');
     Route::get('/statisticsProducts',[ProductController::class, "statisticsProducts"]);
     Route::get('/categoryStatistics/{category_id}',[CategoryController::class, "categoryStatistics"]);
-    Route::get('/bigDeals',[\App\Http\Controllers\Api\BigDealsProductController::class, "getBigDealsProduct"]);
+    Route::get('/bigDeals',[BigDealsProductController::class, "getBigDealsProduct"]);
 
 });
 
@@ -149,7 +150,6 @@ Route::prefix('wishlist')->group(function () {
     Route::post('update', [WishListController::class, 'updateWishList']);
     Route::delete('delete', [WishListController::class, 'deleteWishList']);
     Route::delete('delete/product', [WishListController::class, 'deleteWishListProduct']);
-
 });
 
 
@@ -171,6 +171,7 @@ Route::get('getContactUs',[ContacUsPageController::class,'getAllContactUsPage'])
 Route::get('getAllBlogs',[BolgsController::class,'getAllBlogs']);
 Route::get('getCountSeller',[SellerController::class,'getCountSeller']);
 Route::get('getInfoSeller',[SellerController::class,'getInfoSeller']);
+Route::get('getSellerProfiles/{id}',[SellerController::class,'getSellerProfile']);
 Route::get('getJobList',[JobController::class,'getJobList']);
 Route::post('jobApplication',[JobController::class,'getJobApplication']);
 Route::post('NewsLetter',[NewsLetterController::class,'postNewsLetter']);

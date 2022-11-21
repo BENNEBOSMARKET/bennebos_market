@@ -22,8 +22,15 @@ class BigDealsRepository extends BaseRepository
     }
 
 
-    public function getBigDealsProduct()
+    public function getBigDealsProduct($limit,$id)
     {
-        return DB::table('big_deals_products')->take(12)->orderBy('created_at','desc')->get();
+        if ($id ==0){
+            return DB::table('big_deals_products')->where('best_big_deal',1)->take(12)->orderBy('created_at','desc')->paginate($limit);
+
+        }
+        else{
+            return DB::table('big_deals_products')->where('category_id',$id)->where('best_big_deal',1)->take(12)->orderBy('created_at','desc')->paginate($limit);
+
+        }
     }
 }
