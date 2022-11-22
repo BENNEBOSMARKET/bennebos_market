@@ -39,6 +39,7 @@
 
 
                             <!-- Orders -->
+                            @if(auth()->user()->role != "sub-admin" )
                             <li class="nav-item">
                                 <a class="nav-link" href="#sidebarOrder" data-bs-toggle="collapse" role="button"
                                    aria-expanded="false" aria-controls="sidebarOrder">
@@ -68,6 +69,7 @@
                                     </ul>
                                 </div>
                             </li>
+                            @endif
 
                             <!-- Pending Products -->
 
@@ -79,20 +81,21 @@
                             </li>
 
 
+
                             <!-- Pending Sellers -->
 
                             <li class="nav-item">
                                 <a    class="nav-link {{ request()->is('admin/seller/PendingSellers') || request()->is('admin/seller/PendingSellers/*') ? 'active' : '' }}" href="{{ route('admin.pendingSellers') }}"  >
                                     <i class=" fas fa-user-slash menu-icon" style="font-size: initial;"></i>
                                     <span> Pending Sellers</span>
-
-                                    @if(auth()->user()->role != 'sub-admin')
                                     <span style="margin-left: 25%;"  class="badge bg-primary">{{$pendingSellers}}</span></a>
-                                    @endif
+
                                 </a>
                             </li>
 
+
                             {{--   Payouts Request--}}
+                            @if(auth()->user()->role != "sub-admin" )
                             <li class="nav-item">
                                 <a href="{{ route('admin.payout.request') }}"
                                    class="nav-link {{ request()->is('admin/payout/request') || request()->is('admin/payout/request/*') ? 'active' : '' }}">
@@ -109,9 +112,11 @@
                                     <span> Ticket</span>
                                     <span style="margin-left: 55%;" class="badge bg-primary">{{$ticket}}</span></a>
                             </li>
+                            @endif
 
-                            @if(auth()->user()->role != "sub-admin" )
+
                                 <!-- Categories -->
+                            @if(auth()->user()->role != "sub-admin" )
                                 <li class="nav-item">
                                     <a class="nav-link" href="#sidebarCategory" data-bs-toggle="collapse" role="button"
                                        aria-expanded="false" aria-controls="sidebarCategory">
@@ -139,10 +144,12 @@
                                         </ul>
                                     </div>
                                 </li>
-
                             @endif
 
+
+
                             <!-- Sellers -->
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#sidebarSeller" data-bs-toggle="collapse" role="button"
                                    aria-expanded="false" aria-controls="sidebarSeller">
@@ -157,7 +164,7 @@
                                                class="nav-link {{ request()->is('admin/seller/list') || request()->is('admin/seller/list/*') ? 'active' : '' }}">All
                                                 Seller</a>
                                         </li>
-                                        @if(auth()->user()->role != "sub-admin" )
+
                                             <li class="nav-item">
                                                 <a href="{{ route('admin.payout') }}"
                                                    class="nav-link {{ request()->is('admin/payout') || request()->is('admin/payout/*') ? 'active' : '' }}">Payouts</a>
@@ -170,10 +177,10 @@
                                             <li class="nav-item">
                                                 <a href="{{ route('admin.commission.history') }}#" class="nav-link {{ request()->is('admin/commission-history') || request()->is('admin/commission-history/*') ? 'active' : '' }}">Seller Commision</a>
                                             </li>
-                                        @endif
                                     </ul>
                                 </div>
                             </li>
+
 
                             <!-- user -->
                             @if(auth()->user()->role != "sub-admin" )
@@ -326,8 +333,10 @@
                             @endif
 
 
+
                         <!-- Products -->
-                        <li class="nav-item">
+
+                                 <li class="nav-item">
                             <a class="nav-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarProducts">
                                 <i class="ti ti-shopping-cart menu-icon"></i>
@@ -345,13 +354,13 @@
                                             Big Deals</a>
                                     </li>
 
-                                    @if(auth()->user()->role != "sub-admin" )
+
                                     <li class="nav-item">
                                         <a href="{{ route('admin.addProduct') }}"
                                             class="nav-link {{ request()->is('admin/products/add-new-product') || request()->is('admin/products/add-new-product/*') ? 'active' : '' }}">Add
                                             New Product</a>
                                     </li>
-                                    @endif
+
 
 
                                     <li class="nav-item">
@@ -364,7 +373,7 @@
                                             class="nav-link {{ request()->is('admin/pending/products') || request()->is('admin/pending/products/edit-product/*') ? 'active' : '' }}">Pending
                                             Products</a>
                                     </li>
-                                    @if(auth()->user()->role != "sub-admin" )
+
                                     <li class="nav-item">
                                         <a href="{{ route('admin.brands') }}"
                                             class="nav-link {{ request()->is('admin/brands') || request()->is('admin/brands/edit-product') ? 'active' : '' }}">Brands</a>
@@ -380,6 +389,10 @@
                                           <li class="nav-item">
                                         <a href="{{ route('admin.productColors') }}"
                                             class="nav-link {{ request()->is('admin/products/colors') || request()->is('admin/products/colors/*') ? 'active' : '' }}">Colors</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.productColors') }}"
+                                           class="nav-link {{ request()->is('admin/products/colors') || request()->is('admin/products/colors/*') ? 'active' : '' }}">Colors</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('admin.productSizeRequests') }}"
@@ -398,13 +411,14 @@
                                             class="nav-link {{ request()->is('admin/deals-of-day') || request()->is('admin/deals-of-day') ? 'active' : '' }}">Deals
                                             Of The Day</a>
                                     </li>
-                                    @endif
+
                                 </ul>
                             </div>
                         </li>
 
 
 
+                            @if(auth()->user()->role != "sub-admin" )
                         <!-- Blogs -->
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarBlogs" data-bs-toggle="collapse" role="button"
@@ -431,7 +445,7 @@
                                 </ul>
                             </div>
                         </li>
-                        @if(auth()->user()->role != "sub-admin" )
+
                         <!-- Marketing -->
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarMarketing" data-bs-toggle="collapse" role="button"
@@ -523,6 +537,7 @@
                                 </ul>
                             </div>
                         </li>
+                            @endif
 
                         <!-- Staffs -->
                         {{-- <li class="nav-item">
@@ -545,6 +560,7 @@
                         </li> --}}
 
                         <!-- CMS -->
+
                         <li class="nav-item">
                             <a class="nav-link" href="#cms_section" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="cms_section">
@@ -601,6 +617,7 @@
                             </div>
                         </li>
 
+                            @if(auth()->user()->role != "sub-admin" )
                         <!-- Pages Design -->
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarPageDesign" data-bs-toggle="collapse" role="button"
@@ -741,7 +758,8 @@
                                 </ul>
                             </div>
                         </li>
-                        @endif
+                            @endif
+
 
                     </ul>
                 </div>

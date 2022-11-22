@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\Api\AllMiddleBannerController;
 use App\Http\Controllers\Api\Auth\UserAuthenticationController;
 use App\Http\Controllers\Api\BigDealsProductController;
 use App\Http\Controllers\Api\BolgsController;
@@ -25,7 +23,6 @@ use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\SendMoneyCustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WishListController;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -118,7 +115,7 @@ Route::group(['prefix' =>"category", "middleware" => "api.localization"],functio
     Route::get('/subcat/{category_id}',[CategoryController::class, "getSubCategories"]);
     Route::get('/subsubcat/{category_id}',[CategoryController::class, "getSubSubCategories"]);
     Route::get('/subsubcat/{category_id}',[CategoryController::class, "getSubSubCategories"]);
-    Route::get('topThreeCategory',[HomeApiController::class, "subCategoryTopThree"]);
+        Route::get('topThreeCategory',[HomeApiController::class, "subCategoryTopThree"]);
 
 });
 

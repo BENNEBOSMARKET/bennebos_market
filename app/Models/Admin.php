@@ -21,7 +21,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'referral'
+        'referral_code'
     ];
 
     /**

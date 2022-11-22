@@ -6,6 +6,7 @@ use App\Http\Resources\Brand\BrandResource;
 use App\Http\Resources\CategoryProdcut\CategoryProductCollection;
 use App\Http\Resources\CategoryProdcut\CategoryProductResource;
 use App\Http\Resources\Review\ReviewCollection;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Size;
 use Carbon\Carbon;
@@ -38,16 +39,19 @@ class ProductResource extends JsonResource
         if (isset($this->statusesColor)) {
             if (isset($this->commonColors)) {
                 foreach ($this->statusesColor as $statusColor) {
+                    $images=Color::where('product_color_id',$statusColor->id)->first();
                     $s = false;
-                    foreach ($this->commonColors as $commonColor) {
-                        if ($commonColor->name == $statusColor->id) {
+                    $image=null;
 
+                    foreach ($this->commonColors as $commonColor) {
+                        if ($commonColor->id == $statusColor->id) {
+                            $image=$images->image;
                             $s = true;
                         }
                         $colors[$statusColor->id] = [
                             'id' => $statusColor->id,
-                            'name' => $statusColor->name,
-                            'image' => $statusColor->image,
+                            'product_color_id' => $images->product_color_id,
+                            'image' => $image,
                             'color' => $statusColor->color,
                             'status'=>$s
                         ];
