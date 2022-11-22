@@ -21,7 +21,7 @@ class HeaderSubCategoryResource extends JsonResource
         $sub_sub=[];
         $categories_table = DB::table('categories');
         $sub_categories = $categories_table->where('parent_id',$this->id)->take(7)->get();
-        $sub_categories_tran = CategoryTranslation::where('category_id',$this->id)->take(7)->get();
+        $sub_categories_tran = CategoryTranslation::where('category_id',$this->id)->get();
         foreach ($sub_categories as $sub_category){
 
 
