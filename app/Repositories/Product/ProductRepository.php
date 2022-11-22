@@ -91,8 +91,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
 
         $commonColors = Product::where('main_product_id', $product->main_product_id)
-            ->where('size_id', $sizeId)
-            ->pluck('color_id')
+            ->pluck('product_color_id')
             ->toArray();
 
 
@@ -109,8 +108,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         $statuses=Size::whereIn('sub_sub_category_id',$commonTypes)->get(['size','id']);
 
-        $commonColors = Color::whereIn('id', $commonColors)->get(['name','image','id']);
-        $statusesColor=ProductsColor::join('colors','products_colors.sub_sub_category_id','colors.sub_sub_category_id')->whereIn('products_colors.sub_sub_category_id',$commonTypes)->get(['products_colors.color','products_colors.id','colors.name','colors.image']);
+        $commonColors = ProductsColor::whereIn('id', $commonColors)->get(['color','id']);
+
+        $statusesColor=ProductsColor::join('colors','products_colors.sub_sub_category_id','colors.sub_sub_category_id')->whereIn('products_colors.sub_sub_category_id',$commonTypes)->get(['products_colors.color','products_colors.id','colors.product_color_id','colors.image']);
 
         $product->setAttribute('commonColors', $commonColors);
         $product->setAttribute('commonSizes', $commonSizes);
