@@ -302,6 +302,7 @@ class AddProductComponentV2 extends Component
                         "description" => trim($this->color_descriptions[$index]),
                         "category_id" => $this->category,
                         "subCategory_id" => $this->subCategory_id,
+                        'main_product_id' => $main_product_id,
                         "size_id" => $this->product_sizes[$index],
                         "sub_sub_category_id"=>$this->sub_sub_categories_id[$index],
                         "brand_id" => $this->brand,
@@ -335,106 +336,106 @@ class AddProductComponentV2 extends Component
                 }
             }
 
-        } elseif ( $this->galleryType == '1' ) {
-
-            foreach ($this->sub_sub_categories_id as $index => $name) {
-
-
-
-//            dd($this->all());
-
-            $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
-            $images = $this->saveProductDetailsImages($this->gallery_images);
-//            dd($this->all());
-                if ( $index == 0) {
-
-                    $newProduct = Product::create([
-                "name" => trim($this->name),
-                "slug" => $this->slug . "-" . uniqid(),
-                "title" => trim($this->name),
-                "added_by" => 'admin',
-                "description" => trim($this->description),
-                "category_id" => $this->category,
-                "size_id" =>  $this->product_sizes[$index],
-                "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
-                "brand_id" => $this->brand,
-                "color_id" => null,
-                "user_id" => $this->seller?? null, //needs modification
-                "gallery_image" => $images,
-                "thumbnail" => $thumbnail,
-                "status" => 1,
-                "min_qty" => $this->minimum_qty,
-                "guarantee" => $this->guarantee,
-                "quantity" => $this->quantity,
-                "unit" => $this->unit,
-                "refundable" => $this->refundable,
-                "discount_date_from" => $this->discount_date_from,
-                "discount_date_to" => $this->discount_date_to,
-                "discount" => $this->discount,
-                "sku" => $this->sku,
-                 "shipping" => $this->shipping,
-                "video" => $this->video_link,
-                "meta_title" => trim($this->meta_title),
-                "meta_description" => trim($this->meta_description),
-                "unit_price" => (float)$this->unit_price,
-                "featured" => $this->featured,
-                "color_image" => json_encode([]),
-                "color_titles" => json_encode([]),
-                "color_prices" => json_encode([]),
-                "size" => json_encode([]),
-                "color" => json_encode([]),
-            ]);
-                    $main_product_id = $newProduct->id;
-                    $newProduct->update(['main_product_id' => $newProduct->id]);
-                    $newProduct->refresh();
-                    }
-                else{
-//dd( $this->types_id[$index]);
-                    Product::create([
-                        "name" => trim($this->name),
-                        "slug" => $this->slug . "-" . uniqid(),
-                        "title" => trim($this->name),
-                        "added_by" => 'admin',
-                        'main_product_id' => $main_product_id,
-                        "description" => trim($this->description),
-                        "category_id" => $this->category,
-                        "size_id" =>  $this->product_sizes[$index], //needs modification
-                        "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
-
-                        "brand_id" => $this->brand,
-                        "color_id" => null,
-                        "user_id" => $this->seller?? null, //needs modification
-                        "gallery_image" => $images,
-                        "thumbnail" => $thumbnail,
-                        "status" => 1,
-                        "min_qty" => $this->minimum_qty,
-                        "quantity" => $this->quantity,
-                        "unit" => $this->unit,
-                        "refundable" => $this->refundable,
-                        "discount_date_from" => $this->discount_date_from,
-                        "discount_date_to" => $this->discount_date_to,
-                        "discount" => $this->discount,
-                        "sku" => $this->sku,
-                        "shipping" => $this->shipping,
-                        "video" => $this->video_link,
-                        "meta_title" => trim($this->meta_title),
-                        "meta_description" => trim($this->meta_description),
-                        "unit_price" => (float)$this->unit_price,
-                        "featured" => $this->featured,
-                        "color_image" => json_encode([]),
-                        "color_titles" => json_encode([]),
-                        "color_prices" => json_encode([]),
-                        "size" => json_encode([]),
-                        "color" => json_encode([]),
-                    ]);
-                }
-
-
-
-            $newProduct->update(['main_product_id' => $newProduct->id]);
-            $newProduct->refresh();
-
-        }
+//        } elseif ( $this->galleryType == '1' ) {
+//
+//            foreach ($this->sub_sub_categories_id as $index => $name) {
+//
+//
+//
+////            dd($this->all());
+//
+//            $thumbnail = $this->saveProductDetailsThumbnail($this->extractImage($this->thumbnail_image));
+//            $images = $this->saveProductDetailsImages($this->gallery_images);
+////            dd($this->all());
+//                if ( $index == 0) {
+//
+//                    $newProduct = Product::create([
+//                "name" => trim($this->name),
+//                "slug" => $this->slug . "-" . uniqid(),
+//                "title" => trim($this->name),
+//                "added_by" => 'admin',
+//                "description" => trim($this->description),
+//                "category_id" => $this->category,
+//                "size_id" =>  $this->product_sizes[$index],
+//                "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
+//                "brand_id" => $this->brand,
+//                "color_id" => null,
+//                "user_id" => $this->seller?? null, //needs modification
+//                "gallery_image" => $images,
+//                "thumbnail" => $thumbnail,
+//                "status" => 1,
+//                "min_qty" => $this->minimum_qty,
+//                "guarantee" => $this->guarantee,
+//                "quantity" => $this->quantity,
+//                "unit" => $this->unit,
+//                "refundable" => $this->refundable,
+//                "discount_date_from" => $this->discount_date_from,
+//                "discount_date_to" => $this->discount_date_to,
+//                "discount" => $this->discount,
+//                "sku" => $this->sku,
+//                 "shipping" => $this->shipping,
+//                "video" => $this->video_link,
+//                "meta_title" => trim($this->meta_title),
+//                "meta_description" => trim($this->meta_description),
+//                "unit_price" => (float)$this->unit_price,
+//                "featured" => $this->featured,
+//                "color_image" => json_encode([]),
+//                "color_titles" => json_encode([]),
+//                "color_prices" => json_encode([]),
+//                "size" => json_encode([]),
+//                "color" => json_encode([]),
+//            ]);
+//                    $main_product_id = $newProduct->id;
+//                    $newProduct->update(['main_product_id' => $newProduct->id]);
+//                    $newProduct->refresh();
+//                    }
+//                else{
+////dd( $this->types_id[$index]);
+//                    Product::create([
+//                        "name" => trim($this->name),
+//                        "slug" => $this->slug . "-" . uniqid(),
+//                        "title" => trim($this->name),
+//                        "added_by" => 'admin',
+//                        'main_product_id' => $main_product_id,
+//                        "description" => trim($this->description),
+//                        "category_id" => $this->category,
+//                        "size_id" =>  $this->product_sizes[$index], //needs modification
+//                        "sub_sub_category_id" =>  $this->sub_sub_categories_id[$index],//needs modification
+//
+//                        "brand_id" => $this->brand,
+//                        "color_id" => null,
+//                        "user_id" => $this->seller?? null, //needs modification
+//                        "gallery_image" => $images,
+//                        "thumbnail" => $thumbnail,
+//                        "status" => 1,
+//                        "min_qty" => $this->minimum_qty,
+//                        "quantity" => $this->quantity,
+//                        "unit" => $this->unit,
+//                        "refundable" => $this->refundable,
+//                        "discount_date_from" => $this->discount_date_from,
+//                        "discount_date_to" => $this->discount_date_to,
+//                        "discount" => $this->discount,
+//                        "sku" => $this->sku,
+//                        "shipping" => $this->shipping,
+//                        "video" => $this->video_link,
+//                        "meta_title" => trim($this->meta_title),
+//                        "meta_description" => trim($this->meta_description),
+//                        "unit_price" => (float)$this->unit_price,
+//                        "featured" => $this->featured,
+//                        "color_image" => json_encode([]),
+//                        "color_titles" => json_encode([]),
+//                        "color_prices" => json_encode([]),
+//                        "size" => json_encode([]),
+//                        "color" => json_encode([]),
+//                    ]);
+//                }
+//
+//
+//
+//            $newProduct->update(['main_product_id' => $newProduct->id]);
+//            $newProduct->refresh();
+//
+//        }
             }
 
         return redirect()->route('admin.products')->with('success', 'New product added successfully');
