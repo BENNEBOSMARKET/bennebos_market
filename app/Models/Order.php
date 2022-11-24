@@ -21,7 +21,9 @@ class Order extends Model
         "discount",
         "date",
         "payment_status",
-        "order_status"
+        "order_status",
+        "traking_number"
+        
     ];
 
     public function orderDetails()

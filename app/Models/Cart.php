@@ -33,7 +33,7 @@ class Cart extends Model
     }
 
     public function seller(){
-        return $this->belongsTo(Seller::class);
+        return $this->belongsTo(Seller::class,"owner_id");
     }
 
     public function product_size()
