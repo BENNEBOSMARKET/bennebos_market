@@ -21,7 +21,7 @@ class CartResource extends JsonResource
         return  [
             "id" => $this->id,
             //"owner_id" => $this->seller->id,
-            //"seller" => $this->seller,
+            "seller" => !is_null($this->seller) ? $this->seller : null,
             "user" => !is_null($this->user_id)? new UserResource(User::find($this->user_id)) :null,
             "product" =>  isset($this->product_id)? new ProductResource($this->product): null,
             "address_id" => $this->address_id,

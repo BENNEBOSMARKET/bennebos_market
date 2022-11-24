@@ -16,21 +16,32 @@ use App\Models\Seller;
 use App\Models\Wallet;
 use App\Services\IyzicoPayment;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 class ChecoutController extends Controller
 {
     //
-    public function __construct(ApiResponse $apiResponse, Address $addressModel, Order $orderModel, OrderDetails $orderDetailsModel, Cart $cartModel)
+    public function __construct(ApiResponse $apiResponse, Address $addressModel, Order $orderModel, OrderDetails $orderDetailsModel,Client $client, Cart $cartModel)
     {
         $this->apiResponse = $apiResponse;
         $this->addressModel = $addressModel;
         $this->orderModel = $orderModel;
         $this->orderDetailsModel = $orderDetailsModel;
         $this->cartModel = $cartModel;
+        $this->client = new Client([
+            'verify' => false,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ]
+        ]);
+
     }
 
     public function getAddresses()
@@ -155,8 +166,76 @@ class ChecoutController extends Controller
             $data['discount'] = $total_discount;
             $data['date'] = Carbon::now();
             $data['payment_status'] = "unpaid";
-            $order = $this->orderModel->create($data);
-
+            $seller = Seller::find($seller_id);
+            $shop = shop($seller_id);
+            $buyerAddress = $this->addressModel::find($request->address_id);
+            $integration_code = time().$seller_id;
+            if($request->payment_method == 'cod' && $seller->aras_assigned == 1){
+                DB::beginTransaction();
+                $order = $this->orderModel->create($data);
+                try {
+                    $response = $this->client->request('POST', "https://betashipping.bennebosmarket.online/api/shippment/create", [
+                        'body' => json_encode([
+                            "model" => [
+                                "CodeExpireDate" => "2024-09-16T16:53:28",
+                                "CollectionPrice" => $data['grand_total'],
+                                "ConfigurationId" => "EFC38C44F22A684F93403961D53E836E",
+                                "ExtProductList" => 
+                                [
+                                    "MpExtProductModel" => [
+                                        ["count" => 1, "SerivceCode" => 2]
+                                    ]
+                                ],
+                                "ExtServiceCodeList" => [
+                                    "AT"
+                                ],
+                                "IntegrationCode" => $integration_code,
+                                "InvoiceNumber" => "1",
+                                "LovCollectionType" => 2,
+                                "LovPayOrType" => 3,
+                                "MainServiceCode" => "STNK",
+                                "PieceCount" => 1,
+                                "ReceiverAddressInfo" => [
+                                    "Address" =>$buyerAddress->address,
+                                    "AddressId" =>"",
+                                    "CityName" =>$buyerAddress->state,
+                                    "Name" =>$buyerAddress->first_name . " " . $buyerAddress->last_name,
+                                    "PhoneNumber" =>$buyerAddress->phone,
+                                    "MobilePhone" =>$buyerAddress->phone,
+                                    "TaxNumber" =>$buyerAddress->post_code,
+                                    "TownName" =>$buyerAddress->state
+                                ],
+                                "SenderAddressInfo" => [
+                                    "Address" =>$shop->address,
+                                    "AddressId" =>$seller->aras_address_id,
+                                    "CityName" =>$shop->state_name,
+                                    "Name" =>$shop->shop_name,
+                                    "PhoneNumber" =>$seller->phone,
+                                    "TownName" =>$shop->county_name
+                                ],
+                                "TradingWaybillNumber" => "3792249",
+                                // "Volume" => "1",
+                                // "Weight" => "1"
+                            ]
+                        ]),
+                    ]);
+                    $result = json_decode($response->getBody(), true);
+                    if($result["status"] == "faild"){
+                        return $this->apiResponse->setError($result->message)->setData()->getJsonResponse();
+                    }
+                    $order->update(['traking_number' => $integration_code]);
+                    $order->refresh();
+                    DB::commit();
+                } catch (Exception $exception) {
+                    return $this->apiResponse->setError($exception->getMessage())->setData()->getJsonResponse();
+                    DB::rollBack();
+                }
+            }else if($request->payment_method == 'cod' && $seller->aras_assigned != 1){
+                return $this->apiResponse->setError("the seller has no records in aras kargo shipping service")->setData()->getJsonResponse();               
+            }else{
+                $order = $this->orderModel->create($data);
+            }
+                
             foreach ($cart->get() as $cItem) {
                 $order_detail = [
                     "order_id" => $order->id,
