@@ -37,7 +37,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         Category $categoryModel,
         Color $colorModel,
         Size $sizeModel,
-        ProductDetail $ProductDetailsModel,
+        ProductDetail $ProductDetailsModel
     ) {
         $this->sellerModel = $sellerModel;
         $this->sellerWalletModel = $sellerWalletModel;
